@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+	<Fragment>
+		<Binary Id='CustomBinary' SourceFile='$(var.Amusoft.PCR.Installer.Custom.TargetDir)$(var.Amusoft.PCR.Installer.Custom.TargetName).CA.dll'/>
+	</Fragment>
+
+</Include>

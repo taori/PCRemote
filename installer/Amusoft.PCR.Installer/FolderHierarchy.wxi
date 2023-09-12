@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="INSTALLFOLDER" Name="Amusoft">
+					<Directory Id="PRODUCTNAMEFOLDER" Name="PC Remote 2">
+						<Directory Id="DEPLOYMENT" Name="deployment"></Directory>
+						<Directory Id="WEBFOLDER" Name="web"/>
+						<Directory Id="WININTEGRATIONFOLDER" Name="win-integration"/>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+</Include>

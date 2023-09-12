@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Amusoft.PCR.UI.ViewModels;assembly=Amusoft.PCR.UI.ViewModels"
+             x:Class="Amusoft.PCR.UI.App.MainPage">
+    <ContentPage.BindingContext>
+        <viewModels:MainViewModel></viewModels:MainViewModel>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <ListView ItemsSource="{x:Binding Items}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{x:Binding Path=Text}"
+                               Command="{x:Binding Path=Command}"
+                               ImageSource="{x:Binding Path=ImagePath}"></ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+</ContentPage>

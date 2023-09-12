@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" 
+     xmlns:fire="http://schemas.microsoft.com/wix/FirewallExtension"
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+	<?define Manufacturer = "Amusoft" ?>
+	<?define ProductName = "PC Remote 2" ?>
+	<?define ProductVersion = "1.0.1" ?>
+	<?define ServiceName = "PCR2" ?>
+	<?define ServiceDescription = "Backend service required for PC Remote to interact with this computer" ?>
+	<?define DisplayName = "Amusoft PC Remote 2" ?>
+
+	<Product Id="*"
+				 Name="$(var.ProductName)"
+				 Language="1033"
+				 Version="$(var.ProductVersion)"
+				 Manufacturer="$(var.Manufacturer)"
+				 UpgradeCode="de4ddeff-2caf-4c46-b9ff-52a37586069a">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64"/>
+		<!-- <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" <Platform="x64" AdminImage="yes" InstallPrivileges="elevated"/> -->
+
+        <UIRef Id="InstallDir_Custom" />
+
+		<WixVariable Id="WixUICostingPopupOptOut" Value="0" />
+		<WixVariable Id="WixUILicenseRtf" Value="Resources\EULA.rtf" />
+		<WixVariable Id="WixUIExclamationIco" Value="Resources\Launcher.ico" />
+		<WixVariable Id="WixUIInfoIco" Value="Resources\Launcher.ico" />
+		<WixVariable Id="WixUIBannerBmp" Value="Resources\Banner.bmp" />
+		<!-- <WixVariable Id="WixUIBannerBmp" Value="Resources\Launcher.ico" />  	493 × 58-->
+		<!-- <WixVariable Id="WixUIDialogBmp" Value="Resources\Launcher.ico" />  	493 × 312-->
+
+		<Icon Id="Company.ico" SourceFile="$(var.SolutionDir)..\deploy\Amusoft.PCR.Installer\Resources\Launcher.ico" />
+		<Property Id="ARPPRODUCTICON" Value="Company.ico" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="yes" />
+
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="PC Remote 2" Level="1">
+			<ComponentGroupRef Id="WebComponents" />
+			<ComponentGroupRef Id="WebComponentsGenerated" />
+			<ComponentGroupRef Id="WinIntegrationComponents" />
+			<ComponentGroupRef Id="WinIntegrationComponentsGenerated" />
+			<ComponentGroupRef Id="DeploymentComponents" />
+			<ComponentGroupRef Id="EnvironmentSetupComponent" />
+			<ComponentRef Id="RegistrySetValues"/>
+			<ComponentRef Id="BackendServerExe"/>
+		</Feature>
+
+		<Property Id="POWERSHELLEXE">
+			<RegistrySearch Id="POWERSHELLEXE"
+			                Type="raw"
+			                Root="HKLM"
+			                Key="SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell"
+			                Name="Path" />
+		</Property>
+		<Condition Message="This application requires Windows PowerShell.">
+			<![CDATA[Installed OR POWERSHELLEXE]]>
+		</Condition>
+
+		<SetProperty Id="_INSTALL"   After="FindRelatedProducts" Value="1"><![CDATA[Installed="" AND UPGRADINGPRODUCTCODE=""]]></SetProperty>
+		<SetProperty Id="_UNINSTALL" After="FindRelatedProducts" Value="1"><![CDATA[UPGRADINGPRODUCTCODE="" AND REMOVE="ALL"]]></SetProperty>
+		<SetProperty Id="_CHANGE"    After="FindRelatedProducts" Value="1"><![CDATA[Installed<>"" AND REINSTALL="" AND UPGRADINGPRODUCTCODE<>"" AND REMOVE=""]]></SetProperty>
+		<SetProperty Id="_REPAIR"    After="FindRelatedProducts" Value="1"><![CDATA[REINSTALL<>""]]></SetProperty>
+		<SetProperty Id="_UPGRADE"   After="FindRelatedProducts" Value="1"><![CDATA[WIX_UPGRADE_DETECTED<>"" OR UPGRADINGPRODUCTCODE<>""]]></SetProperty>
+
+		<SetProperty Id="RunCertGeneratorScript"
+		             Before="RunCertGeneratorScript"
+		             Sequence="execute"
+		             Value="&quot;[POWERSHELLEXE]&quot; -Version 3.0 -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass -Command &quot;&amp; '[#SELFSIGNCERT.PS1]' '[DEPLOYMENT]server.pfx' ; exit $$($Error.Count)&quot;" />
+ 
+		<CustomAction Id="RunCertGeneratorScript" BinaryKey="WixCA" DllEntry="WixQuietExec" Execute="deferred" Return="check" Impersonate="no" />
+
+		<CustomAction Id='UpdateAppSettingsAction_SetProperties' 
+		              Property='UpdateAppSettingsAction'
+		              Value='Port=[CUSTOM_PORT];WebApplicationDirectory=[WEBFOLDER];IsUpgrade=[_UPGRADE];IsUninstall=[_UNINSTALL];IsChange=[_CHANGE];IsRepair=[_REPAIR];IsInstall=[_INSTALL];'/>
+		<CustomAction Id='UpdateAppSettingsAction' DllEntry='UpdateAppSettings' Execute='deferred' Impersonate='no' Return='check'
+		              BinaryKey='CustomBinary' />
+
+		<CustomAction Id='VerifyConfigurationAction' DllEntry='VerifyConfiguration' Execute='immediate' Return='check'
+		              BinaryKey='CustomBinary' />
+
+		<CustomAction Id="LaunchBrowserInstall" Directory="TARGETDIR" Execute="immediate" Impersonate="yes" Return="asyncNoWait"
+		              ExeCommand="explorer.exe https://localhost:[CUSTOM_PORT]/GettingStarted" />
+
+		<!-- https://codingbee.net/wix/wix-the-installation-sequence -->
+		<InstallExecuteSequence>
+
+			<Custom Action="RunCertGeneratorScript" After="InstallFiles"><![CDATA[_INSTALL="1" AND NOT _UPGRADE]]></Custom>
+
+			<Custom Action='UpdateAppSettingsAction_SetProperties' After='RunCertGeneratorScript'></Custom>
+			<Custom Action='UpdateAppSettingsAction' After='UpdateAppSettingsAction_SetProperties'></Custom>
+
+			<Custom Action="LaunchBrowserInstall" After="InstallFinalize"><![CDATA[(_INSTALL OR _UPGRADE) AND SHOW_GETTING_STARTED="1"]]></Custom>
+
+		</InstallExecuteSequence>
+	</Product>
+
+	<?include WizardFlow.wxi ?>
+	<?include WizardPage_Configuration.wxi ?>
+	<?include WizardPage_PostInstallSettings.wxi ?>
+	<?include FolderHierarchy.wxi ?>
+	<?include EnvironmentConfiguration.wxi ?>
+	<?include Module.Server.wxi ?>
+	<?include Module.Int.Win.wxi ?>
+	<?include CustomActions.wxi ?>
+</Wix>
