@@ -1,0 +1,70 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Fragment>
+        <DirectoryRef Id="WEBFOLDER">
+            <Component Id="cmpWxBLThIqQh4QccYV7kbAX.Fx_fA" Guid="*">
+                <File Id="filw1uMR5kwQdboA.VN5demeSQAb2M" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.ControlAgent.App.deps.json" />
+            </Component>
+            <Component Id="cmpuy7jH5.tK7AwRVjx3GEMMZjNPFk" Guid="*">
+                <File Id="filPm.8CziIaZLYXplmvSR0Z.nAsUc" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.ControlAgent.App.dll" />
+            </Component>
+            <Component Id="cmpOF3KyxkO0lNJbicRh7jHHPowykA" Guid="*">
+                <File Id="filXfTBQ2N7UvkOY6VT3_04OgqsCc0" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.ControlAgent.App.exe" />
+            </Component>
+            <Component Id="cmp_ya35Kz5XTBnV6qKdVd0bTiLL9o" Guid="*">
+                <File Id="filp8h2aqjJMX4P14QFDLVP8vmTMgo" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.ControlAgent.App.pdb" />
+            </Component>
+            <Component Id="cmpcmexzb34jEu0zUWgCtSe5xPN.g8" Guid="*">
+                <File Id="filbw_lAVfbigay0H4zjaTS2410MHM" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.ControlAgent.App.runtimeconfig.json" />
+            </Component>
+            <Component Id="cmpjhA8xYcMeZoUIpxe3Idr58GgbIk" Guid="*">
+                <File Id="filhYZ8ZSMlDTc31sa671z7MFWU74M" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\appsettings.Development.json" />
+            </Component>
+            <Component Id="cmp4g05eJCYkOSyRQIqgGW6_kfL_tA" Guid="*">
+                <File Id="filZcb5c0d0CLJEJUaQQd_3l1vomTs" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\appsettings.json" />
+            </Component>
+            <Component Id="cmpRkVhgnh1GVa67sxdqcbonSPIhpc" Guid="*">
+                <File Id="filgTZiqRbdaWrUXwoF7flKUuTBx0o" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Google.Protobuf.dll" />
+            </Component>
+            <Component Id="cmpZpOhPzvENIhdihYPs6Y5PKk7o3s" Guid="*">
+                <File Id="filnCSyfwHVnhss7Jrxmww6Tlri_qE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.AspNetCore.Server.ClientFactory.dll" />
+            </Component>
+            <Component Id="cmpJdTXOrNqGgnThivb_PPui2HDEd8" Guid="*">
+                <File Id="filwNIrVPz1xntkydA2n3y17S6lT3A" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.AspNetCore.Server.dll" />
+            </Component>
+            <Component Id="cmpsveHPoRn5hNQTveggk6nz.1b8EA" Guid="*">
+                <File Id="filMzSgJ1070jdM3OJjSbA2hoe2uoU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.Core.Api.dll" />
+            </Component>
+            <Component Id="cmpl55CWZnmTv0HgJCwY0BQhdqOugs" Guid="*">
+                <File Id="filvWM55a_BLud1f.OzXUjDv5CwMzw" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.Net.Client.dll" />
+            </Component>
+            <Component Id="cmpGebpCNkJpxQndUL2utHXOV6BscA" Guid="*">
+                <File Id="fil6ycUtZwzEc15jcn7DGCKXWbdYMQ" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.Net.ClientFactory.dll" />
+            </Component>
+            <Component Id="cmpkrYes6QUuj.Wfn4.vYFr4hHE8AI" Guid="*">
+                <File Id="filtpvLA1AqZhlm.kS0LY_ATp9L9cU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.Net.Common.dll" />
+            </Component>
+            <Component Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" Guid="*">
+                <File Id="filG.LAaKn0bReijXgKWvta1drj5rU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\web.config" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="WebComponentsGenerated">
+            <ComponentRef Id="cmpWxBLThIqQh4QccYV7kbAX.Fx_fA" />
+            <ComponentRef Id="cmpuy7jH5.tK7AwRVjx3GEMMZjNPFk" />
+            <ComponentRef Id="cmpOF3KyxkO0lNJbicRh7jHHPowykA" />
+            <ComponentRef Id="cmp_ya35Kz5XTBnV6qKdVd0bTiLL9o" />
+            <ComponentRef Id="cmpcmexzb34jEu0zUWgCtSe5xPN.g8" />
+            <ComponentRef Id="cmpjhA8xYcMeZoUIpxe3Idr58GgbIk" />
+            <ComponentRef Id="cmp4g05eJCYkOSyRQIqgGW6_kfL_tA" />
+            <ComponentRef Id="cmpRkVhgnh1GVa67sxdqcbonSPIhpc" />
+            <ComponentRef Id="cmpZpOhPzvENIhdihYPs6Y5PKk7o3s" />
+            <ComponentRef Id="cmpJdTXOrNqGgnThivb_PPui2HDEd8" />
+            <ComponentRef Id="cmpsveHPoRn5hNQTveggk6nz.1b8EA" />
+            <ComponentRef Id="cmpl55CWZnmTv0HgJCwY0BQhdqOugs" />
+            <ComponentRef Id="cmpGebpCNkJpxQndUL2utHXOV6BscA" />
+            <ComponentRef Id="cmpkrYes6QUuj.Wfn4.vYFr4hHE8AI" />
+            <ComponentRef Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

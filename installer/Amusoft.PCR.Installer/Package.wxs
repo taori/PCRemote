@@ -1,0 +1,14 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+	<?define ProductVersion = "1.0.1" ?>
+
+	<Package Name="Amusoft.PCR.Installer" Manufacturer="Amusoft" Version="$(var.ProductVersion)" UpgradeCode="de4ddeff-2caf-4c46-b9ff-52a37586069a">
+		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+		<Feature Id="Main">
+			<!-- <ComponentGroupRef Id="ExampleComponents" /> -->
+			<ComponentGroupRef Id="WebComponentsGenerated" />
+		</Feature>
+	</Package>
+
+</Wix>
