@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:Amusoft.PCR.UI.ViewModels;assembly=Amusoft.PCR.UI.ViewModels"
+             xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Amusoft.PCR.UI.App.MainPage">
     <ContentPage.BindingContext>
         <viewModels:MainViewModel></viewModels:MainViewModel>
@@ -11,9 +12,12 @@
         <ListView ItemsSource="{x:Binding Items}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ImageCell Text="{x:Binding Path=Text}"
-                               Command="{x:Binding Path=Command}"
-                               ImageSource="{x:Binding Path=ImagePath}"></ImageCell>
+                    <ViewCell>
+                        <Button Margin="10,5" 
+                                ImageSource="{x:Binding ImagePath}"
+                                Command="{x:Binding Command}" 
+                                Text="{x:Binding Text}"/>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

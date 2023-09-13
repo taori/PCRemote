@@ -19,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "server", "server", "{8CDA16
 EndProject
 Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Amusoft.PCR.Installer", "..\installer\Amusoft.PCR.Installer\Amusoft.PCR.Installer.wixproj", "{4C58CFFE-5717-4A51-9104-77F8B44EC1B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Installer.Custom", "..\installer\Amusoft.PCR.Installer.Custom\Amusoft.PCR.Installer.Custom.csproj", "{4C09553C-4033-47EF-955B-B80DBA431441}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Installer.Custom", "..\installer\Amusoft.PCR.Installer.Custom\Amusoft.PCR.Installer.Custom.csproj", "{4C09553C-4033-47EF-955B-B80DBA431441}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{A87ED1C7-318F-4B78-942C-F2FEDB1ECC24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -163,6 +165,8 @@ Global
 		{F30DB91C-C1E7-4064-99DF-BA52F58689B1} = {8CDA1662-18F2-4D08-B395-35DBBF6EE300}
 		{94814816-003A-40CC-B661-0303A5560CF4} = {8CDA1662-18F2-4D08-B395-35DBBF6EE300}
 		{2CDC4585-EB95-4323-8B15-E6CE3DA0ECF5} = {8CDA1662-18F2-4D08-B395-35DBBF6EE300}
+		{4C58CFFE-5717-4A51-9104-77F8B44EC1B6} = {A87ED1C7-318F-4B78-942C-F2FEDB1ECC24}
+		{4C09553C-4033-47EF-955B-B80DBA431441} = {A87ED1C7-318F-4B78-942C-F2FEDB1ECC24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88301734-C574-410B-9ED2-10A3EFB9998B}

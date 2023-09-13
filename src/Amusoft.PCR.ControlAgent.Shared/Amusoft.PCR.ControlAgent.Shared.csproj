@@ -6,4 +6,22 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Protos\DesktopIntegration.proto" />
+    <None Remove="Protos\Messages.proto" />
+    <None Remove="Protos\Ping.proto" />
+    <None Remove="Protos\VoiceRecognition.proto" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Protobuf Include="Protos\DesktopIntegration.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\VoiceRecognition.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\Messages.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\Ping.proto" GrpcServices="Server" />
+	</ItemGroup>
+
 </Project>

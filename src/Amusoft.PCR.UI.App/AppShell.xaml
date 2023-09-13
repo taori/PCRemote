@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:Amusoft.PCR.UI.App"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pages="clr-namespace:Amusoft.PCR.UI.App.Pages"
+    xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent

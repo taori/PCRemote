@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Amusoft.PCR.ControlAgent.Shared\Amusoft.PCR.ControlAgent.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

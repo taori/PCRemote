@@ -1,21 +1,21 @@
 syntax = "proto3";
 
-option csharp_namespace = "Amusoft.PCR.ControlAgent.App";
+option csharp_namespace = "Amusoft.PCR.ControlAgent.Shared";
 
-package greet;
+package Amusoft.PCR.Grpc.Common;
 
 // The greeting service definition.
-service Greeter {
+service Ping {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc Ping (PingRequest) returns (PongReply);
 }
 
 // The request message containing the user's name.
-message HelloRequest {
+message PingRequest {
   string name = 1;
 }
 
 // The response message containing the greetings.
-message HelloReply {
+message PongReply {
   string message = 1;
 }
