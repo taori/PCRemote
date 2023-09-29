@@ -4,6 +4,7 @@ using Amusoft.PCR.ControlAgent.Windows.Interop;
 using Amusoft.PCR.ControlAgent.Windows.Services;
 using NLog;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +23,23 @@ public partial class App : Application
 	private NamedPipeServer? _namedPipeServer;
 	private Mutex? _runOnceMutex;
 
+	[Conditional("RELEASE")]
+	private void ShutdownIfMutexTaken()
+	{
+		_runOnceMutex = new Mutex(true, Globals.InteropMutexName, out var mutexNew);
+		if (!mutexNew)
+		{
+			Shutdown();
+		}
+	}
+
+	[Conditional("RELEASE")]
+	private void ReleaseMutex()
+	{
+		Log.Debug("Releasing mutex");
+		_runOnceMutex?.ReleaseMutex();
+	}
+
 	protected override void OnStartup(StartupEventArgs e)
 	{
 		Log.Info("Launching Windows desktop integration");
@@ -30,13 +48,8 @@ public partial class App : Application
 		Log.Debug("Setting up event handler to check for parent process");
 		ProcessExitListenerManager.ProcessExited += ProcessExitListenerManagerOnProcessExited;
 
-#if !DEBUG
-			_runOnceMutex = new Mutex(true, Globals.InteropMutexName, out var mutexNew);
-			if (!mutexNew)
-			{
-				Shutdown();
-			}
-#endif
+		ShutdownIfMutexTaken();
+
 		// EventSetup.Initialize();
 		// EventSetup.Debug();
 
@@ -48,6 +61,47 @@ public partial class App : Application
 		}
 	}
 
+	private void ProcessExitListenerManagerOnProcessExited(object? sender, int e)
+	{
+		Log.Info("Parent process {Id} shut down - exiting program", e);
+		Shutdown(0);
+	}
+
+	protected override void OnExit(ExitEventArgs e)
+	{
+		Log.Info("Windows desktop integration shutting down");
+
+		ReleaseMutex();
+
+		Log.Debug("Shutting down named pipe server");
+		_namedPipeServer?.Kill();
+		_namedPipeServer?.Dispose();
+		base.OnExit(e);
+	}
+
+	private bool TryLaunchInteropChannel()
+	{
+
+		_namedPipeServer = new NamedPipeServer(Globals.NamedPipeChannel);
+		DesktopIntegrationService.BindService(_namedPipeServer.ServiceBinder, new DesktopIntegrationServiceImplementation());
+		VoiceCommandService.BindService(_namedPipeServer.ServiceBinder, new VoiceRecognitionServiceImplementation());
+
+		try
+		{
+			Log.Info("Starting IPC");
+			_namedPipeServer.Start();
+
+			Log.Info("IPC running");
+			return true;
+		}
+		catch (Exception ex)
+		{
+			Log.Error(ex);
+			return false;
+		}
+	}
+
+#pragma warning disable CS0162
 	private void VerifySimpleAudioManager()
 	{
 		return;
@@ -83,47 +137,5 @@ public partial class App : Application
 			Thread.Sleep(1000);
 			SimpleAudioManager.SetMasterVolume(startVolume);
 		});
-	}
-
-	private void ProcessExitListenerManagerOnProcessExited(object sender, int e)
-	{
-		Log.Info("Parent process {Id} shut down - exiting program", e);
-		Shutdown(0);
-	}
-
-	protected override void OnExit(ExitEventArgs e)
-	{
-		Log.Info("Windows desktop integration shutting down");
-#if !DEBUG
-			Log.Debug("Releasing mutex");
-			_runOnceMutex.ReleaseMutex();
-#endif
-
-		Log.Debug("Shutting down named pipe server");
-		_namedPipeServer?.Kill();
-		_namedPipeServer?.Dispose();
-		base.OnExit(e);
-	}
-
-	private bool TryLaunchInteropChannel()
-	{
-
-		_namedPipeServer = new NamedPipeServer(Globals.NamedPipeChannel);
-		DesktopIntegrationService.BindService(_namedPipeServer.ServiceBinder, new DesktopIntegrationServiceImplementation());
-		VoiceCommandService.BindService(_namedPipeServer.ServiceBinder, new VoiceRecognitionServiceImplementation());
-
-		try
-		{
-			Log.Info("Starting IPC");
-			_namedPipeServer.Start();
-
-			Log.Info("IPC running");
-			return true;
-		}
-		catch (Exception ex)
-		{
-			Log.Error(ex);
-			return false;
-		}
 	}
 }

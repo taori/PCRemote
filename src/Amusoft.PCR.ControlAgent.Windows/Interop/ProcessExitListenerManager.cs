@@ -9,7 +9,7 @@ internal static class ProcessExitListenerManager
 {
 	private static readonly Logger Log = LogManager.GetLogger(nameof(ProcessExitListenerManager));
 
-	public static event EventHandler<int> ProcessExited;
+	public static event EventHandler<int>? ProcessExited;
 
 	public static bool TryObserveProcessExit(int processId)
 	{
@@ -17,7 +17,7 @@ internal static class ProcessExitListenerManager
 		{
 			var process = Process.GetProcessById(processId);
 			Log.Debug("Observing process {Id} for exit", processId);
-			EventHandler processOnExited = null;
+			EventHandler? processOnExited = default;
 			processOnExited = (sender, args) =>
 			{
 				ProcessExited?.Invoke(null, processId);

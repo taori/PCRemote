@@ -44,20 +44,20 @@ namespace Amusoft.PCR.ControlAgent.Windows.Windows
 		private bool _isOpen;
 
 		[ObservableProperty]
-		private string _title;
+		private string? _title;
 
 		[ObservableProperty]
 		[Required]
 		[MinLength(3)]
 		[NotifyCanExecuteChangedFor(nameof(ConfirmAsyncCommand))]
 		[NotifyDataErrorInfo]
-		private string _value = string.Empty;
+		private string? _value = string.Empty;
 
 		[ObservableProperty]
-		private string _description;
+		private string? _description;
 
 		[ObservableProperty]
-		private string _watermarkValue;
+		private string? _watermarkValue;
 
 		private readonly TaskCompletionSource<PromptCompleted> _completion = new();
 
@@ -70,7 +70,7 @@ namespace Amusoft.PCR.ControlAgent.Windows.Windows
 			_completion.TrySetResult(new PromptCompleted()
 			{
 				Cancelled = false,
-				Content = _value
+				Content = Value
 			});
 
 			IsOpen = false;

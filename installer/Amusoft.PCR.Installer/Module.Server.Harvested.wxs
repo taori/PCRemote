@@ -37,6 +37,9 @@
             <Component Id="cmpJdTXOrNqGgnThivb_PPui2HDEd8" Guid="*">
                 <File Id="filwNIrVPz1xntkydA2n3y17S6lT3A" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.AspNetCore.Server.dll" />
             </Component>
+            <Component Id="cmpfSbcI1cYe5aED.aSHHaCU5vvf0E" Guid="*">
+                <File Id="filVuZHVo_5iqFDz1kDHtcC.9E8HIA" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.AspNetCore.Server.Reflection.dll" />
+            </Component>
             <Component Id="cmpsveHPoRn5hNQTveggk6nz.1b8EA" Guid="*">
                 <File Id="filMzSgJ1070jdM3OJjSbA2hoe2uoU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.Core.Api.dll" />
             </Component>
@@ -48,6 +51,9 @@
             </Component>
             <Component Id="cmpkrYes6QUuj.Wfn4.vYFr4hHE8AI" Guid="*">
                 <File Id="filtpvLA1AqZhlm.kS0LY_ATp9L9cU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.Net.Common.dll" />
+            </Component>
+            <Component Id="cmpDu0BlZa3x4jNLEhQzGcrFCmFwxE" Guid="*">
+                <File Id="filpNSqOweNDvXGbS2Djq9jsPMU3PY" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.Reflection.dll" />
             </Component>
             <Component Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" Guid="*">
                 <File Id="filG.LAaKn0bReijXgKWvta1drj5rU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\web.config" />
@@ -68,10 +74,12 @@
             <ComponentRef Id="cmpRkVhgnh1GVa67sxdqcbonSPIhpc" />
             <ComponentRef Id="cmpZpOhPzvENIhdihYPs6Y5PKk7o3s" />
             <ComponentRef Id="cmpJdTXOrNqGgnThivb_PPui2HDEd8" />
+            <ComponentRef Id="cmpfSbcI1cYe5aED.aSHHaCU5vvf0E" />
             <ComponentRef Id="cmpsveHPoRn5hNQTveggk6nz.1b8EA" />
             <ComponentRef Id="cmpl55CWZnmTv0HgJCwY0BQhdqOugs" />
             <ComponentRef Id="cmpGebpCNkJpxQndUL2utHXOV6BscA" />
             <ComponentRef Id="cmpkrYes6QUuj.Wfn4.vYFr4hHE8AI" />
+            <ComponentRef Id="cmpDu0BlZa3x4jNLEhQzGcrFCmFwxE" />
             <ComponentRef Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" />
         </ComponentGroup>
     </Fragment>

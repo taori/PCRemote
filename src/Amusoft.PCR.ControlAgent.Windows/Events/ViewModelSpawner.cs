@@ -5,6 +5,7 @@ using System.Windows.Threading;
 using System;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 
 namespace Amusoft.PCR.ControlAgent.Windows.Events;
@@ -30,9 +31,9 @@ public static class ViewModelSpawner
 
 			window.Show();
 			WeakReferenceMessenger.Default.Send(request);
-
+			
 			request.Response.ToObservable()
-				.ObserveOnDispatcher()
+				.ObserveOn(SynchronizationContext.Current!)
 				.Subscribe(d =>
 				{
 					tcs.TrySetResult(d);

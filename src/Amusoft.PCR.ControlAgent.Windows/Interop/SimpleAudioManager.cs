@@ -67,7 +67,7 @@ public static class SimpleAudioManager
 		}
 	}
 
-	private static string TryGetProcessName(AudioSessionControl session)
+	private static string? TryGetProcessName(AudioSessionControl session)
 	{
 		var processById = Process.GetProcessById((int)session.GetProcessID);
 		return ProcessHelper.GetProcessName(processById);
@@ -192,11 +192,4 @@ public static class SimpleAudioManager
 			sessionManager.Dispose();
 		}
 	}
-}
-
-public class AudioFeed
-{
-	public string Name { get; set; }
-	public bool Muted { get; set; }
-	public float Volume { get; set; }
 }

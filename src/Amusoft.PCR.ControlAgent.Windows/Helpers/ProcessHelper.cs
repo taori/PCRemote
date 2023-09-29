@@ -59,7 +59,7 @@ public class ProcessHelper
 		}
 	}
 
-	public static bool TryLaunchProgram(string program, string arguments = null)
+	public static bool TryLaunchProgram(string program, string? arguments = default)
 	{
 		try
 		{
@@ -78,7 +78,7 @@ public class ProcessHelper
 		}
 	}
 
-	public static string GetProcessName(Process process)
+	public static string? GetProcessName(Process process)
 	{
 		try
 		{
