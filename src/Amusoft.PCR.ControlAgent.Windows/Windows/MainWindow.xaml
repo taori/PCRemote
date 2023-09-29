@@ -1,0 +1,34 @@
+﻿<Window x:Class="Amusoft.PCR.ControlAgent.Windows.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        ShowInTaskbar="False" Visibility="Hidden"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <simpleChildWindow:ChildWindow Title="Prompt"
+                                       BorderBrush="{DynamicResource AccentBaseColorBrush}"
+                                       BorderThickness="1"
+                                       GlowBrush="{DynamicResource AccentColorBrush}"
+                                       ShowCloseButton="True">
+
+            <simpleChildWindow:ChildWindow.Icon>
+                <iconPacks:PackIconModern Width="22"
+                                          Height="22"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Foreground="{DynamicResource IdealForegroundColorBrush}"
+                                          Kind="Cog" />
+            </simpleChildWindow:ChildWindow.Icon>
+
+            <Grid>
+                <TextBox></TextBox>
+            </Grid>
+
+            <!--  Content  -->
+        </simpleChildWindow:ChildWindow>
+    </Grid>
+</Window>

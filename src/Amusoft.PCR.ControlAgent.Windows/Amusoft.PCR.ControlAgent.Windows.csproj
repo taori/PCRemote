@@ -1,14 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ApplicationIcon>Launcher.ico</ApplicationIcon>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Amusoft.PCR.ControlAgent.Shared\Amusoft.PCR.ControlAgent.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="nlog.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Launcher.ico" />
+		<Content Include="nlog.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Amusoft.PCR.ControlAgent.Shared\Amusoft.PCR.ControlAgent.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+		<PackageReference Include="GrpcDotNetNamedPipes" Version="2.1.0" />
+		<PackageReference Include="NAudio" Version="2.2.1" />
+		<PackageReference Include="NLog" Version="5.2.4" />
+		<PackageReference Include="System.Reactive" Version="4.4.1" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
+		<PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+		<PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0" />
+	</ItemGroup>
 
 </Project>

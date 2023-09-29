@@ -1,4 +1,4 @@
-using Amusoft.PCR.ControlAgent.Shared.Services;
+using Amusoft.PCR.ControlAgent.App.Services;
 
 namespace Amusoft.PCR.ControlAgent.App;
 
@@ -15,9 +15,16 @@ public class Program
 		builder.Services.AddGrpc();
 		builder.Services.AddGrpcReflection();
 
+		builder.Services.AddAuthentication();
+		builder.Services.AddAuthorization();
+
 		var app = builder.Build();
 
-		// Configure the HTTP request pipeline.
+		app.UseRouting();
+
+		app.UseAuthentication();
+		app.UseAuthorization();
+		
 		app.MapGrpcService<PingService>();
 		app.MapGrpcService<VoiceRecognitionService>();
 		app.MapGrpcService<DesktopIntegrationService>();

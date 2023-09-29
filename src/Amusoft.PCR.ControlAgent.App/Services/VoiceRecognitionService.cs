@@ -1,8 +1,8 @@
-﻿using Amusoft.PCR.Grpc.Common;
+﻿using Amusoft.PCR.ControlAgent.Shared;
+using Amusoft.PCR.Grpc.Common;
 using Grpc.Core;
-using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.ControlAgent.Shared.Services;
+namespace Amusoft.PCR.ControlAgent.App.Services;
 
 public class VoiceRecognitionService : VoiceCommandService.VoiceCommandServiceBase
 {
