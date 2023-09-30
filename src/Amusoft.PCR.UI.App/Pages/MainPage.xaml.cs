@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.UI.App;
+﻿namespace Amusoft.PCR.UI.App.Pages;
 
 public partial class MainPage : ContentPage
 {

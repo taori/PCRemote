@@ -11,7 +11,7 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
     <ShellContent
         Title="Port configuration"

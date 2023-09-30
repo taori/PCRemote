@@ -1,0 +1,29 @@
+syntax = "proto3";
+import "Protos/Messages.proto";
+
+option csharp_namespace = "Amusoft.PCR.Int.IPC";
+
+package Amusoft.PCR.Int.IPC;
+
+service VoiceCommandService {
+	rpc UpdateVoiceRecognition(UpdateVoiceRecognitionRequest) returns (DefaultResponse);
+	rpc StopVoiceRecognition(DefaultRequest) returns (DefaultResponse);
+	rpc StartVoiceRecognition(DefaultRequest) returns (DefaultResponse);
+}
+
+message UpdateVoiceRecognitionRequest {
+	repeated AudioRecognitionItem audioRecognitionItems = 1;
+	string triggerPhrase = 2;
+	string audioPhrase = 3;
+	repeated string onAliases = 4;
+	repeated string offAliases = 5;
+	string synthesizerConfirmMessage = 6;
+	string synthesizerErrorMessage = 7;
+	int32 recognitionThreshold = 8;
+	string masterPhrase = 9;
+}
+
+message AudioRecognitionItem {
+	string feedName = 1;
+	string alias = 2;
+}

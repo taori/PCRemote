@@ -1,0 +1,16 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Amusoft.PCR.Int.IPC";
+package Amusoft.PCR.Int.IPC;
+
+
+message DefaultRequest {}
+message DefaultResponse {
+	bool success = 1;
+}
+message StringResponse {
+	bool success = 1;
+	string content = 2;
+}
+
+message GetAllRequest {}

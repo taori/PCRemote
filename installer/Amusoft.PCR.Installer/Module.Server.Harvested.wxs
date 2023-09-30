@@ -1,6 +1,21 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
     <Fragment>
         <DirectoryRef Id="WEBFOLDER">
+            <Component Id="cmpUC7PPT0YqXgma7jr0Cd4XIJW7cE" Guid="*">
+                <File Id="fil2Gm3ZQsFlfNlikMTVQYGUAXmaiQ" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.App.Service.deps.json" />
+            </Component>
+            <Component Id="cmpaFaKmVbSzo.z9E6tMRYV.g8JNKw" Guid="*">
+                <File Id="filc9xshW2UNwAWYA8HcKnJ4iORrQE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.App.Service.dll" />
+            </Component>
+            <Component Id="cmpJbr8ZTWGhfqn_EOds2Pqa0zXs4s" Guid="*">
+                <File Id="filV0cvmzfsgJ4Ifa0eWbk94FIYn_4" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.App.Service.exe" />
+            </Component>
+            <Component Id="cmpj5nnU021XetUhBfiXRAMOAUcYRU" Guid="*">
+                <File Id="filpnZ4r77UncmQZ4dgZipsUa36VV8" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.App.Service.pdb" />
+            </Component>
+            <Component Id="cmp4GzPtlMZ3sibrj036zqtgOsLHyA" Guid="*">
+                <File Id="filRiFt1dMBy0F3_Ewy6HXsiNNoQbk" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.App.Service.runtimeconfig.json" />
+            </Component>
             <Component Id="cmpWxBLThIqQh4QccYV7kbAX.Fx_fA" Guid="*">
                 <File Id="filw1uMR5kwQdboA.VN5demeSQAb2M" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.ControlAgent.App.deps.json" />
             </Component>
@@ -21,6 +36,12 @@
             </Component>
             <Component Id="cmpFk03DDNI3awRpHahBmN1iFTCUO8" Guid="*">
                 <File Id="filBE3O5Km1lVv3ScRhU.lPRmcryfw" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.ControlAgent.Shared.pdb" />
+            </Component>
+            <Component Id="cmpFjizMlx7TRQd2qbEC3SJkDpT_vA" Guid="*">
+                <File Id="fil8R28aQ7213wVXab7kdDrpOjibeU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.Int.IPC.dll" />
+            </Component>
+            <Component Id="cmpVvUHBdEDQfZrSDmi5RbWEeae2tk" Guid="*">
+                <File Id="filr4310Lh_P96Pkr3ERYKQHCv_EcE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.Int.IPC.pdb" />
             </Component>
             <Component Id="cmpjhA8xYcMeZoUIpxe3Idr58GgbIk" Guid="*">
                 <File Id="filhYZ8ZSMlDTc31sa671z7MFWU74M" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\appsettings.Development.json" />
@@ -62,6 +83,11 @@
     </Fragment>
     <Fragment>
         <ComponentGroup Id="WebComponentsGenerated">
+            <ComponentRef Id="cmpUC7PPT0YqXgma7jr0Cd4XIJW7cE" />
+            <ComponentRef Id="cmpaFaKmVbSzo.z9E6tMRYV.g8JNKw" />
+            <ComponentRef Id="cmpJbr8ZTWGhfqn_EOds2Pqa0zXs4s" />
+            <ComponentRef Id="cmpj5nnU021XetUhBfiXRAMOAUcYRU" />
+            <ComponentRef Id="cmp4GzPtlMZ3sibrj036zqtgOsLHyA" />
             <ComponentRef Id="cmpWxBLThIqQh4QccYV7kbAX.Fx_fA" />
             <ComponentRef Id="cmpuy7jH5.tK7AwRVjx3GEMMZjNPFk" />
             <ComponentRef Id="cmpOF3KyxkO0lNJbicRh7jHHPowykA" />
@@ -69,6 +95,8 @@
             <ComponentRef Id="cmpcmexzb34jEu0zUWgCtSe5xPN.g8" />
             <ComponentRef Id="cmpia2hmOB9n3aXb3c6ey.epasRYCw" />
             <ComponentRef Id="cmpFk03DDNI3awRpHahBmN1iFTCUO8" />
+            <ComponentRef Id="cmpFjizMlx7TRQd2qbEC3SJkDpT_vA" />
+            <ComponentRef Id="cmpVvUHBdEDQfZrSDmi5RbWEeae2tk" />
             <ComponentRef Id="cmpjhA8xYcMeZoUIpxe3Idr58GgbIk" />
             <ComponentRef Id="cmp4g05eJCYkOSyRQIqgGW6_kfL_tA" />
             <ComponentRef Id="cmpRkVhgnh1GVa67sxdqcbonSPIhpc" />

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:Amusoft.PCR.UI.ViewModels;assembly=Amusoft.PCR.UI.ViewModels"
              xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Amusoft.PCR.UI.App.MainPage">
+             x:Class="Amusoft.PCR.UI.App.Pages.MainPage">
     <ContentPage.BindingContext>
         <viewModels:MainViewModel></viewModels:MainViewModel>
     </ContentPage.BindingContext>

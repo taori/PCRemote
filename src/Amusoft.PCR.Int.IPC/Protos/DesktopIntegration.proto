@@ -1,0 +1,247 @@
+syntax = "proto3";
+import "Protos/Messages.proto";
+
+option csharp_namespace = "Amusoft.PCR.Int.IPC";
+
+package Amusoft.PCR.Int.IPC;
+
+service DesktopIntegrationService {
+	rpc Login(LoginRequest) returns (LoginResponse) {}
+	rpc CheckIsAuthenticated (CheckIsAuthenticatedRequest) returns (CheckIsAuthenticatedResponse) {}
+	rpc Authenticate (AuthenticateRequest) returns (AuthenticateResponse) {}
+	rpc SuicideOnProcessExit (SuicideOnProcessExitRequest) returns (SuicideOnProcessExitResponse) {}
+	rpc ToggleMute (ToggleMuteRequest) returns (ToggleMuteReply) {}
+	rpc MonitorOn (MonitorOnRequest) returns (MonitorOnReply) {}
+	rpc MonitorOff (MonitorOffRequest) returns (MonitorOffReply) {}
+	rpc AbortShutDown (AbortShutdownRequest) returns (AbortShutdownReply) {}
+	rpc ShutDownDelayed (ShutdownDelayedRequest) returns (ShutdownDelayedReply) {}
+	rpc Restart (RestartRequest) returns (RestartReply) {}
+	rpc Hibernate (HibernateRequest) returns (HibernateReply) {}
+	rpc SetMasterVolume (SetMasterVolumeRequest) returns (SetMasterVolumeReply) {}
+	rpc GetMasterVolume (GetMasterVolumeRequest) returns (GetMasterVolumeReply) {}
+	rpc SendKeys (SendKeysRequest) returns (SendKeysReply) {}
+	rpc SendMediaKeys (SendMediaKeysRequest) returns (SendMediaKeysReply) {}
+	rpc LockWorkStation (LockWorkStationRequest) returns (LockWorkStationReply) {}
+	rpc GetProcessList (ProcessListRequest) returns (ProcessListResponse) {}
+	rpc KillProcessById (KillProcessRequest) returns (KillProcessResponse) {}
+	rpc FocusWindow (FocusWindowRequest) returns (FocusWindowResponse) {}
+	rpc LaunchProgram (LaunchProgramRequest) returns (LaunchProgramResponse) {}
+	rpc GetHostCommands (GetHostCommandRequest) returns (GetHostCommandResponse) {}
+	rpc InvokeHostCommand (InvokeHostCommandRequest) returns (InvokeHostCommandResponse) {}
+	rpc GetClipboard (GetClipboardRequest) returns (GetClipboardResponse) {}
+	rpc SetClipboard (SetClipboardRequest) returns (SetClipboardResponse) {}
+	rpc GetHostName (GetHostNameRequest) returns (GetHostNameResponse) {}
+	rpc GetNetworkMacAddresses (GetNetworkMacAddressesRequest) returns (GetNetworkMacAddressesResponse) {}
+	rpc SendMouseMove (stream SendMouseMoveRequestItem) returns (SendMouseMoveResponse) {}
+	rpc SendLeftMouseButtonClick (DefaultRequest) returns (DefaultResponse) {}
+	rpc SendRightMouseButtonClick (DefaultRequest) returns (DefaultResponse) {}
+	rpc GetAudioFeeds (AudioFeedRequest) returns (AudioFeedResponse) {}
+	rpc UpdateAudioFeed (UpdateAudioFeedRequest) returns (DefaultResponse) {}
+	rpc SetUserPassword (ChangeUserPasswordRequest) returns (StringResponse) {}
+}
+
+message UpdateAudioFeedRequest {
+	AudioFeedResponseItem item = 1;
+}
+
+message AudioFeedResponseItem {
+	string id = 1;
+	string name = 2;
+	float volume = 3;
+	bool muted = 4;
+}
+message AudioFeedResponse {
+	repeated AudioFeedResponseItem items = 1;
+	bool success = 2;
+}
+message AudioFeedRequest {}
+
+message SendMouseMoveRequestItem {
+	int32 x = 1;
+	int32 y = 2;
+}
+message SendMouseMoveResponse {}
+
+message CheckIsAuthenticatedRequest { }
+message CheckIsAuthenticatedResponse {
+	bool result = 1;
+}
+message LoginRequest {
+	string user = 1;
+	string password = 2;
+}
+message LoginResponse {
+	bool invalidCredentials = 1;
+	string accessToken = 2;
+	string refreshToken = 3;
+}
+
+message GetNetworkMacAddressesRequest {}
+message GetNetworkMacAddressesResponse {
+	repeated GetNetworkMacAddressesResponseItem results = 1;
+}
+message GetNetworkMacAddressesResponseItem {
+	string macAddress = 1;
+}
+
+message GetHostNameRequest {
+}
+message GetHostNameResponse {
+	string content = 1;
+}
+
+message GetClipboardRequest {
+	string requestee = 1;
+}
+message GetClipboardResponse {
+	string content = 1;
+}
+message SetClipboardRequest {
+	string content = 1;
+	string requestee = 2;
+}
+message SetClipboardResponse {
+	bool success = 1;
+}
+
+message AuthenticateRequest {}
+message AuthenticateResponse {
+	bool success = 1;
+}
+
+message SuicideOnProcessExitRequest {
+	int32 processId = 1;
+}
+message SuicideOnProcessExitResponse{
+	bool success = 1;
+}
+
+message ToggleMuteRequest {}
+message ToggleMuteReply {
+	bool muted = 1;
+}
+
+message MonitorOnRequest {}
+message MonitorOnReply {
+	bool success = 1;
+}
+
+message MonitorOffRequest {}
+message MonitorOffReply {
+	bool success = 1;
+}
+
+message LockWorkStationRequest {}
+message LockWorkStationReply {
+	bool success = 1;
+}
+
+message SendKeysRequest {
+	string message = 1;
+}
+message SendKeysReply {
+	bool success = 1;
+}
+
+message SendMediaKeysRequest {
+	enum MediaKeyCode {
+		NextTrack = 0;
+		PreviousTrack = 1;
+		PlayPause = 2;
+	};
+	MediaKeyCode keyCode = 1;
+}
+message SendMediaKeysReply {
+	bool success = 1;
+}
+
+message SetMasterVolumeRequest {
+	int32 value = 1;	
+}
+message SetMasterVolumeReply {
+	int32 value = 1;
+}
+
+message GetMasterVolumeRequest {
+}
+message GetMasterVolumeReply {
+	int32 value = 1;
+}
+
+message ShutdownDelayedRequest {
+	int32 seconds = 1;
+	bool force = 2;
+}
+message ShutdownDelayedReply {
+	bool success = 1;
+}
+
+message AbortShutdownRequest {}
+message AbortShutdownReply {
+	bool success = 1;
+}
+
+message HibernateRequest {}
+message HibernateReply {
+	bool success = 1;
+}
+
+message RestartRequest {
+	int32 delay = 1;
+	bool force = 2;
+}
+message RestartReply {
+	bool success = 1;
+}
+
+message ProcessListRequest {}
+message ProcessListResponse {
+	repeated ProcessListResponseItem results = 1;
+}
+message ProcessListResponseItem {
+	int32 processId = 1;
+	string processName = 2;
+	string mainWindowTitle = 3;
+	float cpuUsage = 4;
+}
+
+message KillProcessRequest {
+	int32 processId = 1;
+}
+message KillProcessResponse {
+	bool success = 1;
+}
+
+message FocusWindowRequest {
+	int32 processId = 1;
+}
+message FocusWindowResponse {
+	bool success = 1;
+}
+
+message LaunchProgramRequest {
+	string programName = 1;
+	string arguments = 2;
+}
+message LaunchProgramResponse {
+	bool success = 1;
+}
+
+message GetHostCommandRequest {}
+message GetHostCommandResponseItem {
+	string commandId = 1;
+	string title = 2;
+}
+message GetHostCommandResponse {
+	repeated GetHostCommandResponseItem results = 1;
+}
+
+message InvokeHostCommandRequest {
+	string id = 1;
+}
+message InvokeHostCommandResponse {
+	bool success = 1;
+}
+message ChangeUserPasswordRequest {
+	string userName = 1;
+}
