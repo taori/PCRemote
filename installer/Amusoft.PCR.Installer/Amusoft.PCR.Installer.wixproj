@@ -14,6 +14,9 @@
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.1" />
     <PackageReference Include="WixToolset.Util.wixext" Version="4.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Amusoft.PCR.Installer.Custom\Amusoft.PCR.Installer.Custom.csproj" />
+  </ItemGroup>
   <Target Name="XRunHeat" BeforeTargets="BeforeResolveReferences" Condition="'$(XRunHeat)' != 'false'">
     <Message Importance="High" Text="Harvesting files using HeatDirectory." />
     <HeatDirectory SuppressAllWarnings="False" TreatWarningsAsErrors="True" VerboseOutput="$(HarvestDirectoryVerboseOutput)" AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)" OutputFile="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Server.Harvested.wxs" SuppressFragments="True" SuppressUniqueIds="False" Directory="$(SolutionDir)..\artifacts\web\" ComponentGroupName="WebComponentsGenerated" KeepEmptyDirectories="True" PreprocessorVariable="var.ArtifactsPathWeb" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True" Transforms="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Server.Harvested.xlst" DirectoryRefId="WEBFOLDER" />
