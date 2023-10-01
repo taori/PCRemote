@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using Amusoft.PCR.App.UI;
+using Android.App;
 using Android.Runtime;
 
 namespace Amusoft.PCR.UI.App;

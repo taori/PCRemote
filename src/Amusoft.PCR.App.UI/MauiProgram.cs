@@ -1,8 +1,8 @@
-﻿using Amusoft.PCR.UI.App.Pages;
+﻿using Amusoft.PCR.App.UI.Pages;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.UI.App;
+namespace Amusoft.PCR.App.UI;
 
 public static class MauiProgram
 {

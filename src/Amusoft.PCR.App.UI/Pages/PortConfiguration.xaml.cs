@@ -1,4 +1,4 @@
-namespace Amusoft.PCR.UI.App.Pages;
+namespace Amusoft.PCR.App.UI.Pages;
 
 public partial class PortConfiguration : ContentPage
 {

@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.UI.App;
+﻿namespace Amusoft.PCR.App.UI;
 
 public partial class AppShell : Shell
 {

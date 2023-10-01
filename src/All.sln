@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.UI.App", "Amusoft.PCR.UI.App\Amusoft.PCR.UI.App.csproj", "{8D96C03C-AAF1-48DB-878C-F916CD8D616D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.App.UI", "Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj", "{8D96C03C-AAF1-48DB-878C-F916CD8D616D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.UI.ViewModels", "Amusoft.PCR.UI.ViewModels\Amusoft.PCR.UI.ViewModels.csproj", "{756AA2F6-E80C-4558-8131-2B20402EC158}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.App.UI.ViewModels", "Amusoft.PCR.App.UI.ViewModels\Amusoft.PCR.App.UI.ViewModels.csproj", "{756AA2F6-E80C-4558-8131-2B20402EC158}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Int.IPC", "Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj", "{F30DB91C-C1E7-4064-99DF-BA52F58689B1}"
 EndProject

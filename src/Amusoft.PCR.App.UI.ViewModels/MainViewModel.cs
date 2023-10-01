@@ -1,12 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 
-namespace Amusoft.PCR.UI.ViewModels;
+namespace Amusoft.PCR.App.UI.ViewModels;
 
 public partial class MainViewItemModel : ObservableObject
 {
