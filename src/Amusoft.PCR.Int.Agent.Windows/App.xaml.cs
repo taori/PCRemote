@@ -79,7 +79,6 @@ public partial class App : Application
 
 	private bool TryLaunchInteropChannel()
 	{
-
 		_namedPipeServer = new NamedPipeServer(Globals.NamedPipeChannel);
 		DesktopIntegrationService.BindService(_namedPipeServer.ServiceBinder, new DesktopIntegrationServiceImplementation());
 		VoiceCommandService.BindService(_namedPipeServer.ServiceBinder, new VoiceRecognitionServiceImplementation());

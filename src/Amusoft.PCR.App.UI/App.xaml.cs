@@ -1,6 +1,6 @@
 ﻿namespace Amusoft.PCR.App.UI;
 
-public partial class App : Application
+public partial class App 
 {
 	public App()
 	{

@@ -1,9 +1,12 @@
-﻿namespace Amusoft.PCR.App.UI.Pages;
+﻿using Amusoft.PCR.Application.UI;
+
+namespace Amusoft.PCR.App.UI.Pages;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
+	public MainPage(MainViewModel viewModel)
 	{
 		InitializeComponent();
+		BindingContext = viewModel;
 	}
 }

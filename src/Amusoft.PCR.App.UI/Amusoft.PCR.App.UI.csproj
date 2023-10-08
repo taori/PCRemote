@@ -55,7 +55,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Amusoft.PCR.App.UI.ViewModels\Amusoft.PCR.App.UI.ViewModels.csproj" />
+	  <ProjectReference Include="..\Amusoft.PCR.Application\Amusoft.PCR.Application.csproj" />
+	  <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
 	</ItemGroup>
 
 </Project>
