@@ -8,7 +8,7 @@
     <Grid>
         <ListView ItemsSource="{x:Binding Items}">
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="viewModels:MainViewItemModel">
                     <ViewCell>
                         <Button Margin="10,5" 
                                 ImageSource="{x:Binding ImagePath}"
