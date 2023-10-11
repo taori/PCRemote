@@ -15,5 +15,14 @@ public static class ServiceRegistrar
 
 		services.AddTransient<MainPage>();
 		services.AddTransient<MainViewModel>();
+
+		services.AddTransient<Audio>();
+		services.AddTransient<AudioViewModel>();
+
+		services.AddTransient<HostsOverview>();
+		services.AddTransient<HostsOverviewViewModel>();
+
+		services.AddTransient<Settings>();
+		services.AddTransient<SettingsViewModel>();
 	}
 }

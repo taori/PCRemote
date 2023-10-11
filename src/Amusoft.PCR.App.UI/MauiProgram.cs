@@ -1,4 +1,5 @@
 ﻿using Amusoft.PCR.App.UI.Pages;
+using Amusoft.PCR.Application.Resources;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 
@@ -20,8 +21,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		Routing.RegisterRoute(nameof(PortConfiguration), typeof(PortConfiguration));
-		Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+		Routing.RegisterRoute(PageNames.MainPage, typeof(MainPage));
+		Routing.RegisterRoute(PageNames.Settings, typeof(Settings));
+		Routing.RegisterRoute(PageNames.HostsOverview, typeof(HostsOverview));
+		Routing.RegisterRoute(PageNames.Audio, typeof(Audio));
 
 #if DEBUG
 		builder.Logging.AddDebug();

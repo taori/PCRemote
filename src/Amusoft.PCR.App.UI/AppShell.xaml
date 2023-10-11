@@ -13,9 +13,5 @@
         Title="Home"
         ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
-    <ShellContent
-        Title="Port configuration"
-        ContentTemplate="{DataTemplate pages:PortConfiguration}"
-        Route="PortConfiguration" />
 
 </Shell>

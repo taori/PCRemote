@@ -2,7 +2,7 @@
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
-public class Navigation : Domain.Services.INavigation
+public class Navigation : INavigation
 {
 	public Task GoToAsync(string path)
 	{

@@ -1,56 +1,48 @@
 ﻿using System.Collections.ObjectModel;
+using Amusoft.PCR.Application.Resources;
+using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Domain.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Amusoft.PCR.Application.UI;
 
-
-public partial class MainViewItemModel : ObservableObject
-{
-	[ObservableProperty]
-	private string? _text;
-
-	[ObservableProperty]
-	private string? _imagePath;
-
-	[ObservableProperty]
-	private IRelayCommand? _command;
-}
-
-public partial class MainViewModel : ObservableObject
+public partial class MainViewModel : PageViewModel
 {
 	private readonly INavigation _navigation;
-	private readonly IToast _toast;
 
-	public MainViewModel(INavigation navigation, IToast toast)
+	public MainViewModel(INavigation navigation)
 	{
 		_navigation = navigation;
-		_toast = toast;
 
-		_items = new ObservableCollection<MainViewItemModel>()
+		_items = new ObservableCollection<NavigationItem>()
 		{
 			new ()
 			{
 				ImagePath = "configuration.png",
-				Text = "Configuration",
-				Command = new RelayCommand(() => _navigation.GoToAsync("/PortConfiguration"))
+				Text = Translations.Page_Title_HostsOverview,
+				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.HostsOverview}"))
 			},
 			new ()
 			{
 				ImagePath = "configuration.png",
-				Text = "MainPage",
-				Command = new RelayCommand(() => _toast.Make("test").Show())
-			}
+				Text = Translations.Page_Title_Settings,
+				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Settings}"))
+			},
+			new ()
+			{
+				ImagePath = "configuration.png",
+				Text = Translations.Page_Title_Audio,
+				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
+			},
 		};
 	}
 
 	[ObservableProperty]
-	private ObservableCollection<MainViewItemModel> _items;
+	private ObservableCollection<NavigationItem> _items;
 
-	[RelayCommand]
-	public async Task GotoPortConfiguration()
+	protected override string GetDefaultPageTitle()
 	{
-		await _navigation.GoToAsync("///PortConfiguration");
+		return Translations.Page_Title_MainPage;
 	}
 }

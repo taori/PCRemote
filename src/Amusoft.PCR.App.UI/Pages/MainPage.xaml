@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:Amusoft.PCR.Application.UI;assembly=Amusoft.PCR.Application"
+             xmlns:shared="clr-namespace:Amusoft.PCR.Application.Shared;assembly=Amusoft.PCR.Application"
+             Title="{x:Binding Title}"
              x:DataType="viewModels:MainViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.MainPage">
     <Grid>
         <ListView ItemsSource="{x:Binding Items}">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="viewModels:MainViewItemModel">
+                <DataTemplate x:DataType="shared:NavigationItem">
                     <ViewCell>
                         <Button Margin="10,5" 
                                 ImageSource="{x:Binding ImagePath}"
