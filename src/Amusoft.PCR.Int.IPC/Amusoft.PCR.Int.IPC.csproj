@@ -2,18 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <!-- <TargetFrameworks>net7.0;net7.0-android</TargetFrameworks> -->
-    <!-- <TargetFramework>netstandard2.1</TargetFramework> -->
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\DesktopIntegration.proto" />
-    <None Remove="Protos\Messages.proto" />
-    <None Remove="Protos\Ping.proto" />
-    <None Remove="Protos\VoiceRecognition.proto" />
+    <None Remove="Protos\*.proto" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -21,10 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Protobuf Include="Protos\DesktopIntegration.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\VoiceRecognition.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\Messages.proto" GrpcServices="Server" />
-	  <Protobuf Include="Protos\Ping.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\*.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>
