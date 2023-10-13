@@ -2,5 +2,5 @@
 & "$PSScriptRoot\buildAndCopy.ps1"
 & "$PSScriptRoot\installService.ps1"
 
-Write-Host "Script complete"
+Write-Host "refreshservice script complete."
 #Start-Sleep -Seconds 3

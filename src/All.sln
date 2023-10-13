@@ -23,9 +23,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{CBE9A833-9560-4D40-9438-BCD65CA070FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain", "Amusoft.PCR.Domain\Amusoft.PCR.Domain.csproj", "{F7DBBD88-8F77-45D9-AAEF-6D657EF51883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Domain", "Amusoft.PCR.Domain\Amusoft.PCR.Domain.csproj", "{F7DBBD88-8F77-45D9-AAEF-6D657EF51883}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Application", "Amusoft.PCR.Application\Amusoft.PCR.Application.csproj", "{FAFB0AA1-43D5-4470-98A4-2D4791B76D67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Application", "Amusoft.PCR.Application\Amusoft.PCR.Application.csproj", "{FAFB0AA1-43D5-4470-98A4-2D4791B76D67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_scripts", "_scripts", "{6E9FFF68-6A49-439B-B2A3-F889B029655C}"
+	ProjectSection(SolutionItems) = preProject
+		..\deploy\androidBuild.ps1 = ..\deploy\androidBuild.ps1
+		..\deploy\buildAndCopy.ps1 = ..\deploy\buildAndCopy.ps1
+		..\deploy\createSelfSignedCertificate.ps1 = ..\deploy\createSelfSignedCertificate.ps1
+		..\deploy\installCompiledMSI.ps1 = ..\deploy\installCompiledMSI.ps1
+		..\deploy\installService.ps1 = ..\deploy\installService.ps1
+		..\deploy\refreshService.ps1 = ..\deploy\refreshService.ps1
+		..\deploy\refreshServiceAndAPK.ps1 = ..\deploy\refreshServiceAndAPK.ps1
+		..\deploy\uninstallService.ps1 = ..\deploy\uninstallService.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

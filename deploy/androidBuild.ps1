@@ -11,6 +11,8 @@ if(Test-Path "$scriptRoot\..\artifacts\android\"){
     Remove-Item $scriptRoot\..\artifacts\android\ -Recurse -Force
 }
 
+## TODO: https://learn.microsoft.com/de-de/dotnet/maui/android/deployment/publish-cli
+
 #/p:MSBuildExtensionsPath="$extensionRoot"
 &$msbuildPath "$scriptRoot\..\src\Amusoft.PCR.Mobile.Droid\Amusoft.PCR.Mobile.Droid.csproj" /verbosity:minimal /restore /t:"SignAndroidPackage" /bl /p:Configuration=Release /p:OutputPath="$scriptRoot\..\artifacts\android" 
 New-Item -ItemType Directory -Force -Path "$scriptRoot\..\mobile-artifacts\android" | Out-Null

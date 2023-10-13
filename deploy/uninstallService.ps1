@@ -1,6 +1,6 @@
-Stop-Service -Name "PCR2"
-Remove-Service -Name "PCR2"
+Stop-Service -Name "PCR3"
+Remove-Service -Name "PCR3"
 
 
-Write-Host "Script complete"
+Write-Host "uninstall script complete." 
 #Start-Sleep -Seconds 3

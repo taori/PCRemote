@@ -9,15 +9,18 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
     exit;
 }    
 
-$serviceName = "PCR2"
+$serviceName = "PCR3"
+$folderName = "PCR3"
+$exeName = "Amusoft.PCR.App.Service.exe"
+$serviceDescription = "PC Remote 3 Integration"
 $programFolder = [System.Environment+SpecialFolder]::ProgramFiles
 $translatedFolder = [System.Environment]::GetFolderPath($programFolder)
 
 Write-Host "Waiting for folder selection" -ForegroundColor Yellow
 $browser = New-Object System.Windows.Forms.FolderBrowserDialog
 $browser.ShowNewFolderButton = $true
-if(Test-Path "$translatedFolder\Amusoft\PCR2"){
-    $translatedFolder = "$translatedFolder\Amusoft\PCR2"}
+if(Test-Path "$translatedFolder\Amusoft\$folderName"){
+    $translatedFolder = "$translatedFolder\Amusoft\$folderName"}
 
 $browser.SelectedPath = "$translatedFolder"
 if($browser.ShowDialog() -eq "OK"){
@@ -38,7 +41,7 @@ if($browser.ShowDialog() -eq "OK"){
 
     #powershell -Command "New-LocalUser -Name $serviceName"
     Write-Host "Creating service ..."
-    New-Service -Name "$serviceName" -BinaryPathName "$folder\web\Amusoft.PCR.Server.exe" -Description "PC Remote 2 Website" -DisplayName "Amusoft PC Remote 2 Service" -StartupType Automatic | Out-Null
+    New-Service -Name "$serviceName" -BinaryPathName "$folder\web\$exeName" -Description "$serviceDescription" -DisplayName "$serviceDescription" -StartupType Automatic | Out-Null
     Write-Host "Launching service ..."
     Start-Service -Name "$serviceName" | Out-Null
     try{    
@@ -51,5 +54,5 @@ if($browser.ShowDialog() -eq "OK"){
     }
 }
 
-Write-Host "Script complete"
+Write-Host "install script complete."
 #Start-Sleep -Seconds 3
