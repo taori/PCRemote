@@ -1,4 +1,3 @@
-dotnet build ..\src\All.sln
 
 Write-Host "Removing artifacts folder ..."
 
@@ -11,15 +10,20 @@ New-Item ..\artifacts\web -ItemType Directory | Out-Null
 New-Item ..\artifacts\win-integration -ItemType Directory | Out-Null
 Write-Host "done."
 
+Write-Host "Restoring solution" -ForegroundColor Cyan
+#dotnet restore ..\src\All.sln
+
+Write-Host "Publishing artifacts" -ForegroundColor Cyan
+
 # Workaround global.json CWD issue
-$loc = Get-Location
-Set-Location -Path ..\src -PassThru
-dotnet build ..\src\All.sln
+#$loc = Get-Location
+#Set-Location -Path ..\src -PassThru
+#dotnet build ..\src\All.sln
 
 dotnet publish ..\src\Amusoft.PCR.Int.Agent.Windows -c Release -o ..\artifacts\win-integration
 dotnet publish ..\src\Amusoft.PCR.App.Service -c Release -o ..\artifacts\web
 
-Set-Location -Path $loc -PassThru
+#Set-Location -Path $loc -PassThru
 
 
 if(Test-Path "..\mobile-artifacts\android\"){

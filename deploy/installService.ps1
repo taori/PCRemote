@@ -40,10 +40,10 @@ if($browser.ShowDialog() -eq "OK"){
     Set-Acl "$folder\logs" $acl
 
     #powershell -Command "New-LocalUser -Name $serviceName"
-    Write-Host "Creating service ..."
-    New-Service -Name "$serviceName" -BinaryPathName "$folder\web\$exeName" -Description "$serviceDescription" -DisplayName "$serviceDescription" -StartupType Automatic | Out-Null
+    Write-Host "Creating service at $folder\web\$exeName ..."
+    New-Service -Name $serviceName -BinaryPathName "$folder\web\$exeName" -Description "$serviceDescription" -DisplayName "$serviceDescription" -StartupType Automatic | Out-Null
     Write-Host "Launching service ..."
-    Start-Service -Name "$serviceName" | Out-Null
+    Start-Service -Name $serviceName | Out-Null
     try{    
         Write-Host "Waiting 10 seconds for service to start ..."
         $service = Get-Service "$serviceName"
