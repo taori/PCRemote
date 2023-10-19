@@ -11,14 +11,14 @@ internal static class NativeMethods
 	[DllImport("advapi32.dll", SetLastError = true)]
 	internal static extern bool CreateProcessAsUser(
 		IntPtr tokenHandle,
-		string applicationName,
+		string? applicationName,
 		string commandLine,
 		ref SecurityAttributes processAttributes,
 		ref SecurityAttributes threadAttributes,
 		bool inheritHandles,
 		uint creationFlags,
 		IntPtr environment,
-		string currentDirectory,
+		string? currentDirectory,
 		ref StartupInfo startupInfo,
 		out ProcessInformation processInformation);
 
@@ -112,7 +112,7 @@ internal static class NativeMethods
 		var token = IntPtr.Zero;
 		var primaryToken = IntPtr.Zero;
 		var retVal = false;
-		Process p = null;
+		Process p;
 
 		try
 		{
