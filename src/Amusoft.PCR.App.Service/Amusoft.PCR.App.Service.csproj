@@ -13,7 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Amusoft.PCR.Application\Amusoft.PCR.Application.csproj" />
     <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Environment\" />
   </ItemGroup>
 
 </Project>
