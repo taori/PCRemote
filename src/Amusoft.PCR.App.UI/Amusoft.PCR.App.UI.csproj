@@ -65,4 +65,13 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Controls\ErrorFrame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\CustomStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

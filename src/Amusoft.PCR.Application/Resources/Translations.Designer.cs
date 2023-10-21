@@ -22,7 +22,7 @@ namespace Amusoft.PCR.Application.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Translations {
+    public class Translations {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Amusoft.PCR.Application.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Amusoft.PCR.Application.Resources.Translations", typeof(Translations).Assembly);
@@ -51,7 +51,7 @@ namespace Amusoft.PCR.Application.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,27 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configure ports.
+        /// </summary>
+        public static string HostsOverview_Configure {
+            get {
+                return ResourceManager.GetString("HostsOverview_Configure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No ports are configured..
+        /// </summary>
+        public static string HostsOverview_NoPortsConfigured {
+            get {
+                return ResourceManager.GetString("HostsOverview_NoPortsConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audio mixer.
         /// </summary>
-        internal static string Page_Title_Audio {
+        public static string Page_Title_Audio {
             get {
                 return ResourceManager.GetString("Page.Title.Audio", resourceCulture);
             }
@@ -72,7 +90,7 @@ namespace Amusoft.PCR.Application.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Devices.
         /// </summary>
-        internal static string Page_Title_HostsOverview {
+        public static string Page_Title_HostsOverview {
             get {
                 return ResourceManager.GetString("Page.Title.HostsOverview", resourceCulture);
             }
@@ -81,7 +99,7 @@ namespace Amusoft.PCR.Application.Resources {
         /// <summary>
         ///   Looks up a localized string similar to PC Remote 3.
         /// </summary>
-        internal static string Page_Title_MainPage {
+        public static string Page_Title_MainPage {
             get {
                 return ResourceManager.GetString("Page.Title.MainPage", resourceCulture);
             }
@@ -90,7 +108,7 @@ namespace Amusoft.PCR.Application.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
-        internal static string Page_Title_Settings {
+        public static string Page_Title_Settings {
             get {
                 return ResourceManager.GetString("Page.Title.Settings", resourceCulture);
             }

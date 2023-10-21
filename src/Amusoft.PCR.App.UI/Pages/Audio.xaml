@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ui="clr-namespace:Amusoft.PCR.Application.UI;assembly=Amusoft.PCR.Application"
+             xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
              x:Class="Amusoft.PCR.App.UI.Pages.Audio"
-             x:DataType="ui:AudioViewModel"
+             x:DataType="vm:AudioViewModel"
              Title="{x:Binding Title}">
     <VerticalStackLayout>
         <Label 

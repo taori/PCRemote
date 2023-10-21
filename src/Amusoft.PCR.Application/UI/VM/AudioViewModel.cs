@@ -2,7 +2,7 @@
 using Amusoft.PCR.Application.Resources;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Amusoft.PCR.Application.UI;
+namespace Amusoft.PCR.Application.UI.VM;
 
 public partial class AudioViewModel : Shared.ReloadablePageViewModel
 {

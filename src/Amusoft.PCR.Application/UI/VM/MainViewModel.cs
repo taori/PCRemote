@@ -5,7 +5,7 @@ using Amusoft.PCR.Domain.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Amusoft.PCR.Application.UI;
+namespace Amusoft.PCR.Application.UI.VM;
 
 public partial class MainViewModel : PageViewModel
 {
