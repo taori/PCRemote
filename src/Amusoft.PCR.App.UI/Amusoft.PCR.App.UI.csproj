@@ -15,7 +15,7 @@
 		<ApplicationTitle>PC Remote 3</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.amusoft.pcr.ui.app</ApplicationId>
+		<ApplicationId>com.amusoft.pcr.ui.app</ApplicationId>
 		<ApplicationIdGuid>41ffc251-7320-4c1d-b983-0cda1a369e30</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -50,6 +50,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- <FrameworkReference Include="Microsoft.AspNetCore.App" /> -->
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
@@ -63,13 +64,7 @@
 	  <MauiXaml Update="Pages\*.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Controls\ErrorFrame.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Resources\Styles\CustomStyles.xaml">
+	  <MauiXaml Update="Controls\*.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -5,27 +5,35 @@
              xmlns:resources="clr-namespace:Amusoft.PCR.Application.Resources;assembly=Amusoft.PCR.Application"
              xmlns:ui="using:Amusoft.PCR.App.UI"
              xmlns:controls="using:Amusoft.PCR.App.UI.Controls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Amusoft.PCR.App.UI.Pages.HostsOverview"
              x:DataType="vm:HostsOverviewViewModel"
              Title="{x:Binding Title}">
     <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- <ui:ErrorFrame Text="asdf"/> -->
-        <controls:ErrorFrame Text="{x:Static resources:Translations.HostsOverview_NoPortsConfigured}" IsVisible="{x:Binding IsErrorLabelVisible}"/>
+        <controls:ErrorFrame Text="{x:Static resources:Translations.HostsOverview_NoPortsConfigured}" 
+                             IsVisible="{x:Binding IsErrorLabelVisible}"/>
 
-        <ListView ItemsSource="{Binding Path=Items}" 
-                  Grid.Row="1"
-                  RefreshCommand="{x:Binding ReloadCommand}"
-                  SelectionMode="None"
-                  RefreshAllowed="True">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="vm:HostItemViewModel">
-                    <ViewCell>
-                        <Label Text="{x:Binding Path=Name}"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        
+        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+                     Grid.Row="1"
+                     Command="{x:Binding ReloadCommand}">
+            <ScrollView>
+                <CollectionView ItemsSource="{x:Binding Path=Items}"
+                          SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:HostItemViewModel">
+                                <controls:ListViewButton
+                                    Command="{x:Binding Path=ExecuteCallbackCommand}"
+                                    Text="{x:Binding Path=Name}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </RefreshView>
 
         <VerticalStackLayout Grid.Row="2">
             <Button 

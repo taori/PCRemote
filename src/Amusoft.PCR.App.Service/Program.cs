@@ -46,6 +46,7 @@ public class Program
 		host.MapGrpcService<PingService>();
 		host.MapGrpcService<VoiceRecognitionService>();
 		host.MapGrpcService<DesktopIntegrationService>();
+		host.MapGrpcService<BroadcastReceiverService>();
 		host.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 		if (host.Environment.IsDevelopment())

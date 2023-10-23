@@ -35,10 +35,4 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="UI\Repos\" />
-	  <Folder Include="Utility\" />
-	  <Folder Include="Services\" />
-	</ItemGroup>
-
 </Project>

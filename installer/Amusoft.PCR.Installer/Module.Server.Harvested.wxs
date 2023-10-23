@@ -16,17 +16,44 @@
             <Component Id="cmp4GzPtlMZ3sibrj036zqtgOsLHyA" Guid="*">
                 <File Id="filRiFt1dMBy0F3_Ewy6HXsiNNoQbk" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.App.Service.runtimeconfig.json" />
             </Component>
+            <Component Id="cmp2zO1Eq42KpZx25qDjJvNUIx_TzI" Guid="*">
+                <File Id="filA89WuNFkwqbb9JFRPkvUY1dCk_E" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.Application.dll" />
+            </Component>
+            <Component Id="cmpx31lZPxPmT1pdPquf_gs0XC_LUI" Guid="*">
+                <File Id="filDia5JDLG8b9zQebK38udUzmRV6s" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.Application.pdb" />
+            </Component>
+            <Component Id="cmpW6cKYg7An0jx0fuYdOGYhv75OQE" Guid="*">
+                <File Id="filLK48kYy16_E_wXz490.KLwHMReQ" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.Domain.dll" />
+            </Component>
+            <Component Id="cmpB9OuVTYPvf5MPuY.G7wOBLly4cQ" Guid="*">
+                <File Id="filhAJGYT1io3EdEhpzN9ma3EUgTQI" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.Domain.pdb" />
+            </Component>
             <Component Id="cmpFjizMlx7TRQd2qbEC3SJkDpT_vA" Guid="*">
                 <File Id="fil8R28aQ7213wVXab7kdDrpOjibeU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.Int.IPC.dll" />
             </Component>
             <Component Id="cmpVvUHBdEDQfZrSDmi5RbWEeae2tk" Guid="*">
                 <File Id="filr4310Lh_P96Pkr3ERYKQHCv_EcE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.Int.IPC.pdb" />
             </Component>
+            <Component Id="cmp6qpjjp7ZBW_5OK6vghHQ5iQqXIg" Guid="*">
+                <File Id="filqRpieMyFSvpdBDe7C54Sza4MIJM" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.Toolkit.Impersonation.dll" />
+            </Component>
+            <Component Id="cmpVr.gHdppF0Cmnh.ewW8EgQj3Lf4" Guid="*">
+                <File Id="filntG82rwkT8JZUEYhfydsNUXYB3I" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.Toolkit.Impersonation.pdb" />
+            </Component>
+            <Component Id="cmp.SINXf7vlGPVsJlQTFyL90hmqys" Guid="*">
+                <File Id="fil7UQirgJVgsmhBeY24IsLkInpqBI" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.Toolkit.Networking.dll" />
+            </Component>
+            <Component Id="cmpVIQGVhqX17buWAVeutrPQnXOYQ0" Guid="*">
+                <File Id="filMafu4lz5DA10lJ6FLfjOMGDCFOk" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.Toolkit.Networking.pdb" />
+            </Component>
             <Component Id="cmpjhA8xYcMeZoUIpxe3Idr58GgbIk" Guid="*">
                 <File Id="filhYZ8ZSMlDTc31sa671z7MFWU74M" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\appsettings.Development.json" />
             </Component>
             <Component Id="cmp4g05eJCYkOSyRQIqgGW6_kfL_tA" Guid="*">
                 <File Id="filZcb5c0d0CLJEJUaQQd_3l1vomTs" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\appsettings.json" />
+            </Component>
+            <Component Id="cmp8jvcb5Feii7rjEJz.SPmchsPtx8" Guid="*">
+                <File Id="fil6JXH1eeVSbxxrlLJatKFCmuM3bQ" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\CommunityToolkit.Mvvm.dll" />
             </Component>
             <Component Id="cmpRkVhgnh1GVa67sxdqcbonSPIhpc" Guid="*">
                 <File Id="filgTZiqRbdaWrUXwoF7flKUuTBx0o" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Google.Protobuf.dll" />
@@ -70,12 +97,23 @@
             <Component Id="cmpCXNneny9Mq.Qjd9QKbB9XILyyQY" Guid="*">
                 <File Id="fil4sLd7TDcYPU1U0iEd3ZWKcsz6R0" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Microsoft.Extensions.Options.dll" />
             </Component>
+            <Component Id="cmp9JENOmtI_1fjeqDCNU0qg974Y5I" Guid="*">
+                <File Id="filXdLTV8EAv6slx7xzM9bkcIn_fjE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\NLog.dll" />
+            </Component>
+            <Component Id="cmpeXJ.TSGtKXjlv.SQTasKRYg_bg0" Guid="*">
+                <File Id="filupIWJUaOQrTkpxKMIJ0o5JadSKA" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\System.Reactive.dll" />
+            </Component>
             <Component Id="cmpUMxmhM5dOfedxJWcLfKPBIjaSsw" Guid="*">
                 <File Id="film6DtGu7hgB1s7hxkZs2wHf3HShE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\System.ServiceProcess.ServiceController.dll" />
             </Component>
             <Component Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" Guid="*">
                 <File Id="filG.LAaKn0bReijXgKWvta1drj5rU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\web.config" />
             </Component>
+            <Directory Id="dirJ_h5URn0C_6q4JwhHEI2BppgLk0" Name="de">
+                <Component Id="cmpXOmacTfFu_TOrOfTuWLftyuonzA" Guid="*">
+                    <File Id="filZWFQ4p4ThigMhKHedgB.1K_MdxI" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\de\Amusoft.PCR.Application.resources.dll" />
+                </Component>
+            </Directory>
             <Directory Id="dirjdMklO5xfzXJOVuM0YO.It5eg8U" Name="runtimes">
                 <Directory Id="dirLxD_bUkyhr54j6l1.t5s42ueH6o" Name="win">
                     <Directory Id="dirBMfp5y0cPUG99ezdV3ueDeQU3dE" Name="lib">
@@ -96,10 +134,19 @@
             <ComponentRef Id="cmpJbr8ZTWGhfqn_EOds2Pqa0zXs4s" />
             <ComponentRef Id="cmpj5nnU021XetUhBfiXRAMOAUcYRU" />
             <ComponentRef Id="cmp4GzPtlMZ3sibrj036zqtgOsLHyA" />
+            <ComponentRef Id="cmp2zO1Eq42KpZx25qDjJvNUIx_TzI" />
+            <ComponentRef Id="cmpx31lZPxPmT1pdPquf_gs0XC_LUI" />
+            <ComponentRef Id="cmpW6cKYg7An0jx0fuYdOGYhv75OQE" />
+            <ComponentRef Id="cmpB9OuVTYPvf5MPuY.G7wOBLly4cQ" />
             <ComponentRef Id="cmpFjizMlx7TRQd2qbEC3SJkDpT_vA" />
             <ComponentRef Id="cmpVvUHBdEDQfZrSDmi5RbWEeae2tk" />
+            <ComponentRef Id="cmp6qpjjp7ZBW_5OK6vghHQ5iQqXIg" />
+            <ComponentRef Id="cmpVr.gHdppF0Cmnh.ewW8EgQj3Lf4" />
+            <ComponentRef Id="cmp.SINXf7vlGPVsJlQTFyL90hmqys" />
+            <ComponentRef Id="cmpVIQGVhqX17buWAVeutrPQnXOYQ0" />
             <ComponentRef Id="cmpjhA8xYcMeZoUIpxe3Idr58GgbIk" />
             <ComponentRef Id="cmp4g05eJCYkOSyRQIqgGW6_kfL_tA" />
+            <ComponentRef Id="cmp8jvcb5Feii7rjEJz.SPmchsPtx8" />
             <ComponentRef Id="cmpRkVhgnh1GVa67sxdqcbonSPIhpc" />
             <ComponentRef Id="cmpZpOhPzvENIhdihYPs6Y5PKk7o3s" />
             <ComponentRef Id="cmpJdTXOrNqGgnThivb_PPui2HDEd8" />
@@ -114,8 +161,11 @@
             <ComponentRef Id="cmp92UuGik5KpyMzn77mFlRBjTeHVA" />
             <ComponentRef Id="cmpq95Ix.Zh86AiXLku9BdrUnz7fBs" />
             <ComponentRef Id="cmpCXNneny9Mq.Qjd9QKbB9XILyyQY" />
+            <ComponentRef Id="cmp9JENOmtI_1fjeqDCNU0qg974Y5I" />
+            <ComponentRef Id="cmpeXJ.TSGtKXjlv.SQTasKRYg_bg0" />
             <ComponentRef Id="cmpUMxmhM5dOfedxJWcLfKPBIjaSsw" />
             <ComponentRef Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" />
+            <ComponentRef Id="cmpXOmacTfFu_TOrOfTuWLftyuonzA" />
             <ComponentRef Id="cmpLVcdglAe9Ni7Ud3slcEyTVfi4lE" />
         </ComponentGroup>
     </Fragment>
