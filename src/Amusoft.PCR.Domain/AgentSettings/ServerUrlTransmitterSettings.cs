@@ -2,6 +2,6 @@
 
 public class ServerUrlTransmitterSettings
 {
-	public int Port { get; set; }
-	public int[]? PublicHttpsPorts { get; set; }
+	public int HandshakePort { get; set; }
+	public string? HostAlias { get; set; }
 }

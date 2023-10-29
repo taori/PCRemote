@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net;
 using System.Text;
+using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Domain.Services;
@@ -34,23 +36,28 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		_channel.MessageReceived
 			.Subscribe(result =>
 			{
-				Items.Add(new HostItemViewModel(Encoding.UTF8.GetString(result.Buffer), () => _toast.Make("it works").Show()));
+				if (GrpcHandshakeFormatter.Parse(result.Buffer) is { } host)
+				{
+					foreach (var hostPort in host.Ports)
+					{
+						Items.Add(new HostItemViewModel(new(result.RemoteEndPoint.Address, hostPort), $"{host.MachineName}:{hostPort}", () => _toast.Make("it works").Show()));
+					}
+				}
+					
 			});
 		_channel.StartListening(CancellationToken.None);
 	}
 
 	protected override async Task OnReloadAsync()
 	{
-		var ports = await _hostRepository.GetHostPortsAsync();
-		Items = new ObservableCollection<HostItemViewModel>(ports.Select(d => new HostItemViewModel(d.ToString(), () => {})));
+		Items.Clear();
+		await _channel.SendAsync(Encoding.UTF8.GetBytes(GrpcHandshakeClientMessage.Message));
 	}
 
 	[RelayCommand]
 	public async Task ConfigureHostsAsync()
 	{
-		await _channel.SendAsync(Encoding.UTF8.GetBytes("Test of UDP broadcast"));
-		// Items.Add(new HostItemViewModel("Test", () => _toast.Make("hello").Show()));
-		// return Task.CompletedTask;
+		var ports = await _hostRepository.GetHostPortsAsync();
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -66,14 +73,17 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 
 public partial class HostItemViewModel : ObservableObject
 {
+	public readonly IPEndPoint Connection;
+
 	[ObservableProperty]
 	private string _name;
 
 	[ObservableProperty]
 	private Action? _callback;
 
-	public HostItemViewModel(string name, Action? callback)
+	internal HostItemViewModel(IPEndPoint connection, string name, Action? callback)
 	{
+		Connection = connection;
 		Name = name;
 		Callback = callback;
 	}

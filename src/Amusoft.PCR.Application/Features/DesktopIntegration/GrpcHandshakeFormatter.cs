@@ -15,19 +15,22 @@ public class GrpcHandshakeFormatter
 	private static readonly Regex ParseRegex = new Regex("\\[(?<machine>.+)___(?<ports>.+)\\]", RegexOptions.Compiled | RegexOptions.Singleline);
 
 	private static readonly char[] PortSplitter = new char[] { ';' };
-	public static GrpcHandshakeMessage Parse(byte[] message)
+	public static GrpcHandshakeMessage? Parse(byte[] message)
 	{
 		var content = Encoding.UTF8.GetString(message);
 		var match = ParseRegex.Match(content);
+		if (!match.Success)
+		{
+			return null;
+		}
+
 		var portString = match.Groups["ports"].Value;
 		var ports = portString
 			.Split(PortSplitter, StringSplitOptions.RemoveEmptyEntries)
 			.Select(int.Parse)
 			.ToArray();
 
-		var result = new GrpcHandshakeMessage(match.Groups["machine"].Value, ports);
-
-		return result;
+		return new GrpcHandshakeMessage(match.Groups["machine"].Value, ports);
 	}
 }
 
