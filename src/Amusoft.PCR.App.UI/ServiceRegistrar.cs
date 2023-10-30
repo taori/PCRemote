@@ -26,5 +26,8 @@ public static class ServiceRegistrar
 
 		services.AddTransient<Settings>();
 		services.AddTransient<SettingsViewModel>();
+
+		services.AddTransient<Host>();
+		services.AddTransient<HostViewModel>();
 	}
 }

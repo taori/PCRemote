@@ -1,4 +1,5 @@
-﻿using Amusoft.PCR.Domain.AgentSettings;
+﻿using System.Net;
+using Amusoft.PCR.Domain.AgentSettings;
 using Amusoft.Toolkit.Networking;
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
@@ -66,9 +67,24 @@ public class ClientDiscoveryService : IDisposable
 		if (_connectedServerPorts.Addresses is {Count: > 0} ports)
 		{
 			var replyText = GrpcHandshakeFormatter.Write(GetMachineName(), ports.ToArray());
-			await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), received.RemoteEndPoint);
+			if (await IsSameOriginMessageAsync(received.RemoteEndPoint))
+			{
+				await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), new IPEndPoint(IPAddress.Broadcast, received.RemoteEndPoint.Port));
+			}
+			else
+			{
+				await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), received.RemoteEndPoint);
+			}
+
 			_logger.LogDebug("Reply \"{Message}\" sent to {Address}", replyText, received.RemoteEndPoint.Address.ToString());
 		}
+	}
+
+	private async Task<bool> IsSameOriginMessageAsync(IPEndPoint remoteEndPoint)
+	{
+		var addresses = await Dns.GetHostAddressesAsync(Dns.GetHostName());
+		var isMatch = addresses.Any(d => d.Equals(remoteEndPoint.Address));
+		return isMatch;
 	}
 
 	private string GetMachineName()

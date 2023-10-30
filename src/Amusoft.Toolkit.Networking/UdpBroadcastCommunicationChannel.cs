@@ -31,6 +31,8 @@ public class UdpBroadcastCommunicationChannel : IDisposable
 		}
 
 		_client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+		_client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
+		
 		_client.Client.Bind(new IPEndPoint(IPAddress.Any, _settings.Port));
 	}
 
@@ -65,7 +67,7 @@ public class UdpBroadcastCommunicationChannel : IDisposable
 		}, _cts.Token);
 	}
 
-	public async Task<bool> SendAsync(byte[] bytes)
+	public async Task<bool> BroadcastAsync(byte[] bytes)
 	{
 		return await SendToAsync(bytes, new IPEndPoint(IPAddress.Broadcast, _settings.Port));
 	}

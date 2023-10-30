@@ -26,4 +26,13 @@ public partial class ListViewButton : ContentView
 		get => (ICommand) GetValue(CommandProperty);
 		set => SetValue(CommandProperty, value);
 	}
+
+	public static readonly BindableProperty CommandParameterProperty =
+		BindableProperty.Create("CommandParameter", typeof(object), typeof(ListViewButton), default);
+
+	public object CommandParameter
+	{
+		get => (object) GetValue(CommandParameterProperty);
+		set => SetValue(CommandParameterProperty, value);
+	}
 }

@@ -5,11 +5,6 @@
              x:Class="Amusoft.PCR.App.UI.Controls.ListViewButton">
     <Button BindingContext="{x:Reference Self}" 
             Text="{x:Binding Path=Text}" 
+            CommandParameter="{x:Binding Path=CommandParameter}"
             Command="{x:Binding Path=Command}"/>
-    <!-- <Frame  -->
-    <!--     BindingContext="{x:Reference Self}"> -->
-    <!--     <Button Text="{x:Binding Path=Text}"  -->
-    <!--             Command="{x:Binding Path=Command}"/> -->
-    <!-- -->
-    <!-- </Frame> -->
 </ContentView>

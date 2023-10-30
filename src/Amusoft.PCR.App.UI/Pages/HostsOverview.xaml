@@ -8,6 +8,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Amusoft.PCR.App.UI.Pages.HostsOverview"
              x:DataType="vm:HostsOverviewViewModel"
+             x:Name="Self"
              Title="{x:Binding Title}">
     <Grid RowDefinitions="Auto,*,Auto">
 
@@ -27,6 +28,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="vm:HostItemViewModel">
                                 <controls:ListViewButton
+                                    CommandParameter="{x:Binding}"
                                     Command="{x:Binding Path=ExecuteCallbackCommand}"
                                     Text="{x:Binding Path=Name}"/>
                         </DataTemplate>
