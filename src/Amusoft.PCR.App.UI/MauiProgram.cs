@@ -10,7 +10,7 @@ public static class MauiProgram
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
-		ServiceRegistrar.Register(builder.Services);
+		MauiServiceRegistrar.Register(builder.Services);
 
 		builder
 			.UseMauiApp<App>()
@@ -20,11 +20,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
-
-		Routing.RegisterRoute(PageNames.MainPage, typeof(MainPage));
-		Routing.RegisterRoute(PageNames.Settings, typeof(Settings));
-		Routing.RegisterRoute(PageNames.HostsOverview, typeof(HostsOverview));
-		Routing.RegisterRoute(PageNames.Audio, typeof(Audio));
+		
+		MauiRoutes.Register();
 
 #if DEBUG
 		builder.Logging.AddDebug();

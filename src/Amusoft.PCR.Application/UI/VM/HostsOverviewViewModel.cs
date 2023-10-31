@@ -4,6 +4,7 @@ using System.Reactive.Linq;
 using System.Text;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Resources;
+using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Domain.VM;
@@ -18,8 +19,7 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 {
 	private readonly HostRepository _hostRepository;
 	private readonly IToast _toast;
-	private readonly INavigation _navigation;
-	private readonly IServiceProvider _serviceProvider;
+	private readonly ITypedNavigator _navigator;
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(IsErrorLabelVisible))]
@@ -32,12 +32,11 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		get => Items?.Count == 0;
 	}
 
-	public HostsOverviewViewModel(HostRepository hostRepository, IToast toast, INavigation navigation, IServiceProvider serviceProvider)
+	public HostsOverviewViewModel(HostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
 	{
 		_hostRepository = hostRepository;
 		_toast = toast;
-		_navigation = navigation;
-		_serviceProvider = serviceProvider;
+		_navigator = navigator;
 		_channel = new UdpBroadcastCommunicationChannel(new UdpBroadcastCommunicationChannelSettings(50001));
 		_channel.MessageReceived
 			.Subscribe(result =>
@@ -65,12 +64,15 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 	}
 
 	[RelayCommand]
-	public Task OpenHostAsync(HostItemViewModel viewModel)
+	public async Task OpenHostAsync(HostItemViewModel viewModel)
 	{
-		var hostViewModel = _serviceProvider.GetRequiredService<HostViewModel>();
-		hostViewModel.Setup(viewModel);
-		// _navigation.GoToAsync("/host", hostViewModel);
-		return _toast.Make($"Connecting to {viewModel.Connection.ToString()}").Show();
+		await _navigator.OpenHost(d => d.Setup(viewModel));
+		// model.Setup(viewModel);
+		// var hostViewModel = _serviceProvider.GetRequiredService<HostViewModel>();
+		// hostViewModel.Setup(viewModel);
+		// _navigation.GoToAsync($"/{PageNames.Host}", new Dictionary<string, object>() {{"item", hostViewModel}});
+
+		await _toast.Make($"Connecting to {viewModel.Connection.ToString()}").Show();
 	}
 
 	[RelayCommand]

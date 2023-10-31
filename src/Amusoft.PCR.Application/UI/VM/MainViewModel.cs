@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Amusoft.PCR.Application.Resources;
+using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Domain.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,7 +12,7 @@ public partial class MainViewModel : PageViewModel
 {
 	private readonly INavigation _navigation;
 
-	public MainViewModel(INavigation navigation)
+	public MainViewModel(INavigation navigation, ITypedNavigator navigator) : base(navigator)
 	{
 		_navigation = navigation;
 
@@ -21,7 +22,7 @@ public partial class MainViewModel : PageViewModel
 			{
 				ImagePath = "configuration.png",
 				Text = Translations.Page_Title_HostsOverview,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.HostsOverview}"))
+				Command = new RelayCommand(() => Navigator.OpenHostOverview())
 			},
 			new ()
 			{

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Amusoft.PCR.Application.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Amusoft.PCR.Application.Shared;
@@ -17,4 +18,8 @@ public abstract partial class ReloadablePageViewModel : PageViewModel
 
 	[ObservableProperty]
 	private bool _isReloading;
+
+	protected ReloadablePageViewModel(ITypedNavigator navigator) : base(navigator)
+	{
+	}
 }

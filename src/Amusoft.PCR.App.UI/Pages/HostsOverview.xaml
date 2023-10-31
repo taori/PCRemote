@@ -6,6 +6,7 @@
              xmlns:ui="using:Amusoft.PCR.App.UI"
              xmlns:controls="using:Amusoft.PCR.App.UI.Controls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm1="clr-namespace:Amusoft.PCR.App.UI.VM"
              x:Class="Amusoft.PCR.App.UI.Pages.HostsOverview"
              x:DataType="vm:HostsOverviewViewModel"
              x:Name="Self"
@@ -13,7 +14,7 @@
     <Grid RowDefinitions="Auto,*,Auto">
 
         <controls:ErrorFrame Text="{x:Static resources:Translations.HostsOverview_NoPortsConfigured}" 
-                             IsVisible="{x:Binding IsErrorLabelVisible}"/>
+                             IsVisible="{x:Binding IsErrorLabelVisible, Mode=OneWayToSource}"/>
 
         
         <RefreshView IsRefreshing="{x:Binding IsReloading}"

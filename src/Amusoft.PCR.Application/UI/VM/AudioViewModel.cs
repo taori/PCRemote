@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Amusoft.PCR.Application.Resources;
+using Amusoft.PCR.Application.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Amusoft.PCR.Application.UI.VM;
@@ -18,6 +19,10 @@ public partial class AudioViewModel : Shared.ReloadablePageViewModel
 	protected override string GetDefaultPageTitle()
 	{
 		return Translations.Page_Title_Audio;
+	}
+
+	public AudioViewModel(ITypedNavigator navigator) : base(navigator)
+	{
 	}
 }
 

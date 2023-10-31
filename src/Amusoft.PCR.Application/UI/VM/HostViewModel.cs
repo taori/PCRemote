@@ -1,29 +1,32 @@
 ﻿using System.Net;
+using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Domain.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
+using Amusoft.PCR.Domain.VM;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
-public partial class HostViewModel : PageViewModel
+public partial class HostViewModel : PageViewModel, INavigationCallbacks
 {
-	private readonly INavigation _navigation;
-
-	public HostViewModel(INavigation navigation)
+	public Task OnNavigatedToAsync()
 	{
-		_navigation = navigation;
+		return Task.CompletedTask;
 	}
 	
 	private IPEndPoint? _address;
 
 	protected override string GetDefaultPageTitle()
 	{
-		return "just a test";
+		return "default";
 	}
 
 	public void Setup(HostItemViewModel viewModel)
 	{
 		Title = viewModel.Name;
 		_address = viewModel.Connection;
+	}
+
+	public HostViewModel(ITypedNavigator navigator) : base(navigator)
+	{
 	}
 }
