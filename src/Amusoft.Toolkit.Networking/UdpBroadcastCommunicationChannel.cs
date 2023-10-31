@@ -1,11 +1,15 @@
-﻿using System.Net.Sockets;
+﻿using System.Diagnostics;
+using System.Net.Sockets;
 using System.Net;
 using System.Reactive.Subjects;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 
 namespace Amusoft.Toolkit.Networking;
 
-public class UdpBroadcastCommunicationChannel : IDisposable
+public class UdpBroadcastCommunicationChannel : IDisposable, IUdpBroadcastChannel
 {
 	private readonly UdpClient _client;
 	private readonly UdpBroadcastCommunicationChannelSettings _settings;
@@ -49,11 +53,15 @@ public class UdpBroadcastCommunicationChannel : IDisposable
 		{
 			try
 			{
-				while (!_cts.IsCancellationRequested)
+				while (!_cts.Token.IsCancellationRequested)
 				{
 					var result = await _client.ReceiveAsync(_cts.Token);
 					_messageReceived.OnNext(result);
 				}
+			}
+			catch (SocketException)
+			{
+				_messageReceived.OnCompleted();
 			}
 			catch (OperationCanceledException)
 			{
@@ -67,15 +75,22 @@ public class UdpBroadcastCommunicationChannel : IDisposable
 		}, _cts.Token);
 	}
 
-	public async Task<bool> BroadcastAsync(byte[] bytes)
+	public async Task<bool> BroadcastAsync(byte[] bytes, CancellationToken cancellationToken)
 	{
-		return await SendToAsync(bytes, new IPEndPoint(IPAddress.Broadcast, _settings.Port));
+		return await SendToAsync(bytes, new IPEndPoint(IPAddress.Broadcast, _settings.Port), cancellationToken);
 	}
 
-	public async Task<bool> SendToAsync(byte[] bytes, IPEndPoint endPoint)
+	public async Task<bool> SendToAsync(byte[] bytes, IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
-		var byteLength = bytes.Length;
-		return await _client.SendAsync(bytes, byteLength, endPoint) == byteLength;
+		try
+		{
+			var byteLength = bytes.Length;
+			return await _client.SendAsync(bytes, endPoint, cancellationToken) == byteLength;
+		}
+		catch (OperationCanceledException)
+		{
+			return false;
+		}
 	}
 
 	private bool _disposed;
@@ -83,23 +98,9 @@ public class UdpBroadcastCommunicationChannel : IDisposable
 	{
 		if (_disposed)
 			return;
-
+		
 		_cts?.Dispose();
 		_client.Dispose();
 		_disposed = true;
 	}
-}
-
-public class UdpBroadcastCommunicationChannelSettings
-{
-	public UdpBroadcastCommunicationChannelSettings(int port)
-	{
-		Port = port;
-	}
-
-	public int Port { get; set; }
-
-	public bool AllowNatTraversal { get; set; }
-
-	public Action<Exception>? ReceiveErrorHandler { get; set; }
 }

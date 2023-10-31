@@ -7,4 +7,5 @@ public interface ITypedNavigator
 	Task PopAsync();
 	Task OpenHost(Action<HostViewModel> configureModel);
 	Task OpenHostOverview();
+	Task OpenSettings();
 }

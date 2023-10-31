@@ -61,6 +61,42 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Generic_Cancel {
+            get {
+                return ResourceManager.GetString("Generic.Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Generic_Error {
+            get {
+                return ResourceManager.GetString("Generic.Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Generic_OK {
+            get {
+                return ResourceManager.GetString("Generic.OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Generic_Remove {
+            get {
+                return ResourceManager.GetString("Generic.Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure ports.
         /// </summary>
         public static string HostsOverview_Configure {
@@ -111,6 +147,15 @@ namespace Amusoft.PCR.Application.Resources {
         public static string Page_Title_Settings {
             get {
                 return ResourceManager.GetString("Page.Title.Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add port.
+        /// </summary>
+        public static string Settings_AddPorts {
+            get {
+                return ResourceManager.GetString("Settings_AddPorts", resourceCulture);
             }
         }
     }

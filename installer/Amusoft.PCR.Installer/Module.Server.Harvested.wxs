@@ -103,6 +103,9 @@
             <Component Id="cmp9JENOmtI_1fjeqDCNU0qg974Y5I" Guid="*">
                 <File Id="filXdLTV8EAv6slx7xzM9bkcIn_fjE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\NLog.dll" />
             </Component>
+            <Component Id="cmpS9dKTIZQ3dt1LCqyO1Bx7jSJjuU" Guid="*">
+                <File Id="filbJDt03_Hm0znUIHDHj0JbbNEEZc" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\OneOf.dll" />
+            </Component>
             <Component Id="cmpeXJ.TSGtKXjlv.SQTasKRYg_bg0" Guid="*">
                 <File Id="filupIWJUaOQrTkpxKMIJ0o5JadSKA" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\System.Reactive.dll" />
             </Component>
@@ -194,6 +197,7 @@
             <ComponentRef Id="cmpq95Ix.Zh86AiXLku9BdrUnz7fBs" />
             <ComponentRef Id="cmpCXNneny9Mq.Qjd9QKbB9XILyyQY" />
             <ComponentRef Id="cmp9JENOmtI_1fjeqDCNU0qg974Y5I" />
+            <ComponentRef Id="cmpS9dKTIZQ3dt1LCqyO1Bx7jSJjuU" />
             <ComponentRef Id="cmpeXJ.TSGtKXjlv.SQTasKRYg_bg0" />
             <ComponentRef Id="cmpUMxmhM5dOfedxJWcLfKPBIjaSsw" />
             <ComponentRef Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" />

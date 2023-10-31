@@ -1,6 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
+using System.Net.Sockets;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Resources;
@@ -22,64 +28,36 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 	private readonly ITypedNavigator _navigator;
 
 	[ObservableProperty]
-	[NotifyPropertyChangedFor(nameof(IsErrorLabelVisible))]
+	private bool _arePortsMissing;
+
+	[ObservableProperty]
 	private ObservableCollection<HostItemViewModel> _items = new();
-
-	private UdpBroadcastCommunicationChannel _channel;
-
-	public bool IsErrorLabelVisible
-	{
-		get => Items?.Count == 0;
-	}
 
 	public HostsOverviewViewModel(HostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
 	{
 		_hostRepository = hostRepository;
 		_toast = toast;
 		_navigator = navigator;
-		_channel = new UdpBroadcastCommunicationChannel(new UdpBroadcastCommunicationChannelSettings(50001));
-		_channel.MessageReceived
-			.Subscribe(result =>
-			{
-				if (GrpcHandshakeFormatter.Parse(result.Buffer) is { } host)
-				{
-					foreach (var hostPort in host.Ports)
-					{
-						Items.Add(new HostItemViewModel(
-							new(result.RemoteEndPoint.Address, hostPort), 
-							$"{host.MachineName}:{hostPort}", 
-							item => OpenHostAsync(item))
-						);
-					}
-				}
-					
-			});
-		_channel.StartListening(CancellationToken.None);
 	}
 
 	protected override async Task OnReloadAsync()
 	{
 		Items.Clear();
-		await _channel.BroadcastAsync(Encoding.UTF8.GetBytes(GrpcHandshakeClientMessage.Message));
+		
+		await LoadHostsFromPortsAsync();
 	}
 
 	[RelayCommand]
 	public async Task OpenHostAsync(HostItemViewModel viewModel)
 	{
 		await _navigator.OpenHost(d => d.Setup(viewModel));
-		// model.Setup(viewModel);
-		// var hostViewModel = _serviceProvider.GetRequiredService<HostViewModel>();
-		// hostViewModel.Setup(viewModel);
-		// _navigation.GoToAsync($"/{PageNames.Host}", new Dictionary<string, object>() {{"item", hostViewModel}});
-
 		await _toast.Make($"Connecting to {viewModel.Connection.ToString()}").Show();
 	}
 
 	[RelayCommand]
 	public async Task ConfigureHostsAsync()
 	{
-		var ports = await _hostRepository.GetHostPortsAsync();
-		await _channel.BroadcastAsync(Encoding.UTF8.GetBytes(GrpcHandshakeClientMessage.Message));
+		await Navigator.OpenSettings();
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -87,9 +65,54 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		return Translations.Page_Title_HostsOverview;
 	}
 
-	public Task OnNavigatedToAsync()
+	public async Task OnNavigatedToAsync()
 	{
-		return OnReloadAsync();
+		await OnReloadAsync();
+	}
+
+	private HostItemViewModel[] GetHostItemModel(UdpReceiveResult result)
+	{
+		if (GrpcHandshakeFormatter.Parse(result.Buffer) is { } host)
+		{
+			return host.Ports.Select(port => new HostItemViewModel(
+				new(result.RemoteEndPoint.Address, port),
+				$"{host.MachineName} : {port}",
+				item => _ = OpenHostAsync(item))
+			).ToArray();
+		}
+		
+		return Array.Empty<HostItemViewModel>();
+	}
+
+	private async Task LoadHostsFromPortsAsync()
+	{
+		var ports = await _hostRepository.GetHostPortsAsync();
+		await foreach (var udpReceiveResult in GetUdpReceiveResults(ports))
+		{
+			foreach (var hostItemViewModel in GetHostItemModel(udpReceiveResult))
+			{
+				Items.Add(hostItemViewModel);
+			}
+		}
+
+		ArePortsMissing = ports.Length == 0;
+	}
+
+	private static IAsyncEnumerable<UdpReceiveResult> GetUdpReceiveResults(int[] ports)
+	{
+		return AsyncEnumerableEx.Merge(GetPortSourcesAsync(ports));
+
+		static async IAsyncEnumerable<IAsyncEnumerable<UdpReceiveResult>> GetPortSourcesAsync(int[] ports)
+		{
+			foreach (var port in ports)
+			{
+				var duration = TimeSpan.FromSeconds(1);
+				using var cts = new CancellationTokenSource(duration);
+				using var session = new UdpBroadcastSession(new UdpBroadcastCommunicationChannelSettings(port), cts.Token);
+				await session.BroadcastAsync(Encoding.UTF8.GetBytes(GrpcHandshakeClientMessage.Message), cts.Token);
+				yield return session.GetResponsesAsync(duration);
+			}
+		}
 	}
 }
 

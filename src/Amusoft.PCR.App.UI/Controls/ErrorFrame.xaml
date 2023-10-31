@@ -2,15 +2,13 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="using:Amusoft.PCR.App.UI.Controls"
-             x:DataType="controls:ErrorFrame"
-             x:Name="this"
              BackgroundColor="DarkRed"
-             BindingContext="{x:Reference this}"
+             x:Name="Self"
              x:Class="Amusoft.PCR.App.UI.Controls.ErrorFrame">
-    <VerticalStackLayout Margin="0,10">
+    <VerticalStackLayout Margin="0,10" >
         <Label 
             FontSize="20"
-            Text="{x:Binding Text}"
+            Text="{x:Binding Text, Source={x:Reference Self}}"
             TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />

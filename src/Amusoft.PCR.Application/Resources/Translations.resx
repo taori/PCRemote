@@ -123,6 +123,12 @@
   <data name="HostsOverview_NoPortsConfigured" xml:space="preserve">
     <value>No ports are configured.</value>
   </data>
+  <data name="Settings_AddPorts" xml:space="preserve">
+    <value>Add port</value>
+  </data>
+  <data name="Generic.Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="Page.Title.Audio" xml:space="preserve">
     <value>Audio mixer</value>
   </data>
@@ -134,5 +140,14 @@
   </data>
   <data name="Page.Title.Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="Generic.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Generic.OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Generic.Error" xml:space="preserve">
+    <value>Error</value>
   </data>
 </root>

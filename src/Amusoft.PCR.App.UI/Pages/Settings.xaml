@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
-             x:Class="Amusoft.PCR.App.UI.Pages.Settings"
-             x:DataType="vm:SettingsViewModel"
-             Title="{x:Binding Title}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
+                 xmlns:shared="clr-namespace:Amusoft.PCR.Application.Shared;assembly=Amusoft.PCR.Application"
+                 xmlns:resources="clr-namespace:Amusoft.PCR.Application.Resources;assembly=Amusoft.PCR.Application"
+                 xmlns:workarounds="clr-namespace:Amusoft.PCR.App.UI.Workarounds"
+                 x:Class="Amusoft.PCR.App.UI.Pages.Settings"
+                 x:DataType="vm:SettingsViewModel"
+                 x:Name="Self"
+                 Title="{x:Binding Title}">
+    <Grid RowDefinitions="Auto,*">
+        <StackLayout >
+            <Label Text="Ports" Style="{StaticResource LabelHeader}"/>
+            <ListView ItemsSource="{x:Binding Ports}"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="shared:NavigationItem">
+                        <ViewCell>
+                            <Grid Margin="10,5" ColumnDefinitions="*,Auto">
+                                <Label Text="{x:Binding Path=Text}"
+                                       VerticalTextAlignment="Center"
+                                       VerticalOptions="Center"
+                                       Grid.Column="0"/>
+                                <Button Command="{x:Binding Path=Command}"
+                                        CommandParameter="{x:Binding Path=Self}"
+                                        Grid.Column="1"
+                                        Text="{x:Static resources:Translations.Generic_Remove}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Command="{x:Binding AddPortCommand}"
+                    Margin="10,10,10,0"
+                    Text="{x:Static resources:Translations.Settings_AddPorts}"/>
+        </StackLayout>
+
+    </Grid>
 </ContentPage>

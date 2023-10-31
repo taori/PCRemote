@@ -1,4 +1,5 @@
-﻿using Amusoft.PCR.App.UI.Pages;
+﻿#nullable enable
+using Amusoft.PCR.App.UI.Pages;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.UI.VM;
 
@@ -20,18 +21,37 @@ public class TypedNavigator : ITypedNavigator
 
 	public Task OpenHost(Action<HostViewModel> configureModel)
 	{
-		var spawn = SpawnPageAndModel<Host, HostViewModel>();
-		configureModel(spawn.viewModel);
-		return Shell.Current.Navigation.PushAsync(spawn.page);
+		return SpawnPushConfigureAsync<Host, HostViewModel>(configureModel);
 	}
 
 	public Task OpenHostOverview()
 	{
-		var spawn = SpawnPageAndModel<HostsOverview, HostsOverviewViewModel>();
+		return SpawnPushAsync<HostsOverview, HostsOverviewViewModel>();
+	}
+
+	public Task OpenSettings()
+	{
+		return SpawnPushAsync<Settings, SettingsViewModel>();
+	}
+
+	private Task SpawnPushAsync<TPage, TViewModel>() 
+		where TPage : Page 
+		where TViewModel : notnull
+	{
+		return SpawnPushConfigureAsync<TPage, TViewModel>(null);
+	}
+
+	private Task SpawnPushConfigureAsync<TPage, TViewModel>(Action<TViewModel>? configure) 
+		where TPage : Page where TViewModel : notnull
+	{
+		var spawn = SpawnPageAndModel<TPage, TViewModel>();
+		configure?.Invoke(spawn.viewModel);
 		return Shell.Current.Navigation.PushAsync(spawn.page);
 	}
 
-	private (TPage page, TViewModel viewModel) SpawnPageAndModel<TPage, TViewModel>()
+	private (TPage page, TViewModel viewModel) SpawnPageAndModel<TPage, TViewModel>() 
+		where TPage : notnull 
+		where TViewModel : notnull
 	{
 		using var scope = _serviceProvider.CreateScope();
 		return (scope.ServiceProvider.GetRequiredService<TPage>(), scope.ServiceProvider.GetRequiredService<TViewModel>());

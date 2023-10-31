@@ -17,7 +17,11 @@ public class FileStorage : IFileStorage
 
 	public async Task WriteJsonAsync<T>(string path, T value, CancellationToken cancellationToken)
 	{
-		await using var fileStream = File.Open(GetAppRootedPath(path), FileMode.Truncate);
+		var fullPath = GetAppRootedPath(path);
+		await using var fileStream = File.Exists(fullPath) 
+			? File.Open(fullPath, FileMode.Truncate)
+			: File.Create(fullPath);
+
 		await JsonSerializer.SerializeAsync(fileStream, value, cancellationToken: cancellationToken).ConfigureAwait(false);
 	}
 
@@ -26,7 +30,7 @@ public class FileStorage : IFileStorage
 		return File.ReadAllBytesAsync(GetAppRootedPath(path), cancellationToken);
 	}
 
-	public async Task<T> ReadJsonAsync<T>(string path, CancellationToken cancellationToken)
+	public async Task<T?> ReadJsonAsync<T>(string path, CancellationToken cancellationToken)
 	{
 		var fullPath = GetAppRootedPath(path);
 		if (!Path.Exists(fullPath))

@@ -3,6 +3,7 @@ using Amusoft.PCR.Domain.AgentSettings;
 using Amusoft.Toolkit.Networking;
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
+using System.Reactive.Linq;
 using System.Text;
 using Microsoft.Extensions.Options;
 
@@ -69,11 +70,11 @@ public class ClientDiscoveryService : IDisposable
 			var replyText = GrpcHandshakeFormatter.Write(GetMachineName(), ports.ToArray());
 			if (await IsSameOriginMessageAsync(received.RemoteEndPoint))
 			{
-				await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), new IPEndPoint(IPAddress.Broadcast, received.RemoteEndPoint.Port));
+				await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), new IPEndPoint(IPAddress.Broadcast, received.RemoteEndPoint.Port), CancellationToken.None);
 			}
 			else
 			{
-				await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), received.RemoteEndPoint);
+				await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), received.RemoteEndPoint, CancellationToken.None);
 			}
 
 			_logger.LogDebug("Reply \"{Message}\" sent to {Address}", replyText, received.RemoteEndPoint.Address.ToString());

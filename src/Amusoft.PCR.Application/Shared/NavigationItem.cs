@@ -13,4 +13,17 @@ public partial class NavigationItem : ObservableObject
 
 	[ObservableProperty]
 	private IRelayCommand? _command;
+
+	// workaround because Binding Path=. does not work in maui?
+	public NavigationItem Self => this;
+}
+
+public class NavigationItem<T> : NavigationItem
+{
+	public NavigationItem(T value)
+	{
+		Value = value;
+	}
+
+	public T Value { get; set; }
 }
