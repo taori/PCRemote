@@ -1,5 +1,6 @@
 ﻿using Amusoft.PCR.App.UI.Implementations;
 using Amusoft.PCR.App.UI.Pages;
+using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Application.UI.VM;
@@ -17,6 +18,7 @@ public static class MauiServiceRegistrar
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
 		services.AddSingleton<IFileStorage, FileStorage>();
 		services.AddSingleton<HostRepository>();
+		services.AddSingleton<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
 
 		services.AddScoped<MainPage>();
 		services.AddScoped<MainViewModel>();

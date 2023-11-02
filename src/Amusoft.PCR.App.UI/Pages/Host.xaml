@@ -10,5 +10,7 @@
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Button Command="{x:Binding Path=ShutdownCommand}" Text="Shutdown"/>
+        <Button Command="{x:Binding Path=AbortShutdownCommand}" Text="Abort Shutdown"/>
     </VerticalStackLayout>
 </ContentPage>

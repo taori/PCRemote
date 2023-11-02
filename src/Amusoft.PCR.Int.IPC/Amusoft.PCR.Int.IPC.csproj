@@ -20,7 +20,8 @@
 
 	<ItemGroup>
 		<None Remove="**\*.proto" />
-		<Protobuf Include="**\*.proto" GrpcServices="Server" />
+		<!-- <Protobuf Include="**\*.proto" GrpcServices="Server" /> -->
+		<Protobuf Include="**\*.proto" />
 	</ItemGroup>
 
 </Project>
