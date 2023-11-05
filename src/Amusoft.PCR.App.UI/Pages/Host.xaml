@@ -6,11 +6,8 @@
              x:DataType="vm:HostViewModel"
              Title="{x:Binding Path=Title}">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
         <Button Command="{x:Binding Path=ShutdownCommand}" Text="Shutdown"/>
         <Button Command="{x:Binding Path=AbortShutdownCommand}" Text="Abort Shutdown"/>
+        <Button Command="{x:Binding Path=ToggleMuteCommand}" Text="Toggle mute"/>
     </VerticalStackLayout>
 </ContentPage>

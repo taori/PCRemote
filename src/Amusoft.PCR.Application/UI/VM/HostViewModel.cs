@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.ComponentModel;
+using System.Net;
+using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
@@ -33,15 +35,21 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	}
 
 	[RelayCommand]
+	public Task ToggleMute()
+	{
+		return _client.Desktop(d => d.ToggleMute()) ?? Task.CompletedTask;
+	}
+
+	[RelayCommand]
 	public Task AbortShutdown()
 	{
-		return _client?.DesktopClient.AbortShutDownAsync() ?? Task.CompletedTask;
+		return _client.Desktop(d => d.AbortShutdown()) ?? Task.CompletedTask;
 	}
 
 	[RelayCommand]
 	public Task Shutdown()
 	{
-		return _client?.DesktopClient.ShutDownDelayedAsync(true, TimeSpan.FromSeconds(60).Seconds) ?? Task.CompletedTask;
+		return _client.Desktop(d => d.Shutdown(TimeSpan.FromSeconds(60), true)) ?? Task.CompletedTask;
 	}
 
 	public HostViewModel(ITypedNavigator navigator, IDesktopIntegrationServiceFactory integrationServiceFactory) : base(navigator)

@@ -1,6 +1,8 @@
-﻿namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+﻿using Amusoft.PCR.Application.Services;
+
+namespace Amusoft.PCR.Application.Features.DesktopIntegration;
 
 public interface IDesktopIntegrationService
 {
-	IDesktopIntegrationServiceClient DesktopClient { get; }
+	IDesktopClientMethods DesktopClient { get; }
 }

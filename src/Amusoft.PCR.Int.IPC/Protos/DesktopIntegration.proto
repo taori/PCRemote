@@ -160,12 +160,14 @@ message SetMasterVolumeRequest {
 }
 message SetMasterVolumeReply {
 	int32 value = 1;
+	bool success = 2;
 }
 
 message GetMasterVolumeRequest {
 }
 message GetMasterVolumeReply {
 	int32 value = 1;
+	bool success = 2;
 }
 
 message ShutdownDelayedRequest {

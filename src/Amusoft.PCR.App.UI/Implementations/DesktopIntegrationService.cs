@@ -1,8 +1,10 @@
 ﻿using System.Net;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
+using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Int.IPC;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
@@ -12,15 +14,12 @@ public class DesktopIntegrationService : IDesktopIntegrationService
 
 	private readonly Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient _desktopClient;
 
-	public DesktopIntegrationService(string protocol, IPEndPoint address)
+	public DesktopIntegrationService(GrpcChannel channel, IServiceProvider serviceProvider)
 	{
-		var target = $"{protocol}://{address}";
-		var channel = GrpcChannel.ForAddress(target);
-
 		_voiceCommandClient = new VoiceCommandService.VoiceCommandServiceClient(channel);
 		_desktopClient = new Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient(channel);
-		DesktopClient = new DesktopClientAdapter(_desktopClient);
+		DesktopClient = new DesktopServiceClientWrapper(_desktopClient, serviceProvider.GetRequiredService<ILogger<DesktopServiceClientWrapper>>());
 	}
 
-	public IDesktopIntegrationServiceClient DesktopClient { get; }
+	public IDesktopClientMethods DesktopClient { get; }
 }

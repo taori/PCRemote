@@ -51,7 +51,7 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 	public async Task OpenHostAsync(HostItemViewModel viewModel)
 	{
 		await _navigator.OpenHost(d => d.Setup(viewModel));
-		await _toast.Make($"Connecting to {viewModel.Connection.ToString()}").Show();
+		// await _toast.Make($"Connecting to {viewModel.Connection.ToString()}").Show();
 	}
 
 	[RelayCommand]
@@ -76,7 +76,7 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		{
 			return host.Ports.Select(port => new HostItemViewModel(
 				new(result.RemoteEndPoint.Address, port),
-				$"{host.MachineName} : {port}",
+				$"{host.MachineName}",
 				item => _ = OpenHostAsync(item))
 			).ToArray();
 		}

@@ -17,7 +17,9 @@ public class ConnectedServerPorts : IConnectedServerPorts
 
 	private ICollection<int> GetPorts(ICollection<string> addresses)
 	{
-		var sub = addresses.Select(d => int.Parse(d.Split(":")[^1]));
+		var sub = addresses
+			.Where(d => d.StartsWith("http:"))
+			.Select(d => int.Parse(d.Split(":")[^1]));
 		return new List<int>(sub);
 	}
 }

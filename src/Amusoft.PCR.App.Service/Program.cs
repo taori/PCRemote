@@ -3,7 +3,11 @@ using System.Runtime.Versioning;
 using Amusoft.PCR.App.Service.Services;
 using Amusoft.PCR.Application;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
+using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Domain.AgentSettings;
+using Amusoft.PCR.Int.IPC;
+using GrpcDotNetNamedPipes;
+using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
 
 namespace Amusoft.PCR.App.Service;
 
@@ -39,6 +43,8 @@ public class Program
 
 	private static void ConfigureHost(WebApplication host)
 	{
+		var logger = host.Services.GetRequiredService<ILogger<Program>>();
+
 		host.UseRouting();
 
 		host.UseAuthentication();
@@ -51,6 +57,7 @@ public class Program
 
 		if (host.Environment.IsDevelopment())
 		{
+			logger.LogWarning("GRPC Reflection service is enabled");
 			host.MapGrpcReflectionService();
 		}
 	}
@@ -63,6 +70,7 @@ public class Program
 		builder.Services.Configure<ApplicationSettings>(builder.Configuration.GetSection("ApplicationSettings"));
 
 		// Add services to the container.
+		builder.Services.AddLogging();
 		builder.Services.AddGrpc();
 		builder.Services.AddGrpcReflection();
 
@@ -74,6 +82,12 @@ public class Program
 		builder.Services.AddHostedService<ClientDiscoveryDelegate>();
 
 		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
+		builder.Services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
+		{
+			return new Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient(provider.GetRequiredService<NamedPipeChannel>());
+		});
+		builder.Services.AddSingleton<IDesktopClientMethods, DesktopServiceClientWrapper>();
+		builder.Services.AddSingleton<NamedPipeChannel>(d => new NamedPipeChannel(".", Globals.NamedPipeChannel));
 
 		builder.Services.AddApplication();
 	}
