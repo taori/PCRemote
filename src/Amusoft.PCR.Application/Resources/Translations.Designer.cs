@@ -115,6 +115,51 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audio.
+        /// </summary>
+        public static string Nav_Audio {
+            get {
+                return ResourceManager.GetString("Nav.Audio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input control.
+        /// </summary>
+        public static string Nav_Input {
+            get {
+                return ResourceManager.GetString("Nav.Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monitors.
+        /// </summary>
+        public static string Nav_Monitors {
+            get {
+                return ResourceManager.GetString("Nav.Monitors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Programs.
+        /// </summary>
+        public static string Nav_Programs {
+            get {
+                return ResourceManager.GetString("Nav.Programs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System state.
+        /// </summary>
+        public static string Navi_SystemState {
+            get {
+                return ResourceManager.GetString("Navi.SystemState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audio mixer.
         /// </summary>
         public static string Page_Title_Audio {

@@ -8,4 +8,9 @@ public interface ITypedNavigator
 	Task OpenHost(Action<HostViewModel> configureModel);
 	Task OpenHostOverview();
 	Task OpenSettings();
+	Task OpenAudio();
+	Task OpenSystemState();
+	Task OpenMonitors();
+	Task OpenInputControl();
+	Task OpenPrograms();
 }

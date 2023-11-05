@@ -4,7 +4,6 @@ using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
-using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Domain.VM;
 using CommunityToolkit.Mvvm.Input;
 
@@ -12,6 +11,7 @@ namespace Amusoft.PCR.Application.UI.VM;
 
 public partial class HostViewModel : PageViewModel, INavigationCallbacks
 {
+	private readonly ITypedNavigator _navigator;
 	private readonly IDesktopIntegrationServiceFactory _integrationServiceFactory;
 
 	public Task OnNavigatedToAsync()
@@ -35,6 +35,36 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	}
 
 	[RelayCommand]
+	public Task OpenAudio()
+	{
+		return _navigator.OpenAudio();
+	}
+
+	[RelayCommand]
+	public Task OpenSystemState()
+	{
+		return _navigator.OpenSystemState();
+	}
+
+	[RelayCommand]
+	public Task OpenMonitors()
+	{
+		return _navigator.OpenMonitors();
+	}
+
+	[RelayCommand]
+	public Task OpenInputControl()
+	{
+		return _navigator.OpenInputControl();
+	}
+
+	[RelayCommand]
+	public Task OpenPrograms()
+	{
+		return _navigator.OpenPrograms();
+	}
+
+	[RelayCommand]
 	public Task ToggleMute()
 	{
 		return _client.Desktop(d => d.ToggleMute()) ?? Task.CompletedTask;
@@ -54,6 +84,7 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 
 	public HostViewModel(ITypedNavigator navigator, IDesktopIntegrationServiceFactory integrationServiceFactory) : base(navigator)
 	{
+		_navigator = navigator;
 		_integrationServiceFactory = integrationServiceFactory;
 	}
 }

@@ -34,6 +34,31 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushAsync<Settings, SettingsViewModel>();
 	}
 
+	public Task OpenAudio()
+	{
+		return SpawnPushAsync<Audio, AudioViewModel>();
+	}
+
+	public Task OpenSystemState()
+	{
+		return SpawnPushAsync<SystemState, SystemStateViewModel>();
+	}
+
+	public Task OpenMonitors()
+	{
+		return SpawnPushAsync<Monitors, MonitorsViewModel>();
+	}
+
+	public Task OpenInputControl()
+	{
+		return SpawnPushAsync<InputControl, InputControlViewModel>();
+	}
+
+	public Task OpenPrograms()
+	{
+		return SpawnPushAsync<Programs, ProgramsViewModel>();
+	}
+
 	private Task SpawnPushAsync<TPage, TViewModel>() 
 		where TPage : Page 
 		where TViewModel : notnull
@@ -50,10 +75,14 @@ public class TypedNavigator : ITypedNavigator
 	}
 
 	private (TPage page, TViewModel viewModel) SpawnPageAndModel<TPage, TViewModel>() 
-		where TPage : notnull 
+		where TPage : Page
 		where TViewModel : notnull
 	{
 		using var scope = _serviceProvider.CreateScope();
-		return (scope.ServiceProvider.GetRequiredService<TPage>(), scope.ServiceProvider.GetRequiredService<TViewModel>());
+		var model = scope.ServiceProvider.GetRequiredService<TViewModel>();
+		var page = scope.ServiceProvider.GetRequiredService<TPage>();
+		page.BindingContext = model;
+
+		return (page, model);
 	}
 }

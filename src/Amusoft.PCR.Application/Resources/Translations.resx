@@ -150,4 +150,19 @@
   <data name="Generic.Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="Nav.Audio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="Nav.Input" xml:space="preserve">
+    <value>Input control</value>
+  </data>
+  <data name="Nav.Monitors" xml:space="preserve">
+    <value>Monitors</value>
+  </data>
+  <data name="Nav.Programs" xml:space="preserve">
+    <value>Programs</value>
+  </data>
+  <data name="Navi.SystemState" xml:space="preserve">
+    <value>System state</value>
+  </data>
 </root>

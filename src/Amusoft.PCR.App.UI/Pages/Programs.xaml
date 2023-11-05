@@ -2,11 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
-             xmlns:resources="clr-namespace:Amusoft.PCR.Application.Resources;assembly=Amusoft.PCR.Application"
-             x:Class="Amusoft.PCR.App.UI.Pages.Audio"
-             x:DataType="vm:AudioViewModel"
+             x:Class="Amusoft.PCR.App.UI.Pages.Programs"
+             x:DataType="vm:ProgramsViewModel"
              Title="{x:Binding Title}">
     <VerticalStackLayout>
-        <Button Command="{x:Binding Path=ToggleMuteCommand}" Text="{x:Static resources:Translations.Generic_OK}"/>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

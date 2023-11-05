@@ -2,12 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
+             xmlns:resources="clr-namespace:Amusoft.PCR.Application.Resources;assembly=Amusoft.PCR.Application"
              x:Class="Amusoft.PCR.App.UI.Pages.Host"
              x:DataType="vm:HostViewModel"
              Title="{x:Binding Path=Title}">
     <VerticalStackLayout>
-        <Button Command="{x:Binding Path=ShutdownCommand}" Text="Shutdown"/>
-        <Button Command="{x:Binding Path=AbortShutdownCommand}" Text="Abort Shutdown"/>
-        <Button Command="{x:Binding Path=ToggleMuteCommand}" Text="Toggle mute"/>
+        <Button Command="{x:Binding Path=OpenAudioCommand}" Text="{x:Static resources:Translations.Nav_Audio}"/>
+        <Button Command="{x:Binding Path=OpenMonitorsCommand}" Text="{x:Static resources:Translations.Nav_Monitors}"/>
+        <Button Command="{x:Binding Path=OpenSystemStateCommand}" Text="{x:Static resources:Translations.Navi_SystemState}"/>
+        <Button Command="{x:Binding Path=OpenInputControlCommand}" Text="{x:Static resources:Translations.Nav_Input}"/>
+        <Button Command="{x:Binding Path=OpenProgramsCommand}" Text="{x:Static resources:Translations.Nav_Programs}"/>
     </VerticalStackLayout>
 </ContentPage>

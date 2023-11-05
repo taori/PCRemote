@@ -26,6 +26,18 @@ public static class MauiServiceRegistrar
 		services.AddScoped<Audio>();
 		services.AddScoped<AudioViewModel>();
 
+		services.AddScoped<Programs>();
+		services.AddScoped<ProgramsViewModel>();
+
+		services.AddScoped<InputControl>();
+		services.AddScoped<InputControlViewModel>();
+
+		services.AddScoped<Monitors>();
+		services.AddScoped<MonitorsViewModel>();
+
+		services.AddScoped<SystemState>();
+		services.AddScoped<SystemStateViewModel>();
+
 		services.AddScoped<HostsOverview>();
 		services.AddScoped<HostsOverviewViewModel>();
 
