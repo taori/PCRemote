@@ -7,10 +7,23 @@
              x:DataType="vm:HostViewModel"
              Title="{x:Binding Path=Title}">
     <VerticalStackLayout>
-        <Button Command="{x:Binding Path=OpenAudioCommand}" Text="{x:Static resources:Translations.Nav_Audio}"/>
-        <Button Command="{x:Binding Path=OpenMonitorsCommand}" Text="{x:Static resources:Translations.Nav_Monitors}"/>
-        <Button Command="{x:Binding Path=OpenSystemStateCommand}" Text="{x:Static resources:Translations.Navi_SystemState}"/>
-        <Button Command="{x:Binding Path=OpenInputControlCommand}" Text="{x:Static resources:Translations.Nav_Input}"/>
-        <Button Command="{x:Binding Path=OpenProgramsCommand}" Text="{x:Static resources:Translations.Nav_Programs}"/>
+        <Button Command="{x:Binding Path=OpenAudioCommand}" 
+                Margin="0,0,0,10"
+                Text="{x:Static resources:Translations.Nav_Audio}"/>
+
+        <Button Command="{x:Binding Path=OpenMonitorsCommand}" 
+                Margin="0,0,0,10"
+                Text="{x:Static resources:Translations.Nav_Monitors}"/>
+
+        <Button Command="{x:Binding Path=OpenSystemStateCommand}" 
+                Margin="0,0,0,10"
+                Text="{x:Static resources:Translations.Navi_SystemState}"/>
+
+        <Button Command="{x:Binding Path=OpenInputControlCommand}" 
+                Margin="0,0,0,10"
+                Text="{x:Static resources:Translations.Nav_Input}"/>
+
+        <Button Command="{x:Binding Path=OpenProgramsCommand}" 
+                Text="{x:Static resources:Translations.Nav_Programs}"/>
     </VerticalStackLayout>
 </ContentPage>

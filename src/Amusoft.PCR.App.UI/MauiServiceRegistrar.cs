@@ -19,6 +19,7 @@ public static class MauiServiceRegistrar
 		services.AddSingleton<IFileStorage, FileStorage>();
 		services.AddSingleton<HostRepository>();
 		services.AddSingleton<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
+		services.AddSingleton<INestedServiceProviderFactory, NestedServiceProviderFactory>();
 
 		services.AddScoped<MainPage>();
 		services.AddScoped<MainViewModel>();

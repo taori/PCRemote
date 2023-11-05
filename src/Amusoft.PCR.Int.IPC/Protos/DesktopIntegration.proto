@@ -10,15 +10,12 @@ service DesktopIntegrationService {
 	rpc CheckIsAuthenticated (CheckIsAuthenticatedRequest) returns (CheckIsAuthenticatedResponse) {}
 	rpc Authenticate (AuthenticateRequest) returns (AuthenticateResponse) {}
 	rpc SuicideOnProcessExit (SuicideOnProcessExitRequest) returns (SuicideOnProcessExitResponse) {}
-	rpc ToggleMute (ToggleMuteRequest) returns (ToggleMuteReply) {}
 	rpc MonitorOn (MonitorOnRequest) returns (MonitorOnReply) {}
 	rpc MonitorOff (MonitorOffRequest) returns (MonitorOffReply) {}
 	rpc AbortShutDown (AbortShutdownRequest) returns (AbortShutdownReply) {}
 	rpc ShutDownDelayed (ShutdownDelayedRequest) returns (ShutdownDelayedReply) {}
 	rpc Restart (RestartRequest) returns (RestartReply) {}
 	rpc Hibernate (HibernateRequest) returns (HibernateReply) {}
-	rpc SetMasterVolume (SetMasterVolumeRequest) returns (SetMasterVolumeReply) {}
-	rpc GetMasterVolume (GetMasterVolumeRequest) returns (GetMasterVolumeReply) {}
 	rpc SendKeys (SendKeysRequest) returns (SendKeysReply) {}
 	rpc SendMediaKeys (SendMediaKeysRequest) returns (SendMediaKeysReply) {}
 	rpc LockWorkStation (LockWorkStationRequest) returns (LockWorkStationReply) {}
@@ -116,11 +113,6 @@ message SuicideOnProcessExitResponse{
 	bool success = 1;
 }
 
-message ToggleMuteRequest {}
-message ToggleMuteReply {
-	bool muted = 1;
-}
-
 message MonitorOnRequest {}
 message MonitorOnReply {
 	bool success = 1;
@@ -153,21 +145,6 @@ message SendMediaKeysRequest {
 }
 message SendMediaKeysReply {
 	bool success = 1;
-}
-
-message SetMasterVolumeRequest {
-	int32 value = 1;	
-}
-message SetMasterVolumeReply {
-	int32 value = 1;
-	bool success = 2;
-}
-
-message GetMasterVolumeRequest {
-}
-message GetMasterVolumeReply {
-	int32 value = 1;
-	bool success = 2;
 }
 
 message ShutdownDelayedRequest {

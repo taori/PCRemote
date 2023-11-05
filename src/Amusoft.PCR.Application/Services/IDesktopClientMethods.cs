@@ -6,7 +6,6 @@ namespace Amusoft.PCR.Application.Services;
 
 public interface IDesktopClientMethods
 {
-	Task<bool?> ToggleMute();
 	Task<bool?> MonitorOn();
 	Task<bool?> MonitorOff();
 	Task<bool?> LockWorkStation();
@@ -16,9 +15,6 @@ public interface IDesktopClientMethods
 	/// </summary>
 	/// <param name="keys"></param>
 	Task<bool?> SendKeys(string keys);
-
-	Task<int?> SetMasterVolume(int value);
-	Task<int?> GetMasterVolume();
 	Task<bool?> Shutdown(TimeSpan delay, bool force);
 	Task<bool?> AbortShutdown();
 	Task<bool?> Hibernate();

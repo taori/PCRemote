@@ -8,10 +8,12 @@ namespace Amusoft.PCR.App.UI.Implementations;
 public class TypedNavigator : ITypedNavigator
 {
 	private readonly IServiceProvider _serviceProvider;
+	private readonly INestedServiceProviderFactory _nestedServiceProviderFactory;
 
-	public TypedNavigator(IServiceProvider serviceProvider)
+	public TypedNavigator(IServiceProvider serviceProvider, INestedServiceProviderFactory nestedServiceProviderFactory)
 	{
 		_serviceProvider = serviceProvider;
+		_nestedServiceProviderFactory = nestedServiceProviderFactory;
 	}
 
 	public Task PopAsync()
@@ -57,6 +59,13 @@ public class TypedNavigator : ITypedNavigator
 	public Task OpenPrograms()
 	{
 		return SpawnPushAsync<Programs, ProgramsViewModel>();
+	}
+
+	public Task ScopedNavigationAsync(Action<IServiceCollection> scopeConfiguration, Func<ITypedNavigator, Task> navigate)
+	{
+		var provider = _nestedServiceProviderFactory.FromCurrentScope(scopeConfiguration);
+		var navigator = provider.GetRequiredService<ITypedNavigator>();
+		return navigate(navigator);
 	}
 
 	private Task SpawnPushAsync<TPage, TViewModel>() 

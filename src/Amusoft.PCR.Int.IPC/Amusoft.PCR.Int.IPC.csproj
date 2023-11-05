@@ -5,7 +5,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
+		<NoWarn>1701;1702;CS8981</NoWarn>
 	</PropertyGroup>
+
 
 	<ItemGroup>
 	</ItemGroup>
@@ -15,12 +17,10 @@
 		<PackageReference Include="Grpc" Version="2.26.0" />
 		<PackageReference Include="Grpc.Core.Api" Version="2.26.0" />
 		<PackageReference Include="Grpc.Tools" Version="2.26.0" PrivateAssets="All" />
-		<!-- <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" /> -->
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Remove="**\*.proto" />
-		<!-- <Protobuf Include="**\*.proto" GrpcServices="Server" /> -->
 		<Protobuf Include="**\*.proto" />
 	</ItemGroup>
 

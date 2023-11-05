@@ -6,6 +6,7 @@ using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Domain.VM;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
@@ -20,7 +21,7 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	}
 	
 	private IPEndPoint? _address;
-	private IDesktopIntegrationService? _client;
+	public IDesktopIntegrationService? DesktopIntegrationClient { get; set; }
 
 	protected override string GetDefaultPageTitle()
 	{
@@ -31,13 +32,13 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	{
 		Title = viewModel.Name;
 		_address = viewModel.Connection;
-		_client = _integrationServiceFactory.Create("http", viewModel.Connection);
+		DesktopIntegrationClient = _integrationServiceFactory.Create("http", viewModel.Connection);
 	}
 
 	[RelayCommand]
 	public Task OpenAudio()
 	{
-		return _navigator.OpenAudio();
+		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenAudio());
 	}
 
 	[RelayCommand]
@@ -62,24 +63,6 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	public Task OpenPrograms()
 	{
 		return _navigator.OpenPrograms();
-	}
-
-	[RelayCommand]
-	public Task ToggleMute()
-	{
-		return _client.Desktop(d => d.ToggleMute()) ?? Task.CompletedTask;
-	}
-
-	[RelayCommand]
-	public Task AbortShutdown()
-	{
-		return _client.Desktop(d => d.AbortShutdown()) ?? Task.CompletedTask;
-	}
-
-	[RelayCommand]
-	public Task Shutdown()
-	{
-		return _client.Desktop(d => d.Shutdown(TimeSpan.FromSeconds(60), true)) ?? Task.CompletedTask;
 	}
 
 	public HostViewModel(ITypedNavigator navigator, IDesktopIntegrationServiceFactory integrationServiceFactory) : base(navigator)

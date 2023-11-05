@@ -36,6 +36,18 @@ public partial class MainViewModel : PageViewModel
 				Text = Translations.Page_Title_Audio,
 				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
 			},
+			new ()
+			{
+				ImagePath = "volume_off.png",
+				Text = Translations.Page_Title_Audio,
+				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
+			},
+			new ()
+			{
+				ImagePath = "volume_up.png",
+				Text = Translations.Page_Title_Audio,
+				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
+			},
 		};
 	}
 

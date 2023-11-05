@@ -18,21 +18,6 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		_service = service;
 	}
 
-	public async Task<bool?> ToggleMute()
-	{
-		try
-		{
-			_logger.LogInformation("Calling method {Method}", nameof(ToggleMute));
-			var reply = await _service.ToggleMuteAsync(new ToggleMuteRequest());
-			return reply.Muted;
-		}
-		catch (Exception e)
-		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(ToggleMute));
-			return default;
-		}
-	}
-
 	public async Task<bool?> MonitorOn()
 	{
 		try
@@ -90,36 +75,6 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}] with [{Keys}]", nameof(SendKeys), keys);
 			return default;
-		}
-	}
-
-	public async Task<int?> SetMasterVolume(int value)
-	{
-		try
-		{
-			_logger.LogInformation("Calling method {Method}", nameof(SetMasterVolume));
-			var reply = await _service.SetMasterVolumeAsync(new SetMasterVolumeRequest() { Value = value });
-			return reply.Value;
-		}
-		catch (Exception e)
-		{
-			_logger.LogError(e, "Exception occured while calling [{Name}] to [{Value}]", nameof(SetMasterVolume), value);
-			return default;
-		}
-	}
-
-	public async Task<int?> GetMasterVolume()
-	{
-		try
-		{
-			_logger.LogInformation("Calling method {Method}", nameof(GetMasterVolume));
-			var reply = await _service.GetMasterVolumeAsync(new GetMasterVolumeRequest());
-			return reply.Value;
-		}
-		catch (Exception e)
-		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetMasterVolume));
-			return -1;
 		}
 	}
 

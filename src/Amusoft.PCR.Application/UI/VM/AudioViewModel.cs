@@ -1,23 +1,83 @@
 ﻿using System.Collections.ObjectModel;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
+using System.Windows.Input;
+using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
+using Amusoft.PCR.Domain.VM;
+using Amusoft.PCR.Int.IPC;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
-public partial class AudioViewModel : Shared.ReloadablePageViewModel
+public partial class AudioViewModel : Shared.ReloadablePageViewModel, INavigationCallbacks
 {
-	private readonly IDesktopIntegrationServiceFactory _integrationServiceFactory;
+	private readonly HostViewModel _hostViewModel;
 
 	[ObservableProperty]
 	private ObservableCollection<AudioViewModelItem>? _items;
 
 	protected override async Task OnReloadAsync()
 	{
-		await Task.Delay(5000);
-		Items = new ObservableCollection<AudioViewModelItem>();
+		var response = await _hostViewModel.DesktopIntegrationClient.Desktop(f => f.GetAudioFeedsResponse()) ?? new AudioFeedResponse();
+		var items = new ObservableCollection<AudioViewModelItem>();
+		if (response is {Items.Count: > 0})
+		{
+			foreach (var item in response.Items)
+			{
+				items.Add(new AudioViewModelItem()
+				{
+					Id = item.Id,
+					Muted = item.Muted,
+					Name = item.Name,
+					Volume = item.Volume,
+					MuteCommand = new AsyncRelayCommand(() => ToggleItemMute(item.Id)),
+					VolumeChangedCommand = new AsyncRelayCommand(() => UpdateVolume(item.Id)),
+				});
+			}
+		}
+
+		Items = items;
+	}
+
+	private async Task UpdateVolume(string itemId)
+	{
+		if (await _hostViewModel.DesktopIntegrationClient.Desktop(f => f.GetAudioFeedsResponse()) is { Success: true } feed)
+		{
+			if (feed.Items.FirstOrDefault(d => d.Id == itemId) is { } feedItem 
+			    && Items?.FirstOrDefault(f => f.Id == itemId) is {} sliderItem)
+			{
+				feedItem.Volume = sliderItem.Volume;
+
+				await _hostViewModel.DesktopIntegrationClient.Desktop(f => f.UpdateAudioFeed(new UpdateAudioFeedRequest()
+				{
+					Item = feedItem,
+				}));
+			}
+		}
+	}
+
+	private async Task ToggleItemMute(string itemId)
+	{
+		if (await _hostViewModel.DesktopIntegrationClient.Desktop(f => f.GetAudioFeedsResponse()) is {Success: true} feed)
+		{
+			if (feed.Items.FirstOrDefault(d => d.Id == itemId) is {} dataItem
+			    && Items?.FirstOrDefault(d => d.Id == itemId) is {} viewItem)
+			{
+				var updateItem = dataItem.Clone();
+				updateItem.Muted = !dataItem.Muted;
+				
+				var update = await _hostViewModel.DesktopIntegrationClient.Desktop(f => f.UpdateAudioFeed(new UpdateAudioFeedRequest()
+				{
+					Item = updateItem,
+				}));
+
+				if (update is {Success: true})
+				{
+					viewItem.Muted = updateItem.Muted;
+				}
+			}
+		}
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -25,20 +85,37 @@ public partial class AudioViewModel : Shared.ReloadablePageViewModel
 		return Translations.Page_Title_Audio;
 	}
 
-	[RelayCommand]
-	public Task ToggleMute()
+	public AudioViewModel(ITypedNavigator navigator, HostViewModel hostViewModel) : base(navigator)
 	{
-		return Task.CompletedTask;
-		// return _client.Desktop(d => d.AbortShutdown()) ?? Task.CompletedTask;
+		_hostViewModel = hostViewModel;
 	}
 
-	public AudioViewModel(ITypedNavigator navigator, IDesktopIntegrationServiceFactory integrationServiceFactory) : base(navigator)
+	public Task OnNavigatedToAsync()
 	{
-		_integrationServiceFactory = integrationServiceFactory;
+		return OnReloadAsync();
 	}
 }
 
 public partial class AudioViewModelItem : ObservableObject
 {
+	public string Icon => Muted ? "volume_off.png" : "volume_up.png";
 
+	[ObservableProperty]
+	private string? _name;
+
+	[ObservableProperty]
+	private string? _id;
+
+	[ObservableProperty]
+	private float _volume;
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(Icon))]
+	private bool _muted;
+
+	[ObservableProperty]
+	private ICommand? _muteCommand;
+
+	[ObservableProperty]
+	private ICommand? _volumeChangedCommand;
 }

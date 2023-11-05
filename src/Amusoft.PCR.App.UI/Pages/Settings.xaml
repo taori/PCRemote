@@ -12,11 +12,13 @@
     <Grid RowDefinitions="Auto,*">
         <StackLayout >
             <Label Text="Ports" Style="{StaticResource LabelHeader}"/>
-            <ListView ItemsSource="{x:Binding Ports}"
-                      SelectionMode="None">
-                <ListView.ItemTemplate>
+            <CollectionView ItemsSource="{x:Binding Ports}"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="shared:NavigationItem">
-                        <ViewCell>
                             <Grid Margin="10,5" ColumnDefinitions="*,Auto">
                                 <Label Text="{x:Binding Path=Text}"
                                        VerticalTextAlignment="Center"
@@ -27,10 +29,9 @@
                                         Grid.Column="1"
                                         Text="{x:Static resources:Translations.Generic_Remove}"/>
                             </Grid>
-                        </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Button Command="{x:Binding AddPortCommand}"
                     Margin="10,10,10,0"
                     Text="{x:Static resources:Translations.Settings_AddPorts}"/>

@@ -52,47 +52,6 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 		return Task.FromResult(new RestartReply() { Success = success });
 	}
 
-	public override Task<ToggleMuteReply> ToggleMute(ToggleMuteRequest request, ServerCallContext context)
-	{
-		Log.Info("Executing [{Name}]", nameof(ToggleMute));
-		var muteState = SimpleAudioManager.GetMasterVolumeMute();
-		try
-		{
-			SimpleAudioManager.SetMasterVolumeMute(!muteState);
-			return Task.FromResult(new ToggleMuteReply() { Muted = !muteState });
-		}
-		catch (Exception e)
-		{
-			Log.Error(e, "ToggleMute failed.");
-			SimpleAudioManager.SetMasterVolumeMute(!muteState);
-			return Task.FromResult(new ToggleMuteReply() { Muted = muteState });
-		}
-	}
-
-	public override Task<SetMasterVolumeReply> SetMasterVolume(SetMasterVolumeRequest request, ServerCallContext context)
-	{
-		Log.Info("Executing [{Name}] [{NewValue}]", nameof(SetMasterVolume), request.Value);
-		var previousVolume = SimpleAudioManager.GetMasterVolume();
-		var newVolume = Math.Max(Math.Min(100, request.Value), 0);
-		if (MathHelper.IsEqual(newVolume, previousVolume, 1.01f))
-		{
-			return Task.FromResult(new SetMasterVolumeReply() { Value = (int)previousVolume });
-		}
-		else
-		{
-			Log.Debug("Changing volume from [{From}] to [{To}]", previousVolume, newVolume);
-			SimpleAudioManager.SetMasterVolume(newVolume);
-			var masterVolume = SimpleAudioManager.GetMasterVolume();
-			return Task.FromResult(new SetMasterVolumeReply() { Value = (int)masterVolume });
-		}
-	}
-
-	public override Task<GetMasterVolumeReply> GetMasterVolume(GetMasterVolumeRequest request, ServerCallContext context)
-	{
-		Log.Info("Executing [{Name}]", nameof(GetMasterVolume));
-		return Task.FromResult(new GetMasterVolumeReply() { Value = (int)SimpleAudioManager.GetMasterVolume() });
-	}
-
 	public override Task<SendKeysReply> SendKeys(SendKeysRequest request, ServerCallContext context)
 	{
 		Log.Info("Executing [{Name}] {Message}", nameof(SendKeys), request.Message);

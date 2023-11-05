@@ -83,15 +83,6 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 		return Task.FromResult(new AuthenticateResponse() { Success = true });
 	}
 
-	public override async Task<ToggleMuteReply> ToggleMute(ToggleMuteRequest request, ServerCallContext context)
-	{
-		var result = await _impersonatedChannel.ToggleMute();
-		return new ToggleMuteReply()
-		{
-			Muted = result == true
-		};
-	}
-
 	public override async Task<MonitorOnReply> MonitorOn(MonitorOnRequest request, ServerCallContext context)
 	{
 		var result = await _impersonatedChannel.MonitorOn();
@@ -146,26 +137,6 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 		};
 	}
 	
-	public override async Task<SetMasterVolumeReply> SetMasterVolume(SetMasterVolumeRequest request, ServerCallContext context)
-	{
-		var value = await _impersonatedChannel.SetMasterVolume(request.Value);
-		return new SetMasterVolumeReply()
-		{
-			Value = value ?? 0,
-			Success = value.HasValue
-		};
-	}
-	
-	public override async Task<GetMasterVolumeReply> GetMasterVolume(GetMasterVolumeRequest request, ServerCallContext context)
-	{
-		var value = await _impersonatedChannel.GetMasterVolume();
-		return new GetMasterVolumeReply()
-		{
-			Value = value ?? 0,
-			Success = value.HasValue
-		};
-	}
-	
 	public override async Task<AudioFeedResponse> GetAudioFeeds(AudioFeedRequest request, ServerCallContext context)
 	{
 		var value = await _impersonatedChannel.GetAudioFeedsResponse();
@@ -175,7 +146,7 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 	public override async Task<DefaultResponse> UpdateAudioFeed(UpdateAudioFeedRequest request, ServerCallContext context)
 	{
 		var value = await _impersonatedChannel.UpdateAudioFeed(request);
-		return value ?? new DefaultResponse() { Success = value is { Success: true } };
+		return value ?? new DefaultResponse() { Success = value?.Success ?? false };
 	}
 	
 	public override async Task<SendKeysReply> SendKeys(SendKeysRequest request, ServerCallContext context)

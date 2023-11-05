@@ -63,7 +63,7 @@ public class IntegrationApplicationLocator : IIntegrationApplicationLocator
 
 			if (!result)
 			{
-				_logger.LogError("The integration path {Path} does not exist and therefore cannot be launched", fullPath);
+				_logger.LogCritical("The integration path {Path} does not exist and therefore cannot be launched", fullPath);
 			}
 		}
 

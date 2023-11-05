@@ -119,9 +119,9 @@ public partial class App : Application
 
 			Log.Debug("Muted: {Muted}", SimpleAudioManager.GetMasterVolumeMute());
 			Thread.Sleep(1000);
-			Log.Debug("Inverting Mute: {Muted}", SimpleAudioManager.SetMasterVolumeMute(!SimpleAudioManager.GetMasterVolumeMute()));
+			Log.Debug("Inverting Mute: {Muted}", SimpleAudioManager.SetMasterVolumeMute(!SimpleAudioManager.GetMasterVolumeMute() == true));
 			Thread.Sleep(1000);
-			Log.Debug("Reverting Mute: {Muted}", SimpleAudioManager.SetMasterVolumeMute(!SimpleAudioManager.GetMasterVolumeMute()));
+			Log.Debug("Reverting Mute: {Muted}", SimpleAudioManager.SetMasterVolumeMute(!SimpleAudioManager.GetMasterVolumeMute() == true));
 			Thread.Sleep(1000);
 
 
@@ -132,7 +132,7 @@ public partial class App : Application
 			Thread.Sleep(1000);
 			Log.Debug("Current volume {Volume}", SimpleAudioManager.GetMasterVolume());
 			Thread.Sleep(1000);
-			SimpleAudioManager.SetMasterVolume(startVolume);
+			SimpleAudioManager.SetMasterVolume(startVolume ?? 100);
 		});
 	}
 }

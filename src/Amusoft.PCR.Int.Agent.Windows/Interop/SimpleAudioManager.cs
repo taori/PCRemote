@@ -53,6 +53,14 @@ public static class SimpleAudioManager
 				});
 			}
 
+			feeds.Insert(0, new AudioFeedResponseItem()
+			{
+				Id = "master",
+				Muted = GetMasterVolumeMute() == true,
+				Volume = GetMasterVolume() ?? 100,
+				Name = "Master volume"
+			});
+
 			return true;
 		}
 		catch (Exception e)
@@ -72,7 +80,7 @@ public static class SimpleAudioManager
 		return ProcessHelper.GetProcessName(processById);
 	}
 
-	public static bool GetMasterVolumeMute()
+	public static bool? GetMasterVolumeMute()
 	{
 		var sm = GetAudioMultiMediaEndpoint(DataFlow.Render, Role.Multimedia);
 		try
@@ -82,7 +90,7 @@ public static class SimpleAudioManager
 		catch (Exception e)
 		{
 			Log.Error(e);
-			return false;
+			return default;
 		}
 		finally
 		{
@@ -96,12 +104,12 @@ public static class SimpleAudioManager
 		try
 		{
 			sm.AudioEndpointVolume.Mute = value;
-			return value;
+			return true;
 		}
 		catch (Exception e)
 		{
 			Log.Error(e);
-			return !value;
+			return false;
 		}
 		finally
 		{
@@ -109,7 +117,7 @@ public static class SimpleAudioManager
 		}
 	}
 
-	public static float GetMasterVolume()
+	public static float? GetMasterVolume()
 	{
 		var sm = GetAudioMultiMediaEndpoint(DataFlow.Render, Role.Multimedia);
 		try
@@ -119,7 +127,7 @@ public static class SimpleAudioManager
 		catch (Exception e)
 		{
 			Log.Error(e);
-			return -1;
+			return default;
 		}
 		finally
 		{
@@ -127,7 +135,7 @@ public static class SimpleAudioManager
 		}
 	}
 
-	public static void SetMasterVolume(float newVolume)
+	public static bool SetMasterVolume(float newVolume)
 	{
 		var sm = GetAudioMultiMediaEndpoint(DataFlow.Render, Role.Multimedia);
 		try
@@ -140,10 +148,13 @@ public static class SimpleAudioManager
 			{
 				sm.AudioEndpointVolume.MasterVolumeLevelScalar = newVolume / 100;
 			}
+
+			return true;
 		}
 		catch (Exception e)
 		{
 			Log.Error(e);
+			return false;
 		}
 		finally
 		{
@@ -153,6 +164,13 @@ public static class SimpleAudioManager
 
 	public static bool TryUpdateFeed(AudioFeedResponseItem requestItem)
 	{
+		if (requestItem.Id == "master")
+		{
+			return SetMasterVolume(requestItem.Volume)
+			       && SetMasterVolumeMute(requestItem.Muted);
+
+		}
+
 		var sessionManager = GetMultiMediaSessionManager(DataFlow.Render);
 		var foundSession = false;
 		try

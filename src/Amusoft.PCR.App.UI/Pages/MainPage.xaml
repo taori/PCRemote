@@ -8,18 +8,19 @@
              x:DataType="vm:MainViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.MainPage">
     <Grid>
-        <ListView ItemsSource="{x:Binding Items}">
-            <ListView.ItemTemplate>
+        <CollectionView ItemsSource="{x:Binding Items}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="shared:NavigationItem">
-                    <ViewCell>
-                        <Button Margin="10,5" 
-                                ImageSource="{x:Binding ImagePath}"
-                                Command="{x:Binding Command}" 
-                                Text="{x:Binding Text}"/>
-                    </ViewCell>
+                    <Button Margin="10,5"
+                            ImageSource="{x:Binding ImagePath}"
+                            Command="{x:Binding Command}"
+                            Text="{x:Binding Text}"/>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 
 </ContentPage>
