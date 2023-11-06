@@ -2,6 +2,8 @@
 using Amusoft.Toolkit.Impersonation;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
+using Amusoft.PCR.Application.Services;
 
 namespace Amusoft.PCR.Application.Features.DesktopIntegration;
 
@@ -10,13 +12,15 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 	private readonly ILogger<DesktopIntegrationLauncherService> _logger;
 	private readonly IIntegrationApplicationLocator _integrationApplicationLocator;
 	private readonly IApplicationStateTransmitter _applicationStateTransmitter;
+	private readonly IDesktopClientMethods _desktopClient;
 	private bool _canOperate;
 
-	public DesktopIntegrationLauncherService(ILogger<DesktopIntegrationLauncherService> logger, IIntegrationApplicationLocator integrationApplicationLocator, IApplicationStateTransmitter applicationStateTransmitter)
+	public DesktopIntegrationLauncherService(ILogger<DesktopIntegrationLauncherService> logger, IIntegrationApplicationLocator integrationApplicationLocator, IApplicationStateTransmitter applicationStateTransmitter, IDesktopClientMethods desktopClient)
 	{
 		_logger = logger;
 		_integrationApplicationLocator = integrationApplicationLocator;
 		_applicationStateTransmitter = applicationStateTransmitter;
+		_desktopClient = desktopClient;
 	}
 
 	public Task StartAsync(CancellationToken cancellationToken)
@@ -42,7 +46,16 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 		while (!stoppingToken.IsCancellationRequested && _canOperate)
 		{
 			if (!_integrationApplicationLocator.IsRunning())
+			{
 				await TryLaunchIntegrationAsync();
+				await Task.Delay(2000, stoppingToken);
+			}
+
+			var suicideConfirm = await _desktopClient.SuicideOnProcessExit(Process.GetCurrentProcess().Id);
+			if (suicideConfirm != true)
+			{
+				_logger.LogWarning("Integration process is unable to terminate itself, because it failed to confirm parentship.");
+			}
 
 			_logger.LogTrace("Waiting for next turn to check if integration backend is working ({Time}ms)", waitDuration.TotalMilliseconds);
 			await Task.Delay(waitDuration, stoppingToken);
@@ -55,14 +68,14 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 		{
 			_logger.LogInformation("Terminating current integration instances");
 
-			var runningProcesses = _integrationApplicationLocator.GetIntegrationProcesses().ToArray();
-			if (runningProcesses.Length > 0)
+			var processIds = _integrationApplicationLocator.GetRunningProcessIds().ToArray();
+			if (processIds.Length > 0)
 			{
-				_logger.LogDebug("Terminating {Count} instances", runningProcesses.Length);
-				foreach (var match in runningProcesses)
+				_logger.LogDebug("Terminating {Count} instances", processIds.Length);
+				foreach (var processId in processIds)
 				{
-					_logger.LogDebug("Killing process {Id}", match.processId);
-					Process.GetProcessById(match.processId).Kill();
+					_logger.LogDebug("Killing process {Id}", processId);
+					Process.GetProcessById(processId).Kill();
 				}
 			}
 			else
@@ -88,7 +101,7 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 			var fullPath = _integrationApplicationLocator.GetAbsolutePath();
 			if (!File.Exists(fullPath))
 			{
-				_logger.LogError("Cannot launch {Path} because it does not exist", fullPath);
+				_logger.LogCritical("Cannot launch {Path} because it does not exist", fullPath);
 				return false;
 			}
 
@@ -107,5 +120,6 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 
 	public void Dispose()
 	{
+		GC.SuppressFinalize(this);
 	}
 }

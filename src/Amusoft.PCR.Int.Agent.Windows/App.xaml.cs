@@ -51,7 +51,7 @@ public partial class App : Application
 		// EventSetup.Initialize();
 		// EventSetup.Debug();
 
-		VerifySimpleAudioManager();
+		// VerifySimpleAudioManager();
 		if (!TryLaunchInteropChannel())
 		{
 			Log.Fatal("Failed to launch named pipe for IPC with web application");

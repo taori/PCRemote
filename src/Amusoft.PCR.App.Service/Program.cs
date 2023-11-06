@@ -5,6 +5,7 @@ using Amusoft.PCR.Application;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Domain.AgentSettings;
+using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
 using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
@@ -44,6 +45,8 @@ public class Program
 	private static void ConfigureHost(WebApplication host)
 	{
 		var logger = host.Services.GetRequiredService<ILogger<Program>>();
+		var applicationStateTransmitter = host.Services.GetRequiredService<IApplicationStateTransmitter>();
+		applicationStateTransmitter.NotifyConfigurationDone();
 
 		host.UseRouting();
 

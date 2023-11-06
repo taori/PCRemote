@@ -10,6 +10,6 @@ public interface IIntegrationApplicationLocator
 	bool IsOperational();
 	bool IsRunning();
 	string GetAbsolutePath();
-	IEnumerable<(int processId, string path)> GetIntegrationProcesses();
+	IEnumerable<int> GetRunningProcessIds();
 }
 

@@ -18,11 +18,26 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		_service = service;
 	}
 
+	public async Task<bool?> SuicideOnProcessExit(int processId)
+	{
+		try
+		{
+			_logger.LogDebug("{Method}({Id})", nameof(SuicideOnProcessExit), processId);
+			await _service.SuicideOnProcessExitAsync(new SuicideOnProcessExitRequest() {ProcessId = processId});
+			return true;
+		}
+		catch (Exception e)
+		{
+			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SuicideOnProcessExit));
+			return default;
+		}
+	}
+
 	public async Task<bool?> MonitorOn()
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(MonitorOn));
+			_logger.LogDebug("{Method}", nameof(MonitorOn));
 			await _service.MonitorOnAsync(new MonitorOnRequest());
 			return true;
 		}
@@ -37,7 +52,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(MonitorOff));
+			_logger.LogDebug("{Method}", nameof(MonitorOff));
 			await _service.MonitorOffAsync(new MonitorOffRequest());
 			return true;
 		}
@@ -52,7 +67,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(LockWorkStation));
+			_logger.LogDebug("{Method}", nameof(LockWorkStation));
 			await _service.LockWorkStationAsync(new LockWorkStationRequest());
 			return true;
 		}
@@ -67,7 +82,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(SendKeys));
+			_logger.LogDebug("{Method}({Keys})", nameof(SendKeys), keys);
 			await _service.SendKeysAsync(new SendKeysRequest() { Message = keys });
 			return true;
 		}
@@ -82,7 +97,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(Shutdown));
+			_logger.LogDebug("{Method}({Delay}, {Force})", nameof(Shutdown), delay, force);
 			var reply = await _service.ShutDownDelayedAsync(new ShutdownDelayedRequest() { Seconds = (int)delay.TotalSeconds, Force = force });
 			return reply.Success;
 		}
@@ -97,7 +112,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(AbortShutdown));
+			_logger.LogDebug("{Method}", nameof(AbortShutdown));
 			var reply = await _service.AbortShutDownAsync(new AbortShutdownRequest());
 			return reply.Success;
 		}
@@ -112,7 +127,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(Hibernate));
+			_logger.LogDebug("{Method}", nameof(Hibernate));
 			var reply = await _service.HibernateAsync(new HibernateRequest());
 			return reply.Success;
 		}
@@ -127,7 +142,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(Restart));
+			_logger.LogDebug("{Method}({Delay}, {Force})", nameof(Restart), delay, force);
 			var reply = await _service.RestartAsync(new RestartRequest() { Delay = (int)delay.TotalSeconds, Force = force });
 			return reply.Success;
 		}
@@ -144,7 +159,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(GetProcessList));
+			_logger.LogDebug("{Method}", nameof(GetProcessList));
 			var reply = await _service.GetProcessListAsync(new ProcessListRequest());
 			return Result.Success(reply.Results as IList<ProcessListResponseItem>);
 		}
@@ -159,7 +174,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(KillProcessById));
+			_logger.LogDebug("{Method}({ProcessId})", nameof(KillProcessById), processId);
 			var reply = await _service.KillProcessByIdAsync(new KillProcessRequest() { ProcessId = processId });
 			return reply.Success;
 		}
@@ -174,7 +189,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(FocusProcessWindow));
+			_logger.LogDebug("{Method}({ProcessId})", nameof(FocusProcessWindow), processId);
 			var reply = await _service.FocusWindowAsync(new FocusWindowRequest() { ProcessId = processId });
 			return reply.Success;
 		}
@@ -189,7 +204,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(LaunchProgram));
+			_logger.LogDebug("{Method}({ProgramName}, {Arguments})", nameof(LaunchProgram), programName, arguments);
 			var request = string.IsNullOrEmpty(arguments)
 				? new LaunchProgramRequest() { ProgramName = programName }
 				: new LaunchProgramRequest() { ProgramName = programName, Arguments = arguments };
@@ -208,7 +223,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(SendMediaKey));
+			_logger.LogDebug("{Method}({Code})", nameof(SendMediaKey), code);
 			var reply = await _service.SendMediaKeysAsync(new SendMediaKeysRequest()
 			{
 				KeyCode = code
@@ -226,7 +241,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(GetClipboardAsync));
+			_logger.LogDebug("{Method}({Requestee})", nameof(GetClipboardAsync), requestee);
 			var content = await _service.GetClipboardAsync(new GetClipboardRequest() { Requestee = requestee });
 			return content.Content;
 		}
@@ -241,7 +256,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(SetClipboardAsync));
+			_logger.LogDebug("{Method}({Requestee}, ***)", nameof(SetClipboardAsync), requestee);
 			var result = await _service.SetClipboardAsync(new SetClipboardRequest() { Content = content, Requestee = requestee });
 			return result.Success;
 		}
@@ -257,14 +272,14 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		var mouseStream = _service.SendMouseMove();
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(SendMouseMoveAsync));
+			_logger.LogDebug("{Method}", nameof(SendMouseMoveAsync));
 
 			while (await streamReader.MoveNext(cancellationToken))
 			{
 				await mouseStream.RequestStream.WriteAsync(streamReader.Current);
 			}
 
-			_logger.LogInformation("{Method} terminated", nameof(SendMouseMoveAsync));
+			_logger.LogDebug("{Method} terminated", nameof(SendMouseMoveAsync));
 		}
 		catch (OperationCanceledException e)
 		{
@@ -285,7 +300,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(SendLeftMouseClickAsync));
+			_logger.LogDebug("{Method}", nameof(SendLeftMouseClickAsync));
 			var result = await _service.SendLeftMouseButtonClickAsync(new DefaultRequest());
 			return result.Success;
 		}
@@ -300,7 +315,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(SendRightMouseClickAsync));
+			_logger.LogDebug("{Method}", nameof(SendRightMouseClickAsync));
 			var result = await _service.SendRightMouseButtonClickAsync(new DefaultRequest());
 			return result.Success;
 		}
@@ -315,7 +330,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(GetAudioFeedsResponse));
+			_logger.LogDebug("{Method}", nameof(GetAudioFeedsResponse));
 			var result = await _service.GetAudioFeedsAsync(new AudioFeedRequest());
 			return result;
 		}
@@ -330,7 +345,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(UpdateAudioFeed));
+			_logger.LogDebug("{Method}", nameof(UpdateAudioFeed));
 			var result = await _service.UpdateAudioFeedAsync(request);
 			return result;
 		}
@@ -345,7 +360,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
-			_logger.LogInformation("Calling method {Method}", nameof(SetUserPassword));
+			_logger.LogDebug("{Method}", nameof(SetUserPassword));
 			var result = await _service.SetUserPasswordAsync(request);
 			return result;
 		}

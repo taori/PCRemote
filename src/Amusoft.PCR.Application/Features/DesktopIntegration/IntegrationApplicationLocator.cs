@@ -20,7 +20,7 @@ public class IntegrationApplicationLocator : IIntegrationApplicationLocator
 			throw new ArgumentNullException(nameof(DesktopIntegrationSettings.ExePath));
 	}
 
-	private string GetInferredAbsolutePath(string exePath)
+	private string GetExePathFromSettings(string exePath)
 	{
 		var executingAssemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 		var originUri = new Uri(executingAssemblyDirectory + Path.DirectorySeparatorChar, UriKind.Absolute);
@@ -31,6 +31,29 @@ public class IntegrationApplicationLocator : IIntegrationApplicationLocator
 		_logger.LogTrace("Combined Uri {Path} from {OriginPath} and {RelativePath}", resultPath, executingAssemblyDirectory, exePath);
 
 		return resultPath;
+	}
+
+	public IEnumerable<int> GetRunningProcessIds()
+	{
+		var expected = GetApplicationExeName();
+
+		return Process.GetProcesses()
+			.Select(d => (d.Id, FileName: GetModuleFileName(d) ?? string.Empty))
+			.Where(d => Path.GetFileName(d.FileName).Equals(expected))
+			.Select(d => d.Id);
+	}
+
+	private static string? GetModuleFileName(Process d)
+	{
+		try
+		{
+			return d.MainModule?.FileName;
+		}
+		catch (Exception)
+		{
+			// this can throw but we ignore it
+			return null;
+		}
 	}
 
 	private bool IsConfigurationOperational()
@@ -58,7 +81,7 @@ public class IntegrationApplicationLocator : IIntegrationApplicationLocator
 		var result = IsConfigurationOperational();
 		if (result)
 		{
-			var fullPath = GetInferredAbsolutePath(_settings.ExePath!);
+			var fullPath = GetExePathFromSettings(_settings.ExePath!);
 			result = File.Exists(fullPath);
 
 			if (!result)
@@ -72,46 +95,40 @@ public class IntegrationApplicationLocator : IIntegrationApplicationLocator
 
 	private bool IsOperationalInDebug()
 	{
-		return GetIntegrationProcesses().Any();
+		var paths = GetExePathFromBinaryFolderRecursion();
+		return paths is not null && File.Exists(paths);
+	}
+
+	private string? GetExePathFromBinaryFolderRecursion()
+	{
+		// D:\GitHub\taori\PCRemote\src\Amusoft.PCR.App.Service\bin\Debug\net7.0\Amusoft.PCR.Application.dll
+		var location = Assembly.GetExecutingAssembly().Location;
+		var basePath = new Uri(location, UriKind.Absolute);
+		var relativeRoute = new Uri("../../../../Amusoft.PCR.Int.Agent.Windows/bin/", UriKind.Relative);
+		var searchRoot = new Uri(basePath, relativeRoute).LocalPath;
+		var fileMatches = Directory.GetFiles(searchRoot, "Amusoft.PCR.Int.Agent.Windows.exe", SearchOption.AllDirectories);
+		if (fileMatches.FirstOrDefault(d => d.Contains("bin\\Debug", StringComparison.OrdinalIgnoreCase)) is { } match)
+			return match;
+
+		return null;
 	}
 
 	public bool IsRunning()
 	{
-		return GetIntegrationProcesses().Any();
+		return GetRunningProcessIds().Any();
 	}
 
 	public string GetAbsolutePath()
 	{
-		return GetInferredAbsolutePath(_settings.ExePath!);
+#if DEBUG
+		return GetExePathFromBinaryFolderRecursion() ?? throw new Exception("Unable to find a matching exe path for this DEBUG build.");
+#else
+		return GetExePathFromSettings(_settings.ExePath!);
+#endif
 	}
 
-	public IEnumerable<(int processId, string path)> GetIntegrationProcesses()
+	public string GetApplicationExeName()
 	{
-		var normalizedFileName = Path.GetFileName(Path.GetFullPath(GetAbsolutePath()));
-		var allProcesses = GetProcessExePaths();
-
-		return allProcesses
-			.Where(d => Path.GetFileName(Path.GetFullPath(d.fullPath)).Equals(normalizedFileName));
-	}
-
-	private IReadOnlyList<(int processId, string fullPath)> GetProcessExePaths()
-	{
-		var results = new List<(int processId, string fullPath)>();
-		foreach (var process in Process.GetProcesses())
-		{
-			try
-			{
-				if (process.MainModule?.FileName != null)
-				{
-					results.Add((process.Id, process.MainModule.FileName));
-				}
-			}
-			catch (Exception)
-			{
-				// ignored
-			}
-		}
-
-		return results;
+		return Path.GetFileName(_settings.ExePath!);
 	}
 }

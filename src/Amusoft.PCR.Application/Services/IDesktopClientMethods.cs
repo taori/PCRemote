@@ -32,4 +32,5 @@ public interface IDesktopClientMethods
 	Task<AudioFeedResponse?> GetAudioFeedsResponse();
 	Task<DefaultResponse?> UpdateAudioFeed(UpdateAudioFeedRequest request);
 	Task<StringResponse?> SetUserPassword(ChangeUserPasswordRequest request);
+	Task<bool?> SuicideOnProcessExit(int processId);
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using NLog;
 
 namespace Amusoft.PCR.Int.Agent.Windows.Interop;
@@ -23,12 +24,41 @@ internal static class ProcessExitListenerManager
 				ProcessExited?.Invoke(null, processId);
 				process.Exited -= processOnExited;
 			};
+
+			process.EnableRaisingEvents = true;
 			process.Exited += processOnExited;
+
+			_ = Task.Run(async () =>
+			{
+				// self termination if parent process has been killed by force
+				while (true)
+				{
+					if (IsProcessAlive(processId))
+					{
+						ProcessExited?.Invoke(null, processId);
+					}
+
+					await Task.Delay(15000);
+				}
+			});
 			return true;
 		}
 		catch (Exception e)
 		{
 			Log.Error(e, "Failed to observe process {Id}", processId);
+			return false;
+		}
+	}
+
+	private static bool IsProcessAlive(int processId)
+	{
+		try
+		{
+
+			return !Process.GetProcessById(processId).HasExited;
+		}
+		catch (Exception)
+		{
 			return false;
 		}
 	}
