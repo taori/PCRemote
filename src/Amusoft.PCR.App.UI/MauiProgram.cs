@@ -1,4 +1,5 @@
-﻿using Amusoft.PCR.App.UI.Pages;
+﻿using Amusoft.PCR.App.UI.Controls;
+using Amusoft.PCR.App.UI.Pages;
 using Amusoft.PCR.Application.Resources;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
@@ -15,6 +16,10 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
+			.ConfigureMauiHandlers(handlers =>
+			{
+				handlers.AddHandler<TrackerView, TrackerViewHandler>();
+			})
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

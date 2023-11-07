@@ -71,4 +71,10 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Platforms\Windows\TrackerViewHandler.cs">
+	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	</ItemGroup>
+
 </Project>
