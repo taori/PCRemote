@@ -1,4 +1,5 @@
-﻿using Amusoft.PCR.Application.Resources;
+﻿using System.Collections.ObjectModel;
+using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using CommunityToolkit.Mvvm.Input;
@@ -21,7 +22,26 @@ public partial class InputControlViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private Task SendInput(){ return Task.CompletedTask;}
+	private Task SendInput()
+	{
+		return Navigator.OpenStaticCommandButtonList(model =>
+		{
+			model.Title = "Control Options";
+			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
+			{
+				new()
+				{
+					Text = "Windows",
+					Command = new AsyncRelayCommand(() => _host.DesktopIntegrationClient?.DesktopClient.SendKeys("^{ESC}v") ?? Task.CompletedTask)
+				},
+				new()
+				{
+					Text = "Task Manager",
+					Command = new AsyncRelayCommand(() => _host.DesktopIntegrationClient?.DesktopClient.SendKeys("^%{DEL}") ?? Task.CompletedTask)
+				},
+			});
+		});
+	}
 
 	[RelayCommand]
 	private Task MouseControl() => 

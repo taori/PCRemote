@@ -66,6 +66,11 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushAsync<Programs, ProgramsViewModel>();
 	}
 
+	public Task OpenStaticCommandButtonList(Action<StaticCommandButtonListViewModel> configure)
+	{
+		return SpawnPushConfigureAsync<StaticCommandButtonList, StaticCommandButtonListViewModel>(configure);
+	}
+
 	public Task ScopedNavigationAsync(Action<IServiceCollection> scopeConfiguration, Func<ITypedNavigator, Task> navigate)
 	{
 		var provider = _nestedServiceProviderFactory.FromCurrentScope(scopeConfiguration);
@@ -81,7 +86,8 @@ public class TypedNavigator : ITypedNavigator
 	}
 
 	private Task SpawnPushConfigureAsync<TPage, TViewModel>(Action<TViewModel>? configure) 
-		where TPage : Page where TViewModel : notnull
+		where TPage : Page 
+		where TViewModel : notnull
 	{
 		var spawn = SpawnPageAndModel<TPage, TViewModel>();
 		configure?.Invoke(spawn.viewModel);
