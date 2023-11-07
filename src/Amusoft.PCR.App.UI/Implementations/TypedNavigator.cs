@@ -23,52 +23,53 @@ public class TypedNavigator : ITypedNavigator
 
 	public Task OpenHost(Action<HostViewModel> configureModel)
 	{
-		return SpawnPushConfigureAsync<Host, HostViewModel>(configureModel);
+		return SpawnPushConfigureAsync<Host, HostViewModel>(_serviceProvider, configureModel);
 	}
 
 	public Task OpenHostOverview()
 	{
-		return SpawnPushAsync<HostsOverview, HostsOverviewViewModel>();
+		return SpawnPushAsync<HostsOverview, HostsOverviewViewModel>(_serviceProvider);
 	}
 
 	public Task OpenSettings()
 	{
-		return SpawnPushAsync<Settings, SettingsViewModel>();
+		return SpawnPushAsync<Settings, SettingsViewModel>(_serviceProvider);
 	}
 
 	public Task OpenAudio()
 	{
-		return SpawnPushAsync<Audio, AudioViewModel>();
+		return SpawnPushAsync<Audio, AudioViewModel>(_serviceProvider);
 	}
 
 	public Task OpenSystemState()
 	{
-		return SpawnPushAsync<SystemState, SystemStateViewModel>();
+		return SpawnPushAsync<SystemState, SystemStateViewModel>(_serviceProvider);
 	}
 
 	public Task OpenMonitors()
 	{
-		return SpawnPushAsync<Monitors, MonitorsViewModel>();
+		return SpawnPushAsync<Monitors, MonitorsViewModel>(_serviceProvider);
 	}
 
 	public Task OpenInputControl()
 	{
-		return SpawnPushAsync<InputControl, InputControlViewModel>();
+		return SpawnPushAsync<InputControl, InputControlViewModel>(_serviceProvider);
 	}
 
 	public Task OpenMouseControl()
 	{
-		return SpawnPushAsync<MouseControl, MouseControlViewModel>();
+		return SpawnPushAsync<MouseControl, MouseControlViewModel>(_serviceProvider);
 	}
 
 	public Task OpenPrograms()
 	{
-		return SpawnPushAsync<Programs, ProgramsViewModel>();
+		return SpawnPushAsync<Programs, ProgramsViewModel>(_serviceProvider);
 	}
 
-	public Task OpenStaticCommandButtonList(Action<StaticCommandButtonListViewModel> configure)
+	public Task OpenStaticCommandButtonList(Action<StaticCommandButtonListViewModel> configure, HostViewModel host)
 	{
-		return SpawnPushConfigureAsync<StaticCommandButtonList, StaticCommandButtonListViewModel>(configure);
+		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection => collection.AddSingleton(host));
+		return SpawnPushConfigureAsync<StaticCommandButtonList, StaticCommandButtonListViewModel>(provider, configure);
 	}
 
 	public Task ScopedNavigationAsync(Action<IServiceCollection> scopeConfiguration, Func<ITypedNavigator, Task> navigate)
@@ -78,27 +79,27 @@ public class TypedNavigator : ITypedNavigator
 		return navigate(navigator);
 	}
 
-	private Task SpawnPushAsync<TPage, TViewModel>() 
+	private Task SpawnPushAsync<TPage, TViewModel>(IServiceProvider serviceProvider) 
 		where TPage : Page 
 		where TViewModel : notnull
 	{
-		return SpawnPushConfigureAsync<TPage, TViewModel>(null);
+		return SpawnPushConfigureAsync<TPage, TViewModel>(serviceProvider, null);
 	}
 
-	private Task SpawnPushConfigureAsync<TPage, TViewModel>(Action<TViewModel>? configure) 
+	private Task SpawnPushConfigureAsync<TPage, TViewModel>(IServiceProvider serviceProvider, Action<TViewModel>? configure) 
 		where TPage : Page 
 		where TViewModel : notnull
 	{
-		var spawn = SpawnPageAndModel<TPage, TViewModel>();
+		var spawn = SpawnPageAndModel<TPage, TViewModel>(serviceProvider);
 		configure?.Invoke(spawn.viewModel);
 		return Shell.Current.Navigation.PushAsync(spawn.page);
 	}
 
-	private (TPage page, TViewModel viewModel) SpawnPageAndModel<TPage, TViewModel>() 
+	private (TPage page, TViewModel viewModel) SpawnPageAndModel<TPage, TViewModel>(IServiceProvider serviceProvider) 
 		where TPage : Page
 		where TViewModel : notnull
 	{
-		using var scope = _serviceProvider.CreateScope();
+		using var scope = serviceProvider.CreateScope();
 		var model = scope.ServiceProvider.GetRequiredService<TViewModel>();
 		var page = scope.ServiceProvider.GetRequiredService<TPage>();
 		page.BindingContext = model;

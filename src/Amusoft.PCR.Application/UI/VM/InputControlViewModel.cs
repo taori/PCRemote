@@ -40,7 +40,7 @@ public partial class InputControlViewModel : PageViewModel
 					Command = new AsyncRelayCommand(() => _host.DesktopIntegrationClient?.DesktopClient.SendKeys("^%{DEL}") ?? Task.CompletedTask)
 				},
 			});
-		});
+		}, _host);
 	}
 
 	[RelayCommand]

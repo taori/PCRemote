@@ -41,9 +41,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_scripts", "_scripts", "{6E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{B51D6584-FE79-4372-A50D-B90AB85587F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.Toolkit.Networking", "Amusoft.Toolkit.Networking\Amusoft.Toolkit.Networking.csproj", "{0FB90BBE-0D3E-41A9-9FC4-B1FB0E37091A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.Toolkit.Networking", "Amusoft.Toolkit.Networking\Amusoft.Toolkit.Networking.csproj", "{0FB90BBE-0D3E-41A9-9FC4-B1FB0E37091A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.Toolkit.Impersonation", "Amusoft.Toolkit.Impersonation\Amusoft.Toolkit.Impersonation.csproj", "{0CA39CF9-E2E0-481A-B5CD-3CA79A5C921E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.Toolkit.Impersonation", "Amusoft.Toolkit.Impersonation\Amusoft.Toolkit.Impersonation.csproj", "{0CA39CF9-E2E0-481A-B5CD-3CA79A5C921E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B517B907-9417-4926-9F5C-80B7EDCE05B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Application.UnitTests", "..\tests\Amusoft.PCR.Application.UnitTests\Amusoft.PCR.Application.UnitTests.csproj", "{86F438BC-0140-45AC-8C73-6D006586C7E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -225,6 +229,22 @@ Global
 		{0CA39CF9-E2E0-481A-B5CD-3CA79A5C921E}.Release|x64.Build.0 = Release|Any CPU
 		{0CA39CF9-E2E0-481A-B5CD-3CA79A5C921E}.Release|x86.ActiveCfg = Release|Any CPU
 		{0CA39CF9-E2E0-481A-B5CD-3CA79A5C921E}.Release|x86.Build.0 = Release|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Debug|x64.Build.0 = Debug|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Debug|x86.Build.0 = Debug|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Release|ARM64.Build.0 = Release|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Release|x64.ActiveCfg = Release|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Release|x64.Build.0 = Release|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Release|x86.ActiveCfg = Release|Any CPU
+		{86F438BC-0140-45AC-8C73-6D006586C7E5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -240,6 +260,7 @@ Global
 		{FAFB0AA1-43D5-4470-98A4-2D4791B76D67} = {CBE9A833-9560-4D40-9438-BCD65CA070FE}
 		{0FB90BBE-0D3E-41A9-9FC4-B1FB0E37091A} = {B51D6584-FE79-4372-A50D-B90AB85587F8}
 		{0CA39CF9-E2E0-481A-B5CD-3CA79A5C921E} = {B51D6584-FE79-4372-A50D-B90AB85587F8}
+		{86F438BC-0140-45AC-8C73-6D006586C7E5} = {B517B907-9417-4926-9F5C-80B7EDCE05B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88301734-C574-410B-9ED2-10A3EFB9998B}
