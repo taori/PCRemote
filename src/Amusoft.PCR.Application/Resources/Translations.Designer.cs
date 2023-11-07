@@ -115,6 +115,15 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sensitivity: {0}.
+        /// </summary>
+        public static string MouseControl_Sensitivity {
+            get {
+                return ResourceManager.GetString("MouseControl.Sensitivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Audio.
         /// </summary>
         public static string Nav_Audio {

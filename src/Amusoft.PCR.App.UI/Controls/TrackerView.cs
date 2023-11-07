@@ -2,7 +2,7 @@
 
 namespace Amusoft.PCR.App.UI.Controls;
 
-public class TrackerView : View, ITrackerView
+public class TrackerView : View
 {
 	public static readonly BindableProperty TapEnabledProperty =
 		BindableProperty.Create("TapEnabled", typeof(bool), typeof(TrackerView), true);
@@ -38,5 +38,23 @@ public class TrackerView : View, ITrackerView
 	{
 		get => (int) GetValue(SensitivityProperty);
 		set => SetValue(SensitivityProperty, value);
+	}
+
+	public static readonly BindableProperty MultiTapCommandProperty =
+		BindableProperty.Create("MultiTapCommand", typeof(ICommand), typeof(TrackerView), default);
+
+	public ICommand? MultiTapCommand
+	{
+		get => (ICommand?) GetValue(MultiTapCommandProperty);
+		set => SetValue(MultiTapCommandProperty, value);
+	}
+
+	public static readonly BindableProperty VelocityOccuredCommandProperty =
+		BindableProperty.Create("VelocityOccuredCommand", typeof(ICommand), typeof(TrackerView), default);
+
+	public ICommand? VelocityOccuredCommand
+	{
+		get => (ICommand?) GetValue(VelocityOccuredCommandProperty);
+		set => SetValue(VelocityOccuredCommandProperty, value);
 	}
 }

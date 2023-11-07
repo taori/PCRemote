@@ -44,25 +44,25 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	[RelayCommand]
 	public Task OpenSystemState()
 	{
-		return _navigator.OpenSystemState();
+		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenSystemState());
 	}
 
 	[RelayCommand]
 	public Task OpenMonitors()
 	{
-		return _navigator.OpenMonitors();
+		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenMonitors());
 	}
 
 	[RelayCommand]
 	public Task OpenInputControl()
 	{
-		return _navigator.OpenInputControl();
+		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenInputControl());
 	}
 
 	[RelayCommand]
 	public Task OpenPrograms()
 	{
-		return _navigator.OpenPrograms();
+		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenPrograms());
 	}
 
 	public HostViewModel(ITypedNavigator navigator, IDesktopIntegrationServiceFactory integrationServiceFactory) : base(navigator)

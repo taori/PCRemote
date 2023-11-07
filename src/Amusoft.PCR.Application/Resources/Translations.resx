@@ -165,4 +165,7 @@
   <data name="Navi.SystemState" xml:space="preserve">
     <value>System state</value>
   </data>
+  <data name="MouseControl.Sensitivity" xml:space="preserve">
+    <value>Sensitivity: {0}</value>
+  </data>
 </root>

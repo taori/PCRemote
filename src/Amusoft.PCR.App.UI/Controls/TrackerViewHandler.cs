@@ -1,21 +1,22 @@
 ﻿using Microsoft.Maui.Handlers;
 using System.Windows.Input;
+using Microsoft.Maui.Platform;
 
 #if IOS || MACCATALYST
 using PlatformView = VideoDemos.Platforms.MaciOS.MauiVideoPlayer;
 #elif ANDROID
-using PlatformView = AndroidX.CoordinatorLayout.Widget.CoordinatorLayout;
+using PlatformView = Amusoft.PCR.App.UI.Platforms.Android.MauiTrackerView;
 #elif WINDOWS
-using PlatformView = Microsoft.UI.Xaml.Controls.Grid;
+using PlatformView = Amusoft.PCR.App.UI.Platforms.Windows.MauiTrackerView;
 #elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID)
 using PlatformView = System.Object;
 #endif
 
 namespace Amusoft.PCR.App.UI.Controls;
 
-public partial class TrackerViewHandler : ViewHandler<ITrackerView, PlatformView>
+public partial class TrackerViewHandler : ViewHandler<TrackerView, PlatformView>
 {
-	public TrackerViewHandler(IPropertyMapper<ITrackerView, TrackerViewHandler> mapper) : base(mapper, CommandMapper)
+	public TrackerViewHandler(IPropertyMapper<TrackerView, TrackerViewHandler> mapper) : base(mapper, CommandMapper)
 	{
 	}
 
@@ -23,7 +24,12 @@ public partial class TrackerViewHandler : ViewHandler<ITrackerView, PlatformView
 	{
 	}
 
-	public static IPropertyMapper<ITrackerView, TrackerViewHandler> PropertyMapper = new PropertyMapper<ITrackerView, TrackerViewHandler>(ViewMapper)
+	public static CommandMapper<TrackerView, TrackerViewHandler> CommandMapper = new(ViewCommandMapper)
+	{
+		[nameof(TrackerView.TapCommand)] = TapCommandRequested
+	};
+
+	public static IPropertyMapper<TrackerView, TrackerViewHandler> PropertyMapper = new PropertyMapper<TrackerView, TrackerViewHandler>(ViewMapper)
 	{
 		[nameof(TrackerView.Background)] = BackgroundChanged,
 		[nameof(TrackerView.BackgroundColor)] = BackgroundColorChanged,
@@ -33,42 +39,32 @@ public partial class TrackerViewHandler : ViewHandler<ITrackerView, PlatformView
 		[nameof(TrackerView.Sensitivity)] = SensitivityChanged,
 	};
 
-	public static CommandMapper<ITrackerView, TrackerViewHandler> CommandMapper = new(ViewCommandMapper)
+	private static void TapEnabledChanged(TrackerViewHandler handler, TrackerView virtualView)
 	{
-		[nameof(TrackerView.TapCommand)] = TapCommandRequested
-	};
+	}
 
-	// public static void TapCommandRequested(TrackerViewHandler arg1, ITrackerView arg2, object? arg3)
-	// {
-	// }
-	//
-	// public static void BackgroundChanged(TrackerViewHandler arg1, ITrackerView arg2)
-	// {
-	// 	throw new NotImplementedException();
-	// }
-	//
-	// public static void BackgroundColorChanged(TrackerViewHandler arg1, ITrackerView arg2)
-	// {
-	// 	throw new NotImplementedException();
-	// }
-	//
-	// public static void TapEnabled(TrackerViewHandler arg1, ITrackerView arg2){ }
-	//
-	// public static void TapCommandParameterChanged(TrackerViewHandler arg1, ITrackerView arg2) { }
-	//
-	// public static void TapCommandChangedChanged(TrackerViewHandler arg1, ITrackerView arg2) { }
+	private static void TapCommandRequested(TrackerViewHandler handler, TrackerView virtualView, object? arg3)
+	{
+	}
+	
+	private static void BackgroundChanged(TrackerViewHandler handler, TrackerView virtualView)
+	{
+		handler.PlatformView.UpdateBackground(virtualView);
+	}
+	
+	private static void BackgroundColorChanged(TrackerViewHandler handler, TrackerView virtualView)
+	{
+		handler.PlatformView.UpdateBackground(virtualView);
+	}
+	
+	private static void TapEnabled(TrackerViewHandler handler, TrackerView virtualView){ }
+	
+	private static void TapCommandParameterChanged(TrackerViewHandler handler, TrackerView virtualView) { }
 
-	// private static void SensitivityChanged(TrackerViewHandler arg1, ITrackerView arg2)
-	// {
-	// 	throw new NotImplementedException();
-	// }
+	private static void TapCommandChangedChanged(TrackerViewHandler handler, TrackerView virtualView) { }
 
-}
-
-public interface ITrackerView : IView
-{
-	bool TapEnabled { get; set; }
-	ICommand? TapCommand { get; set; }
-	object? TapCommandParameter { get; set; }
-	int Sensitivity { get; set; }
+	private static void SensitivityChanged(TrackerViewHandler handler, TrackerView virtualView)
+	{
+		handler.PlatformView.UpdateSensitivity(virtualView);
+	}
 }
