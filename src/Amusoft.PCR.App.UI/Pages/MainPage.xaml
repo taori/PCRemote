@@ -7,14 +7,14 @@
              Title="{x:Binding Title}"
              x:DataType="vm:MainViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.MainPage">
-    <Grid>
+    <Grid Padding="16,10,16,0">
         <CollectionView ItemsSource="{x:Binding Items}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="shared:NavigationItem">
-                    <Button Margin="10,5"
+                    <Button Margin="0,0,0,10"
                             ImageSource="{x:Binding ImagePath}"
                             Command="{x:Binding Command}"
                             Text="{x:Binding Text}"/>

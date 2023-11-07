@@ -115,6 +115,51 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clipboard.
+        /// </summary>
+        public static string InputControl_Clipboard {
+            get {
+                return ResourceManager.GetString("InputControl.Clipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse.
+        /// </summary>
+        public static string InputControl_MouseControl {
+            get {
+                return ResourceManager.GetString("InputControl.MouseControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send input.
+        /// </summary>
+        public static string InputControl_SendInput {
+            get {
+                return ResourceManager.GetString("InputControl.SendInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string Monitors_Off {
+            get {
+                return ResourceManager.GetString("Monitors.Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        public static string Monitors_On {
+            get {
+                return ResourceManager.GetString("Monitors.On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sensitivity: {0}.
         /// </summary>
         public static string MouseControl_Sensitivity {
@@ -135,9 +180,9 @@ namespace Amusoft.PCR.Application.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Input control.
         /// </summary>
-        public static string Nav_Input {
+        public static string Nav_InputControl {
             get {
-                return ResourceManager.GetString("Nav.Input", resourceCulture);
+                return ResourceManager.GetString("Nav.InputControl", resourceCulture);
             }
         }
         
@@ -147,6 +192,15 @@ namespace Amusoft.PCR.Application.Resources {
         public static string Nav_Monitors {
             get {
                 return ResourceManager.GetString("Nav.Monitors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse.
+        /// </summary>
+        public static string Nav_MouseControl {
+            get {
+                return ResourceManager.GetString("Nav.MouseControl", resourceCulture);
             }
         }
         
@@ -162,9 +216,9 @@ namespace Amusoft.PCR.Application.Resources {
         /// <summary>
         ///   Looks up a localized string similar to System state.
         /// </summary>
-        public static string Navi_SystemState {
+        public static string Nav_SystemState {
             get {
-                return ResourceManager.GetString("Navi.SystemState", resourceCulture);
+                return ResourceManager.GetString("Nav.SystemState", resourceCulture);
             }
         }
         
@@ -210,6 +264,51 @@ namespace Amusoft.PCR.Application.Resources {
         public static string Settings_AddPorts {
             get {
                 return ResourceManager.GetString("Settings_AddPorts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abort.
+        /// </summary>
+        public static string SystemState_Abort {
+            get {
+                return ResourceManager.GetString("SystemState.Abort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hibernate.
+        /// </summary>
+        public static string SystemState_Hibernate {
+            get {
+                return ResourceManager.GetString("SystemState.Hibernate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lock.
+        /// </summary>
+        public static string SystemState_Lock {
+            get {
+                return ResourceManager.GetString("SystemState.Lock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart.
+        /// </summary>
+        public static string SystemState_Restart {
+            get {
+                return ResourceManager.GetString("SystemState.Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shutdown.
+        /// </summary>
+        public static string SystemState_Shutdown {
+            get {
+                return ResourceManager.GetString("SystemState.Shutdown", resourceCulture);
             }
         }
     }

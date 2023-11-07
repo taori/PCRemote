@@ -56,6 +56,11 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushAsync<InputControl, InputControlViewModel>();
 	}
 
+	public Task OpenMouseControl()
+	{
+		return SpawnPushAsync<MouseControl, MouseControlViewModel>();
+	}
+
 	public Task OpenPrograms()
 	{
 		return SpawnPushAsync<Programs, ProgramsViewModel>();

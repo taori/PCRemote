@@ -33,6 +33,9 @@ public static class MauiServiceRegistrar
 		services.AddScoped<InputControl>();
 		services.AddScoped<InputControlViewModel>();
 
+		services.AddScoped<MouseControl>();
+		services.AddScoped<MouseControlViewModel>();
+
 		services.AddScoped<Monitors>();
 		services.AddScoped<MonitorsViewModel>();
 

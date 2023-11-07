@@ -16,4 +16,5 @@ public interface ITypedNavigator
 	Task OpenInputControl();
 	Task OpenPrograms();
 	Task ScopedNavigationAsync(Action<IServiceCollection> scopeConfiguration, Func<ITypedNavigator, Task> navigate);
+	Task OpenMouseControl();
 }

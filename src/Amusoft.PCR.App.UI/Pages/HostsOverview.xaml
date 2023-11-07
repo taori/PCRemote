@@ -9,7 +9,7 @@
              x:Class="Amusoft.PCR.App.UI.Pages.HostsOverview"
              x:DataType="vm:HostsOverviewViewModel"
              Title="{x:Binding Title}">
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto" Padding="{StaticResource PaddingButtonPanel}">
 
         <controls:ErrorFrame Text="{x:Static resources:Translations.HostsOverview_NoPortsConfigured}"
                              IsVisible="{x:Binding ArePortsMissing, Mode=OneWay}"/>

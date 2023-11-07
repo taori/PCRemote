@@ -153,7 +153,7 @@
   <data name="Nav.Audio" xml:space="preserve">
     <value>Audio</value>
   </data>
-  <data name="Nav.Input" xml:space="preserve">
+  <data name="Nav.InputControl" xml:space="preserve">
     <value>Input control</value>
   </data>
   <data name="Nav.Monitors" xml:space="preserve">
@@ -162,10 +162,43 @@
   <data name="Nav.Programs" xml:space="preserve">
     <value>Programs</value>
   </data>
-  <data name="Navi.SystemState" xml:space="preserve">
+  <data name="Nav.SystemState" xml:space="preserve">
     <value>System state</value>
   </data>
   <data name="MouseControl.Sensitivity" xml:space="preserve">
     <value>Sensitivity: {0}</value>
+  </data>
+  <data name="InputControl.Clipboard" xml:space="preserve">
+    <value>Clipboard</value>
+  </data>
+  <data name="InputControl.MouseControl" xml:space="preserve">
+    <value>Mouse</value>
+  </data>
+  <data name="InputControl.SendInput" xml:space="preserve">
+    <value>Send input</value>
+  </data>
+  <data name="Monitors.Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Monitors.On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Nav.MouseControl" xml:space="preserve">
+    <value>Mouse</value>
+  </data>
+  <data name="SystemState.Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="SystemState.Hibernate" xml:space="preserve">
+    <value>Hibernate</value>
+  </data>
+  <data name="SystemState.Lock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="SystemState.Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="SystemState.Shutdown" xml:space="preserve">
+    <value>Shutdown</value>
   </data>
 </root>

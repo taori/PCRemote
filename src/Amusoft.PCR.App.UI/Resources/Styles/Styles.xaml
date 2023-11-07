@@ -411,4 +411,5 @@
         <Setter Property="FontAttributes" Value="Bold"/>
     </Style>
 
+    <Thickness Left="20" Top="10" Right="20" Bottom="10" x:Key="PaddingButtonPanel"></Thickness>
 </ResourceDictionary>

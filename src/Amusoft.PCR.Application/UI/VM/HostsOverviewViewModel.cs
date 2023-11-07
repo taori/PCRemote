@@ -104,7 +104,8 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 
 		static async IAsyncEnumerable<IAsyncEnumerable<UdpReceiveResult>> GetPortSourcesAsync(int[] ports)
 		{
-			foreach (var port in ports)
+			var limit = Math.Pow(2, 16);
+			foreach (var port in ports.Where(d => d < limit))
 			{
 				var duration = TimeSpan.FromSeconds(1);
 				using var cts = new CancellationTokenSource(duration);

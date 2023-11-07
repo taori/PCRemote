@@ -20,34 +20,34 @@ public partial class MainViewModel : PageViewModel
 		{
 			new ()
 			{
-				ImagePath = "configuration.png",
+				ImagePath = null,
 				Text = Translations.Page_Title_HostsOverview,
 				Command = new RelayCommand(() => Navigator.OpenHostOverview())
 			},
 			new ()
 			{
-				ImagePath = "configuration.png",
+				ImagePath = null,
 				Text = Translations.Page_Title_Settings,
 				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Settings}"))
 			},
-			new ()
-			{
-				ImagePath = "configuration.png",
-				Text = Translations.Page_Title_Audio,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
-			},
-			new ()
-			{
-				ImagePath = "volume_off.png",
-				Text = Translations.Page_Title_Audio,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
-			},
-			new ()
-			{
-				ImagePath = "volume_up.png",
-				Text = Translations.Page_Title_Audio,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
-			},
+			// new ()
+			// {
+			// 	ImagePath = "configuration.png",
+			// 	Text = Translations.Page_Title_Audio,
+			// 	Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
+			// },
+			// new ()
+			// {
+			// 	ImagePath = "volume_off.png",
+			// 	Text = Translations.Page_Title_Audio,
+			// 	Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
+			// },
+			// new ()
+			// {
+			// 	ImagePath = "volume_up.png",
+			// 	Text = Translations.Page_Title_Audio,
+			// 	Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
+			// },
 		};
 	}
 

@@ -8,10 +8,7 @@
              x:Class="Amusoft.PCR.App.UI.Pages.Audio"
              x:DataType="vm:AudioViewModel"
              Title="{x:Binding Title}">
-    <Grid RowDefinitions="*">
-        <Grid.Resources>
-            <behaviors:BoolToObjectConverter x:TypeArguments="Color" x:Key="CLR" TrueObject="Red" FalseObject="Green"></behaviors:BoolToObjectConverter>
-        </Grid.Resources>
+    <Grid RowDefinitions="*" Padding="{StaticResource PaddingButtonPanel}">
         <RefreshView IsRefreshing="{x:Binding IsReloading}"
                      Grid.Row="1"
                      Command="{x:Binding ReloadCommand}">
@@ -25,19 +22,19 @@
                         <DataTemplate x:DataType="vm:AudioViewModelItem">
                             <Grid RowDefinitions="Auto,Auto" 
                                   ColumnDefinitions="*,Auto" 
-                                  Margin="10" >
+                                  Margin="0,10,0,10" >
                                 <Label Text="{x:Binding Name}" 
                                        FontSize="20"
-                                       Margin="20,0,35,0"/>
+                                       Margin="13,0,35,10"/>
                                 <Slider Value="{x:Binding Volume}" 
-                                        Margin="20,0"
+                                        Margin="0,0"
                                         Grid.Row="1"
                                         Minimum="0" 
                                         Maximum="100" 
                                         DragCompletedCommand="{x:Binding Path=VolumeChangedCommand}"/>
                                 <ImageButton Source="{x:Binding Icon}" Grid.Column="1" Grid.RowSpan="2"
                                              Command="{x:Binding MuteCommand}"
-                                             Margin="0,0,20,0"
+                                             Margin="10,0,0,0"
                                              VerticalOptions="Center">
 
                                     <!-- this works -->
