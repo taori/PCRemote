@@ -2,10 +2,7 @@
 using Android.Content;
 using Android.Views;
 using AndroidX.CoordinatorLayout.Widget;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using System.Numerics;
-using Color = Android.Graphics.Color;
-using View = Android.Views.View;
 
 namespace Amusoft.PCR.App.UI.Platforms.Android;
 
@@ -58,7 +55,7 @@ public class MauiTrackerView : CoordinatorLayout
 
 		switch (action & MotionEventActions.Mask)
 		{
-			case MotionEventActions.PointerDown:
+			case MotionEventActions.Pointer1Up:
 				_virtualView.MultiTapCommand?.Execute(null);
 				break;
 			case MotionEventActions.Up:
