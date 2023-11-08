@@ -210,4 +210,64 @@
   <data name="SystemState.Shutdown" xml:space="preserve">
     <value>Shutdown</value>
   </data>
+  <data name="InputControl.ControlOptions" xml:space="preserve">
+    <value>Application control</value>
+  </data>
+  <data name="InputControl.ControlOptions.Windows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="InputControl.HostUpdatedMessage" xml:space="preserve">
+    <value>Host clipboard updated</value>
+  </data>
+  <data name="InputControl.ClientUpdatedMessage" xml:space="preserve">
+    <value>Client clipboard updated</value>
+  </data>
+  <data name="InputControl.Windows.PickAudioSource" xml:space="preserve">
+    <value>Pick audio source</value>
+  </data>
+  <data name="InputControl.Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="InputControl.Down" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="InputControl.Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="InputControl.Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="InputControl.Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="InputControl.Space" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="InputControl.Escape" xml:space="preserve">
+    <value>Escape</value>
+  </data>
+  <data name="InputControl.ControlOptions.VideoBrowser" xml:space="preserve">
+    <value>Video browser</value>
+  </data>
+  <data name="InputControl.ControlOptions.VideoBrowser.PlayToggle" xml:space="preserve">
+    <value>Play/Pause</value>
+  </data>
+  <data name="InputControl.ControlOptions.VideoBrowser.MuteToggle" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="InputControl.ControlOptions.Fullscreen" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="InputControl.ControlOptions.Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="InputControl.ControlOptions.Reverse" xml:space="preserve">
+    <value>Reverse</value>
+  </data>
+  <data name="InputControl.ControlOptions.VolumeUp" xml:space="preserve">
+    <value>Increase volume</value>
+  </data>
+  <data name="InputControl.ControlOptions.VolumeDown" xml:space="preserve">
+    <value>Decrease volume</value>
+  </data>
 </root>

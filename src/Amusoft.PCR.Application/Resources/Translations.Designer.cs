@@ -142,11 +142,155 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client clipboard updated.
+        /// </summary>
+        public static string InputControl_ClientUpdatedMessage {
+            get {
+                return ResourceManager.GetString("InputControl.ClientUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clipboard.
         /// </summary>
         public static string InputControl_Clipboard {
             get {
                 return ResourceManager.GetString("InputControl.Clipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application control.
+        /// </summary>
+        public static string InputControl_ControlOptions {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forward.
+        /// </summary>
+        public static string InputControl_ControlOptions_Forward {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.Forward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fullscreen.
+        /// </summary>
+        public static string InputControl_ControlOptions_Fullscreen {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.Fullscreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reverse.
+        /// </summary>
+        public static string InputControl_ControlOptions_Reverse {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.Reverse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video browser.
+        /// </summary>
+        public static string InputControl_ControlOptions_VideoBrowser {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.VideoBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mute.
+        /// </summary>
+        public static string InputControl_ControlOptions_VideoBrowser_MuteToggle {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.VideoBrowser.MuteToggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play/Pause.
+        /// </summary>
+        public static string InputControl_ControlOptions_VideoBrowser_PlayToggle {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.VideoBrowser.PlayToggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decrease volume.
+        /// </summary>
+        public static string InputControl_ControlOptions_VolumeDown {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.VolumeDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase volume.
+        /// </summary>
+        public static string InputControl_ControlOptions_VolumeUp {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.VolumeUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows.
+        /// </summary>
+        public static string InputControl_ControlOptions_Windows {
+            get {
+                return ResourceManager.GetString("InputControl.ControlOptions.Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Down.
+        /// </summary>
+        public static string InputControl_Down {
+            get {
+                return ResourceManager.GetString("InputControl.Down", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter.
+        /// </summary>
+        public static string InputControl_Enter {
+            get {
+                return ResourceManager.GetString("InputControl.Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Escape.
+        /// </summary>
+        public static string InputControl_Escape {
+            get {
+                return ResourceManager.GetString("InputControl.Escape", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host clipboard updated.
+        /// </summary>
+        public static string InputControl_HostUpdatedMessage {
+            get {
+                return ResourceManager.GetString("InputControl.HostUpdatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        public static string InputControl_Left {
+            get {
+                return ResourceManager.GetString("InputControl.Left", resourceCulture);
             }
         }
         
@@ -160,11 +304,47 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        public static string InputControl_Right {
+            get {
+                return ResourceManager.GetString("InputControl.Right", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send input.
         /// </summary>
         public static string InputControl_SendInput {
             get {
                 return ResourceManager.GetString("InputControl.SendInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Space.
+        /// </summary>
+        public static string InputControl_Space {
+            get {
+                return ResourceManager.GetString("InputControl.Space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Up.
+        /// </summary>
+        public static string InputControl_Up {
+            get {
+                return ResourceManager.GetString("InputControl.Up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick audio source.
+        /// </summary>
+        public static string InputControl_Windows_PickAudioSource {
+            get {
+                return ResourceManager.GetString("InputControl.Windows.PickAudioSource", resourceCulture);
             }
         }
         

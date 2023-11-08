@@ -32,18 +32,18 @@ public partial class InputControlViewModel : PageViewModel
 	{
 		return Navigator.OpenStaticCommandButtonList(model =>
 		{
-			model.Title = "Control options";
+			model.Title = Translations.InputControl_ControlOptions;
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
 			{
 				new()
 				{
-					Text = "Windows",
-					Command = new AsyncRelayCommand(() => _host.DesktopIntegrationClient?.DesktopClient.SendKeys("^{ESC}v") ?? Task.CompletedTask)
+					Text = Translations.InputControl_ControlOptions_Windows,
+					Command = ControlOptionsWindowsCommand
 				},
 				new()
 				{
-					Text = "Task Manager",
-					Command = new AsyncRelayCommand(() => _host.DesktopIntegrationClient?.DesktopClient.SendKeys("^%{DEL}") ?? Task.CompletedTask)
+					Text = Translations.InputControl_ControlOptions_VideoBrowser,
+					Command = ControlOptionsBrowserVideoPlayerCommand
 				},
 			});
 		}, _host);
@@ -88,7 +88,7 @@ public partial class InputControlViewModel : PageViewModel
 		if (content is { } c)
 		{
 			await _agentEnvironment.UpdateClipboardAsync(c);
-			await _toast.Make("Client clipboard updated").Show();
+			await _toast.Make(Translations.InputControl_ClientUpdatedMessage).Show();
 		}
 	}
 
@@ -98,7 +98,7 @@ public partial class InputControlViewModel : PageViewModel
 		var cc = await _agentEnvironment.GetClipboardAsync();
 		var success = await _host.DesktopIntegrationClient?.Desktop((d => d.SetClipboardAsync(_agentEnvironment.AgentName, cc)));
 		if (success == true)
-			await _toast.Make("Host clipboard updated").Show();
+			await _toast.Make(Translations.InputControl_HostUpdatedMessage).Show();
 	}
 
 	[RelayCommand]
@@ -107,5 +107,124 @@ public partial class InputControlViewModel : PageViewModel
 		var content = await _agentEnvironment.GetClipboardAsync();
 		if (content is { } c)
 			await _toast.Make(c).Show();
+	}
+
+	[RelayCommand]
+	private Task ControlOptionsWindows()
+	{
+		return Navigator.OpenStaticCommandButtonList(model =>
+		{
+			model.Title = Translations.InputControl_ControlOptions_Windows;
+			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
+			{
+				new()
+				{
+					Text = Translations.InputControl_Windows_PickAudioSource,
+					Command = new AsyncRelayCommand(() => RunSendKeys("^{ESC}v"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_Up,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{UP}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_Down,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{DOWN}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_Left,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{LEFT}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_Right,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{RIGHT}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_Space,
+					Command = new AsyncRelayCommand(() => RunSendKeys(" "))
+				},
+				new()
+				{
+					Text = Translations.InputControl_Enter,
+					Command = new AsyncRelayCommand(() => RunSendKeys("~"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_Escape,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{ESC}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_MouseControl,
+					Command = mouseControlCommand
+				},
+			});
+		}, _host);
+	}
+
+	[RelayCommand]
+	private Task ControlOptionsBrowserVideoPlayer()
+	{
+		return Navigator.OpenStaticCommandButtonList(model =>
+		{
+			model.Title = Translations.InputControl_ControlOptions_VideoBrowser;
+			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
+			{
+				new()
+				{
+					Text = Translations.InputControl_ControlOptions_VideoBrowser_PlayToggle,
+					Command = new AsyncRelayCommand(() => RunSendKeys(" "))
+				},
+				new()
+				{
+					Text = Translations.InputControl_Escape,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{ESC}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_ControlOptions_Fullscreen,
+					Command = new AsyncRelayCommand(() => RunSendKeys("f"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_ControlOptions_Forward,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{RIGHT}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_ControlOptions_Reverse,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{LEFT}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_ControlOptions_VolumeUp,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{UP}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_ControlOptions_VolumeDown,
+					Command = new AsyncRelayCommand(() => RunSendKeys("{DOWN}"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_ControlOptions_VideoBrowser_MuteToggle,
+					Command = new AsyncRelayCommand(() => RunSendKeys("m"))
+				},
+				new()
+				{
+					Text = Translations.InputControl_MouseControl,
+					Command = mouseControlCommand
+				},
+			});
+		}, _host);
+	}
+
+	private Task RunSendKeys(string keys)
+	{
+		return _host.DesktopIntegrationClient.Desktop(d => d.SendKeys(keys));
 	}
 }

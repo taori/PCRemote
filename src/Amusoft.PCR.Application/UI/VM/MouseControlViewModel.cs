@@ -33,7 +33,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	protected override string GetDefaultPageTitle()
 	{
-		return Translations.Nav_InputControl;
+		return Translations.InputControl_MouseControl;
 	}
 
 	[ObservableProperty]

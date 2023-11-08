@@ -37,6 +37,10 @@ public partial class SystemStateViewModel : PageViewModel
 		_host.DesktopIntegrationClient.Desktop(d => d.LockWorkStation());
 
 	[RelayCommand]
-	private Task Hibernate() =>
-		_host.DesktopIntegrationClient.Desktop(d => d.Hibernate());
+	private Task Hibernate()
+	{
+		// hibernation does not return a result before entering hibernation so it cannot be awaited
+		_ = _host.DesktopIntegrationClient.Desktop(d => d.Hibernate());
+		return Task.CompletedTask;
+	}
 }
