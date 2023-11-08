@@ -270,4 +270,10 @@
   <data name="InputControl.ControlOptions.VolumeDown" xml:space="preserve">
     <value>Decrease volume</value>
   </data>
+  <data name="Programs.KillProgram" xml:space="preserve">
+    <value>Kill program</value>
+  </data>
+  <data name="Programs.StartProgram" xml:space="preserve">
+    <value>Start program</value>
+  </data>
 </root>

@@ -30,7 +30,7 @@ public partial class InputControlViewModel : PageViewModel
 	[RelayCommand]
 	private Task SendInput()
 	{
-		return Navigator.OpenStaticCommandButtonList(model =>
+		return Navigator.OpenCommandButtonList(model =>
 		{
 			model.Title = Translations.InputControl_ControlOptions;
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
@@ -56,7 +56,7 @@ public partial class InputControlViewModel : PageViewModel
 	[RelayCommand]
 	private Task Clipboard()
 	{
-		return Navigator.OpenStaticCommandButtonList(model =>
+		return Navigator.OpenCommandButtonList(model =>
 		{
 			model.Title = "Clipboard";
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
@@ -112,7 +112,7 @@ public partial class InputControlViewModel : PageViewModel
 	[RelayCommand]
 	private Task ControlOptionsWindows()
 	{
-		return Navigator.OpenStaticCommandButtonList(model =>
+		return Navigator.OpenCommandButtonList(model =>
 		{
 			model.Title = Translations.InputControl_ControlOptions_Windows;
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
@@ -169,7 +169,7 @@ public partial class InputControlViewModel : PageViewModel
 	[RelayCommand]
 	private Task ControlOptionsBrowserVideoPlayer()
 	{
-		return Navigator.OpenStaticCommandButtonList(model =>
+		return Navigator.OpenCommandButtonList(model =>
 		{
 			model.Title = Translations.InputControl_ControlOptions_VideoBrowser;
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]

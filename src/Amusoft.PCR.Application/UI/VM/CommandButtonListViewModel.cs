@@ -5,12 +5,12 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
-public partial class StaticCommandButtonListViewModel : PageViewModel
+public partial class CommandButtonListViewModel : PageViewModel
 {
 	[ObservableProperty] 
 	private ObservableCollection<NavigationItem> _items = new();
 
-	public StaticCommandButtonListViewModel(ITypedNavigator navigator) : base(navigator)
+	public CommandButtonListViewModel(ITypedNavigator navigator) : base(navigator)
 	{
 	}
 

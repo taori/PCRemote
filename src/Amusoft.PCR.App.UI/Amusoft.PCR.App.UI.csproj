@@ -72,6 +72,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\CommandButtonList.xaml.cs">
+	    <DependentUpon>CommandButtonList.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Platforms\Windows\TrackerViewHandler.cs">
 	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
 	  </Compile>

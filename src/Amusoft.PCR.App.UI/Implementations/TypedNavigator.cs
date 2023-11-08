@@ -66,10 +66,10 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushAsync<Programs, ProgramsViewModel>(_serviceProvider);
 	}
 
-	public Task OpenStaticCommandButtonList(Action<StaticCommandButtonListViewModel> configure, HostViewModel host)
+	public Task OpenCommandButtonList(Action<CommandButtonListViewModel> configure, HostViewModel host)
 	{
 		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection => collection.AddSingleton(host));
-		return SpawnPushConfigureAsync<StaticCommandButtonList, StaticCommandButtonListViewModel>(provider, configure);
+		return SpawnPushConfigureAsync<CommandButtonList, CommandButtonListViewModel>(provider, configure);
 	}
 
 	public Task ScopedNavigationAsync(Action<IServiceCollection> scopeConfiguration, Func<ITypedNavigator, Task> navigate)

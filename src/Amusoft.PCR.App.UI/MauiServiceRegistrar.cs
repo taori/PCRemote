@@ -22,8 +22,8 @@ public static class MauiServiceRegistrar
 		services.AddSingleton<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
 		services.AddSingleton<INestedServiceProviderFactory, NestedServiceProviderFactory>();
 
-		services.AddTransient<StaticCommandButtonList>();
-		services.AddTransient<StaticCommandButtonListViewModel>();
+		services.AddTransient<CommandButtonList>();
+		services.AddTransient<CommandButtonListViewModel>();
 
 		services.AddScoped<MainPage>();
 		services.AddScoped<MainViewModel>();

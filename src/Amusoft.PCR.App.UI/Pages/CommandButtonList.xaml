@@ -4,8 +4,8 @@
              xmlns:controls="using:Amusoft.PCR.App.UI.Controls"
              xmlns:shared="clr-namespace:Amusoft.PCR.Application.Shared;assembly=Amusoft.PCR.Application"
              xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
-             x:Class="Amusoft.PCR.App.UI.Pages.StaticCommandButtonList"
-             x:DataType="vm:StaticCommandButtonListViewModel"
+             x:Class="Amusoft.PCR.App.UI.Pages.CommandButtonList"
+             x:DataType="vm:CommandButtonListViewModel"
              Title="{x:Binding Title}">
     <Grid Padding="{StaticResource PaddingButtonPanel}">
         <CollectionView ItemsSource="{x:Binding Path=Items}"

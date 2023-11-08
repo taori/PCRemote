@@ -466,6 +466,24 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kill program.
+        /// </summary>
+        public static string Programs_KillProgram {
+            get {
+                return ResourceManager.GetString("Programs.KillProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start program.
+        /// </summary>
+        public static string Programs_StartProgram {
+            get {
+                return ResourceManager.GetString("Programs.StartProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add port.
         /// </summary>
         public static string Settings_AddPorts {
