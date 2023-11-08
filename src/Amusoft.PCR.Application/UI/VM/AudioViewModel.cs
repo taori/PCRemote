@@ -92,7 +92,7 @@ public partial class AudioViewModel : Shared.ReloadablePageViewModel, INavigatio
 
 	public Task OnNavigatedToAsync()
 	{
-		return OnReloadAsync();
+		return ReloadAsync();
 	}
 }
 

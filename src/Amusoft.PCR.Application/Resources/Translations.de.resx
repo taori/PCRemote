@@ -181,7 +181,7 @@
     <value>Clipboard</value>
   </data>
   <data name="InputControl.MouseControl" xml:space="preserve">
-    <value>Maus</value>
+    <value>Maus steuern</value>
   </data>
   <data name="InputControl.SendInput" xml:space="preserve">
     <value>Eingabe senden</value>
@@ -193,7 +193,7 @@
     <value>An</value>
   </data>
   <data name="Nav.MouseControl" xml:space="preserve">
-    <value>Maus</value>
+    <value>Maus steuern</value>
   </data>
   <data name="SystemState.Abort" xml:space="preserve">
     <value>Abbruch</value>

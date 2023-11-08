@@ -67,7 +67,7 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 
 	public async Task OnNavigatedToAsync()
 	{
-		await OnReloadAsync();
+		await ReloadAsync();
 	}
 
 	private HostItemViewModel[] GetHostItemModel(UdpReceiveResult result)

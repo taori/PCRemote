@@ -8,20 +8,22 @@
              x:DataType="vm:CommandButtonListViewModel"
              Title="{x:Binding Title}">
     <Grid Padding="{StaticResource PaddingButtonPanel}">
-        <CollectionView ItemsSource="{x:Binding Path=Items}"
-                        SelectionMode="None">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="shared:NavigationItem">
-                    <controls:ListViewButton
-                        Margin="0,0,0,10"
-                        CommandParameter="{x:Binding}"
-                        Command="{x:Binding Path=Command}"
-                        Text="{x:Binding Path=Text}"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+                     Command="{x:Binding ReloadCommand}">
+            <CollectionView ItemsSource="{x:Binding Path=Items}"
+                                SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="shared:NavigationItem">
+                        <controls:ListViewButton
+                                CommandParameter="{x:Binding}"
+                                Command="{x:Binding Path=Command}"
+                                Text="{x:Binding Path=Text}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
     </Grid>
 </ContentPage>

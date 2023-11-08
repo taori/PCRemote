@@ -295,7 +295,7 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mouse.
+        ///   Looks up a localized string similar to Control mouse.
         /// </summary>
         public static string InputControl_MouseControl {
             get {
@@ -403,7 +403,7 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mouse.
+        ///   Looks up a localized string similar to Control mouse.
         /// </summary>
         public static string Nav_MouseControl {
             get {
