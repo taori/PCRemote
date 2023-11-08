@@ -92,6 +92,7 @@ message GetClipboardRequest {
 }
 message GetClipboardResponse {
 	string content = 1;
+	bool success = 2;
 }
 message SetClipboardRequest {
 	string content = 1;

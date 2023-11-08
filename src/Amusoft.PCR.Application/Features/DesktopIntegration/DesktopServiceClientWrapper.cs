@@ -242,8 +242,8 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		try
 		{
 			_logger.LogDebug("{Method}({Requestee})", nameof(GetClipboardAsync), requestee);
-			var content = await _service.GetClipboardAsync(new GetClipboardRequest() { Requestee = requestee });
-			return content.Content;
+			var response = await _service.GetClipboardAsync(new GetClipboardRequest() { Requestee = requestee });
+			return response.Success ? response.Content : null;
 		}
 		catch (Exception e)
 		{

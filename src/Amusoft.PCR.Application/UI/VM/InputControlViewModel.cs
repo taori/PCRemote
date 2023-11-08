@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
+using Amusoft.PCR.Domain.Services;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,10 +12,14 @@ namespace Amusoft.PCR.Application.UI.VM;
 public partial class InputControlViewModel : PageViewModel
 {
 	private readonly HostViewModel _host;
+	private readonly IAgentEnvironment _agentEnvironment;
+	private readonly IToast _toast;
 
-	public InputControlViewModel(ITypedNavigator navigator, HostViewModel host) : base(navigator)
+	public InputControlViewModel(ITypedNavigator navigator, HostViewModel host, IAgentEnvironment agentEnvironment, IToast toast) : base(navigator)
 	{
 		_host = host;
+		_agentEnvironment = agentEnvironment;
+		_toast = toast;
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -26,7 +32,7 @@ public partial class InputControlViewModel : PageViewModel
 	{
 		return Navigator.OpenStaticCommandButtonList(model =>
 		{
-			model.Title = "Control Options";
+			model.Title = "Control options";
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
 			{
 				new()
@@ -48,5 +54,58 @@ public partial class InputControlViewModel : PageViewModel
 		Navigator.ScopedNavigationAsync(d => d.AddSingleton(_host), d => d.OpenMouseControl());
 
 	[RelayCommand]
-	private Task Clipboard(){ return Task.CompletedTask;}
+	private Task Clipboard()
+	{
+		return Navigator.OpenStaticCommandButtonList(model =>
+		{
+			model.Title = "Clipboard";
+			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
+			{
+				new()
+				{
+					Text = "Copy from host",
+					Command = RunGetClipboardCommand
+				},
+				new()
+				{
+					Text = "Copy to host",
+					Command = RunSetClipboardCommand
+				},
+				new()
+				{
+					Text = "Tell clipboard",
+					Command = RunTellClipboardCommand
+				},
+			});
+		}, _host);
+
+	}
+
+	[RelayCommand]
+	private async Task RunGetClipboard()
+	{
+		var content = await _host.DesktopIntegrationClient?.Desktop(d => d.GetClipboardAsync(_agentEnvironment.AgentName));
+		if (content is { } c)
+		{
+			await _agentEnvironment.UpdateClipboardAsync(c);
+			await _toast.Make("Agent clipboard updated").Show();
+		}
+	}
+
+	[RelayCommand]
+	private async Task RunSetClipboard()
+	{
+		var cc = await _agentEnvironment.GetClipboardAsync();
+		var success = await _host.DesktopIntegrationClient?.Desktop((d => d.SetClipboardAsync(_agentEnvironment.AgentName, cc)));
+		if (success == true)
+			await _toast.Make("Host clipboard updated").Show();
+	}
+
+	[RelayCommand]
+	private async Task RunTellClipboard()
+	{
+		var content = await _agentEnvironment.GetClipboardAsync();
+		if (content is { } c)
+			await _toast.Make(c).Show();
+	}
 }

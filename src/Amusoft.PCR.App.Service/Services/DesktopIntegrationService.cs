@@ -40,7 +40,8 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 		var result = await _impersonatedChannel.GetClipboardAsync(request.Requestee);
 		return new GetClipboardResponse()
 		{
-			Content = result
+			Content = result,
+			Success = result is {Length: >0}
 		};
 	}
 	

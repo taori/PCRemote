@@ -8,6 +8,7 @@ using Amusoft.PCR.Int.Agent.Windows.Windows;
 using Amusoft.PCR.Int.IPC;
 using Grpc.Core;
 using NLog;
+using Application = System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Amusoft.PCR.Int.Agent.Windows.Services;
@@ -139,34 +140,41 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 	public override async Task<GetClipboardResponse> GetClipboard(GetClipboardRequest request, ServerCallContext context)
 	{
 		Log.Info("Executing [{Name}]", nameof(GetClipboard));
-		System.Windows.Application.Current.MainWindow?.Focus();
-		if (MessageBox.Show($"Send clipboard content to {request.Requestee}?", "PC Remote 2", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+		if (!TryFocusMainWindow())
+		{
+			return new GetClipboardResponse() { Content = string.Empty, Success = false };
+		}
+		if (MessageBox.Show($"Send clipboard content to {request.Requestee}?", "PC Remote 3", MessageBoxButtons.YesNo) == DialogResult.Yes)
 		{
 			try
 			{
 				var content = await ClipboardHelper.GetClipboardAsync(System.Windows.Forms.TextDataFormat.UnicodeText);
 
 				Log.Debug("Returning {Length} characters to client", content.Length);
-				return new GetClipboardResponse() { Content = content };
+				return new GetClipboardResponse() { Content = content, Success = content.Length > 0};
 			}
 			catch (Exception e)
 			{
 				Log.Error(e, "Failed to read clipboard.");
-				return new GetClipboardResponse() { Content = default };
+				return new GetClipboardResponse() { Content = string.Empty, Success = false};
 			}
 		}
 		else
 		{
 			Log.Warn("Permission denied");
-			throw new RpcException(new Status(StatusCode.PermissionDenied, "Host declined permission"));
+			return new GetClipboardResponse() { Content = string.Empty, Success = false };
 		}
 	}
 
 	public override async Task<SetClipboardResponse> SetClipboard(SetClipboardRequest request, ServerCallContext context)
 	{
 		Log.Info("Executing [{Name}]", nameof(GetClipboard));
-		System.Windows.Application.Current.MainWindow?.Focus();
-		if (MessageBox.Show($"Allow {request.Requestee} to set clipboard?", "PC Remote 2", MessageBoxButtons.YesNo) == DialogResult.Yes)
+		if (!TryFocusMainWindow())
+		{
+			return new SetClipboardResponse() { Success = false };
+		}
+		if (MessageBox.Show($"Allow {request.Requestee} to set clipboard?", "PC Remote 3", MessageBoxButtons.YesNo) == DialogResult.Yes)
 		{
 			try
 			{
@@ -257,5 +265,19 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 			Content = response.Content,
 			Success = !response.Cancelled
 		};
+	}
+
+	private static bool TryFocusMainWindow()
+	{
+		try
+		{
+			Application.Current.MainWindow?.Focus();
+			return true;
+		}
+		catch (Exception e)
+		{
+			Log.Error(e, "Failed to focus MainWindow");
+			return false;
+		}
 	}
 }

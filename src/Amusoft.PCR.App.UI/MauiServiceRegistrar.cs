@@ -15,6 +15,7 @@ public static class MauiServiceRegistrar
 		services.AddSingleton<Amusoft.PCR.Domain.Services.INavigation, Navigation>();
 		services.AddSingleton<ITypedNavigator, TypedNavigator>();
 		services.AddSingleton<IToast, Toast>();
+		services.AddSingleton<IAgentEnvironment, AgentEnvironment>();
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
 		services.AddSingleton<IFileStorage, FileStorage>();
 		services.AddSingleton<HostRepository>();
