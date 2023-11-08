@@ -61,6 +61,33 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load from host.
+        /// </summary>
+        public static string Clipboard_LoadFromHost {
+            get {
+                return ResourceManager.GetString("Clipboard_LoadFromHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get current.
+        /// </summary>
+        public static string Clipboard_TellCurrent {
+            get {
+                return ResourceManager.GetString("Clipboard_TellCurrent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send to host.
+        /// </summary>
+        public static string Clipboard_UpdateHost {
+            get {
+                return ResourceManager.GetString("Clipboard_UpdateHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Generic_Cancel {

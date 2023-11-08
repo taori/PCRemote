@@ -5,6 +5,9 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:windows="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Windows"
+                 xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                 xmlns:behaviors="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Behaviors"
+                 xmlns:resources="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Resources"
                  mc:Ignorable="d"
                  Topmost="True"
                  WindowStartupLocation="CenterScreen"
@@ -21,11 +24,19 @@
             <TextBox Margin="10,0,10,10"
                      mah:TextBoxHelper.Watermark="{Binding Path=WatermarkValue}" 
                      mah:TextBoxHelper.UseFloatingWatermark="True" 
-                     Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                     Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}">
+                <b:Interaction.Behaviors>
+                    <behaviors:FocusOnLoadBehavior />
+                </b:Interaction.Behaviors>
+            </TextBox>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0,10,10">
-                <Button Command="{Binding Path=ConfirmAsyncCommand}" Margin="0,0,10,0">Confirm</Button>
-                <Button Command="{Binding Path=CancelAsyncCommand}">Abort</Button>
+                <Button Command="{Binding Path=ConfirmAsyncCommand}" 
+                        Margin="0,0,10,0" 
+                        Content="{x:Static resources:Translations.Generic_Confirm}"></Button>
+
+                <Button Command="{Binding Path=CancelAsyncCommand}" 
+                        Content="{x:Static resources:Translations.Generic_Abort}"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>

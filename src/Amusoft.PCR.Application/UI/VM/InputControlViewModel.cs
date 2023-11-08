@@ -63,17 +63,17 @@ public partial class InputControlViewModel : PageViewModel
 			{
 				new()
 				{
-					Text = "Copy from host",
+					Text = Translations.Clipboard_LoadFromHost,
 					Command = RunGetClipboardCommand
 				},
 				new()
 				{
-					Text = "Copy to host",
+					Text = Translations.Clipboard_UpdateHost,
 					Command = RunSetClipboardCommand
 				},
 				new()
 				{
-					Text = "Tell clipboard",
+					Text = Translations.Clipboard_TellCurrent,
 					Command = RunTellClipboardCommand
 				},
 			});
@@ -88,7 +88,7 @@ public partial class InputControlViewModel : PageViewModel
 		if (content is { } c)
 		{
 			await _agentEnvironment.UpdateClipboardAsync(c);
-			await _toast.Make("Agent clipboard updated").Show();
+			await _toast.Make("Client clipboard updated").Show();
 		}
 	}
 

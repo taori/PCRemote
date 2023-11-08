@@ -3,8 +3,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Amusoft.PCR.Int.Agent.Windows.Events;
 using Amusoft.PCR.Int.Agent.Windows.Interop;
 using Amusoft.PCR.Int.Agent.Windows.Services;
+using Amusoft.PCR.Int.Agent.Windows.Windows;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
 using NLog;
@@ -46,6 +48,8 @@ public partial class App : Application
 		Log.Debug("Setting up event handler to check for parent process");
 		ProcessExitListenerManager.ProcessExited += ProcessExitListenerManagerOnProcessExited;
 
+		// ConfirmSample();
+
 		ShutdownIfMutexTaken();
 
 		// EventSetup.Initialize();
@@ -57,6 +61,17 @@ public partial class App : Application
 			Log.Fatal("Failed to launch named pipe for IPC with web application");
 			_namedPipeServer?.Dispose();
 		}
+	}
+
+	private static async void ConfirmSample()
+	{
+		var request = new GetConfirmRequest()
+		{
+			Description = "Some description",
+			Title = "Some title",
+		};
+
+		var response = await ViewModelSpawner.GetWindowResponseAsync<ConfirmWindow, ConfirmWindowViewModel, GetConfirmRequest, GetConfirmResponse>(request);
 	}
 
 	private void ProcessExitListenerManagerOnProcessExited(object? sender, int e)

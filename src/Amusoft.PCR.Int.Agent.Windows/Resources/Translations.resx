@@ -117,97 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HostsOverview_Configure" xml:space="preserve">
-    <value>Configure ports</value>
-  </data>
-  <data name="HostsOverview_NoPortsConfigured" xml:space="preserve">
-    <value>No ports are configured.</value>
-  </data>
-  <data name="Settings_AddPorts" xml:space="preserve">
-    <value>Add port</value>
-  </data>
-  <data name="Generic.Remove" xml:space="preserve">
-    <value>Remove</value>
-  </data>
-  <data name="Page.Title.Audio" xml:space="preserve">
-    <value>Audio mixer</value>
-  </data>
-  <data name="Page.Title.HostsOverview" xml:space="preserve">
-    <value>Devices</value>
-  </data>
-  <data name="Page.Title.MainPage" xml:space="preserve">
-    <value>PC Remote 3</value>
-  </data>
-  <data name="Page.Title.Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Generic.Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Generic.OK" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="Generic.Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="Nav.Audio" xml:space="preserve">
-    <value>Audio</value>
-  </data>
-  <data name="Nav.InputControl" xml:space="preserve">
-    <value>Input control</value>
-  </data>
-  <data name="Nav.Monitors" xml:space="preserve">
-    <value>Monitors</value>
-  </data>
-  <data name="Nav.Programs" xml:space="preserve">
-    <value>Programs</value>
-  </data>
-  <data name="Nav.SystemState" xml:space="preserve">
-    <value>System state</value>
-  </data>
-  <data name="MouseControl.Sensitivity" xml:space="preserve">
-    <value>Sensitivity: {0}</value>
-  </data>
-  <data name="Clipboard_LoadFromHost" xml:space="preserve">
-    <value>Load from host</value>
-  </data>
-  <data name="Clipboard_TellCurrent" xml:space="preserve">
-    <value>Get current</value>
-  </data>
-  <data name="Clipboard_UpdateHost" xml:space="preserve">
-    <value>Send to host</value>
-  </data>
-  <data name="InputControl.Clipboard" xml:space="preserve">
-    <value>Clipboard</value>
-  </data>
-  <data name="InputControl.MouseControl" xml:space="preserve">
-    <value>Mouse</value>
-  </data>
-  <data name="InputControl.SendInput" xml:space="preserve">
-    <value>Send input</value>
-  </data>
-  <data name="Monitors.Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="Monitors.On" xml:space="preserve">
-    <value>On</value>
-  </data>
-  <data name="Nav.MouseControl" xml:space="preserve">
-    <value>Mouse</value>
-  </data>
-  <data name="SystemState.Abort" xml:space="preserve">
+  <data name="Generic_Abort" xml:space="preserve">
     <value>Abort</value>
   </data>
-  <data name="SystemState.Hibernate" xml:space="preserve">
-    <value>Hibernate</value>
+  <data name="Generic_Confirm" xml:space="preserve">
+    <value>Confirm</value>
   </data>
-  <data name="SystemState.Lock" xml:space="preserve">
-    <value>Lock</value>
+  <data name="Generic_No" xml:space="preserve">
+    <value>No</value>
   </data>
-  <data name="SystemState.Restart" xml:space="preserve">
-    <value>Restart</value>
-  </data>
-  <data name="SystemState.Shutdown" xml:space="preserve">
-    <value>Shutdown</value>
+  <data name="Generic_Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

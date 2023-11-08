@@ -137,15 +137,23 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 		return Task.FromResult(new SendMediaKeysReply());
 	}
 
+	private static async Task<bool> ConfirmAsync(string title, string description)
+	{
+		var request = new GetConfirmRequest()
+		{
+			Description = description,
+			Title = title,
+		};
+
+		var response = await ViewModelSpawner.GetWindowResponseAsync<ConfirmWindow, ConfirmWindowViewModel, GetConfirmRequest, GetConfirmResponse>(request);
+		return response.Success;
+	}
+
 	public override async Task<GetClipboardResponse> GetClipboard(GetClipboardRequest request, ServerCallContext context)
 	{
 		Log.Info("Executing [{Name}]", nameof(GetClipboard));
-
-		if (!TryFocusMainWindow())
-		{
-			return new GetClipboardResponse() { Content = string.Empty, Success = false };
-		}
-		if (MessageBox.Show($"Send clipboard content to {request.Requestee}?", "PC Remote 3", MessageBoxButtons.YesNo) == DialogResult.Yes)
+		
+		if (await ConfirmAsync("PC Remote 3", $"Send clipboard content to {request.Requestee}?"))
 		{
 			try
 			{
@@ -170,11 +178,7 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 	public override async Task<SetClipboardResponse> SetClipboard(SetClipboardRequest request, ServerCallContext context)
 	{
 		Log.Info("Executing [{Name}]", nameof(GetClipboard));
-		if (!TryFocusMainWindow())
-		{
-			return new SetClipboardResponse() { Success = false };
-		}
-		if (MessageBox.Show($"Allow {request.Requestee} to set clipboard?", "PC Remote 3", MessageBoxButtons.YesNo) == DialogResult.Yes)
+		if (await ConfirmAsync("PC Remote 3", $"Allow {request.Requestee} to set clipboard?")) 
 		{
 			try
 			{
