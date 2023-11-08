@@ -120,17 +120,11 @@
   <data name="Nav.Audio" xml:space="preserve">
     <value>Sound</value>
   </data>
-  <data name="Nav.Input" xml:space="preserve">
-    <value>Eingabe</value>
-  </data>
   <data name="Nav.Monitors" xml:space="preserve">
     <value>Monitore</value>
   </data>
   <data name="Nav.Programs" xml:space="preserve">
     <value>Programme</value>
-  </data>
-  <data name="Navi.SystemState" xml:space="preserve">
-    <value>System</value>
   </data>
   <data name="Page.Title.Audio" xml:space="preserve">
     <value>Soundmixer</value>
@@ -143,5 +137,77 @@
   </data>
   <data name="Page.Title.Settings" xml:space="preserve">
     <value>Einstellungen</value>
+  </data>
+  <data name="HostsOverview_Configure" xml:space="preserve">
+    <value>Ports konfigurieren</value>
+  </data>
+  <data name="HostsOverview_NoPortsConfigured" xml:space="preserve">
+    <value>Keine Ports konfiguriert.</value>
+  </data>
+  <data name="Settings_AddPorts" xml:space="preserve">
+    <value>Port hinzufügen</value>
+  </data>
+  <data name="Generic.Remove" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="Generic.Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Generic.OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Generic.Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="Nav.InputControl" xml:space="preserve">
+    <value>Eingabe</value>
+  </data>
+  <data name="Nav.SystemState" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="MouseControl.Sensitivity" xml:space="preserve">
+    <value>Empfindlichkeit: {0}</value>
+  </data>
+  <data name="Clipboard_LoadFromHost" xml:space="preserve">
+    <value>Von Host laden</value>
+  </data>
+  <data name="Clipboard_TellCurrent" xml:space="preserve">
+    <value>Ausgeben</value>
+  </data>
+  <data name="Clipboard_UpdateHost" xml:space="preserve">
+    <value>An Host senden</value>
+  </data>
+  <data name="InputControl.Clipboard" xml:space="preserve">
+    <value>Clipboard</value>
+  </data>
+  <data name="InputControl.MouseControl" xml:space="preserve">
+    <value>Maus</value>
+  </data>
+  <data name="InputControl.SendInput" xml:space="preserve">
+    <value>Eingabe senden</value>
+  </data>
+  <data name="Monitors.Off" xml:space="preserve">
+    <value>Aus</value>
+  </data>
+  <data name="Monitors.On" xml:space="preserve">
+    <value>An</value>
+  </data>
+  <data name="Nav.MouseControl" xml:space="preserve">
+    <value>Maus</value>
+  </data>
+  <data name="SystemState.Abort" xml:space="preserve">
+    <value>Abbruch</value>
+  </data>
+  <data name="SystemState.Hibernate" xml:space="preserve">
+    <value>Ruhezustand</value>
+  </data>
+  <data name="SystemState.Lock" xml:space="preserve">
+    <value>Sperren</value>
+  </data>
+  <data name="SystemState.Restart" xml:space="preserve">
+    <value>Neustart</value>
+  </data>
+  <data name="SystemState.Shutdown" xml:space="preserve">
+    <value>Herunterfahren</value>
   </data>
 </root>
