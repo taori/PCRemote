@@ -2,6 +2,6 @@
 
 public class Settings
 {
-	public int Sensitivity { get; set; }
-	public int[] Ports { get; set; }
+	public int? Sensitivity { get; set; }
+	public int[] Ports { get; set; } = Array.Empty<int>();
 }

@@ -6,17 +6,20 @@ using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
+using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Application.Utility;
 using Amusoft.PCR.Domain.VM;
 using Amusoft.PCR.Int.IPC;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
 public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 {
 	private readonly HostViewModel _host;
+	private readonly ClientSettingsRepository _settingsRepository;
 
 	private CancellationTokenSource? _moveCts = new();
 
@@ -24,9 +27,10 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	private readonly ChannelStreamReader<SendMouseMoveRequestItem> _streamReader;
 
-	public MouseControlViewModel(ITypedNavigator navigator, HostViewModel host) : base(navigator)
+	public MouseControlViewModel(ITypedNavigator navigator, HostViewModel host, ClientSettingsRepository settingsRepository) : base(navigator)
 	{
 		_host = host;
+		_settingsRepository = settingsRepository;
 		_mouseMoveChannel = Channel.CreateUnbounded<SendMouseMoveRequestItem>();
 		_streamReader = new ChannelStreamReader<SendMouseMoveRequestItem>(_mouseMoveChannel);
 	}
@@ -54,11 +58,20 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 		return Task.CompletedTask;
 	}
 
-	public Task OnNavigatedToAsync()
+	[RelayCommand]
+	Task SaveSensitivity()
 	{
+		return _settingsRepository.UpdateAsync(d => d.Sensitivity = Sensitivity, CancellationToken.None);
+	}
+
+	public async Task OnNavigatedToAsync()
+	{
+		var settings = await _settingsRepository.GetAsync(CancellationToken.None);
+		Sensitivity = settings.Sensitivity ?? 20;
+
 		_moveCts?.Dispose();
 		_moveCts = new();
-		return _host.DesktopIntegrationClient.Desktop(d => d.SendMouseMoveAsync(_streamReader, _moveCts.Token));
+		await _host.DesktopIntegrationClient.Desktop(d => d.SendMouseMoveAsync(_streamReader, _moveCts.Token));
 	}
 
 	[RelayCommand]

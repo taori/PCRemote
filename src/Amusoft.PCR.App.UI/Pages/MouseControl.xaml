@@ -35,7 +35,8 @@
                Margin="25,20,0,0"
                Text="{x:Binding Sensitivity, StringFormat={x:Static resources:Translations.MouseControl_Sensitivity}}"/>
 
-        <Slider Grid.Row="3" Grid.ColumnSpan="3" 
+        <Slider Grid.Row="3" Grid.ColumnSpan="3"
+                DragCompletedCommand="{x:Binding SaveSensitivityCommand}"
                 ThumbColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Primary}}"
                 Margin="10,20" 
                 Value="{x:Binding Sensitivity}" 

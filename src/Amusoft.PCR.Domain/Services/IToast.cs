@@ -9,4 +9,5 @@ public interface IToastable : IDisposable
 {
 	Task Show();
 	Task Dismiss();
+	// string Text { get; set; }
 }

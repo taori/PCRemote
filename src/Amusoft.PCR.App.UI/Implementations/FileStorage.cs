@@ -18,11 +18,12 @@ public class FileStorage : IFileStorage
 	public async Task WriteJsonAsync<T>(string path, T value, CancellationToken cancellationToken)
 	{
 		var fullPath = GetAppRootedPath(path);
-		await using var fileStream = File.Exists(fullPath) 
-			? File.Open(fullPath, FileMode.Truncate)
-			: File.Create(fullPath);
-
-		await JsonSerializer.SerializeAsync(fileStream, value, cancellationToken: cancellationToken).ConfigureAwait(false);
+		await using (var fileStream = File.Exists(fullPath)
+			             ? File.Open(fullPath, FileMode.Truncate)
+			             : File.Create(fullPath))
+		{
+			await JsonSerializer.SerializeAsync(fileStream, value, cancellationToken: cancellationToken).ConfigureAwait(false);
+		}
 	}
 
 	public Task<byte[]> ReadAsync(string path, CancellationToken cancellationToken)
@@ -38,8 +39,10 @@ public class FileStorage : IFileStorage
 			return default;
 		}
 
-		await using var fileStream = File.OpenRead(fullPath);
-		return await JsonSerializer.DeserializeAsync<T>(fileStream, cancellationToken: cancellationToken).ConfigureAwait(false);
+		await using (var fileStream = File.OpenRead(fullPath))
+		{
+			return await JsonSerializer.DeserializeAsync<T>(fileStream, cancellationToken: cancellationToken).ConfigureAwait(false);
+		}
 	}
 
 	public bool PathExists(string path)

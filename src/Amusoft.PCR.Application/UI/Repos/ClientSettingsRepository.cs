@@ -24,7 +24,14 @@ public class ClientSettingsRepository
 		return _fileStorage.ReadJsonAsync<Settings>(_path, cancellationToken)!;
 	}
 
-	public async Task<bool> SaveAsync(CancellationToken cancellationToken, Settings value)
+	public async Task<bool> UpdateAsync(Action<Settings> update, CancellationToken cancellationToken)
+	{
+		var settings = await GetAsync(cancellationToken).ConfigureAwait(false);
+		update(settings);
+		return await SaveAsync(settings, cancellationToken).ConfigureAwait(false);
+	}
+
+	public async Task<bool> SaveAsync(Settings value, CancellationToken cancellationToken)
 	{
 		try
 		{

@@ -18,7 +18,10 @@ public static class MauiServiceRegistrar
 		services.AddSingleton<IAgentEnvironment, AgentEnvironment>();
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
 		services.AddSingleton<IFileStorage, FileStorage>();
+
 		services.AddSingleton<HostRepository>();
+		services.AddSingleton<ClientSettingsRepository>();
+
 		services.AddSingleton<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
 		services.AddSingleton<INestedServiceProviderFactory, NestedServiceProviderFactory>();
 
