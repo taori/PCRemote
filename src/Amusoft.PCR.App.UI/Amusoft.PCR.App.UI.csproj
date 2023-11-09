@@ -50,6 +50,13 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+
+		<AndroidResource Include="Platforms\Android\Resources\layout\*.xml">
+			<SubType>Designer</SubType>
+		</AndroidResource>
+	</ItemGroup>
+
 	<ItemGroup>
 		<!-- <FrameworkReference Include="Microsoft.AspNetCore.App" /> -->
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
@@ -71,13 +78,10 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Pages\CommandButtonList.xaml.cs">
-	    <DependentUpon>CommandButtonList.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Platforms\Windows\TrackerViewHandler.cs">
-	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-	  </Compile>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+	  <PackageReference Include="Xamarin.AndroidX.AppCompat">
+	    <Version>1.6.1.5</Version>
+	  </PackageReference>
 	</ItemGroup>
 
 </Project>

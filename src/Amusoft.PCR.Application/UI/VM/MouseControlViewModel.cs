@@ -8,6 +8,7 @@ using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Application.Utility;
+using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Domain.VM;
 using Amusoft.PCR.Int.IPC;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -20,6 +21,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 {
 	private readonly HostViewModel _host;
 	private readonly ClientSettingsRepository _settingsRepository;
+	private readonly IToast _toast;
 
 	private CancellationTokenSource? _moveCts = new();
 
@@ -27,10 +29,11 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	private readonly ChannelStreamReader<SendMouseMoveRequestItem> _streamReader;
 
-	public MouseControlViewModel(ITypedNavigator navigator, HostViewModel host, ClientSettingsRepository settingsRepository) : base(navigator)
+	public MouseControlViewModel(ITypedNavigator navigator, HostViewModel host, ClientSettingsRepository settingsRepository, IToast toast) : base(navigator)
 	{
 		_host = host;
 		_settingsRepository = settingsRepository;
+		_toast = toast;
 		_mouseMoveChannel = Channel.CreateUnbounded<SendMouseMoveRequestItem>();
 		_streamReader = new ChannelStreamReader<SendMouseMoveRequestItem>(_mouseMoveChannel);
 	}
@@ -62,6 +65,17 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 	Task SaveSensitivity()
 	{
 		return _settingsRepository.UpdateAsync(d => d.Sensitivity = Sensitivity, CancellationToken.None);
+	}
+
+
+	partial void OnSensitivityChanged(int value)
+	{
+		_toast.Make(string.Format(Translations.MouseControl_Sensitivity, value))
+			.SetText("test")
+			.SetPosition(Position.Top)
+			.Show();
+		// _toastable.SetText(string.Format(Translations.MouseControl_Sensitivity, value));
+		// _ = _toastable.Show();
 	}
 
 	public async Task OnNavigatedToAsync()

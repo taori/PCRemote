@@ -36,9 +36,13 @@ internal class Toastable : IToastable
 		return _toast.Dismiss();
 	}
 
-	// public string Text
-	// {
-	// 	get => _toast.Text;
-	// 	set => _toast.Text = value;
-	// }
+	public IToastable SetText(string value)
+	{
+		return this;
+	}
+
+	public IToastable SetPosition(Position value, int xOffset = 0, int yOffset = 0)
+	{
+		return this;
+	}
 }
