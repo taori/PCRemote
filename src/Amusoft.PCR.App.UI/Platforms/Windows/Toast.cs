@@ -36,12 +36,22 @@ internal class Toastable : IToastable
 		return _toast.Dismiss();
 	}
 
+	public IToastable SetDuration(TimeSpan value)
+	{
+		return this;
+	}
+
 	public IToastable SetText(string value)
 	{
 		return this;
 	}
 
 	public IToastable SetPosition(Position value, int xOffset = 0, int yOffset = 0)
+	{
+		return this;
+	}
+
+	public IToastable SetTextSize(double textSize)
 	{
 		return this;
 	}

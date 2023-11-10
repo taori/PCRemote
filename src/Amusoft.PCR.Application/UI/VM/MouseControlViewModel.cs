@@ -36,6 +36,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 		_toast = toast;
 		_mouseMoveChannel = Channel.CreateUnbounded<SendMouseMoveRequestItem>();
 		_streamReader = new ChannelStreamReader<SendMouseMoveRequestItem>(_mouseMoveChannel);
+		_toastable = _toast.Make("");
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -48,6 +49,8 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	[ObservableProperty]
 	private int _sensitivity = 20;
+
+	private readonly IToastable _toastable;
 
 	[RelayCommand]
 	private void VelocityChanged(Vector2 vector)
@@ -70,12 +73,10 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	partial void OnSensitivityChanged(int value)
 	{
-		_toast.Make(string.Format(Translations.MouseControl_Sensitivity, value))
-			.SetText("test")
+		_toastable
+			.SetText(string.Format(Translations.MouseControl_Sensitivity, value))
 			.SetPosition(Position.Top)
 			.Show();
-		// _toastable.SetText(string.Format(Translations.MouseControl_Sensitivity, value));
-		// _ = _toastable.Show();
 	}
 
 	public async Task OnNavigatedToAsync()
