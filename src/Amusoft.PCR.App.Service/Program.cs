@@ -9,25 +9,43 @@ using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
 using Microsoft.AspNetCore.StaticFiles;
+using NLog;
+using NLog.Web;
 using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
 
 namespace Amusoft.PCR.App.Service;
 
 public class Program
 {
+	private static Logger _logger;
 
 	public static async Task Main(string[] args)
 	{
-		var builder = CreateHostBuilder(args);
-		
-		AddServices(builder);
+		_logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
+		try
+		{
+			var builder = CreateHostBuilder(args);
+			builder.Host.UseNLog();
 
-		RegisterAsWindowsService(builder);
+			AddServices(builder);
 
-		var host = builder.Build();
-		ConfigureHost(host);
+			RegisterAsWindowsService(builder);
 
-		await host.RunAsync();
+			var host = builder.Build();
+			ConfigureHost(host);
+
+			await host.RunAsync();
+		}
+		catch (Exception e)
+		{
+			_logger.Error(e, "Stopped program because of exception");
+		}
+		finally
+		{
+			// Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+			LogManager.Flush();
+			LogManager.Shutdown();
+		}
 	}
 
 	private static WebApplicationBuilder CreateHostBuilder(string[] args)
