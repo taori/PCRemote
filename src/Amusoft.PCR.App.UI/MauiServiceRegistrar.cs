@@ -12,12 +12,16 @@ public static class MauiServiceRegistrar
 {
 	public static void Register(IServiceCollection services)
 	{
+		// This switch must be set before creating the GrpcChannel/HttpClient.
+		// AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
 		services.AddSingleton<Amusoft.PCR.Domain.Services.INavigation, Navigation>();
 		services.AddSingleton<ITypedNavigator, TypedNavigator>();
 		services.AddSingleton<IToast, Toast>();
 		services.AddSingleton<IAgentEnvironment, AgentEnvironment>();
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
 		services.AddSingleton<IFileStorage, FileStorage>();
+		services.AddSingleton<GrpcChannelFactory>();
 
 		services.AddSingleton<HostRepository>();
 		services.AddSingleton<ClientSettingsRepository>();

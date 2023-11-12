@@ -8,6 +8,7 @@ using Amusoft.PCR.Domain.AgentSettings;
 using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
+using Microsoft.AspNetCore.StaticFiles;
 using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
 
 namespace Amusoft.PCR.App.Service;
@@ -49,6 +50,7 @@ public class Program
 		applicationStateTransmitter.NotifyConfigurationDone();
 
 		host.UseRouting();
+		host.UseGrpcWeb(new GrpcWebOptions() {DefaultEnabled = true});
 
 		host.UseAuthentication();
 		host.UseAuthorization();
@@ -56,6 +58,14 @@ public class Program
 		host.MapGrpcService<PingService>();
 		host.MapGrpcService<VoiceRecognitionService>();
 		host.MapGrpcService<DesktopIntegrationService>();
+		
+#if DEBUG
+		host.MapGet("/download/test", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().WriteTestAsync(context));
+#endif
+
+		host.MapGet("/download/android", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().WriteAndroidAsync(context));
+
+
 		host.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 		if (host.Environment.IsDevelopment())
@@ -84,6 +94,7 @@ public class Program
 		builder.Services.AddHostedService<DesktopIntegrationLauncherServiceDelegate>();
 		builder.Services.AddHostedService<ClientDiscoveryDelegate>();
 
+		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
 		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
 		builder.Services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
 		{

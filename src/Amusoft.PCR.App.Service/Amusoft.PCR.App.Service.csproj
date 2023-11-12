@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.49.0" />
+    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.59.0" />
     <PackageReference Include="GrpcDotNetNamedPipes" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.1" />
   </ItemGroup>
@@ -19,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Environment\" />
+    <Content Update="wwwroot\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
