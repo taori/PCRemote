@@ -66,6 +66,11 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushAsync<Programs, ProgramsViewModel>(_serviceProvider);
 	}
 
+	public Task OpenLogs()
+	{
+		return SpawnPushAsync<Logs, LogsViewModel>(_serviceProvider);
+	}
+
 	public Task OpenCommandButtonList(Action<CommandButtonListViewModel> configure, HostViewModel host)
 	{
 		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection => collection.AddSingleton(host));

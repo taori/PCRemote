@@ -10,12 +10,8 @@ namespace Amusoft.PCR.Application.UI.VM;
 
 public partial class MainViewModel : PageViewModel
 {
-	private readonly INavigation _navigation;
-
-	public MainViewModel(INavigation navigation, ITypedNavigator navigator) : base(navigator)
+	public MainViewModel(ITypedNavigator navigator) : base(navigator)
 	{
-		_navigation = navigation;
-
 		_items = new ObservableCollection<NavigationItem>()
 		{
 			new ()
@@ -28,26 +24,14 @@ public partial class MainViewModel : PageViewModel
 			{
 				ImagePath = null,
 				Text = Translations.Page_Title_Settings,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Settings}"))
+				Command = new RelayCommand(() => Navigator.OpenSettings())
 			},
-			// new ()
-			// {
-			// 	ImagePath = "configuration.png",
-			// 	Text = Translations.Page_Title_Audio,
-			// 	Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
-			// },
-			// new ()
-			// {
-			// 	ImagePath = "volume_off.png",
-			// 	Text = Translations.Page_Title_Audio,
-			// 	Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
-			// },
-			// new ()
-			// {
-			// 	ImagePath = "volume_up.png",
-			// 	Text = Translations.Page_Title_Audio,
-			// 	Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
-			// },
+			new ()
+			{
+				ImagePath = null,
+				Text = "Logs",
+				Command = new RelayCommand(() => Navigator.OpenLogs())
+			},
 		};
 	}
 

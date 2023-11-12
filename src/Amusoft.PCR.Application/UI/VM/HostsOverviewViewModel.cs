@@ -18,11 +18,13 @@ using Amusoft.Toolkit.Networking;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
 public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, INavigationCallbacks
 {
+	private readonly ILogger<HostsOverviewViewModel> _logger;
 	private readonly HostRepository _hostRepository;
 	private readonly IToast _toast;
 	private readonly ITypedNavigator _navigator;
@@ -33,8 +35,9 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 	[ObservableProperty]
 	private ObservableCollection<HostItemViewModel> _items = new();
 
-	public HostsOverviewViewModel(HostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
+	public HostsOverviewViewModel(ILogger<HostsOverviewViewModel> logger, HostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
 	{
+		_logger = logger;
 		_hostRepository = hostRepository;
 		_toast = toast;
 		_navigator = navigator;
@@ -42,6 +45,7 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 
 	protected override async Task OnReloadAsync()
 	{
+		_logger.LogDebug("Loading hosts");
 		Items.Clear();
 		
 		await LoadHostsFromPortsAsync();
@@ -65,9 +69,9 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		return Translations.Page_Title_HostsOverview;
 	}
 
-	public async Task OnNavigatedToAsync()
+	public Task OnNavigatedToAsync()
 	{
-		await ReloadAsync();
+		return ReloadAsync();
 	}
 
 	private HostItemViewModel[] GetHostItemModel(UdpReceiveResult result)
@@ -91,6 +95,7 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		{
 			foreach (var hostItemViewModel in GetHostItemModel(udpReceiveResult))
 			{
+				_logger.LogDebug("Found host {Address}", hostItemViewModel.Connection);
 				Items.Add(hostItemViewModel);
 			}
 		}

@@ -35,6 +35,9 @@ public static class MauiServiceRegistrar
 		services.AddScoped<MainPage>();
 		services.AddScoped<MainViewModel>();
 
+		services.AddScoped<Logs>();
+		services.AddScoped<LogsViewModel>();
+
 		services.AddScoped<Audio>();
 		services.AddScoped<AudioViewModel>();
 
