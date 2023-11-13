@@ -17,7 +17,7 @@ public partial class AudioViewModel : Shared.ReloadablePageViewModel, INavigatio
 	[ObservableProperty]
 	private ObservableCollection<AudioViewModelItem>? _items;
 
-	protected override async Task OnReloadAsync()
+	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
 		var response = await _hostViewModel.DesktopIntegrationClient.Desktop(f => f.GetAudioFeedsResponse()) ?? new AudioFeedResponse();
 		var items = new ObservableCollection<AudioViewModelItem>();

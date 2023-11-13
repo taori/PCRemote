@@ -42,7 +42,7 @@ public partial class LogsViewModel : ReloadablePageViewModel, INavigationCallbac
 		return "Logs";
 	}
 
-	protected override async Task OnReloadAsync()
+	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
 		Text = await GetTextAsync();
 	}

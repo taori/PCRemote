@@ -33,7 +33,7 @@ public partial class CommandButtonListViewModel : ReloadablePageViewModel, INavi
 		return ReloadAsync();
 	}
 
-	protected override async Task OnReloadAsync()
+	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
 		if (ReloadableItemsProvider is { } provider)
 			Items = await provider.Invoke();

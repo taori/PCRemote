@@ -42,12 +42,11 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		_navigator = navigator;
 	}
 
-	protected override async Task OnReloadAsync()
+	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
 		_logger.LogDebug("Loading hosts");
-
-		Items.Clear();
-		await LoadHostsFromPortsAsync();
+		
+		Items = new ObservableCollection<HostItemViewModel>(await LoadHostsFromPortsAsync(cancellationToken));
 	}
 
 	[RelayCommand]
@@ -87,19 +86,32 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		return Array.Empty<HostItemViewModel>();
 	}
 
-	private async Task LoadHostsFromPortsAsync()
+	private async Task<ICollection<HostItemViewModel>> LoadHostsFromPortsAsync(CancellationToken cancellationToken)
 	{
 		var ports = await _hostRepository.GetHostPortsAsync();
-		await foreach (var udpReceiveResult in GetUdpReceiveResults(ports))
+		var items = new List<HostItemViewModel>();
+		await foreach (var udpReceiveResult in GetUdpReceiveResults(ports).WithCancellation(cancellationToken))
 		{
+			if(cancellationToken.IsCancellationRequested)
+				continue;
 			foreach (var hostItemViewModel in GetHostItemModel(udpReceiveResult))
 			{
+				if (cancellationToken.IsCancellationRequested)
+					continue;
+
 				_logger.LogDebug("Found host {Address}", hostItemViewModel.Connection);
-				Items.Add(hostItemViewModel);
+				items.Add(hostItemViewModel);
 			}
 		}
 
 		ArePortsMissing = ports.Length == 0;
+
+		if(cancellationToken.IsCancellationRequested)
+			_logger.LogDebug("Requeste cancelled - returning empty array.");
+
+		return cancellationToken.IsCancellationRequested
+			? Array.Empty<HostItemViewModel>()
+			: items;
 	}
 
 	private static IAsyncEnumerable<UdpReceiveResult> GetUdpReceiveResults(int[] ports)

@@ -1,10 +1,11 @@
 ﻿using Amusoft.PCR.Application.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NLog;
 
 namespace Amusoft.PCR.Application.Shared;
 
-public abstract partial class PageViewModel : ObservableObject
+public abstract partial class PageViewModel : ObservableObject, IDisposable
 {
 	protected readonly ITypedNavigator Navigator;
 
@@ -26,4 +27,33 @@ public abstract partial class PageViewModel : ObservableObject
 	{
 		return Navigator.PopAsync();
 	}
+
+	public void Dispose()
+	{
+		OnDispose(true);
+		GC.SuppressFinalize(this);
+	}
+
+
+	private bool _disposed;
+	private void Dispose(bool disposeManaged)
+	{
+		if (_disposed)
+			return;
+
+		try
+		{
+			OnDispose(disposeManaged);
+		}
+		catch (Exception e)
+		{
+			LogManager.GetLogger(GetType().Name).Error(e, "Error occured while disposing viewmodel");
+		}
+		finally
+		{
+			_disposed = true;
+		}
+	}
+
+	public virtual void OnDispose(bool disposeManaged){}
 }
