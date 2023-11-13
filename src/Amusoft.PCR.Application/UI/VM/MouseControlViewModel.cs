@@ -73,10 +73,10 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	partial void OnSensitivityChanged(int value)
 	{
-		_toastable
-			.SetText(string.Format(Translations.MouseControl_Sensitivity, value))
-			.SetPosition(Position.Top)
-			.Show();
+		// _toastable
+		// 	.SetText(string.Format(Translations.MouseControl_Sensitivity, value))
+		// 	.SetPosition(Position.Top)
+		// 	.Show();
 	}
 
 	public async Task OnNavigatedToAsync()

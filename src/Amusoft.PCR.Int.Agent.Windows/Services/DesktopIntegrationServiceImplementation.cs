@@ -270,18 +270,4 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 			Success = !response.Cancelled
 		};
 	}
-
-	private static bool TryFocusMainWindow()
-	{
-		try
-		{
-			Application.Current.MainWindow?.Focus();
-			return true;
-		}
-		catch (Exception e)
-		{
-			Log.Error(e, "Failed to focus MainWindow");
-			return false;
-		}
-	}
 }

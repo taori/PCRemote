@@ -67,6 +67,9 @@
             <Component Id="cmpfSbcI1cYe5aED.aSHHaCU5vvf0E" Guid="*">
                 <File Id="filVuZHVo_5iqFDz1kDHtcC.9E8HIA" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.AspNetCore.Server.Reflection.dll" />
             </Component>
+            <Component Id="cmp_EbIGOzPnjg6ArEjpG6bw69Ia6E" Guid="*">
+                <File Id="fil21NgGXF1BKM1Z4_IGkTxx1iiJy8" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.AspNetCore.Web.dll" />
+            </Component>
             <Component Id="cmpsveHPoRn5hNQTveggk6nz.1b8EA" Guid="*">
                 <File Id="filMzSgJ1070jdM3OJjSbA2hoe2uoU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Grpc.Core.Api.dll" />
             </Component>
@@ -108,6 +111,12 @@
             </Component>
             <Component Id="cmp9JENOmtI_1fjeqDCNU0qg974Y5I" Guid="*">
                 <File Id="filXdLTV8EAv6slx7xzM9bkcIn_fjE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\NLog.dll" />
+            </Component>
+            <Component Id="cmpsDfe_IYXPOz.tpDhicQpTvYDqPA" Guid="*">
+                <File Id="filCtlciteeqHfobj4vrkuVE_ZpfKk" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\NLog.Extensions.Logging.dll" />
+            </Component>
+            <Component Id="cmpyAuHRwD_l0RFMjzwHMGEPwscQTs" Guid="*">
+                <File Id="fil_wIYQU1C1iSTmc94VBjCqle0obc" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\NLog.Web.AspNetCore.dll" />
             </Component>
             <Component Id="cmpS9dKTIZQ3dt1LCqyO1Bx7jSJjuU" Guid="*">
                 <File Id="filbJDt03_Hm0znUIHDHj0JbbNEEZc" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\OneOf.dll" />
@@ -171,6 +180,11 @@
                     </Directory>
                 </Directory>
             </Directory>
+            <Directory Id="dirS6Q94bdQnovnfNDFSwaciB_g1vs" Name="wwwroot">
+                <Component Id="cmpM4K4nkunwnDDJxHcnqDoU225kt0" Guid="*">
+                    <File Id="filCcudlBHIc5OYxiug_N5nzsIULKs" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\wwwroot\downloadtest.txt" />
+                </Component>
+            </Directory>
         </DirectoryRef>
     </Fragment>
     <Fragment>
@@ -197,6 +211,7 @@
             <ComponentRef Id="cmpZpOhPzvENIhdihYPs6Y5PKk7o3s" />
             <ComponentRef Id="cmpJdTXOrNqGgnThivb_PPui2HDEd8" />
             <ComponentRef Id="cmpfSbcI1cYe5aED.aSHHaCU5vvf0E" />
+            <ComponentRef Id="cmp_EbIGOzPnjg6ArEjpG6bw69Ia6E" />
             <ComponentRef Id="cmpsveHPoRn5hNQTveggk6nz.1b8EA" />
             <ComponentRef Id="cmpqAYzO_Dh421lyQgVwqK4lL4m7d4" />
             <ComponentRef Id="cmpl55CWZnmTv0HgJCwY0BQhdqOugs" />
@@ -211,6 +226,8 @@
             <ComponentRef Id="cmpq95Ix.Zh86AiXLku9BdrUnz7fBs" />
             <ComponentRef Id="cmpCXNneny9Mq.Qjd9QKbB9XILyyQY" />
             <ComponentRef Id="cmp9JENOmtI_1fjeqDCNU0qg974Y5I" />
+            <ComponentRef Id="cmpsDfe_IYXPOz.tpDhicQpTvYDqPA" />
+            <ComponentRef Id="cmpyAuHRwD_l0RFMjzwHMGEPwscQTs" />
             <ComponentRef Id="cmpS9dKTIZQ3dt1LCqyO1Bx7jSJjuU" />
             <ComponentRef Id="cmpBR4McBuvCsr.GVQGpCLZI6o69NM" />
             <ComponentRef Id="cmpN0pTNlMdQ3HbnzOlCJqkfborgpU" />
@@ -225,6 +242,7 @@
             <ComponentRef Id="cmpLVcdglAe9Ni7Ud3slcEyTVfi4lE" />
             <ComponentRef Id="cmpY0qlJt0xVLL_ix4YE9OdiD7BCCs" />
             <ComponentRef Id="cmp9MSE6fRH11Ub8ZSe5LssWV8OW8E" />
+            <ComponentRef Id="cmpM4K4nkunwnDDJxHcnqDoU225kt0" />
         </ComponentGroup>
     </Fragment>
 </Wix>

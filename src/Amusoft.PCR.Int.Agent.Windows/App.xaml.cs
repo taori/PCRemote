@@ -49,13 +49,16 @@ public partial class App : Application
 		ProcessExitListenerManager.ProcessExited += ProcessExitListenerManagerOnProcessExited;
 
 		// ConfirmSample();
+		// VerifySimpleAudioManager();
+
+		TaskScheduler.UnobservedTaskException += (sender, ex) => Log.Fatal(ex);
+		AppDomain.CurrentDomain.UnhandledException += (sender, ex) => Log.Fatal(ex);
 
 		ShutdownIfMutexTaken();
 
 		// EventSetup.Initialize();
 		// EventSetup.Debug();
 
-		// VerifySimpleAudioManager();
 		if (!TryLaunchInteropChannel())
 		{
 			Log.Fatal("Failed to launch named pipe for IPC with web application");
@@ -94,16 +97,18 @@ public partial class App : Application
 
 	private bool TryLaunchInteropChannel()
 	{
-		_namedPipeServer = new NamedPipeServer(Globals.NamedPipeChannel);
-		DesktopIntegrationService.BindService(_namedPipeServer.ServiceBinder, new DesktopIntegrationServiceImplementation());
-		VoiceCommandService.BindService(_namedPipeServer.ServiceBinder, new VoiceRecognitionServiceImplementation());
-
 		try
 		{
-			Log.Info("Starting IPC");
+			Log.Debug("Initializing NamedPipeServer to listen for service calls");
+
+			_namedPipeServer = new NamedPipeServer(Globals.NamedPipeChannel);
+			DesktopIntegrationService.BindService(_namedPipeServer.ServiceBinder, new DesktopIntegrationServiceImplementation());
+			VoiceCommandService.BindService(_namedPipeServer.ServiceBinder, new VoiceRecognitionServiceImplementation());
+
+			Log.Debug("Starting IPC Server");
 			_namedPipeServer.Start();
 
-			Log.Info("IPC running");
+			Log.Info("IPC Server is running");
 			return true;
 		}
 		catch (Exception ex)

@@ -10,6 +10,7 @@ using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
 using Microsoft.AspNetCore.StaticFiles;
 using NLog;
+using NLog.Fluent;
 using NLog.Web;
 using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
 
@@ -17,11 +18,15 @@ namespace Amusoft.PCR.App.Service;
 
 public class Program
 {
-	private static Logger _logger;
+	private static Logger? _logger;
 
 	public static async Task Main(string[] args)
 	{
 		_logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
+
+		TaskScheduler.UnobservedTaskException += (sender, ex) => _logger.Fatal(ex);
+		AppDomain.CurrentDomain.UnhandledException += (sender, ex) => _logger.Fatal(ex);
+
 		try
 		{
 			var builder = CreateHostBuilder(args);

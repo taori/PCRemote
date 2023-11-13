@@ -17,7 +17,6 @@ using Amusoft.PCR.Domain.VM;
 using Amusoft.Toolkit.Networking;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Application.UI.VM;
@@ -46,8 +45,8 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 	protected override async Task OnReloadAsync()
 	{
 		_logger.LogDebug("Loading hosts");
+
 		Items.Clear();
-		
 		await LoadHostsFromPortsAsync();
 	}
 

@@ -31,9 +31,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_scripts", "_scripts", "{6E
 	ProjectSection(SolutionItems) = preProject
 		..\deploy\androidBuild.ps1 = ..\deploy\androidBuild.ps1
 		..\deploy\buildAndCopy.ps1 = ..\deploy\buildAndCopy.ps1
+		..\deploy\buildDeploymentPackage.ps1 = ..\deploy\buildDeploymentPackage.ps1
 		..\deploy\createSelfSignedCertificate.ps1 = ..\deploy\createSelfSignedCertificate.ps1
+		..\deploy\functions.psm1 = ..\deploy\functions.psm1
 		..\deploy\installCompiledMSI.ps1 = ..\deploy\installCompiledMSI.ps1
 		..\deploy\installService.ps1 = ..\deploy\installService.ps1
+		..\deploy\publishapk.ps1 = ..\deploy\publishapk.ps1
 		..\deploy\refreshService.ps1 = ..\deploy\refreshService.ps1
 		..\deploy\refreshServiceAndAPK.ps1 = ..\deploy\refreshServiceAndAPK.ps1
 		..\deploy\uninstallService.ps1 = ..\deploy\uninstallService.ps1
@@ -47,7 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.Toolkit.Impersonati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B517B907-9417-4926-9F5C-80B7EDCE05B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Application.UnitTests", "..\tests\Amusoft.PCR.Application.UnitTests\Amusoft.PCR.Application.UnitTests.csproj", "{86F438BC-0140-45AC-8C73-6D006586C7E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Application.UnitTests", "..\tests\Amusoft.PCR.Application.UnitTests\Amusoft.PCR.Application.UnitTests.csproj", "{86F438BC-0140-45AC-8C73-6D006586C7E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
