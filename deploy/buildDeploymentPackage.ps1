@@ -1,7 +1,11 @@
 param (
     [Parameter(Mandatory=$true, HelpMessage="Signing password for publish process")]
-    [string]$SignPassword
+    [string]$SignPassword,
+    [Parameter(Mandatory=$true, HelpMessage="Build configuration")]
+    [string]$Configuration = "Release"
 )
+
+# ü
 
 Import-Module ".\functions.psm1"
 
@@ -16,11 +20,11 @@ Write-Host "Removing artifacts folder ..."
 Remove-Item -Recurse -Force -Path $artifactsRoot -ErrorAction SilentlyContinue
 Write-Host "done."
 
-&dotnet publish $webProj -c Release -o "$artifactsRoot\web"
-&dotnet publish $intWinProj -c Release -o "$artifactsRoot\win-integration"
+&dotnet publish $webProj -c $Configuration -o "$artifactsRoot\web"
+&dotnet publish $intWinProj -c $Configuration -o "$artifactsRoot\win-integration"
 
-$apkPath = Build-Android -KeyStorePath $keyStore -SignPassword $SignPassword -ProjectPath $apkProject -PublishDirectory "$artifactsRoot\tmp\android"
-Move-Item $apkPath "$artifactsRoot\web\wwwroot\app.apk"
+$apkPath = Build-Android -KeyStorePath $keyStore -SignPassword $SignPassword -ProjectPath $apkProject -PublishDirectory "$artifactsRoot\tmp\android" -Configuration $Configuration
+Move-Item $apkPath "$artifactsRoot\web\wwwroot\app.apk" -Force
 Remove-Item -Recurse -Force -Path "$artifactsRoot\tmp" -ErrorAction SilentlyContinue
 
 &explorer "$artifactsRoot"

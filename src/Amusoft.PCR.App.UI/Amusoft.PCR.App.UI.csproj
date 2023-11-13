@@ -32,13 +32,14 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
-		<!-- https://learn.microsoft.com/de-de/dotnet/maui/android/deployment/publish-cli -->
-
-		<AndroidSigningKeyStore>PCR3.keystore</AndroidSigningKeyStore>
-		<AndroidSigningKeyAlias>PCR3</AndroidSigningKeyAlias>
-		<AndroidSigningKeyPass>env:PCR3PW</AndroidSigningKeyPass>
-		<AndroidSigningStorePass>env:PCR3PW</AndroidSigningStorePass>
+		<AndroidLinkMode>None</AndroidLinkMode>
+		<RunAOTCompilation>false</RunAOTCompilation>
+		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
 	</PropertyGroup>
+
+	<!-- <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-android'"> -->
+	<!--   <AndroidPackageFormat>apk</AndroidPackageFormat> -->
+	<!-- </PropertyGroup> -->
 
 
 	<ItemGroup>

@@ -12,9 +12,9 @@ function Build-Android {
 
         [Parameter(Mandatory,ValueFromPipeline)]
         [string] $PublishDirectory,
-
-        [Parameter(Mandatory,ValueFromPipeline)]
-        [string] $PublishTrimmed = "True"
+		
+		[Parameter(Mandatory=$true, HelpMessage="Build configuration")]
+		[string]$Configuration = "Release"
     )
 
     [Environment]::SetEnvironmentVariable('PCR3PW', $SignPassword, 'Process')
@@ -23,12 +23,12 @@ function Build-Android {
     $keyPass = "env:PCR3PW"
     $storePass = "env:PCR3PW"
 
-    # https://learn.microsoft.com/de-de/dotnet/maui/android/deployment/publish-cli 
-    $publishCode = "dotnet publish $ProjectPath -f net7.0-android -c Release -o `"$PublishDirectory`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass -p:PublishTrimmed=$PublishTrimmed"
+    # https://learn.microsoft.com/de-de/dotnet/maui/android/deployment/publish-cli ü
+    $publishCode = "dotnet publish $ProjectPath -f net7.0-android -c $Configuration -o `"$PublishDirectory`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass"
     Write-Host "$publishCode" -ForegroundColor DarkGreen
         
     #Invoke-Expression -Command $publishCode -ErrorAction Stop
-    &dotnet publish $ProjectPath -f net7.0-android -c Release -o `"$PublishDirectory`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass -p:PublishTrimmed=$PublishTrimmed | Out-Host
+    &dotnet publish $ProjectPath -f net7.0-android -c $Configuration -o `"$PublishDirectory`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass | Out-Host
     
     $apk = Get-ChildItem "$PublishDirectory" -Filter "*.apk" | %{$_.FullName}
 
