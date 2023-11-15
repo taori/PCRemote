@@ -94,6 +94,7 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		{
 			if(cancellationToken.IsCancellationRequested)
 				continue;
+
 			foreach (var hostItemViewModel in GetHostItemModel(udpReceiveResult))
 			{
 				if (cancellationToken.IsCancellationRequested)

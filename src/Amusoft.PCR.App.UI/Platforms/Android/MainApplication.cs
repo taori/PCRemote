@@ -4,7 +4,7 @@ using Android.Runtime;
 
 namespace Amusoft.PCR.UI.App;
 
-[Application]
+[Application(UsesCleartextTraffic = true)]
 public class MainApplication : MauiApplication
 {
 	public MainApplication(IntPtr handle, JniHandleOwnership ownership)
