@@ -25,17 +25,17 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	private CancellationTokenSource? _moveCts = new();
 
-	private readonly Channel<SendMouseMoveRequestItem> _mouseMoveChannel;
+	private readonly Channel<(int x, int y)> _mouseMoveChannel;
 
-	private readonly ChannelStreamReader<SendMouseMoveRequestItem> _streamReader;
+	private readonly ChannelStreamReader<(int x, int y)> _streamReader;
 
 	public MouseControlViewModel(ITypedNavigator navigator, HostViewModel host, ClientSettingsRepository settingsRepository, IToast toast) : base(navigator)
 	{
 		_host = host;
 		_settingsRepository = settingsRepository;
 		_toast = toast;
-		_mouseMoveChannel = Channel.CreateUnbounded<SendMouseMoveRequestItem>();
-		_streamReader = new ChannelStreamReader<SendMouseMoveRequestItem>(_mouseMoveChannel);
+		_mouseMoveChannel = Channel.CreateUnbounded<(int x, int y)>();
+		_streamReader = new ChannelStreamReader<(int x, int y)>(_mouseMoveChannel);
 		_toastable = _toast.Make("");
 	}
 
@@ -55,7 +55,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 	[RelayCommand]
 	private void VelocityChanged(Vector2 vector)
 	{
-		_ = _mouseMoveChannel.Writer.WriteAsync(new SendMouseMoveRequestItem() {X = (int)vector.X, Y = (int)vector.Y});
+		_ = _mouseMoveChannel.Writer.WriteAsync(((int)vector.X, (int)vector.Y));
 	}
 
 	public Task OnNavigatedAwayAsync()
@@ -86,7 +86,13 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 		_moveCts?.Dispose();
 		_moveCts = new();
-		await _host.DesktopIntegrationClient.Desktop(d => d.SendMouseMoveAsync(_streamReader, _moveCts.Token));
+		_ = Task.Run(async() =>
+		{
+			while (await _streamReader.MoveNext(_moveCts.Token) && !_moveCts.IsCancellationRequested)
+			{
+				await _host.DesktopIntegrationClient.Desktop(d => d.SendMouseMoveAsync(_streamReader.Current.x, _streamReader.Current.y));
+			}
+		}, _moveCts.Token);
 	}
 
 	[RelayCommand]

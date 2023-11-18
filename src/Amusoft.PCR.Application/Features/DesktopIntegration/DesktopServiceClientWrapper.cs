@@ -267,32 +267,18 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 	}
 
-	public async Task SendMouseMoveAsync(IAsyncStreamReader<SendMouseMoveRequestItem> streamReader, CancellationToken cancellationToken)
+	public async Task<bool?> SendMouseMoveAsync(int x, int y)
 	{
-		var mouseStream = _service.SendMouseMove();
 		try
 		{
-			_logger.LogDebug("{Method}", nameof(SendMouseMoveAsync));
-
-			while (await streamReader.MoveNext(cancellationToken))
-			{
-				await mouseStream.RequestStream.WriteAsync(streamReader.Current);
-			}
-
-			_logger.LogDebug("{Method} terminated", nameof(SendMouseMoveAsync));
-		}
-		catch (OperationCanceledException e)
-		{
-			_logger.LogTrace(e, "Operation cancelled");
+			// _logger.LogTrace("{Method}", nameof(SendMouseMoveAsync));
+			var result = await _service.SendMouseMoveAsync(new SendMouseMoveRequest(){X = x, Y = y});
+			return result.Success;
 		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SendMouseMoveAsync));
-		}
-		finally
-		{
-			await mouseStream.RequestStream.CompleteAsync();
-			mouseStream.Dispose();
+			return default;
 		}
 	}
 

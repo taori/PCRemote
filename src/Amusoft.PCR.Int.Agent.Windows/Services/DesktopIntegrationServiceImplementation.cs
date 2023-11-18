@@ -200,44 +200,46 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 		}
 	}
 
-	public override async Task<SendMouseMoveResponse> SendMouseMove(IAsyncStreamReader<SendMouseMoveRequestItem> requestStream, ServerCallContext context)
+	public override Task<SendMouseMoveResponse> SendMouseMove(SendMouseMoveRequest request, ServerCallContext context)
 	{
-		Log.Debug("Sending mouse moves");
 		try
 		{
-			while (await requestStream.MoveNext(context.CancellationToken))
-			{
-				var x = requestStream.Current.X;
-				var y = requestStream.Current.Y;
-				NativeMethods.Mouse.Move(x, y);
-
-				Log.Trace("Mouse move: {X} {Y}", x, y);
-			}
-		}
-		catch (OperationCanceledException e)
-		{
-			Log.Trace(e, "Operation cancelled");
+			NativeMethods.Mouse.Move(request.X, request.Y);
+			return Task.FromResult(new SendMouseMoveResponse() {Success = true});
 		}
 		catch (Exception e)
 		{
-			Log.Error(e, "An error occured while sending mouse input");
+			Log.Error(e, "An error occured while sending mouse movement");
+			return Task.FromResult(new SendMouseMoveResponse() { Success = false });
 		}
-
-		Log.Debug("Sending mouse moves done");
-
-		return new SendMouseMoveResponse();
 	}
 
 	public override Task<DefaultResponse> SendLeftMouseButtonClick(DefaultRequest request, ServerCallContext context)
 	{
-		NativeMethods.Mouse.ClickLeft();
-		return Task.FromResult(new DefaultResponse());
+		try
+		{
+			NativeMethods.Mouse.ClickLeft();
+			return Task.FromResult(new DefaultResponse() { Success = true });
+		}
+		catch (Exception e)
+		{
+			Log.Error(e, "An error occured while sending mouse leftclick");
+			return Task.FromResult(new DefaultResponse() { Success = false });
+		}
 	}
 
 	public override Task<DefaultResponse> SendRightMouseButtonClick(DefaultRequest request, ServerCallContext context)
 	{
-		NativeMethods.Mouse.ClickRight();
-		return Task.FromResult(new DefaultResponse());
+		try
+		{
+			NativeMethods.Mouse.ClickRight();
+			return Task.FromResult(new DefaultResponse() { Success = true });
+		}
+		catch (Exception e)
+		{
+			Log.Error(e, "An error occured while sending mouse rightclick");
+			return Task.FromResult(new DefaultResponse() { Success = false });
+		}
 	}
 
 	public override Task<AudioFeedResponse> GetAudioFeeds(AudioFeedRequest request, ServerCallContext context)

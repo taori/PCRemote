@@ -24,7 +24,7 @@ public class GrpcChannelFactory
 		var channel = GrpcChannel.ForAddress(target, new GrpcChannelOptions()
 		{
 			HttpClient = client,
-			LoggerFactory = _loggerFactory
+			// LoggerFactory = _loggerFactory
 		});
 
 		return channel;

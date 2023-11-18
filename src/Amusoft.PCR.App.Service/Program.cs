@@ -83,10 +83,10 @@ public class Program
 		host.MapGrpcService<DesktopIntegrationService>();
 		
 #if DEBUG
-		host.MapGet("/download/test", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().WriteTestAsync(context));
+		host.MapGet("/download/test", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().GetTestFile().ExecuteAsync(context));
 #endif
 
-		host.MapGet("/download/android", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().WriteAndroidAsync(context));
+		host.MapGet("/download/android", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().GetAndroidApp().ExecuteAsync(context));
 
 
 		host.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");

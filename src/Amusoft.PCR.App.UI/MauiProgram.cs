@@ -5,6 +5,7 @@ using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Extensions.Logging;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Amusoft.PCR.App.UI;
 
@@ -41,7 +42,9 @@ public static class MauiProgram
 		MauiRoutes.Register();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+		builder.Logging
+			.AddDebug()
+				.AddFilter(level => level >= LogLevel.Debug);
 #endif
 
 		return builder.Build();

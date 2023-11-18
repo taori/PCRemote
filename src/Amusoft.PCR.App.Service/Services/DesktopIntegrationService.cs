@@ -17,10 +17,13 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 		_impersonatedChannel = impersonatedChannel;
 	}
 	
-	public override async Task<SendMouseMoveResponse> SendMouseMove(IAsyncStreamReader<SendMouseMoveRequestItem> requestStream, ServerCallContext context)
+	public override async Task<SendMouseMoveResponse> SendMouseMove(SendMouseMoveRequest request, ServerCallContext context)
 	{
-		await _impersonatedChannel.SendMouseMoveAsync(requestStream, context.CancellationToken);
-		return new SendMouseMoveResponse();
+		var success = await _impersonatedChannel.SendMouseMoveAsync(request.X, request.Y);
+		return new SendMouseMoveResponse()
+		{
+			Success = success ?? false
+		};
 	}
 	
 	public override async Task<DefaultResponse> SendLeftMouseButtonClick(DefaultRequest request, ServerCallContext context)
