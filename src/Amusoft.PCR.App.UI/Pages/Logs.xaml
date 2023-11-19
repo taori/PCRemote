@@ -5,10 +5,13 @@
              x:DataType="vm:LogsViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.Logs"
              Title="{x:Binding Path=Title}">
-    <ScrollView>
-        <Label 
-            Text="{x:Binding Text}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Start" />
-    </ScrollView>
+    <RefreshView IsRefreshing="{x:Binding IsReloading}"
+                 Command="{x:Binding ReloadCommand}">
+       
+        <ScrollView>
+            <Label Text="{x:Binding Path=Text}"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Start"/>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>

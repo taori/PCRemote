@@ -14,7 +14,7 @@ public static class MauiProgram
 	public static MauiApp CreateMauiApp()
 	{
 		var logger = LogManager.Setup()
-			.LoadConfigurationFromFile("nlog.config")
+			.LoadConfigurationFromAssemblyResource(typeof(MauiProgram).Assembly, "Amusoft.PCR.App.UI.Resources.Raw.nlog.config")
 			.RegisterMauiLog((_, args) => LogManager.GetLogger("Application").Fatal(args.ExceptionObject))
 			.GetCurrentClassLogger();
 

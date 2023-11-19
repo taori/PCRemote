@@ -69,8 +69,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Resources\Raw\nlog.config" />
-		<None Remove="Resources\Raw\NLog.xsd" />
+	  <MauiAsset Remove="Resources\Raw\nlog.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Raw\nlog.config" />
 	</ItemGroup>
 
 	<ItemGroup>
