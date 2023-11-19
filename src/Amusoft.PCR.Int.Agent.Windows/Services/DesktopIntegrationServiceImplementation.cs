@@ -205,7 +205,7 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 		try
 		{
 			NativeMethods.Mouse.Move(request.X, request.Y);
-			return Task.FromResult(new SendMouseMoveResponse() {Success = true});
+			return Task.FromResult(new SendMouseMoveResponse() { Success = true });
 		}
 		catch (Exception e)
 		{
