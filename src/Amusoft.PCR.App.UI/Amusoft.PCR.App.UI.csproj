@@ -70,6 +70,7 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Raw\nlog.config" />
+		<None Remove="Resources\Raw\NLog.xsd" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -54,4 +54,12 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="NLog.xsd">
+	    <SubType>Designer</SubType>
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
