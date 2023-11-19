@@ -14,6 +14,7 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
 {
 	private readonly IUserInterfaceService _userInterfaceService;
 	private readonly HostRepository _hostRepository;
+	private readonly IToast _toast;
 
 	[ObservableProperty]
 	private ObservableCollection<NavigationItem<int>> _ports = new();
@@ -23,10 +24,11 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
         return Resources.Translations.Page_Title_Settings;
     }
 
-    public SettingsViewModel(ITypedNavigator navigator, IUserInterfaceService userInterfaceService, HostRepository hostRepository) : base(navigator)
+    public SettingsViewModel(ITypedNavigator navigator, IUserInterfaceService userInterfaceService, HostRepository hostRepository, IToast toast) : base(navigator)
     {
 	    _userInterfaceService = userInterfaceService;
 	    _hostRepository = hostRepository;
+	    _toast = toast;
     }
 
     public async Task OnNavigatedToAsync()
@@ -49,7 +51,8 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
 	{
 		await _hostRepository.RemoveAsync(portItem.Value);
 		Ports.Remove(portItem);
-    }
+		await _toast.Make(Translations.Generic_ChangesSaved).Show();
+	}
 
     [RelayCommand]
     public async Task AddPort()
@@ -63,8 +66,9 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
 		    addition.Switch(success =>
 		    {
 			    Ports.Add(CreateNavigationItem(number));
+			    _ = _toast.Make(Translations.Generic_ChangesSaved).Show();
 
-		    }, async exists =>
+			}, async exists =>
 		    {
 			    await _userInterfaceService.DisplayAlert(Translations.Generic_Error, "Port already exists.");
 		    });

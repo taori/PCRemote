@@ -97,6 +97,15 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes saved.
+        /// </summary>
+        public static string Generic_ChangesSaved {
+            get {
+                return ResourceManager.GetString("Generic.ChangesSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Generic_Error {

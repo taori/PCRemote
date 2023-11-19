@@ -32,6 +32,14 @@ public partial class MainViewModel : PageViewModel
 				Text = "Logs",
 				Command = new RelayCommand(() => Navigator.OpenLogs())
 			},
+#if DEBUG
+			new ()
+			{
+				ImagePath = null,
+				Text = "Debug",
+				Command = new RelayCommand(() => Navigator.OpenDebug())
+			},
+#endif
 		};
 	}
 

@@ -276,4 +276,7 @@
   <data name="Programs.StartProgram" xml:space="preserve">
     <value>Start program</value>
   </data>
+  <data name="Generic.ChangesSaved" xml:space="preserve">
+    <value>Changes saved</value>
+  </data>
 </root>

@@ -8,10 +8,12 @@ using Android.Widget;
 using Android.Window;
 using AndroidX.Activity;
 using AndroidX.Core.View;
+using AndroidX.Core.Widget;
 using AndroidX.Fragment.App;
 using CommunityToolkit.Maui.Core;
 using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Platform;
+using Debug = System.Diagnostics.Debug;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using IToast = Amusoft.PCR.Domain.Services.IToast;
 using View = Android.Views.View;
@@ -22,11 +24,16 @@ internal class Toast : IToast
 {
 	public IToastable Make(string text, bool shortDuration = true, double textSize = 14)
 	{
+		// _ = CommunityToolkit.Maui.Alerts.Toast
+		// 	.Make(text, shortDuration ? ToastDuration.Short : ToastDuration.Long)
+		// 	.Show();
+		
 		var fragment = new ToastFragment(DateTime.Now);
 		var duration = shortDuration
 			? TimeSpan.FromMilliseconds(1500)
 			: TimeSpan.FromMilliseconds(3500);
 
+		fragment.SetText(text);
 		fragment.SetTextSize(textSize);
 		fragment.SetDuration(duration);
 
@@ -38,6 +45,12 @@ public class ToastFragment : Fragment, IToastable
 {
 	private readonly DateTime _token;
 	private System.Timers.Timer _timer;
+
+	private DateTime? _hideAt;
+	private double _textSize;
+	private TimeSpan _duration;
+	private string? _text;
+	private (Position value, int xOffset, int yOffset) _position;
 
 	public ToastFragment(DateTime token)
 	{
@@ -53,44 +66,77 @@ public class ToastFragment : Fragment, IToastable
 		{
 			if (Math.Abs((DateTime.Now - hideAt).TotalMilliseconds) < 50)
 			{
-				HideFragment();
+				// Debug.WriteLine("CheckIfFragmentMustBeClosed - Hiding fragment");
+
 				_timer.Enabled = false;
 				_timer.Stop();
+				HideFragment();
 			}
 		}
 		else
 		{
+			// Debug.WriteLine("CheckIfFragmentMustBeClosed - stopping timer");
 			_timer.Enabled = false;
 			_timer.Stop();
 		}
 	}
-
-	// public override void OnCreate(Bundle? savedInstanceState)
-	// {
-	// 	base.OnCreate(savedInstanceState);
-	// 	// if(Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu && Platform.CurrentActivity.OnBackInvokedDispatcher is {} dispatcher)
-	// 	// 	dispatcher.RegisterOnBackInvokedCallback(0, this);
-	// 	
-	// 	// this.Activity?.OnBackPressedDispatcher.AddCallback(new BackPressedActionDelegate(OnBackInvoked));
-	// }
 
 	public override View? OnCreateView(LayoutInflater inflater, ViewGroup? container, Bundle? savedInstanceState)
 	{
 		return inflater.Inflate(Resource.Layout.toast_fragment, container, false);
 	}
 
-	// public void OnBackInvoked()
-	// {
-	// 	// if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu && Platform.CurrentActivity.OnBackInvokedDispatcher is { } dispatcher)
-	// 	// 	dispatcher.UnregisterOnBackInvokedCallback(this);
-	// 	HideFragment();
-	// }
-
-	private void HideFragment()
+	public override void OnViewCreated(View view, Bundle? savedInstanceState)
 	{
-		if (this.Context?.GetFragmentManager() is { } fm)
+		UpdateEverything(view);
+		base.OnViewCreated(view, savedInstanceState);
+	}
+
+	private void UpdateEverything(View view)
+	{
+		UpdatePosition(view);
+		UpdateTextView(view);
+		UpdateImageView(view);
+	}
+
+	private static void UpdateImageView(View view)
+	{
+		if (view.FindViewById<ImageView>(Resource.Id.imageView1) is { } imageView)
 		{
-			fm.PopBackStack(GetFragmentId(), (int) PopBackStackFlags.Inclusive);
+			imageView.SetImageResource(Resource.Mipmap.appicon_round);
+			if (imageView.LayoutParameters is ViewGroup.MarginLayoutParams { } ivMarginParams)
+			{
+				var l = Platform.AppContext.Resources?.DisplayMetrics?.Density * -10 ?? 0;
+				var r = Platform.AppContext.Resources?.DisplayMetrics?.Density * -10 ?? 0;
+				ivMarginParams.SetMargins((int) l, 0, (int) r, 0);
+			}
+		}
+	}
+
+	private void UpdatePosition(View view)
+	{
+		if (view is LinearLayout linearLayout)
+		{
+			var gravity = _position.value switch
+			{
+				Position.Top => GravityFlags.Top | GravityFlags.CenterHorizontal,
+				Position.Left => GravityFlags.Left | GravityFlags.CenterVertical,
+				Position.Right => GravityFlags.Right | GravityFlags.CenterVertical,
+				Position.Center => GravityFlags.Center,
+				Position.Bottom => GravityFlags.Bottom | GravityFlags.CenterHorizontal,
+				_ => GravityFlags.Bottom | GravityFlags.CenterHorizontal
+			};
+
+			linearLayout.SetGravity(gravity);
+		}
+	}
+
+	private void UpdateTextView(View? view)
+	{
+		if (view?.FindViewById<TextView>(Resource.Id.textView1) is { } textView)
+		{
+			textView.Text = _text ?? "undefined";
+			textView.TextSize = (float) _textSize;
 		}
 	}
 
@@ -114,11 +160,14 @@ public class ToastFragment : Fragment, IToastable
 
 	public IToastable SetText(string value)
 	{
+		_text = value;
+		UpdateTextView(View);
 		return this;
 	}
 
 	public IToastable SetPosition(Position value, int xOffset = 0, int yOffset = 0)
 	{
+		_position = (value, xOffset, yOffset);
 		return this;
 	}
 
@@ -132,37 +181,74 @@ public class ToastFragment : Fragment, IToastable
 		var fragmentManager = Platform.CurrentActivity?.GetFragmentManager();
 		if (fragmentManager is null)
 			return;
-
+		
 		UpdateLease(dateTime);
 
 		if (fragmentManager.FindFragmentByTag(GetFragmentId()) is null)
 		{
 			var transaction = fragmentManager.BeginTransaction();
-			transaction.AddToBackStack(GetFragmentId());
-			transaction.Add(Android.Resource.Id.Content, this);
-			transaction.Commit();
+			if (this.IsAdded)
+			{
+				// Debug.WriteLine($"ToastFragment show only 1");
+				transaction
+					.Show(this)
+					.AddToBackStack(GetFragmentId())
+					.Commit();
+			}
+			else
+			{
+				// Debug.WriteLine($"ToastFragment add+show");
+				transaction
+					.Add(Android.Resource.Id.Content, this, GetFragmentId())
+					.AddToBackStack(GetFragmentId())
+					.Commit();
+			}
+		}
+		else
+		{
+			// Debug.WriteLine($"ToastFragment {GetFragmentId()} show only 2");
+			// Debug.WriteLine($"{IsVisible} {IsHidden} {IsAdded}");
+			if (!this.IsVisible)
+			{
+				var transaction = fragmentManager.BeginTransaction();
+				transaction
+					.Show(this)
+					.AddToBackStack(GetFragmentId())
+					.Commit();
+			}
 		}
 	}
 
-	private DateTime? _hideAt;
-	private double _textSize;
-	private TimeSpan _duration;
+	private void HideFragment()
+	{
+		// Debug.WriteLine("HideFragment called");
+		if (this.Context?.GetFragmentManager() is { } fm)
+		{
+			var transaction = fm.BeginTransaction();
+			transaction.Hide(this);
+			transaction.AddToBackStack(GetFragmentId());
+			transaction.Commit();
+		}
+	}
 
 	private void UpdateLease(DateTime leaseUntil)
 	{
 		_hideAt = leaseUntil;
 		_timer.Enabled = true;
+		_timer.Stop();
 		_timer.Start();
 	}
 
 	public IToastable SetTextSize(double textSize)
 	{
 		_textSize = textSize;
+		UpdateTextView(View);
 		return this;
 	}
 
 	protected override void Dispose(bool disposing)
 	{
+		// Debug.WriteLine("ToastFragment disposing");
 		if (disposing)
 		{
 			_timer.Elapsed -= CheckIfFragmentMustBeClosed;

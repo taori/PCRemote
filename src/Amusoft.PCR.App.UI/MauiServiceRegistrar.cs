@@ -32,6 +32,9 @@ public static class MauiServiceRegistrar
 		services.AddTransient<CommandButtonList>();
 		services.AddTransient<CommandButtonListViewModel>();
 
+		services.AddScoped<Debug>();
+		services.AddScoped<DebugViewModel>();
+
 		services.AddScoped<MainPage>();
 		services.AddScoped<MainViewModel>();
 

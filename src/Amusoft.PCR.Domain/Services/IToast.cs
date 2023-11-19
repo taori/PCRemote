@@ -2,7 +2,7 @@
 
 public enum Position
 {
-	Left, Right, Top, Bottom, Center
+	Bottom, Left, Right, Top, Center
 }
 
 public interface IToast

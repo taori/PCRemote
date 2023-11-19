@@ -36,7 +36,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 		_toast = toast;
 		_mouseMoveChannel = Channel.CreateUnbounded<(int x, int y)>();
 		_streamReader = new ChannelStreamReader<(int x, int y)>(_mouseMoveChannel);
-		_toastable = _toast.Make("");
+		_toastable = _toast.Make("").SetPosition(Position.Center);
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -65,18 +65,21 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 	}
 
 	[RelayCommand]
-	Task SaveSensitivity()
+	private async Task SaveSensitivity()
 	{
-		return _settingsRepository.UpdateAsync(d => d.Sensitivity = Sensitivity, CancellationToken.None);
+		await _settingsRepository.UpdateAsync(d => d.Sensitivity = Sensitivity, CancellationToken.None);
+		await _toast
+			.Make(Translations.Generic_ChangesSaved)
+			.SetPosition(Position.Bottom)
+			.Show();
 	}
 
 
 	partial void OnSensitivityChanged(int value)
 	{
-		// _toastable
-		// 	.SetText(string.Format(Translations.MouseControl_Sensitivity, value))
-		// 	.SetPosition(Position.Top)
-		// 	.Show();
+		_toastable
+			.SetText(string.Format(Translations.MouseControl_Sensitivity, value))
+			.Show();
 	}
 
 	public async Task OnNavigatedToAsync()
