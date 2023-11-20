@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -48,11 +49,12 @@ public partial class App : Application
 		Log.Debug("Setting up event handler to check for parent process");
 		ProcessExitListenerManager.ProcessExited += ProcessExitListenerManagerOnProcessExited;
 
+		// VerifyMonitorManager();
 		// ConfirmSample();
 		// VerifySimpleAudioManager();
 
-		TaskScheduler.UnobservedTaskException += (sender, ex) => Log.Fatal(ex);
-		AppDomain.CurrentDomain.UnhandledException += (sender, ex) => Log.Fatal(ex);
+		TaskScheduler.UnobservedTaskException += (sender, ex) => Log.Fatal(ex.Exception);
+		AppDomain.CurrentDomain.UnhandledException += (sender, ex) => Log.Fatal(ex.ExceptionObject);
 
 		ShutdownIfMutexTaken();
 
@@ -63,6 +65,39 @@ public partial class App : Application
 		{
 			Log.Fatal("Failed to launch named pipe for IPC with web application");
 			_namedPipeServer?.Dispose();
+		}
+	}
+
+	[Conditional("DEBUG")]
+	private async void VerifyMonitorManager()
+	{
+		using var manager = new NativeMonitorManager();
+		var brightness = manager.GetAverageBrightness();
+		Log.Debug("Average brightness: {Brightness}", brightness);
+		Log.Debug("Monitor count: {Count}", manager.Monitors.Count);
+
+		foreach (var monitor in manager.Monitors)
+		{
+			Log.Debug("Monitor Brightness: {Description} Current: {Current}, Min: {Min}, Max: {Max}", 
+				monitor.Description, monitor.CurrentValue, monitor.MinValue, monitor.MaxValue);
+		}
+
+		await Task.Delay(2000);
+		manager.SetBrightness(50);
+
+		foreach (var monitor in manager.Monitors)
+		{
+			Log.Debug("Monitor Brightness: {Description} Current: {Current}, Min: {Min}, Max: {Max}",
+				monitor.Description, monitor.CurrentValue, monitor.MinValue, monitor.MaxValue);
+		}
+
+		await Task.Delay(2000);
+		manager.SetBrightness(100);
+
+		foreach (var monitor in manager.Monitors)
+		{
+			Log.Debug("Monitor Brightness: {Description} Current: {Current}, Min: {Min}, Max: {Max}", 
+				monitor.Description, monitor.CurrentValue, monitor.MinValue, monitor.MaxValue);
 		}
 	}
 
