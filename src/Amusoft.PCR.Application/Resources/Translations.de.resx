@@ -279,4 +279,10 @@
   <data name="Generic.ChangesSaved" xml:space="preserve">
     <value>Änderungen gespeichert</value>
   </data>
+  <data name="Monitors.Brightness" xml:space="preserve">
+    <value>Helligkeit</value>
+  </data>
+  <data name="Monitors.Brightness_0" xml:space="preserve">
+    <value>Helligkeit: {0}</value>
+  </data>
 </root>
