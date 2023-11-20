@@ -7,7 +7,7 @@
                  xmlns:windows="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Windows"
                  xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:behaviors="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Behaviors"
-                 xmlns:resources="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Resources"
+                 xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
                  mc:Ignorable="d"
                  Topmost="True"
                  WindowStartupLocation="CenterScreen"

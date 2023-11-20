@@ -2,6 +2,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using Amusoft.PCR.App.Service.Services;
 using Amusoft.PCR.Application;
+using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Domain.AgentSettings;

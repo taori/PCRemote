@@ -5,10 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Windows"
-    xmlns:resources="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Resources"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:behaviors="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Behaviors"
+    xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance local:ConfirmWindowViewModel}"
     SizeToContent="WidthAndHeight"
@@ -22,7 +22,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                <Button Content="{x:Static resources:Translations.Generic_Yes}"
+                <Button Content="{x:Static resources:Translations.Generic_No}"
                         Margin="0,0,10,0" 
                         Command="{Binding Path=ConfirmCommand}">
                     <b:Interaction.Behaviors>

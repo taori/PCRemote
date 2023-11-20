@@ -4,6 +4,7 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net7.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -25,6 +26,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Amusoft.PCR.AM.WindowsAgent\Amusoft.PCR.AM.WindowsAgent.csproj" />
+		<ProjectReference Include="..\Amusoft.PCR.Application\Amusoft.PCR.Application.csproj" />
 		<ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
 	</ItemGroup>
 
@@ -33,26 +35,11 @@
 		<PackageReference Include="GrpcDotNetNamedPipes" Version="2.1.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
-		<PackageReference Include="NLog" Version="5.2.4" />
+		<PackageReference Include="NLog" Version="5.2.5" />
 		<PackageReference Include="System.Reactive" Version="6.0.0" />
 		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
 		<PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
 		<PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="Resources\Translations.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Translations.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="Resources\Translations.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-			<LastGenOutput>Translations.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>

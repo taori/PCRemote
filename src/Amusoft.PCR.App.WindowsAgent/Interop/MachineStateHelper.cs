@@ -72,7 +72,7 @@ public static class MachineStateHelper
 	{
 		try
 		{
-			Application.SetSuspendState(PowerState.Hibernate, false, false);
+			System.Windows.Forms.Application.SetSuspendState(PowerState.Hibernate, false, false);
 			return true;
 		}
 		catch (Exception e)

@@ -9,7 +9,6 @@ using Amusoft.PCR.Int.Agent.Windows.Windows;
 using Amusoft.PCR.Int.IPC;
 using Grpc.Core;
 using NLog;
-using Application = System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Amusoft.PCR.Int.Agent.Windows.Services;
@@ -178,11 +177,7 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 
 	private static async Task<bool> ConfirmAsync(string title, string description)
 	{
-		var request = new GetConfirmRequest()
-		{
-			Description = description,
-			Title = title,
-		};
+		var request = new GetConfirmRequest(title, description);
 
 		var response = await ViewModelSpawner.GetWindowResponseAsync<ConfirmWindow, ConfirmWindowViewModel, GetConfirmRequest, GetConfirmResponse>(request);
 		return response.Success;
@@ -196,7 +191,7 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 		{
 			try
 			{
-				var content = await ClipboardHelper.GetClipboardAsync(System.Windows.Forms.TextDataFormat.UnicodeText);
+				var content = await ClipboardHelper.GetClipboardAsync(TextDataFormat.UnicodeText);
 
 				Log.Debug("Returning {Length} characters to client", content.Length);
 				return new GetClipboardResponse() { Content = content, Success = content.Length > 0};
@@ -222,7 +217,7 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 			try
 			{
 				Log.Debug("Setting {Length} characters to client", request.Content.Length);
-				await ClipboardHelper.SetClipboardAsync(request.Content, System.Windows.Forms.TextDataFormat.UnicodeText);
+				await ClipboardHelper.SetClipboardAsync(request.Content, TextDataFormat.UnicodeText);
 
 				return new SetClipboardResponse() { Success = true };
 			}

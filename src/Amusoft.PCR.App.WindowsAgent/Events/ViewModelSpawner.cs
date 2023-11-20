@@ -20,9 +20,9 @@ public static class ViewModelSpawner
 		where TResponse : class
 	{
 		var tcs = new TaskCompletionSource<TResponse>();
-		Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
+		System.Windows.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
 		{
-			if (Application.Current.MainWindow == null)
+			if (System.Windows.Application.Current.MainWindow == null)
 				return;
 
 			var window = new TWindow();

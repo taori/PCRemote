@@ -3,7 +3,7 @@ using Amusoft.PCR.Application.Utility;
 using Amusoft.PCR.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Amusoft.PCR.Application;
+namespace Amusoft.PCR.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {

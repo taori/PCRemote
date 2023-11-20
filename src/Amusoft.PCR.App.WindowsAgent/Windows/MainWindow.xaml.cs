@@ -10,6 +10,6 @@ public partial class MainWindow : Window
 	public MainWindow()
 	{
 		InitializeComponent();
-		Application.Current.MainWindow = this;
+		System.Windows.Application.Current.MainWindow = this;
 	}
 }

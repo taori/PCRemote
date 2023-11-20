@@ -17,7 +17,7 @@ namespace Amusoft.PCR.Int.Agent.Windows;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
 	private static readonly Logger Log = LogManager.GetLogger(nameof(App));
 
@@ -103,11 +103,7 @@ public partial class App : Application
 
 	private static async void ConfirmSample()
 	{
-		var request = new GetConfirmRequest()
-		{
-			Description = "Some description",
-			Title = "Some title",
-		};
+		var request = new GetConfirmRequest("Some title", "Some description");
 
 		var response = await ViewModelSpawner.GetWindowResponseAsync<ConfirmWindow, ConfirmWindowViewModel, GetConfirmRequest, GetConfirmResponse>(request);
 	}
