@@ -29,7 +29,7 @@ service DesktopIntegrationService {
 	rpc SetClipboard (SetClipboardRequest) returns (SetClipboardResponse) {}
 	rpc GetHostName (GetHostNameRequest) returns (GetHostNameResponse) {}
 	rpc GetNetworkMacAddresses (GetNetworkMacAddressesRequest) returns (GetNetworkMacAddressesResponse) {}
-	rpc SendMouseMove (stream SendMouseMoveRequestItem) returns (SendMouseMoveResponse) {}
+	rpc SendMouseMove (SendMouseMoveRequest) returns (SendMouseMoveResponse) {}
 	rpc SendLeftMouseButtonClick (DefaultRequest) returns (DefaultResponse) {}
 	rpc SendRightMouseButtonClick (DefaultRequest) returns (DefaultResponse) {}
 	rpc GetAudioFeeds (AudioFeedRequest) returns (AudioFeedResponse) {}
@@ -53,11 +53,13 @@ message AudioFeedResponse {
 }
 message AudioFeedRequest {}
 
-message SendMouseMoveRequestItem {
+message SendMouseMoveRequest {
 	int32 x = 1;
 	int32 y = 2;
 }
-message SendMouseMoveResponse {}
+message SendMouseMoveResponse {
+	bool success = 1;
+}
 
 message CheckIsAuthenticatedRequest { }
 message CheckIsAuthenticatedResponse {
@@ -92,6 +94,7 @@ message GetClipboardRequest {
 }
 message GetClipboardResponse {
 	string content = 1;
+	bool success = 2;
 }
 message SetClipboardRequest {
 	string content = 1;

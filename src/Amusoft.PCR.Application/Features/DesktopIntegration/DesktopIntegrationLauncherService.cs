@@ -49,12 +49,12 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 			{
 				await TryLaunchIntegrationAsync();
 				await Task.Delay(2000, stoppingToken);
-			}
 
-			var suicideConfirm = await _desktopClient.SuicideOnProcessExit(Process.GetCurrentProcess().Id);
-			if (suicideConfirm != true)
-			{
-				_logger.LogWarning("Integration process is unable to terminate itself, because it failed to confirm parentship.");
+				var suicideConfirm = await _desktopClient.SuicideOnProcessExit(Process.GetCurrentProcess().Id);
+				if (suicideConfirm != true)
+				{
+					_logger.LogWarning("Integration process is unable to terminate itself, because it failed to confirm parentship.");
+				}
 			}
 
 			_logger.LogTrace("Waiting for next turn to check if integration backend is working ({Time}ms)", waitDuration.TotalMilliseconds);

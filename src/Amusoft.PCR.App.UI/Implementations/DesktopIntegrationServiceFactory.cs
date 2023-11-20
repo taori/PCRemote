@@ -1,22 +1,24 @@
 ﻿using System.Net;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Grpc.Net.Client;
+using Grpc.Net.ClientFactory;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
 public class DesktopIntegrationServiceFactory : IDesktopIntegrationServiceFactory
 {
 	private readonly IServiceProvider _serviceProvider;
+	private readonly GrpcChannelFactory _grpcChannelFactory;
 
-	public DesktopIntegrationServiceFactory(IServiceProvider serviceProvider)
+	public DesktopIntegrationServiceFactory(IServiceProvider serviceProvider, GrpcChannelFactory grpcChannelFactory)
 	{
 		_serviceProvider = serviceProvider;
+		_grpcChannelFactory = grpcChannelFactory;
 	}
 
 	public IDesktopIntegrationService Create(string protocol, IPEndPoint endPoint)
 	{
-		var target = $"{protocol}://{endPoint}";
-		var channel = GrpcChannel.ForAddress(target);
+		AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+		var channel = _grpcChannelFactory.Create(protocol, endPoint);
 		return new DesktopIntegrationService(channel, _serviceProvider);
 	}
 }

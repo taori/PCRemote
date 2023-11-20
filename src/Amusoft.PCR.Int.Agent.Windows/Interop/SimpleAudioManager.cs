@@ -42,7 +42,7 @@ public static class SimpleAudioManager
 				var session = sessionManager.Sessions[sessionIndex];
 				if (session.IsSystemSoundsSession)
 					continue;
-
+				
 				var processName = TryGetProcessName(session);
 				feeds.Add(new AudioFeedResponseItem()
 				{

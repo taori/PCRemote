@@ -1,0 +1,38 @@
+﻿<mah:MetroWindow
+    x:Class="Amusoft.PCR.Int.Agent.Windows.Windows.ConfirmWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Windows"
+    xmlns:resources="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Resources"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:behaviors="clr-namespace:Amusoft.PCR.Int.Agent.Windows.Behaviors"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance local:ConfirmWindowViewModel}"
+    SizeToContent="WidthAndHeight"
+    WindowStartupLocation="CenterScreen"
+    Topmost="True"
+    Title="{Binding Path=Title}" Height="450" Width="800">
+    <Border Padding="10">
+        <StackPanel>
+            <StackPanel>
+                <Label Content="{Binding Path=Description}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                <Button Content="{x:Static resources:Translations.Generic_Yes}"
+                        Margin="0,0,10,0" 
+                        Command="{Binding Path=ConfirmCommand}">
+                    <b:Interaction.Behaviors>
+                        <behaviors:FocusOnLoadBehavior />
+                    </b:Interaction.Behaviors>
+                </Button>
+
+                <Button Content="{x:Static resources:Translations.Generic_No}"
+                        Command="{Binding Path=DeclineCommand}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</mah:MetroWindow>

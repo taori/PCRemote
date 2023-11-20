@@ -8,6 +8,7 @@ using Amusoft.PCR.Int.Agent.Windows.Windows;
 using Amusoft.PCR.Int.IPC;
 using Grpc.Core;
 using NLog;
+using Application = System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Amusoft.PCR.Int.Agent.Windows.Services;
@@ -136,37 +137,48 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 		return Task.FromResult(new SendMediaKeysReply());
 	}
 
+	private static async Task<bool> ConfirmAsync(string title, string description)
+	{
+		var request = new GetConfirmRequest()
+		{
+			Description = description,
+			Title = title,
+		};
+
+		var response = await ViewModelSpawner.GetWindowResponseAsync<ConfirmWindow, ConfirmWindowViewModel, GetConfirmRequest, GetConfirmResponse>(request);
+		return response.Success;
+	}
+
 	public override async Task<GetClipboardResponse> GetClipboard(GetClipboardRequest request, ServerCallContext context)
 	{
 		Log.Info("Executing [{Name}]", nameof(GetClipboard));
-		System.Windows.Application.Current.MainWindow?.Focus();
-		if (MessageBox.Show($"Send clipboard content to {request.Requestee}?", "PC Remote 2", MessageBoxButtons.YesNo) == DialogResult.Yes)
+		
+		if (await ConfirmAsync("PC Remote 3", $"Send clipboard content to {request.Requestee}?"))
 		{
 			try
 			{
 				var content = await ClipboardHelper.GetClipboardAsync(System.Windows.Forms.TextDataFormat.UnicodeText);
 
 				Log.Debug("Returning {Length} characters to client", content.Length);
-				return new GetClipboardResponse() { Content = content };
+				return new GetClipboardResponse() { Content = content, Success = content.Length > 0};
 			}
 			catch (Exception e)
 			{
 				Log.Error(e, "Failed to read clipboard.");
-				return new GetClipboardResponse() { Content = default };
+				return new GetClipboardResponse() { Content = string.Empty, Success = false};
 			}
 		}
 		else
 		{
 			Log.Warn("Permission denied");
-			throw new RpcException(new Status(StatusCode.PermissionDenied, "Host declined permission"));
+			return new GetClipboardResponse() { Content = string.Empty, Success = false };
 		}
 	}
 
 	public override async Task<SetClipboardResponse> SetClipboard(SetClipboardRequest request, ServerCallContext context)
 	{
 		Log.Info("Executing [{Name}]", nameof(GetClipboard));
-		System.Windows.Application.Current.MainWindow?.Focus();
-		if (MessageBox.Show($"Allow {request.Requestee} to set clipboard?", "PC Remote 2", MessageBoxButtons.YesNo) == DialogResult.Yes)
+		if (await ConfirmAsync("PC Remote 3", $"Allow {request.Requestee} to set clipboard?")) 
 		{
 			try
 			{
@@ -188,44 +200,46 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 		}
 	}
 
-	public override async Task<SendMouseMoveResponse> SendMouseMove(IAsyncStreamReader<SendMouseMoveRequestItem> requestStream, ServerCallContext context)
+	public override Task<SendMouseMoveResponse> SendMouseMove(SendMouseMoveRequest request, ServerCallContext context)
 	{
-		Log.Debug("Sending mouse moves");
 		try
 		{
-			while (await requestStream.MoveNext(context.CancellationToken))
-			{
-				var x = requestStream.Current.X;
-				var y = requestStream.Current.Y;
-				NativeMethods.Mouse.Move(x, y);
-
-				Log.Trace("Mouse move: {X} {Y}", x, y);
-			}
-		}
-		catch (OperationCanceledException e)
-		{
-			Log.Trace(e, "Operation cancelled");
+			NativeMethods.Mouse.Move(request.X, request.Y);
+			return Task.FromResult(new SendMouseMoveResponse() { Success = true });
 		}
 		catch (Exception e)
 		{
-			Log.Error(e, "An error occured while sending mouse input");
+			Log.Error(e, "An error occured while sending mouse movement");
+			return Task.FromResult(new SendMouseMoveResponse() { Success = false });
 		}
-
-		Log.Debug("Sending mouse moves done");
-
-		return new SendMouseMoveResponse();
 	}
 
 	public override Task<DefaultResponse> SendLeftMouseButtonClick(DefaultRequest request, ServerCallContext context)
 	{
-		NativeMethods.Mouse.ClickLeft();
-		return Task.FromResult(new DefaultResponse());
+		try
+		{
+			NativeMethods.Mouse.ClickLeft();
+			return Task.FromResult(new DefaultResponse() { Success = true });
+		}
+		catch (Exception e)
+		{
+			Log.Error(e, "An error occured while sending mouse leftclick");
+			return Task.FromResult(new DefaultResponse() { Success = false });
+		}
 	}
 
 	public override Task<DefaultResponse> SendRightMouseButtonClick(DefaultRequest request, ServerCallContext context)
 	{
-		NativeMethods.Mouse.ClickRight();
-		return Task.FromResult(new DefaultResponse());
+		try
+		{
+			NativeMethods.Mouse.ClickRight();
+			return Task.FromResult(new DefaultResponse() { Success = true });
+		}
+		catch (Exception e)
+		{
+			Log.Error(e, "An error occured while sending mouse rightclick");
+			return Task.FromResult(new DefaultResponse() { Success = false });
+		}
 	}
 
 	public override Task<AudioFeedResponse> GetAudioFeeds(AudioFeedRequest request, ServerCallContext context)

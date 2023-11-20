@@ -15,5 +15,9 @@ public interface ITypedNavigator
 	Task OpenMonitors();
 	Task OpenInputControl();
 	Task OpenPrograms();
+	Task OpenLogs();
+	Task OpenDebug();
+	Task OpenCommandButtonList(Action<CommandButtonListViewModel> configure, HostViewModel host);
+	Task OpenMouseControl();
 	Task ScopedNavigationAsync(Action<IServiceCollection> scopeConfiguration, Func<ITypedNavigator, Task> navigate);
 }

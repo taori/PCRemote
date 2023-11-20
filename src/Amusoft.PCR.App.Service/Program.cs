@@ -8,25 +8,49 @@ using Amusoft.PCR.Domain.AgentSettings;
 using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
+using Microsoft.AspNetCore.StaticFiles;
+using NLog;
+using NLog.Fluent;
+using NLog.Web;
 using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
 
 namespace Amusoft.PCR.App.Service;
 
 public class Program
 {
+	private static Logger? _logger;
 
 	public static async Task Main(string[] args)
 	{
-		var builder = CreateHostBuilder(args);
-		
-		AddServices(builder);
+		_logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
-		RegisterAsWindowsService(builder);
+		TaskScheduler.UnobservedTaskException += (sender, ex) => _logger.Fatal(ex);
+		AppDomain.CurrentDomain.UnhandledException += (sender, ex) => _logger.Fatal(ex);
 
-		var host = builder.Build();
-		ConfigureHost(host);
+		try
+		{
+			var builder = CreateHostBuilder(args);
+			builder.Host.UseNLog();
 
-		await host.RunAsync();
+			AddServices(builder);
+
+			RegisterAsWindowsService(builder);
+
+			var host = builder.Build();
+			ConfigureHost(host);
+
+			await host.RunAsync();
+		}
+		catch (Exception e)
+		{
+			_logger.Error(e, "Stopped program because of exception");
+		}
+		finally
+		{
+			// Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+			LogManager.Flush();
+			LogManager.Shutdown();
+		}
 	}
 
 	private static WebApplicationBuilder CreateHostBuilder(string[] args)
@@ -49,6 +73,7 @@ public class Program
 		applicationStateTransmitter.NotifyConfigurationDone();
 
 		host.UseRouting();
+		host.UseGrpcWeb(new GrpcWebOptions() {DefaultEnabled = true});
 
 		host.UseAuthentication();
 		host.UseAuthorization();
@@ -56,6 +81,14 @@ public class Program
 		host.MapGrpcService<PingService>();
 		host.MapGrpcService<VoiceRecognitionService>();
 		host.MapGrpcService<DesktopIntegrationService>();
+		
+#if DEBUG
+		host.MapGet("/download/test", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().GetTestFile().ExecuteAsync(context));
+#endif
+
+		host.MapGet("/download/android", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().GetAndroidApp().ExecuteAsync(context));
+
+
 		host.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 		if (host.Environment.IsDevelopment())
@@ -84,6 +117,7 @@ public class Program
 		builder.Services.AddHostedService<DesktopIntegrationLauncherServiceDelegate>();
 		builder.Services.AddHostedService<ClientDiscoveryDelegate>();
 
+		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
 		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
 		builder.Services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
 		{

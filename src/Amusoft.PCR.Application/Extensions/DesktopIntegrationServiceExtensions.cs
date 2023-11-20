@@ -13,6 +13,13 @@ public static class DesktopIntegrationServiceExtensions
 		return Task.FromResult(new TResult());
 	}
 
+	public static Task<string?> Desktop(this IDesktopIntegrationService source, Func<IDesktopClientMethods, Task<string?>> action)
+	{
+		if (source is { DesktopClient: { } client })
+			return action(client);
+		return Task.FromResult(default(string?));
+	}
+
 	public static Task Desktop(this IDesktopIntegrationService? source, Func<IDesktopClientMethods, Task> action)
 	{
 		if (source is { DesktopClient: { } client })

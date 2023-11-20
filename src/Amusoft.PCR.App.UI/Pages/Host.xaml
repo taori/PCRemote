@@ -6,7 +6,7 @@
              x:Class="Amusoft.PCR.App.UI.Pages.Host"
              x:DataType="vm:HostViewModel"
              Title="{x:Binding Path=Title}">
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="{StaticResource PaddingButtonPanel}">
         <Button Command="{x:Binding Path=OpenAudioCommand}" 
                 Margin="0,0,0,10"
                 Text="{x:Static resources:Translations.Nav_Audio}"/>
@@ -17,11 +17,11 @@
 
         <Button Command="{x:Binding Path=OpenSystemStateCommand}" 
                 Margin="0,0,0,10"
-                Text="{x:Static resources:Translations.Navi_SystemState}"/>
+                Text="{x:Static resources:Translations.Nav_SystemState}"/>
 
         <Button Command="{x:Binding Path=OpenInputControlCommand}" 
                 Margin="0,0,0,10"
-                Text="{x:Static resources:Translations.Nav_Input}"/>
+                Text="{x:Static resources:Translations.Nav_InputControl}"/>
 
         <Button Command="{x:Binding Path=OpenProgramsCommand}" 
                 Text="{x:Static resources:Translations.Nav_Programs}"/>

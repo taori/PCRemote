@@ -26,7 +26,7 @@ public interface IDesktopClientMethods
 	Task<bool?> SendMediaKey(SendMediaKeysRequest.Types.MediaKeyCode code);
 	Task<string?> GetClipboardAsync(string requestee);
 	Task<bool?> SetClipboardAsync(string requestee, string content);
-	Task SendMouseMoveAsync(IAsyncStreamReader<SendMouseMoveRequestItem> streamReader, CancellationToken cancellationToken);
+	Task<bool?> SendMouseMoveAsync(int x, int y);
 	Task<bool?> SendLeftMouseClickAsync();
 	Task<bool?> SendRightMouseClickAsync();
 	Task<AudioFeedResponse?> GetAudioFeedsResponse();

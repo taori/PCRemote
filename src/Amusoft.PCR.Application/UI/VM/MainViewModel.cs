@@ -10,44 +10,36 @@ namespace Amusoft.PCR.Application.UI.VM;
 
 public partial class MainViewModel : PageViewModel
 {
-	private readonly INavigation _navigation;
-
-	public MainViewModel(INavigation navigation, ITypedNavigator navigator) : base(navigator)
+	public MainViewModel(ITypedNavigator navigator) : base(navigator)
 	{
-		_navigation = navigation;
-
 		_items = new ObservableCollection<NavigationItem>()
 		{
 			new ()
 			{
-				ImagePath = "configuration.png",
+				ImagePath = null,
 				Text = Translations.Page_Title_HostsOverview,
 				Command = new RelayCommand(() => Navigator.OpenHostOverview())
 			},
 			new ()
 			{
-				ImagePath = "configuration.png",
+				ImagePath = null,
 				Text = Translations.Page_Title_Settings,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Settings}"))
+				Command = new RelayCommand(() => Navigator.OpenSettings())
 			},
 			new ()
 			{
-				ImagePath = "configuration.png",
-				Text = Translations.Page_Title_Audio,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
+				ImagePath = null,
+				Text = "Logs",
+				Command = new RelayCommand(() => Navigator.OpenLogs())
 			},
+#if DEBUG
 			new ()
 			{
-				ImagePath = "volume_off.png",
-				Text = Translations.Page_Title_Audio,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
+				ImagePath = null,
+				Text = "Debug",
+				Command = new RelayCommand(() => Navigator.OpenDebug())
 			},
-			new ()
-			{
-				ImagePath = "volume_up.png",
-				Text = Translations.Page_Title_Audio,
-				Command = new RelayCommand(() => _navigation.GoToAsync($"/{PageNames.Audio}"))
-			},
+#endif
 		};
 	}
 

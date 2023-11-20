@@ -3,8 +3,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Amusoft.PCR.Int.Agent.Windows.Events;
 using Amusoft.PCR.Int.Agent.Windows.Interop;
 using Amusoft.PCR.Int.Agent.Windows.Services;
+using Amusoft.PCR.Int.Agent.Windows.Windows;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
 using NLog;
@@ -46,17 +48,33 @@ public partial class App : Application
 		Log.Debug("Setting up event handler to check for parent process");
 		ProcessExitListenerManager.ProcessExited += ProcessExitListenerManagerOnProcessExited;
 
+		// ConfirmSample();
+		// VerifySimpleAudioManager();
+
+		TaskScheduler.UnobservedTaskException += (sender, ex) => Log.Fatal(ex);
+		AppDomain.CurrentDomain.UnhandledException += (sender, ex) => Log.Fatal(ex);
+
 		ShutdownIfMutexTaken();
 
 		// EventSetup.Initialize();
 		// EventSetup.Debug();
 
-		// VerifySimpleAudioManager();
 		if (!TryLaunchInteropChannel())
 		{
 			Log.Fatal("Failed to launch named pipe for IPC with web application");
 			_namedPipeServer?.Dispose();
 		}
+	}
+
+	private static async void ConfirmSample()
+	{
+		var request = new GetConfirmRequest()
+		{
+			Description = "Some description",
+			Title = "Some title",
+		};
+
+		var response = await ViewModelSpawner.GetWindowResponseAsync<ConfirmWindow, ConfirmWindowViewModel, GetConfirmRequest, GetConfirmResponse>(request);
 	}
 
 	private void ProcessExitListenerManagerOnProcessExited(object? sender, int e)
@@ -79,16 +97,18 @@ public partial class App : Application
 
 	private bool TryLaunchInteropChannel()
 	{
-		_namedPipeServer = new NamedPipeServer(Globals.NamedPipeChannel);
-		DesktopIntegrationService.BindService(_namedPipeServer.ServiceBinder, new DesktopIntegrationServiceImplementation());
-		VoiceCommandService.BindService(_namedPipeServer.ServiceBinder, new VoiceRecognitionServiceImplementation());
-
 		try
 		{
-			Log.Info("Starting IPC");
+			Log.Debug("Initializing NamedPipeServer to listen for service calls");
+
+			_namedPipeServer = new NamedPipeServer(Globals.NamedPipeChannel);
+			DesktopIntegrationService.BindService(_namedPipeServer.ServiceBinder, new DesktopIntegrationServiceImplementation());
+			VoiceCommandService.BindService(_namedPipeServer.ServiceBinder, new VoiceRecognitionServiceImplementation());
+
+			Log.Debug("Starting IPC Server");
 			_namedPipeServer.Start();
 
-			Log.Info("IPC running");
+			Log.Info("IPC Server is running");
 			return true;
 		}
 		catch (Exception ex)

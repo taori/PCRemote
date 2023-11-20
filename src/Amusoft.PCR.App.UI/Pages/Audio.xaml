@@ -8,81 +8,76 @@
              x:Class="Amusoft.PCR.App.UI.Pages.Audio"
              x:DataType="vm:AudioViewModel"
              Title="{x:Binding Title}">
-    <Grid RowDefinitions="*">
-        <Grid.Resources>
-            <behaviors:BoolToObjectConverter x:TypeArguments="Color" x:Key="CLR" TrueObject="Red" FalseObject="Green"></behaviors:BoolToObjectConverter>
-        </Grid.Resources>
+    <Grid RowDefinitions="*" Padding="{StaticResource PaddingButtonPanel}">
         <RefreshView IsRefreshing="{x:Binding IsReloading}"
                      Grid.Row="1"
                      Command="{x:Binding ReloadCommand}">
-            <ScrollView>
-                <CollectionView ItemsSource="{x:Binding Path=Items}"
+            <CollectionView ItemsSource="{x:Binding Path=Items}"
                                 SelectionMode="None">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="vm:AudioViewModelItem">
-                            <Grid RowDefinitions="Auto,Auto" 
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:AudioViewModelItem">
+                        <Grid RowDefinitions="Auto,Auto" 
                                   ColumnDefinitions="*,Auto" 
-                                  Margin="10" >
-                                <Label Text="{x:Binding Name}" 
+                                  Margin="0,10,0,10" >
+                            <Label Text="{x:Binding Name}" 
                                        FontSize="20"
-                                       Margin="20,0,35,0"/>
-                                <Slider Value="{x:Binding Volume}" 
-                                        Margin="20,0"
+                                       Margin="13,0,35,10"/>
+                            <Slider Value="{x:Binding Volume}" 
+                                        Margin="0,0"
                                         Grid.Row="1"
                                         Minimum="0" 
                                         Maximum="100" 
                                         DragCompletedCommand="{x:Binding Path=VolumeChangedCommand}"/>
-                                <ImageButton Source="{x:Binding Icon}" Grid.Column="1" Grid.RowSpan="2"
+                            <ImageButton Source="{x:Binding Icon}" Grid.Column="1" Grid.RowSpan="2"
                                              Command="{x:Binding MuteCommand}"
-                                             Margin="0,0,20,0"
+                                             Margin="10,0,0,0"
                                              VerticalOptions="Center">
 
-                                    <!-- this works -->
-                                    <ImageButton.Style>
-                                        <x:Binding Path="Muted">
-                                            <x:Binding.Converter>
-                                                <behaviors:BoolToObjectConverter x:TypeArguments="Style">
-                                                    <behaviors:BoolToObjectConverter.TrueObject>
-                                                        <Style TargetType="ImageButton">
-                                                            <Style.Behaviors>
-                                                                <behaviors:IconTintColorBehavior TintColor="Red"/>
-                                                            </Style.Behaviors>
-                                                        </Style>
-                                                    </behaviors:BoolToObjectConverter.TrueObject>
-                                                    <behaviors:BoolToObjectConverter.FalseObject>
-                                                        <Style TargetType="ImageButton">
-                                                            <Style.Behaviors>
-                                                                <behaviors:IconTintColorBehavior TintColor="Green"/>
-                                                            </Style.Behaviors>
-                                                        </Style>
-                                                    </behaviors:BoolToObjectConverter.FalseObject>
-                                    
-                                                </behaviors:BoolToObjectConverter>
-                                            </x:Binding.Converter>
-                                        </x:Binding>
-                                    </ImageButton.Style>
+                                <!-- this works -->
+                                <ImageButton.Style>
+                                    <x:Binding Path="Muted">
+                                        <x:Binding.Converter>
+                                            <behaviors:BoolToObjectConverter x:TypeArguments="Style">
+                                                <behaviors:BoolToObjectConverter.TrueObject>
+                                                    <Style TargetType="ImageButton">
+                                                        <Style.Behaviors>
+                                                            <behaviors:IconTintColorBehavior TintColor="Red"/>
+                                                        </Style.Behaviors>
+                                                    </Style>
+                                                </behaviors:BoolToObjectConverter.TrueObject>
+                                                <behaviors:BoolToObjectConverter.FalseObject>
+                                                    <Style TargetType="ImageButton">
+                                                        <Style.Behaviors>
+                                                            <behaviors:IconTintColorBehavior TintColor="Green"/>
+                                                        </Style.Behaviors>
+                                                    </Style>
+                                                </behaviors:BoolToObjectConverter.FalseObject>
 
-                                    <!-- this does not work-->
-                                    <!-- <ImageButton.Behaviors> -->
-                                    <!--     <behaviors:IconTintColorBehavior> -->
-                                    <!--         <behaviors:IconTintColorBehavior.TintColor> -->
-                                    <!--             <x:Binding Path="Muted"> -->
-                                    <!--                 <x:Binding.Converter> -->
-                                    <!--                     <behaviors:BoolToObjectConverter x:TypeArguments="Color" TrueObject="{x:Static Colors.Red}" FalseObject="{x:Static Colors.Green}" /> -->
-                                    <!--                 </x:Binding.Converter> -->
-                                    <!--             </x:Binding> -->
-                                    <!--         </behaviors:IconTintColorBehavior.TintColor> -->
-                                    <!--     </behaviors:IconTintColorBehavior> -->
-                                    <!-- </ImageButton.Behaviors> -->
-                                </ImageButton>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>
+                                            </behaviors:BoolToObjectConverter>
+                                        </x:Binding.Converter>
+                                    </x:Binding>
+                                </ImageButton.Style>
+
+                                <!-- this does not work-->
+                                <!-- <ImageButton.Behaviors> -->
+                                <!--     <behaviors:IconTintColorBehavior> -->
+                                <!--         <behaviors:IconTintColorBehavior.TintColor> -->
+                                <!--             <x:Binding Path="Muted"> -->
+                                <!--                 <x:Binding.Converter> -->
+                                <!--                     <behaviors:BoolToObjectConverter x:TypeArguments="Color" TrueObject="{x:Static Colors.Red}" FalseObject="{x:Static Colors.Green}" /> -->
+                                <!--                 </x:Binding.Converter> -->
+                                <!--             </x:Binding> -->
+                                <!--         </behaviors:IconTintColorBehavior.TintColor> -->
+                                <!--     </behaviors:IconTintColorBehavior> -->
+                                <!-- </ImageButton.Behaviors> -->
+                            </ImageButton>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </RefreshView>
     </Grid>
 </ContentPage>

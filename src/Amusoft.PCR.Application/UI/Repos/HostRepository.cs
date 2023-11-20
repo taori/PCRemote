@@ -5,43 +5,40 @@ namespace Amusoft.PCR.Application.UI.Repos;
 
 public class HostRepository
 {
-	private readonly IFileStorage _fileStorage;
-	private string _hostsPath = "hosts.json";
+	private readonly ClientSettingsRepository _settingsRepository;
 
-	public HostRepository(IFileStorage fileStorage)
+	public HostRepository(ClientSettingsRepository settingsRepository)
 	{
-		_fileStorage = fileStorage;
+		_settingsRepository = settingsRepository;
 	}
 
 	public async Task<int[]> GetHostPortsAsync()
 	{
-		if (!_fileStorage.PathExists(_hostsPath))
-			return Array.Empty<int>();
-
-		return await _fileStorage.ReadJsonAsync<int[]>(_hostsPath, CancellationToken.None).ConfigureAwait(false) ?? Array.Empty<int>();
+		var settings = await _settingsRepository.GetAsync(CancellationToken.None);
+		return settings.Ports;
 	}
 
-	private Task SaveHostPortsAsync(int[] ports)
+	private async Task SaveHostPortsAsync(int[] ports)
 	{
-		return _fileStorage.WriteJsonAsync(_hostsPath, ports, CancellationToken.None);
+		var settings = await _settingsRepository.GetAsync(CancellationToken.None);
+		settings.Ports = ports;
+		await _settingsRepository.SaveAsync(settings, CancellationToken.None);
 	}
 
 	public async Task RemoveAsync(int value)
 	{
-		var ports = await GetHostPortsAsync();
-		if (!ports.Contains(value))
-			return;
-
-		await SaveHostPortsAsync(ports.Except(new[] { value }).ToArray());
+		var settings = await _settingsRepository.GetAsync(CancellationToken.None);
+		settings.Ports = settings.Ports.Except(new[] { value }).ToArray();
+		await _settingsRepository.SaveAsync(settings, CancellationToken.None);
 	}
 
 	public async Task<OneOf<Success, AlreadyExists>> AddAsync(int value)
 	{
-		var ports = await GetHostPortsAsync();
-		if (ports.Contains(value))
+		var settings = await _settingsRepository.GetAsync(CancellationToken.None);
+		if (settings.Ports.Contains(value))
 			return new AlreadyExists();
 		
-		await SaveHostPortsAsync(ports.Concat(new[] {value}).ToArray());
+		await SaveHostPortsAsync(settings.Ports.Concat(new[] {value}).ToArray());
 		return new Success();
 	}
 }

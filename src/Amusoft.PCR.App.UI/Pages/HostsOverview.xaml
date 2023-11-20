@@ -9,7 +9,7 @@
              x:Class="Amusoft.PCR.App.UI.Pages.HostsOverview"
              x:DataType="vm:HostsOverviewViewModel"
              Title="{x:Binding Title}">
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto" Padding="{StaticResource PaddingButtonPanel}">
 
         <controls:ErrorFrame Text="{x:Static resources:Translations.HostsOverview_NoPortsConfigured}"
                              IsVisible="{x:Binding ArePortsMissing, Mode=OneWay}"/>
@@ -17,22 +17,20 @@
         <RefreshView IsRefreshing="{x:Binding IsReloading}"
                      Grid.Row="1"
                      Command="{x:Binding ReloadCommand}">
-            <ScrollView>
-                <CollectionView ItemsSource="{x:Binding Path=Items}"
-                          SelectionMode="None">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="vm:HostItemViewModel">
-                                <controls:ListViewButton
-                                    CommandParameter="{x:Binding}"
-                                    Command="{x:Binding Path=ExecuteCallbackCommand}"
-                                    Text="{x:Binding Path=Name}"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>
+            <CollectionView ItemsSource="{x:Binding Path=Items}"
+                      SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:HostItemViewModel">
+                            <controls:ListViewButton
+                                CommandParameter="{x:Binding}"
+                                Command="{x:Binding Path=ExecuteCallbackCommand}"
+                                Text="{x:Binding Path=Name}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </RefreshView>
 
         <VerticalStackLayout Grid.Row="2">

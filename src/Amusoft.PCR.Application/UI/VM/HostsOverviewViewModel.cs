@@ -17,12 +17,13 @@ using Amusoft.PCR.Domain.VM;
 using Amusoft.Toolkit.Networking;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
 public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, INavigationCallbacks
 {
+	private readonly ILogger<HostsOverviewViewModel> _logger;
 	private readonly HostRepository _hostRepository;
 	private readonly IToast _toast;
 	private readonly ITypedNavigator _navigator;
@@ -33,18 +34,19 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 	[ObservableProperty]
 	private ObservableCollection<HostItemViewModel> _items = new();
 
-	public HostsOverviewViewModel(HostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
+	public HostsOverviewViewModel(ILogger<HostsOverviewViewModel> logger, HostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
 	{
+		_logger = logger;
 		_hostRepository = hostRepository;
 		_toast = toast;
 		_navigator = navigator;
 	}
 
-	protected override async Task OnReloadAsync()
+	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
-		Items.Clear();
+		_logger.LogDebug("Loading hosts");
 		
-		await LoadHostsFromPortsAsync();
+		Items = new ObservableCollection<HostItemViewModel>(await LoadHostsFromPortsAsync(cancellationToken));
 	}
 
 	[RelayCommand]
@@ -65,9 +67,9 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		return Translations.Page_Title_HostsOverview;
 	}
 
-	public async Task OnNavigatedToAsync()
+	public Task OnNavigatedToAsync()
 	{
-		await OnReloadAsync();
+		return ReloadAsync();
 	}
 
 	private HostItemViewModel[] GetHostItemModel(UdpReceiveResult result)
@@ -84,18 +86,33 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 		return Array.Empty<HostItemViewModel>();
 	}
 
-	private async Task LoadHostsFromPortsAsync()
+	private async Task<ICollection<HostItemViewModel>> LoadHostsFromPortsAsync(CancellationToken cancellationToken)
 	{
 		var ports = await _hostRepository.GetHostPortsAsync();
-		await foreach (var udpReceiveResult in GetUdpReceiveResults(ports))
+		var items = new List<HostItemViewModel>();
+		await foreach (var udpReceiveResult in GetUdpReceiveResults(ports).WithCancellation(cancellationToken))
 		{
+			if(cancellationToken.IsCancellationRequested)
+				continue;
+
 			foreach (var hostItemViewModel in GetHostItemModel(udpReceiveResult))
 			{
-				Items.Add(hostItemViewModel);
+				if (cancellationToken.IsCancellationRequested)
+					continue;
+
+				_logger.LogDebug("Found host {Address}", hostItemViewModel.Connection);
+				items.Add(hostItemViewModel);
 			}
 		}
 
 		ArePortsMissing = ports.Length == 0;
+
+		if(cancellationToken.IsCancellationRequested)
+			_logger.LogDebug("Requeste cancelled - returning empty array.");
+
+		return cancellationToken.IsCancellationRequested
+			? Array.Empty<HostItemViewModel>()
+			: items;
 	}
 
 	private static IAsyncEnumerable<UdpReceiveResult> GetUdpReceiveResults(int[] ports)
@@ -104,7 +121,8 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 
 		static async IAsyncEnumerable<IAsyncEnumerable<UdpReceiveResult>> GetPortSourcesAsync(int[] ports)
 		{
-			foreach (var port in ports)
+			var limit = Math.Pow(2, 16);
+			foreach (var port in ports.Where(d => d < limit))
 			{
 				var duration = TimeSpan.FromSeconds(1);
 				using var cts = new CancellationTokenSource(duration);
