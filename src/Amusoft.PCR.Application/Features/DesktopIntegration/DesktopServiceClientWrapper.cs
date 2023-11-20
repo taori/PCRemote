@@ -4,6 +4,7 @@ using Amusoft.PCR.Int.IPC;
 using Google.Protobuf.Collections;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace Amusoft.PCR.Application.Features.DesktopIntegration;
 
@@ -30,6 +31,36 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SuicideOnProcessExit));
 			return default;
+		}
+	}
+
+	public async Task<bool?> SetMonitorBrightness(string id, int value)
+	{
+		try
+		{
+			_logger.LogDebug("{Method}({Id}, {Value})", nameof(SetMonitorBrightness), id, value);
+			var monitors = await _service.SetMonitorBrightnessAsync(new SetMonitorBrightnessRequest() {Id = id, Value = value});
+			return monitors.Success;
+		}
+		catch (Exception e)
+		{
+			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SetMonitorBrightness));
+			return default;
+		}
+	}
+
+	public async Task<Result<List<GetMonitorBrightnessResponseItem>>> GetMonitorBrightness()
+	{
+		try
+		{
+			_logger.LogDebug("{Method}()", nameof(GetMonitorBrightness));
+			var monitors = await _service.GetMonitorBrightnessAsync(new GetMonitorBrightnessRequest());
+			return Result.Success(monitors.Items.ToList());
+		}
+		catch (Exception e)
+		{
+			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetMonitorBrightness));
+			return Result.Error<List<GetMonitorBrightnessResponseItem>>();
 		}
 	}
 

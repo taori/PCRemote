@@ -116,7 +116,7 @@ public class Program
 
 		builder.Services.AddHostedService<DesktopIntegrationLauncherServiceDelegate>();
 		builder.Services.AddHostedService<ClientDiscoveryDelegate>();
-
+		
 		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
 		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
 		builder.Services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>

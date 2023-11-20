@@ -41,10 +41,13 @@
                             <Label Text="{x:Binding Name}" 
                                    FontSize="20"
                                    Margin="13,0,35,10"/>
-                            <Slider Value="{x:Binding Path=Value}"
-                                    DragCompletedCommand="{x:Binding Path=UpdateCommand}"
-                                    Minimum="0"
-                                    Maximum="100"/>
+                            <Label Text="{x:Binding Value}" 
+                                   FontSize="20"
+                                   Margin="13,0,35,10"/>
+                            <Slider Maximum="{x:Binding Path=Max}" 
+                                    Minimum="{x:Binding Path=Min}"
+                                    Value="{x:Binding Path=Value, Mode=TwoWay}"
+                                    DragCompletedCommand="{x:Binding Path=UpdateCommand}" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

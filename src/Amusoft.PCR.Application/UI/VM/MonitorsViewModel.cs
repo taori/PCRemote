@@ -44,34 +44,59 @@ public partial class MonitorsViewModel : ReloadablePageViewModel, INavigationCal
 		return ReloadAsync();
 	}
 
-	protected override Task OnReloadAsync(CancellationToken cancellationToken)
+	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
-		BrightnessItems = new ObservableCollection<BrightnessItem>(new []
+		if (_host.DesktopIntegrationClient?.DesktopClient is null)
+			return;
+
+		var monitors = await _host.DesktopIntegrationClient.DesktopClient.GetMonitorBrightness();
+		if (!monitors.Success)
+			return;
+
+		var vmItems = monitors.Value.Select(d => new BrightnessItem()
 		{
-			new BrightnessItem(){Name = "Test1", Value = 20},
-			new BrightnessItem(){Name = "Test2", Value = 30},
-		});
+			Value = d.Current,
+			Name = d.Name,
+			Min = d.Min,
+			Max = d.Max,
+			Id = d.Id,
+		}).ToArray();
 
-		BrightnessItems[0].UpdateCommand = new RelayCommand<BrightnessItem>(item => SaveBrightness(BrightnessItems[0]));
-		BrightnessItems[1].UpdateCommand = new RelayCommand<BrightnessItem>(item => SaveBrightness(BrightnessItems[1]));
-
-		return Task.CompletedTask;
+		foreach (var item in vmItems)
+		{
+			item.UpdateCommand = new RelayCommand(() => SaveBrightness(item));
+		}
+		
+		BrightnessItems = new ObservableCollection<BrightnessItem>(vmItems);
 	}
 
 	[RelayCommand]
-	public Task SaveBrightness(BrightnessItem brightness)
+	public async Task SaveBrightness(BrightnessItem brightness)
 	{
-		return _toast.Make($"{brightness.Name} {string.Format(Translations.Monitors_Brightness_0, brightness.Value)}").Show();
+		if (_host.DesktopIntegrationClient?.DesktopClient == null)
+			return;
+
+		await _host.DesktopIntegrationClient.DesktopClient.SetMonitorBrightness(brightness.Id, brightness.Value);
+		await _toast.Make(string.Format(Translations.Monitors_Brightness_0, brightness.Value)).Show();
 	}
 }
 
 public partial class BrightnessItem : ObservableObject
 {
 	[ObservableProperty]
+	private string _id;
+
+	[ObservableProperty]
 	private string _name;
 
 	[ObservableProperty]
 	private int _value;
+
+	[ObservableProperty]
+	private int _min;
+
+	[ObservableProperty]
+	private int _max;
 
 	[ObservableProperty]
 	private ICommand _updateCommand;

@@ -50,6 +50,11 @@ public partial class NativeMonitorManager : IDisposable
 		_monitors.AddRange(GetMonitorsInternal());
 	}
 
+	~NativeMonitorManager()
+	{
+		Dispose();
+	}
+
 	public void SetBrightness(MonitorInfo monitorInfo, uint value)
 	{
 		SetMonitorBrightness(monitorInfo.PhysicalMonitorHandle, Math.Clamp(value, monitorInfo.MinValue, monitorInfo.MaxValue));
@@ -157,6 +162,7 @@ public partial class NativeMonitorManager : IDisposable
 
 	public void Dispose()
 	{
+		Log.Debug("Disposing {Name}", nameof(NativeMonitorManager));
 		DisposeMonitors(_monitors);
 		GC.SuppressFinalize(this);
 	}
