@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Amusoft.PCR.Int.Agent.Windows.Events;
@@ -13,10 +14,48 @@ using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Amusoft.PCR.Int.Agent.Windows.Services;
 
-public class DesktopIntegrationServiceImplementation : DesktopIntegrationService.DesktopIntegrationServiceBase
+public class DesktopIntegrationServiceImplementation : DesktopIntegrationService.DesktopIntegrationServiceBase, IDisposable
 {
-
 	private static readonly Logger Log = LogManager.GetLogger(nameof(DesktopIntegrationServiceImplementation));
+
+	private readonly NativeMonitorManager _monitorManager;
+
+	public DesktopIntegrationServiceImplementation()
+	{
+		_monitorManager = new NativeMonitorManager();
+	}
+
+	public override Task<GetMonitorBrightnessResponse> GetMonitorBrightness(GetMonitorBrightnessRequest request, ServerCallContext context)
+	{
+		var response = new GetMonitorBrightnessResponse();
+		foreach (var managerMonitor in _monitorManager.Monitors)
+		{
+			response.Items.Add(new GetMonitorBrightnessResponseItem()
+			{
+				Id = managerMonitor.PhysicalMonitorHandle.ToString(),
+				Name = managerMonitor.Description,
+				Current = (int)managerMonitor.CurrentValue,
+				Min = (int)managerMonitor.MinValue,
+				Max = (int)managerMonitor.MaxValue,
+			});
+		}
+		return Task.FromResult(response);
+	}
+
+	public override Task<DefaultResponse> SetMonitorBrightness(SetMonitorBrightnessRequest request, ServerCallContext context)
+	{
+		var match = _monitorManager.Monitors.FirstOrDefault(d => d.PhysicalMonitorHandle.ToString().Equals(request.Id));
+		if (match == null)
+		{
+			Log.Warn("Failed to find a monitor matching Id {Id}", request.Id);
+			return Task.FromResult(new DefaultResponse() {Success = false});
+		}
+		else
+		{
+			_monitorManager.SetBrightness(match, (uint)request.Value);
+			return Task.FromResult(new DefaultResponse() { Success = true });
+		}
+	}
 
 	public override Task<SuicideOnProcessExitResponse> SuicideOnProcessExit(SuicideOnProcessExitRequest request, ServerCallContext context)
 	{
@@ -271,5 +310,10 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 			Content = response.Content,
 			Success = !response.Cancelled
 		};
+	}
+
+	public void Dispose()
+	{
+		_monitorManager.Dispose();
 	}
 }

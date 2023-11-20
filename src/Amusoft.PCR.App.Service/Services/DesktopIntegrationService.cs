@@ -16,7 +16,22 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 	{
 		_impersonatedChannel = impersonatedChannel;
 	}
-	
+
+	public override async Task<DefaultResponse> SetMonitorBrightness(SetMonitorBrightnessRequest request, ServerCallContext context)
+	{
+		var result = await _impersonatedChannel.SetMonitorBrightness(request.Id, request.Value);
+		return new DefaultResponse() {Success = result == true};
+	}
+
+	public override async Task<GetMonitorBrightnessResponse> GetMonitorBrightness(GetMonitorBrightnessRequest request, ServerCallContext context)
+	{
+		var result = await _impersonatedChannel.GetMonitorBrightness();
+		if (result.Success)
+			return new GetMonitorBrightnessResponse() {Items = {result.Value}};
+
+		return new GetMonitorBrightnessResponse() { };
+	}
+
 	public override async Task<SendMouseMoveResponse> SendMouseMove(SendMouseMoveRequest request, ServerCallContext context)
 	{
 		var success = await _impersonatedChannel.SendMouseMoveAsync(request.X, request.Y);

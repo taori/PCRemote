@@ -3,18 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
              xmlns:resources="clr-namespace:Amusoft.PCR.Application.Resources;assembly=Amusoft.PCR.Application"
+             xmlns:controls="clr-namespace:Amusoft.PCR.App.UI.Controls"
+             xmlns:shared="clr-namespace:Amusoft.PCR.Application.Shared;assembly=Amusoft.PCR.Application"
              x:Class="Amusoft.PCR.App.UI.Pages.Monitors"
              x:DataType="vm:MonitorsViewModel"
              Title="{x:Binding Title}">
-    <VerticalStackLayout Padding="{StaticResource PaddingButtonPanel}">
+    <Grid 
+        RowDefinitions="Auto,Auto,*" 
+        Padding="{StaticResource PaddingButtonPanel}">
+        <VerticalStackLayout>
 
-        <Button Command="{x:Binding Path=MonitorOnCommand}" 
-                Margin="0,0,0,10"
-                Text="{x:Static resources:Translations.Monitors_On}"/>
+            <Button Command="{x:Binding Path=MonitorOnCommand}" 
+                    Margin="0,0,0,10"
+                    Text="{x:Static resources:Translations.Monitors_On}"/>
 
-        <Button Command="{x:Binding Path=MonitorOffCommand}" 
-                Margin="0,0,0,10"
-                Text="{x:Static resources:Translations.Monitors_Off}"/>
+            <Button Command="{x:Binding Path=MonitorOffCommand}" 
+                    Margin="0,0,0,10"
+                    Text="{x:Static resources:Translations.Monitors_Off}"/>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+
+        <Label Text="{x:Static resources:Translations.Monitors_Brightness}" 
+               Grid.Row="1"
+               Margin="0,10,0,10"/>
+
+        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+                     Grid.Row="2"
+                     Command="{x:Binding ReloadCommand}">
+            <CollectionView ItemsSource="{x:Binding Path=BrightnessItems}"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:BrightnessItem">
+                        <StackLayout>
+                            <Label Text="{x:Binding Name}" 
+                                   FontSize="20"
+                                   Margin="13,0,35,10"/>
+                            <Label Text="{x:Binding Value}" 
+                                   FontSize="20"
+                                   Margin="13,0,35,10"/>
+                            <Slider Maximum="{x:Binding Path=Max}" 
+                                    Minimum="{x:Binding Path=Min}"
+                                    Value="{x:Binding Path=Value, Mode=TwoWay}"
+                                    DragCompletedCommand="{x:Binding Path=UpdateCommand}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
 </ContentPage>

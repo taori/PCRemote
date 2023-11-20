@@ -358,6 +358,24 @@ namespace Amusoft.PCR.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brightness.
+        /// </summary>
+        public static string Monitors_Brightness {
+            get {
+                return ResourceManager.GetString("Monitors.Brightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brightness: {0}.
+        /// </summary>
+        public static string Monitors_Brightness_0 {
+            get {
+                return ResourceManager.GetString("Monitors.Brightness_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Monitors_Off {

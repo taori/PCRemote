@@ -6,6 +6,8 @@ namespace Amusoft.PCR.Application.Services;
 
 public interface IDesktopClientMethods
 {
+	Task<bool?> SetMonitorBrightness(string id, int value);
+	Task<Result<List<GetMonitorBrightnessResponseItem>>> GetMonitorBrightness();
 	Task<bool?> MonitorOn();
 	Task<bool?> MonitorOff();
 	Task<bool?> LockWorkStation();
