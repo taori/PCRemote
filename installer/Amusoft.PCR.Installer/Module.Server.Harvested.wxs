@@ -109,6 +109,9 @@
             <Component Id="cmpCXNneny9Mq.Qjd9QKbB9XILyyQY" Guid="*">
                 <File Id="fil4sLd7TDcYPU1U0iEd3ZWKcsz6R0" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Microsoft.Extensions.Options.dll" />
             </Component>
+            <Component Id="cmpptku5pKpqWAXcjpsLZHka_lOJOE" Guid="*">
+                <File Id="filBkSZFG3mT61kowUwxAUhMU49MtI" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\nlog.config" />
+            </Component>
             <Component Id="cmp9JENOmtI_1fjeqDCNU0qg974Y5I" Guid="*">
                 <File Id="filXdLTV8EAv6slx7xzM9bkcIn_fjE" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\NLog.dll" />
             </Component>
@@ -225,6 +228,7 @@
             <ComponentRef Id="cmp92UuGik5KpyMzn77mFlRBjTeHVA" />
             <ComponentRef Id="cmpq95Ix.Zh86AiXLku9BdrUnz7fBs" />
             <ComponentRef Id="cmpCXNneny9Mq.Qjd9QKbB9XILyyQY" />
+            <ComponentRef Id="cmpptku5pKpqWAXcjpsLZHka_lOJOE" />
             <ComponentRef Id="cmp9JENOmtI_1fjeqDCNU0qg974Y5I" />
             <ComponentRef Id="cmpsDfe_IYXPOz.tpDhicQpTvYDqPA" />
             <ComponentRef Id="cmpyAuHRwD_l0RFMjzwHMGEPwscQTs" />
