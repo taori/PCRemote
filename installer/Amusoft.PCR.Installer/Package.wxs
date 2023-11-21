@@ -1,14 +1,48 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+	 xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
+	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
+	 xmlns:firewall="http://wixtoolset.org/schemas/v4/wxs/firewall">
+		
+	<!-- DO NOT CHANGE line below-->
 	<?define ProductVersion = "3.0.0" ?>
+	<?define ProductName = "PC Remote 3" ?>
+	<?define ServiceName = "Amusoft PC Remote Controller" ?>
+	<?define ServiceDescription = "!(loc.ServiceDescription)" ?>
 
-	<Package Name="Amusoft.PCR.Installer" Manufacturer="Amusoft" Version="$(var.ProductVersion)" UpgradeCode="de4ddeff-2caf-4c46-b9ff-52a37586069a">
+	<Package Name="$(var.ProductName)"
+			 Manufacturer="Amusoft"
+			 Language="1033"
+			 Version="$(var.ProductVersion)" 
+			 UpgradeCode="de4ddeff-2caf-4c46-b9ff-52a37586069a">
 		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+		
+		<!-- disable *.cab files-->
+		<MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="Main">
-			<!-- <ComponentGroupRef Id="ExampleComponents" /> -->
+		<Feature Id="Main" Title="$(var.ProductName)" Level="1">
+			<ComponentGroupRef Id="WebComponents" />
 			<ComponentGroupRef Id="WebComponentsGenerated" />
+			
+			<ComponentGroupRef Id="WinAgentComponents" />
+			<ComponentGroupRef Id="WinAgentComponentsGenerated" />
+			
+			<ComponentGroupRef Id="WinUIComponents" />
+			<ComponentGroupRef Id="WinUIComponentsGenerated" />
 		</Feature>
+
+		<WixVariable Id="WixUICostingPopupOptOut" Value="0" />
+		<WixVariable Id="WixUILicenseRtf" Value="Resources\EULA.rtf" />
+		<WixVariable Id="WixUIExclamationIco" Value="Resources\Launcher.ico" />
+		<WixVariable Id="WixUIInfoIco" Value="Resources\Launcher.ico" />
+		<WixVariable Id="WixUIBannerBmp" Value="Resources\Banner.bmp" />
+		
+		<ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
 	</Package>
 
+	<Fragment>
+		<Component Guid="*" Id="SERVER_NLOG_COMPONENT" Directory="WEBFOLDER">
+			<File Source="$(var.ArtifactsPathWeb)Amusoft.PCR.App.Service.exe" Name="Amusoft.PCR.App.Service.exe" Vital="yes" KeyPath="yes" Id="SERVER_EXE"/>
+		</Component>
+	</Fragment>
+	
 </Wix>

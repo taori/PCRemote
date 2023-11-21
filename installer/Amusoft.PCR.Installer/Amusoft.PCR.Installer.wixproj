@@ -1,4 +1,4 @@
-﻿<Project Sdk="WixToolset.Sdk/4.0.0">
+﻿<Project Sdk="WixToolset.Sdk/4.0.3">
   <PropertyGroup>
     <VerboseOutput>False</VerboseOutput>
     <ProductComponentsRef>true</ProductComponentsRef>
@@ -7,37 +7,47 @@
       ArtifactsPathWinInt=$(SolutionDir)..\artifacts\msi\win-integration\;
       ArtifactsPathUIWindows=$(SolutionDir)..\artifacts\msi\ui-windows\;
     </DefineConstants>
-
-    <XRunHeat>true</XRunHeat>
-    <XRunPublish>true</XRunPublish>
-    <XPublishConfiguration>Release</XPublishConfiguration>
-    <AndroidApkDestination>$(SolutionDir)..\artifacts\msi\web\wwwroot</AndroidApkDestination>
-    <ApkSource Condition="'$(ApkSource)' != ''">undefined</ApkSource>
-    
-    <UserSecretsId>fff9ecb8-0258-4f9f-8333-3da6f78ab9ce</UserSecretsId>
+    <SuppressIces>ICE80</SuppressIces>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <XRunHeat Condition="'$(XRunHeat)'==''">true</XRunHeat>
+    <XRunPublish Condition="'$(XRunPublish)'==''">true</XRunPublish>
+    <XPublishConfiguration Condition="'$(XPublishConfiguration)'==''">Release</XPublishConfiguration>
+    <ApkSource Condition="'$(ApkSource)'!=''">undefined</ApkSource>
+    <AndroidApkDestination>$(SolutionDir)..\artifacts\msi\web\wwwroot</AndroidApkDestination>
+    <UserSecretsId>fff9ecb8-0258-4f9f-8333-3da6f78ab9ce</UserSecretsId>    
+  </PropertyGroup>
+  
   <ItemGroup>
-    <ApkToMove Include="$(ApkSource)\*.apk"/>
+    <ApkToMove Include="$(ApkSource)\*.apk" />
+    <Content Include="Resources\EULA.rtf" />
+    <Content Include="Resources\Launcher.ico" />
+    <Content Include="Resources\Banner.bmp" />
   </ItemGroup>
+  
   <ItemGroup>
-    <PackageReference Include="WixToolset.Heat" Version="4.0.1" />
-    <PackageReference Include="WixToolset.UI.wixext" Version="4.0.1" />
-    <PackageReference Include="WixToolset.Util.wixext" Version="4.0.1" />
+    <PackageReference Include="WixToolset.Heat" Version="4.0.3" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="4.0.3" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Amusoft.PCR.Installer.Custom\Amusoft.PCR.Installer.Custom.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
     <None Include="Module.Server.Harvested.xslt" />
     <None Include="Module.Int.Win.Harvested.xslt" />
-    
-    <None Include="Module.Int.Win.wxi" />
-    <None Include="Module.Server.wxi" />
+    <None Include="Module.WinUI.Harvested.xslt" />
   </ItemGroup>
   
-  <Target Name="XRunHeat" BeforeTargets="BeforeResolveReferences" Condition="'$(XRunHeat)' != 'false'">
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  
+  <Target Name="XRunHeat" BeforeTargets="BeforeResolveReferences" Condition="'$(XRunHeat)'=='true'">
     <Message Importance="High" Text="Harvesting files using HeatDirectory." />
-    
     <HeatDirectory SuppressAllWarnings="False" TreatWarningsAsErrors="True" VerboseOutput="$(HarvestDirectoryVerboseOutput)" 
                    AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)" 
                    SuppressFragments="True" SuppressUniqueIds="False" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True" 
@@ -49,42 +59,55 @@
                    ComponentGroupName="WebComponentsGenerated" 
                    DirectoryRefId="WEBFOLDER" />
     
-    <HeatDirectory SuppressAllWarnings="False" TreatWarningsAsErrors="True" VerboseOutput="$(HarvestDirectoryVerboseOutput)"
-                   AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)"
-                   SuppressFragments="True" SuppressUniqueIds="False" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True"
+    <HeatDirectory SuppressAllWarnings="False" TreatWarningsAsErrors="True" VerboseOutput="$(HarvestDirectoryVerboseOutput)" 
+                   AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)" 
+                   SuppressFragments="True" SuppressUniqueIds="False" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True" 
                    KeepEmptyDirectories="True" 
                    Directory="$(SolutionDir)..\artifacts\msi\win-integration\" 
                    OutputFile="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Int.Win.Harvested.wxs" 
                    Transforms="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Int.Win.Harvested.xslt" 
                    PreprocessorVariable="var.ArtifactsPathWinInt" 
-                   ComponentGroupName="WinIntegrationComponentsGenerated" 
-                   DirectoryRefId="WININTEGRATIONFOLDER" />
-        
-  </Target>  
+                   ComponentGroupName="WinAgentComponentsGenerated" 
+                   DirectoryRefId="WINAGENTFOLDER" />
     
-  <Target Name="XRunPublish" BeforeTargets="XRunHeat" Condition="'$(XRunPublish)' != 'false'">
+    <HeatDirectory SuppressAllWarnings="False" TreatWarningsAsErrors="True" VerboseOutput="$(HarvestDirectoryVerboseOutput)" 
+                   AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)" 
+                   SuppressFragments="True" SuppressUniqueIds="False" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True" 
+                   KeepEmptyDirectories="True" 
+                   Directory="$(SolutionDir)..\artifacts\msi\ui-windows\" 
+                   OutputFile="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.WinUI.Harvested.wxs" 
+                   Transforms="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.WinUI.Harvested.xslt" 
+                   PreprocessorVariable="var.ArtifactsPathUIWindows" 
+                   ComponentGroupName="WinUIComponentsGenerated" 
+                   DirectoryRefId="WINUIFOLDER" />
+  </Target>
+  
+  <Target Name="XRunPublish" BeforeTargets="XRunHeat" Condition="'$(XRunPublish)'=='true'">
     
     <Error Condition="!Exists('$(ApkSource)')" Text="$(ApkSource) does not exist" />
     
     <Message Importance="High" Text="--- Creating publish artifacts ---" />
     
     <Message Importance="High" Text="--- Service --- " />
-    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\web -r win-x64 --self-contained false" Timeout="60000" />
+    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\web -r win-x64 --self-contained true" Timeout="60000" />
     
     <Message Importance="High" Text="--- Windows Agent --- " />
-    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\win-integration -r win-x64 --self-contained false" Timeout="60000" />
+    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\win-integration -r win-x64 --self-contained true" Timeout="60000" />
     
     <Message Importance="High" Text="--- UI Application --- " />
-    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0" Timeout="60000" />
-
-    <Message Importance="High" Text="--- APK --> wwwroot --- " />
-    <Move SourceFiles="@(ApkToMove)" DestinationFolder="$(AndroidApkDestination)">
-      <Output
-              TaskParameter="DestinationFiles"
-              ItemName="FilesWritten"/>
-    </Move>
-    <Message Text="Copied @(ApkToMove) to @(FilesWritten)" Importance="high"/>
+    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -r win-x64 -p:Platform=x64 --self-contained true" Timeout="60000" />
     
+    <Message Importance="High" Text="--- APK --&gt; wwwroot --- " />
+    <Move SourceFiles="@(ApkToMove)" DestinationFolder="$(AndroidApkDestination)">
+      <Output TaskParameter="DestinationFiles" ItemName="FilesWritten" />
+    </Move>
+    <Message Text="Copied @(ApkToMove) to @(FilesWritten)" Importance="high" />
   </Target>
   
+  <Target Name="SignBundleEngine">
+    <Exec Command="Signtool.exe sign /a &quot;@(SignBundleEngine)&quot;" />
+  </Target>
+  <Target Name="SignBundle">
+    <Exec Command="Signtool.exe sign /a &quot;@(SignBundle)&quot;" />
+  </Target>
 </Project>

@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:wix="http://wixtoolset.org/schemas/v4/wxs"
@@ -10,15 +9,11 @@
 
 	<xsl:strip-space elements="*" />
 	
-	<!-- By default, copy all elements and nodes into the output... -->
+	<!-- Identity template: copies all other nodes as-is -->
 	<xsl:template match="@*|node()">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"/>
 		</xsl:copy>
 	</xsl:template>	
 	
-	<xsl:key name="nlog.config" match="wix:Component[contains(wix:File/@Source, '$(var.ArtifactsPathWinInt)\nlog.config')]" use="@Id" />
-	<xsl:template match="wix:Component[key('nlog.config', @Id)]" />
-	<xsl:template match="wix:ComponentRef[key('nlog.config', @Id)]" />
-
 </xsl:stylesheet>

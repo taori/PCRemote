@@ -1,0 +1,17 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+<!--	<?include Module.Server.Harvested.wxi ?>-->
+
+	<Fragment>
+		<ComponentGroup Id="WebComponents" Directory="WEBFOLDER" >
+			<Component NeverOverwrite="yes" Permanent="yes" Guid="*" Id="SERVER_APPSETTINGS_COMPONENT">
+				<File Source="$(var.ArtifactsPathWeb)appsettings.json" Name="appsettings.json" KeyPath="yes" Id="SERVER_APPSETTINGS"/>				
+			</Component>
+			
+			<Component NeverOverwrite="yes" Permanent="yes" Guid="*" Id="SERVER_NLOG_COMPONENT">
+				<File Source="$(var.ArtifactsPathWeb)nlog.config" Name="nlog.config" KeyPath="yes" Id="SERVER_NLOG"/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+</Wix>

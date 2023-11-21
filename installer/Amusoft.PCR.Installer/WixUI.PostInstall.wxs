@@ -1,0 +1,28 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+<!--    <Fragment>-->
+<!--        <UI>-->
+<!--            <Property Id="SHOW_GETTING_STARTED" Value="1"/>-->
+
+<!--            <Dialog Id="PostInstallSettingsDlg" Width="370" Height="270" Title="!(loc.BrowseDlg_Title)">-->
+
+<!--                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" >-->
+<!--                    &lt;!&ndash; <Condition Action="disable"><![CDATA[ConfigurationIsValid <> "1"]]></Condition> &ndash;&gt;-->
+<!--                    &lt;!&ndash; <Condition Action="enable">ConfigurationIsValid = "1"</Condition> &ndash;&gt;-->
+<!--                </Control>-->
+<!--                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />-->
+<!--                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">-->
+<!--                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>-->
+<!--                </Control>-->
+
+<!--                <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Configure what to do after an installation" />-->
+<!--                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}Post installation settings" />-->
+<!--                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />-->
+<!--                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />-->
+<!--                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />-->
+
+<!--                <Control Id="ShowGettingStartedCheckbox" Type="CheckBox" X="20" Y="60" Width="290" Height="17" Property="SHOW_GETTING_STARTED" CheckBoxValue="1" Text="Launch getting started page after install." />-->
+<!--            </Dialog>-->
+<!--        </UI>-->
+<!--    </Fragment>-->
+</Wix>
