@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Amusoft.PCR.Application.UI.VM;
+﻿using Amusoft.PCR.Application.UI.VM;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Amusoft.PCR.Application.Services;

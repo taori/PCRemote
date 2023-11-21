@@ -1,6 +1,12 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
     <Fragment>
         <DirectoryRef Id="WEBFOLDER">
+            <Component Id="cmpAVMv8DsHKVeWa5K6G8tt6Evx8tg" Guid="*">
+                <File Id="filDw5ss9WGf9HrzcwewnApdZ57oMQ" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.AM.Shared.dll" />
+            </Component>
+            <Component Id="cmpHHjGPllRe7wpBSsCwTLVHNH7P_E" Guid="*">
+                <File Id="fil5RxvjyX22o5X.jYK3oq_um6issg" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.AM.Shared.pdb" />
+            </Component>
             <Component Id="cmpUC7PPT0YqXgma7jr0Cd4XIJW7cE" Guid="*">
                 <File Id="fil2Gm3ZQsFlfNlikMTVQYGUAXmaiQ" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\Amusoft.PCR.App.Service.deps.json" />
             </Component>
@@ -140,8 +146,8 @@
                 <File Id="filG.LAaKn0bReijXgKWvta1drj5rU" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\web.config" />
             </Component>
             <Directory Id="dirJ_h5URn0C_6q4JwhHEI2BppgLk0" Name="de">
-                <Component Id="cmpXOmacTfFu_TOrOfTuWLftyuonzA" Guid="*">
-                    <File Id="filZWFQ4p4ThigMhKHedgB.1K_MdxI" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\de\Amusoft.PCR.Application.resources.dll" />
+                <Component Id="cmp3tLdyVTNqN3sVGyGWuObZHWQPO4" Guid="*">
+                    <File Id="filtGZ1hjryRo6wkTZztF6wMmHvAh8" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\de\Amusoft.PCR.AM.Shared.resources.dll" />
                 </Component>
             </Directory>
             <Directory Id="dirjdMklO5xfzXJOVuM0YO.It5eg8U" Name="runtimes">
@@ -192,6 +198,8 @@
     </Fragment>
     <Fragment>
         <ComponentGroup Id="WebComponentsGenerated">
+            <ComponentRef Id="cmpAVMv8DsHKVeWa5K6G8tt6Evx8tg" />
+            <ComponentRef Id="cmpHHjGPllRe7wpBSsCwTLVHNH7P_E" />
             <ComponentRef Id="cmpUC7PPT0YqXgma7jr0Cd4XIJW7cE" />
             <ComponentRef Id="cmpaFaKmVbSzo.z9E6tMRYV.g8JNKw" />
             <ComponentRef Id="cmpJbr8ZTWGhfqn_EOds2Pqa0zXs4s" />
@@ -238,7 +246,7 @@
             <ComponentRef Id="cmpeXJ.TSGtKXjlv.SQTasKRYg_bg0" />
             <ComponentRef Id="cmpUMxmhM5dOfedxJWcLfKPBIjaSsw" />
             <ComponentRef Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" />
-            <ComponentRef Id="cmpXOmacTfFu_TOrOfTuWLftyuonzA" />
+            <ComponentRef Id="cmp3tLdyVTNqN3sVGyGWuObZHWQPO4" />
             <ComponentRef Id="cmpF6CqjROjqhEqUJpf3pyRXxU6y9A" />
             <ComponentRef Id="cmpKANb3nzegRS6Lk8fArLviuUSk.I" />
             <ComponentRef Id="cmpZCT20drOGcd69ivJttn44F1wIa8" />

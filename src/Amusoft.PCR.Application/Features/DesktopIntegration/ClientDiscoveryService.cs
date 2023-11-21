@@ -3,7 +3,6 @@ using Amusoft.PCR.Domain.AgentSettings;
 using Amusoft.Toolkit.Networking;
 using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
-using System.Reactive.Linq;
 using System.Text;
 using Microsoft.Extensions.Options;
 

@@ -1,6 +1,5 @@
 ﻿using Amusoft.PCR.Domain.Common;
 using Amusoft.PCR.Int.IPC;
-using Grpc.Core;
 
 namespace Amusoft.PCR.Application.Services;
 

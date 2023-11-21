@@ -2,7 +2,6 @@
 using Amusoft.Toolkit.Impersonation;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using Amusoft.PCR.Application.Services;
 
 namespace Amusoft.PCR.Application.Features.DesktopIntegration;

@@ -1,14 +1,13 @@
 ﻿using System.Collections.ObjectModel;
-using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using CommunityToolkit.Mvvm.Input;
-using System.Runtime.InteropServices.JavaScript;
 using System.Windows.Input;
 using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Domain.VM;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
@@ -77,7 +76,7 @@ public partial class MonitorsViewModel : ReloadablePageViewModel, INavigationCal
 			return;
 
 		await _host.DesktopIntegrationClient.DesktopClient.SetMonitorBrightness(brightness.Id, brightness.Value);
-		await _toast.Make(string.Format(Translations.Monitors_Brightness_0, brightness.Value)).Show();
+		await _toast.Make(string.Format(AM.Shared.Resources.Translations.Monitors_Brightness_0, brightness.Value)).Show();
 	}
 }
 

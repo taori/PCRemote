@@ -30,4 +30,172 @@
     <data name="Generic_Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
+    <data name="Clipboard_LoadFromHost" xml:space="preserve">
+    <value>Load from host</value>
+  </data>
+    <data name="Clipboard_TellCurrent" xml:space="preserve">
+    <value>Get current</value>
+  </data>
+    <data name="Clipboard_UpdateHost" xml:space="preserve">
+    <value>Send to host</value>
+  </data>
+    <data name="Generic.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+    <data name="Generic.ChangesSaved" xml:space="preserve">
+    <value>Changes saved</value>
+  </data>
+  <data name="Generic.Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Generic.OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Generic.Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="HostsOverview_Configure" xml:space="preserve">
+    <value>Configure ports</value>
+  </data>
+  <data name="HostsOverview_NoPortsConfigured" xml:space="preserve">
+    <value>No ports are configured.</value>
+  </data>
+  <data name="InputControl.ClientUpdatedMessage" xml:space="preserve">
+    <value>Client clipboard updated</value>
+  </data>
+  <data name="InputControl.Clipboard" xml:space="preserve">
+    <value>Clipboard</value>
+  </data>
+  <data name="InputControl.ControlOptions" xml:space="preserve">
+    <value>Application control</value>
+  </data>
+  <data name="InputControl.ControlOptions.Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="InputControl.ControlOptions.Fullscreen" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="InputControl.ControlOptions.Reverse" xml:space="preserve">
+    <value>Reverse</value>
+  </data>
+  <data name="InputControl.ControlOptions.VideoBrowser" xml:space="preserve">
+    <value>Video browser</value>
+  </data>
+  <data name="InputControl.ControlOptions.VideoBrowser.MuteToggle" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="InputControl.ControlOptions.VideoBrowser.PlayToggle" xml:space="preserve">
+    <value>Play/Pause</value>
+  </data>
+  <data name="InputControl.ControlOptions.VolumeDown" xml:space="preserve">
+    <value>Decrease volume</value>
+  </data>
+  <data name="InputControl.ControlOptions.VolumeUp" xml:space="preserve">
+    <value>Increase volume</value>
+  </data>
+  <data name="InputControl.ControlOptions.Windows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="InputControl.Down" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="InputControl.Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="InputControl.Escape" xml:space="preserve">
+    <value>Escape</value>
+  </data>
+  <data name="InputControl.HostUpdatedMessage" xml:space="preserve">
+    <value>Host clipboard updated</value>
+  </data>
+  <data name="InputControl.Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="InputControl.MouseControl" xml:space="preserve">
+    <value>Control mouse</value>
+  </data>
+  <data name="InputControl.Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="InputControl.SendInput" xml:space="preserve">
+    <value>Send input</value>
+  </data>
+  <data name="InputControl.Space" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="InputControl.Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="InputControl.Windows.PickAudioSource" xml:space="preserve">
+    <value>Pick audio source</value>
+  </data>
+  <data name="Monitors.Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="Monitors.Brightness_0" xml:space="preserve">
+    <value>Brightness: {0}</value>
+  </data>
+  <data name="Monitors.Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="Monitors.On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="MouseControl.Sensitivity" xml:space="preserve">
+    <value>Sensitivity: {0}</value>
+  </data>
+  <data name="Nav.Monitors" xml:space="preserve">
+    <value>Monitors</value>
+  </data>
+  <data name="Nav.InputControl" xml:space="preserve">
+    <value>Input control</value>
+  </data>
+  <data name="Nav.SystemState" xml:space="preserve">
+    <value>System state</value>
+  </data>
+  <data name="Nav.Programs" xml:space="preserve">
+    <value>Programs</value>
+  </data>
+  <data name="Page.Title.HostsOverview" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Nav.MouseControl" xml:space="preserve">
+    <value>Control mouse</value>
+  </data>
+  <data name="Nav.Audio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="Page.Title.Audio" xml:space="preserve">
+    <value>Audio mixer</value>
+  </data>
+  <data name="Page.Title.MainPage" xml:space="preserve">
+    <value>PC Remote 3</value>
+  </data>
+  <data name="Page.Title.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Programs.KillProgram" xml:space="preserve">
+    <value>Kill program</value>
+  </data>
+  <data name="Settings_AddPorts" xml:space="preserve">
+    <value>Add port</value>
+  </data>
+  <data name="SystemState.Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="Programs.StartProgram" xml:space="preserve">
+    <value>Start program</value>
+  </data>
+  <data name="SystemState.Hibernate" xml:space="preserve">
+    <value>Hibernate</value>
+  </data>
+  <data name="SystemState.Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="SystemState.Lock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="SystemState.Shutdown" xml:space="preserve">
+    <value>Shutdown</value>
+  </data>
 </root>

@@ -1,19 +1,15 @@
-﻿using System.Diagnostics;
-using System.Formats.Asn1;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Threading.Channels;
 using Amusoft.PCR.Application.Extensions;
-using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Application.Utility;
 using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Domain.VM;
-using Amusoft.PCR.Int.IPC;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Google.Protobuf.WellKnownTypes;
+using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
@@ -41,7 +37,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	protected override string GetDefaultPageTitle()
 	{
-		return Translations.InputControl_MouseControl;
+		return AM.Shared.Resources.Translations.InputControl_MouseControl;
 	}
 
 	[ObservableProperty]
@@ -69,7 +65,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 	{
 		await _settingsRepository.UpdateAsync(d => d.Sensitivity = Sensitivity, CancellationToken.None);
 		await _toast
-			.Make(Translations.Generic_ChangesSaved)
+			.Make(AM.Shared.Resources.Translations.Generic_ChangesSaved)
 			.SetPosition(Position.Bottom)
 			.Show();
 	}
