@@ -8,7 +8,7 @@ namespace Amusoft.PCR.App.UI.Platforms.Android;
 
 public class MauiTrackerView : CoordinatorLayout
 {
-	private TrackerView _virtualView;
+	private TrackerView? _virtualView;
 	private VelocityTracker? _velocityTracker;
 	private DateTime _downTime = DateTime.Now;
 	private int _sensitivity = 1000;
@@ -16,7 +16,7 @@ public class MauiTrackerView : CoordinatorLayout
 	public MauiTrackerView(TrackerView virtualView, Context context) : base(context)
 	{
 		_virtualView = virtualView;
-		this.Background = Context.GetDrawable(global::Android.Resource.Drawable.DarkHeader);
+		this.Background = Context?.GetDrawable(global::Android.Resource.Drawable.DarkHeader);
 		LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
 
 		this.Touch += PlatformViewOnTouch;
@@ -40,7 +40,7 @@ public class MauiTrackerView : CoordinatorLayout
 	private void PlatformViewOnTouch(object? sender, TouchEventArgs e)
 	{
 		if (e is { Event.Action: MotionEventActions.Up })
-			_virtualView.TapCommand?.Execute(_virtualView.TapCommandParameter);
+			_virtualView?.TapCommand?.Execute(_virtualView.TapCommandParameter);
 	}
 
 
@@ -56,11 +56,11 @@ public class MauiTrackerView : CoordinatorLayout
 		switch (action & MotionEventActions.Mask)
 		{
 			case MotionEventActions.Pointer1Up:
-				_virtualView.MultiTapCommand?.Execute(null);
+				_virtualView?.MultiTapCommand?.Execute(null);
 				break;
 			case MotionEventActions.Up:
 				if ((DateTime.Now - _downTime).TotalMilliseconds < 200)
-					_virtualView.TapCommand?.Execute(_virtualView.TapCommandParameter);
+					_virtualView?.TapCommand?.Execute(_virtualView.TapCommandParameter);
 				break;
 		}
 
@@ -111,7 +111,7 @@ public class MauiTrackerView : CoordinatorLayout
 		if (MathF.Abs(xVel) < 0.1f && MathF.Abs(yVel) < 0.1f)
 			return;
 
-		_virtualView.VelocityOccuredCommand?.Execute(new Vector2(xVel, yVel));
+		_virtualView?.VelocityOccuredCommand?.Execute(new Vector2(xVel, yVel));
 	}
 
 	private bool IfVelocityTrackerIsNull()

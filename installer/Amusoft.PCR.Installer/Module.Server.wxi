@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+	<?include Module.Server.Harvested.wxi ?>
+
+	<Fragment>
+		<ComponentGroup Id="WebComponents" Directory="WEBFOLDER" >
+			<Component Win64="yes" NeverOverwrite="yes" Permanent="yes" Guid="*" Id="SERVER_APPSETTINGS_COMPONENT">
+				<File Source="$(var.SolutionDir)Amusoft.PCR.Server\appsettings.json" Name="appsettings.json" KeyPath="yes" Id="SERVER_APPSETTINGS"></File>
+				
+			</Component>
+			<Component Win64="yes" NeverOverwrite="yes" Permanent="yes" Guid="*" Id="SERVER_NLOG_COMPONENT">
+				<File Source="$(var.SolutionDir)Amusoft.PCR.Server\nlog.config" Name="nlog.config" KeyPath="yes" Id="SERVER_NLOG"></File>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+</Include>

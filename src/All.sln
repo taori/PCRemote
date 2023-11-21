@@ -27,7 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Application", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_scripts", "_scripts", "{6E9FFF68-6A49-439B-B2A3-F889B029655C}"
 	ProjectSection(SolutionItems) = preProject
-		..\deploy\androidBuild.ps1 = ..\deploy\androidBuild.ps1
 		..\deploy\buildAndCopy.ps1 = ..\deploy\buildAndCopy.ps1
 		..\deploy\buildDeploymentPackage.ps1 = ..\deploy\buildDeploymentPackage.ps1
 		..\deploy\createSelfSignedCertificate.ps1 = ..\deploy\createSelfSignedCertificate.ps1

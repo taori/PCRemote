@@ -2,13 +2,15 @@
   <PropertyGroup>
     <XRunHeat>true</XRunHeat>
     <XRunPublish>true</XRunPublish>
+    <XPublishConfiguration>Release</XPublishConfiguration>
     <VerboseOutput>False</VerboseOutput>
     <ProductComponentsRef>true</ProductComponentsRef>
-    <DefineConstants>ArtifactsPathWeb=$(SolutionDir)..\artifacts\web\</DefineConstants>
+    <DefineConstants>
+      ArtifactsPathWeb=$(SolutionDir)..\artifacts\msi\web\;
+      ArtifactsPathWinInt=$(SolutionDir)..\artifacts\msi\win-integration\;
+      ArtifactsPathUIWindows=$(SolutionDir)..\artifacts\msi\ui-windows\;
+    </DefineConstants>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="Module.Server.Harvested.xlst" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="WixToolset.Heat" Version="4.0.1" />
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.1" />
@@ -17,6 +19,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Amusoft.PCR.Installer.Custom\Amusoft.PCR.Installer.Custom.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Module.Server.Harvested.xslt" />
+    <None Include="Module.Int.Win.Harvested.xslt" />
+    
+    <None Include="Module.Int.Win.wxi" />
+    <None Include="Module.Server.wxi" />
+  </ItemGroup>
+  
   <Target Name="XRunHeat" BeforeTargets="BeforeResolveReferences" Condition="'$(XRunHeat)' != 'false'">
     <Message Importance="High" Text="Harvesting files using HeatDirectory." />
     
@@ -24,9 +34,9 @@
                    AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)"
                    SuppressFragments="True" SuppressUniqueIds="False" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True"
                    KeepEmptyDirectories="True"
-                   Directory="$(SolutionDir)..\artifacts\web\"
+                   Directory="$(SolutionDir)..\artifacts\msi\web\"
                    OutputFile="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Server.Harvested.wxs"
-                   Transforms="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Server.Harvested.xlst"
+                   Transforms="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Server.Harvested.xslt"
                    PreprocessorVariable="var.ArtifactsPathWeb" 
                    ComponentGroupName="WebComponentsGenerated"  
                    DirectoryRefId="WEBFOLDER" />
@@ -36,16 +46,26 @@
                    SuppressFragments="True" SuppressUniqueIds="False" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True"
                    KeepEmptyDirectories="True"
                    Directory="$(SolutionDir)..\artifacts\msi\win-integration\"
-                   OutputFile="$(SolutionDir)..\deploy\Amusoft.PCR.Installer\Module.Int.Win.Harvested.wxi"
-                   Transforms="$(SolutionDir)..\deploy\Amusoft.PCR.Installer\Module.Int.Win.Harvested.xslt"
-                   PreprocessorVariable="var.SolutionDir" 
+                   OutputFile="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Int.Win.Harvested.wxs"
+                   Transforms="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.Int.Win.Harvested.xslt"
+                   PreprocessorVariable="var.ArtifactsPathWinInt" 
                    ComponentGroupName="WinIntegrationComponentsGenerated"  
                    DirectoryRefId="WININTEGRATIONFOLDER" />
     
      
   </Target>
+  
   <Target Name="XRunPublish" BeforeTargets="XRunHeat" Condition="'$(XRunPublish)' != 'false'">
-    <Message Importance="High" Text="Creating publish artifacts." />
-    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj -o $(SolutionDir)..\artifacts\web" Timeout="10000" />
+    <Message Importance="High" Text="--- Creating publish artifacts ---" />
+    
+    <Message Importance="High" Text="--- Service --- " />
+    <Exec Command="dotnet publish -c $(XPublishConfiguration) $(SolutionDir)..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj -o $(SolutionDir)..\artifacts\msi\web" Timeout="10000" />
+    
+    <Message Importance="High" Text="--- Windows Agent --- " />
+    <Exec Command="dotnet publish -c $(XPublishConfiguration) $(SolutionDir)..\src\Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj -o $(SolutionDir)..\artifacts\msi\win-integration" Timeout="10000" />
+    
+    <Message Importance="High" Text="--- UI Application --- " />
+    <Exec Command="dotnet publish -c $(XPublishConfiguration) $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0" Timeout="60000" />
   </Target>
+  
 </Project>
