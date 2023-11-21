@@ -76,6 +76,12 @@
             <Component Id="cmps7lp3J_PgQhzpCWp_6TME8f7BaM" Guid="*">
                 <File Id="fil4J.ewyBG.pd1BpTPlIPKFGM1AU4" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\GrpcDotNetNamedPipes.dll" />
             </Component>
+            <Component Id="cmpG.tf9bKmm_Z5eC13rVz6I7fqjfI" Guid="*">
+                <File Id="filHCp8xOuJcFgltbus4snsbwnWN04" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\grpc_csharp_ext.x64.dll" />
+            </Component>
+            <Component Id="cmpkETmFQeIYAn.FPL8fIqLrpocCgo" Guid="*">
+                <File Id="filp8vhZ0hYzoEBmxbNBhSwmB2BCdU" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\grpc_csharp_ext.x86.dll" />
+            </Component>
             <Component Id="cmpY4zLGTAC3Ja1nYXolzJEIUYmG7Q" Guid="*">
                 <File Id="filwzFWxF0w_Lj5mwwm57j8y1G1yy8" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\MahApps.Metro.dll" />
             </Component>
@@ -252,38 +258,6 @@
                     <File Id="filsrOlLCAFvhQVmrogKtxeAugJc4s" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\de\MahApps.Metro.resources.dll" />
                 </Component>
             </Directory>
-            <Directory Id="dirZp5N2eDrnqRRkTrnMZ8ZVJ67W6s" Name="runtimes">
-                <Directory Id="dirXW_k92ezYU03oqNjcnVbxxVjdqk" Name="linux">
-                    <Directory Id="dirTvDpJ_ttL6XIkqFOXJhRlxrSgj0" Name="native">
-                        <Component Id="cmp7wnMFt1XII3iUtt70CMSxZF3Hnc" Guid="*">
-                            <File Id="fil0gOSO11tgSReht7yIft92oVaBfo" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\runtimes\linux\native\libgrpc_csharp_ext.x64.so" />
-                        </Component>
-                        <Component Id="cmp1kR6RzCKdWLvdlwUIqnw5MPuulc" Guid="*">
-                            <File Id="filYkiLeCqmKvcmOC5RgPI5tc2CHE4" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\runtimes\linux\native\libgrpc_csharp_ext.x86.so" />
-                        </Component>
-                    </Directory>
-                </Directory>
-                <Directory Id="dirhytnE5jsEaD3M7Jo1FG5Cax.VYY" Name="osx">
-                    <Directory Id="dirz1VIRowrkq0RulMrFpPrGjWjoho" Name="native">
-                        <Component Id="cmpiMEODLHyrHjdpWYTvT.KWSwxxrM" Guid="*">
-                            <File Id="fil.poTOv05toYUL9iCHv1xfTwjqNs" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\runtimes\osx\native\libgrpc_csharp_ext.x64.dylib" />
-                        </Component>
-                        <Component Id="cmpMd1O7NqiUZ9BujT.Gwx40nfK3WE" Guid="*">
-                            <File Id="filla6oKObNx7meaJ.w2E07hJAnMRA" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\runtimes\osx\native\libgrpc_csharp_ext.x86.dylib" />
-                        </Component>
-                    </Directory>
-                </Directory>
-                <Directory Id="dirQsmQPFbvApLdpUfcTJsnqAC03Gw" Name="win">
-                    <Directory Id="diraODxR.sFkn9_0BHtduopUqhXIFw" Name="native">
-                        <Component Id="cmpkAZekyNZ22ORXQww1UOrP5sCLLw" Guid="*">
-                            <File Id="filseGdXIuI0CxtojgHO2GFkZAvEaI" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\runtimes\win\native\grpc_csharp_ext.x64.dll" />
-                        </Component>
-                        <Component Id="cmp0BeFlib_rC2rwNT12ngV.5uQvTQ" Guid="*">
-                            <File Id="filhFlgGD9eYTjHtHOHOCHgH1LN8Ds" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\runtimes\win\native\grpc_csharp_ext.x86.dll" />
-                        </Component>
-                    </Directory>
-                </Directory>
-            </Directory>
         </DirectoryRef>
     </Fragment>
     <Fragment>
@@ -313,6 +287,8 @@
             <ComponentRef Id="cmpObz_Rq0iRoQZf1zjUHJkJ3KOKFA" />
             <ComponentRef Id="cmp8R8zHwo3CWUoYUQj8y43xye3Lxc" />
             <ComponentRef Id="cmps7lp3J_PgQhzpCWp_6TME8f7BaM" />
+            <ComponentRef Id="cmpG.tf9bKmm_Z5eC13rVz6I7fqjfI" />
+            <ComponentRef Id="cmpkETmFQeIYAn.FPL8fIqLrpocCgo" />
             <ComponentRef Id="cmpY4zLGTAC3Ja1nYXolzJEIUYmG7Q" />
             <ComponentRef Id="cmpgvTTxv69dfag8M2eyr172bDU.nA" />
             <ComponentRef Id="cmpK3A016Gw8YRnnjxEvAHOf78TD9I" />
@@ -371,12 +347,6 @@
             <ComponentRef Id="cmpzCx1l_a7qZGPEqj6gaPprQzkrmg" />
             <ComponentRef Id="cmpj_aolMjF8ir.suTH62CkHAZje9M" />
             <ComponentRef Id="cmp4RQsMz2laJdQ_kPtdlDVAs6bCSg" />
-            <ComponentRef Id="cmp7wnMFt1XII3iUtt70CMSxZF3Hnc" />
-            <ComponentRef Id="cmp1kR6RzCKdWLvdlwUIqnw5MPuulc" />
-            <ComponentRef Id="cmpiMEODLHyrHjdpWYTvT.KWSwxxrM" />
-            <ComponentRef Id="cmpMd1O7NqiUZ9BujT.Gwx40nfK3WE" />
-            <ComponentRef Id="cmpkAZekyNZ22ORXQww1UOrP5sCLLw" />
-            <ComponentRef Id="cmp0BeFlib_rC2rwNT12ngV.5uQvTQ" />
         </ComponentGroup>
     </Fragment>
 </Wix>
