@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-windows10.0.19041.0;net7.0-android</TargetFrameworks>
+		<TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+		<!--<TargetFrameworks>net7.0-windows10.0.19041.0;net7.0-android</TargetFrameworks>-->
 		<!-- <TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks> -->
 		<!-- <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks> -->
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
@@ -31,8 +32,13 @@
 		<!--		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>-->
 	</PropertyGroup>
 
-	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-		<WindowsPackageType>None</WindowsPackageType>
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">
+        <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+        <PackageCertificateThumbprint>B10980A171BA749E3694019CEA2C125194126519</PackageCertificateThumbprint>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(RuntimeIdentifierOverride)' != ''">
+		<RuntimeIdentifier>$(RuntimeIdentifierOverride)</RuntimeIdentifier>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
@@ -41,10 +47,9 @@
 		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
 	</PropertyGroup>
 
-	<!-- <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-android'"> -->
-	<!--   <AndroidPackageFormat>apk</AndroidPackageFormat> -->
-	<!-- </PropertyGroup> -->
-
+	<PropertyGroup Condition="'$(TargetFramework)'=='net7.0-android'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -81,7 +86,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- <FrameworkReference Include="Microsoft.AspNetCore.App" /> -->
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
 		<PackageReference Include="Grpc.Net.Client.Web" Version="2.59.0" />
 		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.58.0" />

@@ -82,29 +82,14 @@
             <Component Id="cmpiEdUsQi8w7S_PFiZuv9b..Km8nE" Guid="*">
                 <File Id="filNgcBBwYoXdzA9g3aS11_P.JM3CY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\coreclr.dll" />
             </Component>
-            <Component Id="cmpNoU4SLgn1.D6BktKSr80Zc6gCnQ" Guid="*">
-                <File Id="fil9bSBjo1BfUgHchq_6R4eP890m.8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\CoreMessagingXP.dll" />
-            </Component>
             <Component Id="cmpoJq2eW0SbDEPK.hCUzBq4hlPHzk" Guid="*">
                 <File Id="fil9CXRbzi4dOh5xrKBV.ptZ81Mxik" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\createdump.exe" />
             </Component>
             <Component Id="cmpamFmvl.nLYNZhEGnVjLVJw.qrRU" Guid="*">
                 <File Id="fila8zeFqD3DN1.WafwfIq1U5WGHI8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\D3DCompiler_47_cor3.dll" />
             </Component>
-            <Component Id="cmpNJoIjY3rZW5Q4Qw_AKc8jni_IXA" Guid="*">
-                <File Id="fil8qeUJEEYPGND9h0b27jfpHOiyf0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\dcompi.dll" />
-            </Component>
             <Component Id="cmpCpOfZVsPLRSLVC3MedffTBJyzzk" Guid="*">
                 <File Id="filYf86oxdVwFhwVZkXaxStpFlHMUA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\DirectWriteForwarder.dll" />
-            </Component>
-            <Component Id="cmpc0rGZS3zxVVvXSa6wNa83kiFPnw" Guid="*">
-                <File Id="filK4fd.x4mvGT3Hy7u65fCLWcEX0A" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\dwmcorei.dll" />
-            </Component>
-            <Component Id="cmpczNNchbN2UpNxX85jssfAH9TvT0" Guid="*">
-                <File Id="filQ5KQ.amMB8zcIKo.od1zMVqIZbk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\DwmSceneI.dll" />
-            </Component>
-            <Component Id="cmpDOFE87d1FlnnFaK9fRP84w11AtI" Guid="*">
-                <File Id="fil9mWuWaH31OOh1Zz75jyfdHNEPZk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\DWriteCore.dll" />
             </Component>
             <Component Id="cmpf56rGzwdSijY5nwtaIs7PqDnj.Q" Guid="*">
                 <File Id="filxZ98.LQTpKsdrGnfE9ECYVdfBj4" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Google.Protobuf.dll" />
@@ -139,9 +124,6 @@
             <Component Id="cmp4oy1WMBgqe2BKY.IRKIxj771X7I" Guid="*">
                 <File Id="filEeHgplMMmQzEUewbV2qE3b0SiPA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\hostpolicy.dll" />
             </Component>
-            <Component Id="cmp3UOUqqgxe.TgYC9n7eVhP7D0KWs" Guid="*">
-                <File Id="fil8.Birt1IwqntL5Mz3XpBktVoPBA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\marshal.dll" />
-            </Component>
             <Component Id="cmpTxS.XXhEy3MBpYUDMQ8zn03N8J4" Guid="*">
                 <File Id="filWUy.ZvBeBYMsY4dorrfbKd1jhec" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Bcl.AsyncInterfaces.dll" />
             </Component>
@@ -150,9 +132,6 @@
             </Component>
             <Component Id="cmptpkCKfg0heU.4RFauZqIcGjjgd0" Guid="*">
                 <File Id="filBD9JhpNPCARPsotPHdyvL8K3cBc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.DiaSymReader.Native.amd64.dll" />
-            </Component>
-            <Component Id="cmpNLcYf9FHAXYnR4Nk19fVccJb6LE" Guid="*">
-                <File Id="filL7qPysyEC4511W05pXiyttsGiH8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.DirectManipulation.dll" />
             </Component>
             <Component Id="cmp8QvWsLU_uiUPon2V7yRWW0vkINs" Guid="*">
                 <File Id="fils8TF9uudF_pOQwT_wHWi5ps12Hs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Extensions.Configuration.Abstractions.dll" />
@@ -184,26 +163,14 @@
             <Component Id="cmpU9.xyU6f3pHidY2XvRj_sdyFnZ0" Guid="*">
                 <File Id="filFGyXDYxdhFSPX8qbKRqvCKMPohk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Extensions.Primitives.dll" />
             </Component>
-            <Component Id="cmpG_tri4d8DgSWuiZWudUkgmw6sMU" Guid="*">
-                <File Id="filzfHAm_hfuyVG8connvATbhhcEUc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Foundation.winmd" />
+            <Component Id="cmpRXDv_G6_AGT0vAb46_Oq3zNcitc" Guid="*">
+                <File Id="filGrGIeL7lPZfuguPuZv62UuatzUQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Graphics.Canvas.dll" />
             </Component>
             <Component Id="cmplSlEieCnUnDFNRpfYjSZ4n2W9Ws" Guid="*">
                 <File Id="filA3zYvDQUItTJDkpUNX8wchB2UAk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Graphics.Canvas.Interop.dll" />
             </Component>
-            <Component Id="cmp3xTzaWvhf36JaHIHB6DIhHxy1_w" Guid="*">
-                <File Id="filRlj36Vgc2RmTAkngscVOA95UayM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Graphics.Display.dll" />
-            </Component>
-            <Component Id="cmpWkoCrhwnjjcuL9EUZuOjuWPZ558" Guid="*">
-                <File Id="filslnPlcVE3vDlCz1hmysHuHxTyLs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Graphics.winmd" />
-            </Component>
-            <Component Id="cmpcal0vUFtz2ikQrTHgF.tu7UGn94" Guid="*">
-                <File Id="filmQLc1Rxt59fAVI9f3iZYiwfVzbM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.InputStateManager.dll" />
-            </Component>
             <Component Id="cmpVcS3h8n_LUqnkoKKuB3Z4C1Q7PI" Guid="*">
                 <File Id="filMiqnqIDZ.wojghMuKejgQ5riaRQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.InteractiveExperiences.Projection.dll" />
-            </Component>
-            <Component Id="cmpWFAYaBVeh1aioizM0QYRokHrbDc" Guid="*">
-                <File Id="filMREICR2j0zp.1fQXWy.MJZAxFrc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Internal.FrameworkUdk.dll" />
             </Component>
             <Component Id="cmpdz4Wl5HgvUwa2L2Z2CLY637RIPo" Guid="*">
                 <File Id="fildGs5qSNAm1rGcX7isSCXYfdVheE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Maui.Controls.Compatibility.dll" />
@@ -226,45 +193,6 @@
             <Component Id="cmp_LIyFlnV1DgH6V_YquB4t8x5y7Y" Guid="*">
                 <File Id="filtIhKz5QX3hBj.8oWKuf5IrMiy84" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Maui.Graphics.Win2D.WinUI.Desktop.dll" />
             </Component>
-            <Component Id="cmpiHMTF44UEJ_ldue8jsDfzpWVd9E" Guid="*">
-                <File Id="fillrIjDa8RAMbVTPv1GStENDkX5Co" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Composition.OSSupport.dll" />
-            </Component>
-            <Component Id="cmp3_kkyQxHEbclmi3UC3h7YjDwApw" Guid="*">
-                <File Id="filNcaaXZ8F1SSJ_6hXoH1wpihhTT0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Input.dll" />
-            </Component>
-            <Component Id="cmpI5zLzEy2kZiJoV7n2YxIWt7G9Jg" Guid="*">
-                <File Id="filayx4RBUZihm7XnetuRkyhOWyhpc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Text.winmd" />
-            </Component>
-            <Component Id="cmps4Rl1WkWD.xOyZXRp47.Zx3CD9s" Guid="*">
-                <File Id="filMhqliosfKxo5ev75fxvsbaEKuqI" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Windowing.Core.dll" />
-            </Component>
-            <Component Id="cmpQU22OZIM11S0jZgw8McHkeJKN98" Guid="*">
-                <File Id="film4w7MH5.e4WMtnnW3S.o7uWPuJk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.winmd" />
-            </Component>
-            <Component Id="cmp49vMrzr2kIX1Mh89BYH39WL0d5c" Guid="*">
-                <File Id="filGAsw84R0Y.vhgWt0AjrKBb1tiZM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Xaml.Controls.dll" />
-            </Component>
-            <Component Id="cmpx0r2wXLVzBZRG.lXnB8kD...FKo" Guid="*">
-                <File Id="filStOIYW3r82.dx0RTtroD7980HeY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Xaml.Controls.pri" />
-            </Component>
-            <Component Id="cmpgkMLHLXxih8RCxov3H8UqjmcCTg" Guid="*">
-                <File Id="filPO3QRA5ttzpR6Ce4RoaerRUoIhY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.ui.xaml.dll" />
-            </Component>
-            <Component Id="cmpz.fhT.yxJVdRzz.vgZqFx4YqBdk" Guid="*">
-                <File Id="filID0_MmSHt27fVwqw.9aI9QSeImk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Xaml.Internal.dll" />
-            </Component>
-            <Component Id="cmpqpBsMf6mwKkS.g.UMRMB33cFQec" Guid="*">
-                <File Id="fil0LkeVRXnsJfkH0m5EOQwGlDFUdQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Xaml.Phone.dll" />
-            </Component>
-            <Component Id="cmp9TEE2CBDO.6r8k_NEic3ltMRY0s" Guid="*">
-                <File Id="fil1aedGXxzgXE2V5iztwLRzf9bsCg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.ui.xaml.resources.19h1.dll" />
-            </Component>
-            <Component Id="cmpQQDXmgZc6Kn6a3C8l5h.WhDJhy8" Guid="*">
-                <File Id="filqj.Ff4yzSSXCbXk50j7Rl6CoKJg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.ui.xaml.resources.common.dll" />
-            </Component>
-            <Component Id="cmpQU4vismR6qohg5XAHccs70Fhd5Q" Guid="*">
-                <File Id="fil0mvYuVVvabxt1GSTsk.vDttRkBI" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Xaml.winmd" />
-            </Component>
             <Component Id="cmpVa8SdTCby.II_Ti0gwysp010C.k" Guid="*">
                 <File Id="filYWf998ZyTqv5Sj_kTxiTFsKONhU" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.VisualBasic.Core.dll" />
             </Component>
@@ -273,12 +201,6 @@
             </Component>
             <Component Id="cmpYyybAOZ42bSkbqk5sF3Z377utG4" Guid="*">
                 <File Id="filAcaCt3T9B4XC3UEkkcyrw.jKHRM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.VisualBasic.Forms.dll" />
-            </Component>
-            <Component Id="cmpLKz6yrkb_XYL54NCInGQWsAEya4" Guid="*">
-                <File Id="filFPefuGWU4x0N2wqeotTViSW6U0g" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Web.WebView2.Core.dll" />
-            </Component>
-            <Component Id="cmppv0LPEpr_dKapsrvJ3lWU19dAKQ" Guid="*">
-                <File Id="filWKOpI3jhaZ2pWSIIMw7BZ0AHGa4" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Web.WebView2.Core.winmd" />
             </Component>
             <Component Id="cmpuSC6.HlVwGs6jqo2qRv6KO4mofM" Guid="*">
                 <File Id="filn57UMdzJM7AqOYQmp1RGcnrye4s" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Win32.Primitives.dll" />
@@ -295,47 +217,23 @@
             <Component Id="cmpklxw309YLD1Q2QHqoljUf_c2_pE" Guid="*">
                 <File Id="fil5zLTVthMRASuXUFLdCpyMvN_jQw" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.ApplicationModel.DynamicDependency.Projection.dll" />
             </Component>
-            <Component Id="cmpXR9JjIIO7fsglF9WZuSe1zrPC6Y" Guid="*">
-                <File Id="filqhbwSzd.2QeJywequFYBKcHpIiQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.ApplicationModel.DynamicDependency.winmd" />
-            </Component>
-            <Component Id="cmp2vqH_XZkr7yaocmyDM8fMD4_JR4" Guid="*">
-                <File Id="fila_xtT4WWVLkdE1ataJQyW2Iua8E" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.ApplicationModel.Resources.dll" />
-            </Component>
             <Component Id="cmp6Se4HdvDNPDSF2h.SWMekL6vKa0" Guid="*">
                 <File Id="filP6XpjfqvJUeWxPAegTegjUA7O4A" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.ApplicationModel.Resources.Projection.dll" />
-            </Component>
-            <Component Id="cmpVg.0vfICbwY_WizWWktyiOibuLE" Guid="*">
-                <File Id="filxCTKVOzmbcY0l5wmwP3Qr08Uii0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.ApplicationModel.Resources.winmd" />
             </Component>
             <Component Id="cmpxMaWCqlf3Og4H9Jt2otCUpdeiJs" Guid="*">
                 <File Id="filz5BBjHzQt_9G8FC_h70xwHnG8Hc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.ApplicationModel.WindowsAppRuntime.Projection.dll" />
             </Component>
-            <Component Id="cmpB2QKZ8s7YiAh4tkp5DFVEtRUYBo" Guid="*">
-                <File Id="filES8L8ghgAyR1.PCz77l.pM9_XYo" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.ApplicationModel.WindowsAppRuntime.winmd" />
-            </Component>
             <Component Id="cmpwAts3RStktmJGP_FyGN5MBAytFY" Guid="*">
                 <File Id="filJsKykvQzXt7KXDm51DxyygdQ5fI" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.AppLifecycle.Projection.dll" />
-            </Component>
-            <Component Id="cmp84pJksoKDqIEApD2TWTBhvAhFHc" Guid="*">
-                <File Id="filiMsjyZggRNO.pIoBB9BmJPdXkME" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.AppLifecycle.winmd" />
             </Component>
             <Component Id="cmp7fP2GZD.rU9MPvA.DyfaB1_47qo" Guid="*">
                 <File Id="filLG_JNaXKQwdpH9im2LSNSicoe0M" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.AppNotifications.Builder.Projection.dll" />
             </Component>
-            <Component Id="cmpDne5Si66ptIWl2k5UssLkkojqnQ" Guid="*">
-                <File Id="filMc_DMA1HtqIRghVJ3s9ehfaOTl4" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.AppNotifications.Builder.winmd" />
-            </Component>
             <Component Id="cmpt4gjhedpwGUJeMoa_sUtk0q81UA" Guid="*">
                 <File Id="filhbDsIv5Bq.4ANQfE4ezQuPqKnBg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.AppNotifications.Projection.dll" />
             </Component>
-            <Component Id="cmpH_DC3F0L6p0DRxT.R9mo.XZuA1I" Guid="*">
-                <File Id="fil7B8NY.hQVCLEWbz.L.u2wfsKahk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.AppNotifications.winmd" />
-            </Component>
             <Component Id="cmp.292jQTANl8dkePZObrcA9KDeek" Guid="*">
                 <File Id="filYHLMgUr9gQOGE4z7DXAMCxcIhjk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.PushNotifications.Projection.dll" />
-            </Component>
-            <Component Id="cmpYhevtd531_vETUQWrr4BsiarJ_Q" Guid="*">
-                <File Id="fil1URAWZoeIJ3kdly_2mPKYzDEkH4" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.PushNotifications.winmd" />
             </Component>
             <Component Id="cmpV.R3scybqt6I.Yvjs9CwZ9R_WXE" Guid="*">
                 <File Id="filB2jIKLsHwYGeJbklTwQqvnrexDo" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.SDK.NET.dll" />
@@ -343,29 +241,14 @@
             <Component Id="cmpSDlN3Ro3ZRbvHt2.tCO4r6RXAYA" Guid="*">
                 <File Id="filKkyF7.50mY_FwXSidhCJq0ueUIc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.Security.AccessControl.Projection.dll" />
             </Component>
-            <Component Id="cmp.3q59ndbo4kgScx8KL_AMAFUAgs" Guid="*">
-                <File Id="filq900uHiImydqGsSZ4mDqMhHLA7s" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.Security.AccessControl.winmd" />
-            </Component>
             <Component Id="cmpC3Z__I9zlaHTDVeqwSgJumrcpk8" Guid="*">
                 <File Id="filcXVuNS6jXCQo1YQ.rDCdEPMX14c" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.System.Power.Projection.dll" />
-            </Component>
-            <Component Id="cmp2Yw_myE73F3C7hBApEFJI7K0KsI" Guid="*">
-                <File Id="fil.EKoBsRxkI7c3S8ek85ki7aSXFs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.System.Power.winmd" />
             </Component>
             <Component Id="cmpZSruARkQ_w3ixxssga6SdV4xM3g" Guid="*">
                 <File Id="filpmjwKvBftXvXDNFEF5NJJWdmxPk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.System.Projection.dll" />
             </Component>
-            <Component Id="cmpF3gcLD5FzszhbxIMUd7.qqrD9F8" Guid="*">
-                <File Id="filf6zlcHpzsD9qof4GZKGjMvy.vro" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.System.winmd" />
-            </Component>
-            <Component Id="cmpNE9mHcW7POG1xhT0TIvO_PM6FDc" Guid="*">
-                <File Id="filxoTcxwHk3M7OTjBdeApHBwv_sP4" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.Widgets.dll" />
-            </Component>
             <Component Id="cmpBcM48UZ1Z85A6Hj4bZIQFX1D3hk" Guid="*">
                 <File Id="filEP1UQn8y2_uhqQm1ieh8xxJRPzs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.Widgets.Projection.dll" />
-            </Component>
-            <Component Id="cmpt5ckqfQyKKBO45AVrxRxd88TGt4" Guid="*">
-                <File Id="filV.EKjW7bfYrDYh4JEuDIYW6swUs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.Windows.Widgets.winmd" />
             </Component>
             <Component Id="cmpUjIii7Pnm62mF4Tspgh0elsItxo" Guid="*">
                 <File Id="filkmN1aHIWsvgZBVvHjhN6wF3wVzo" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.WindowsAppRuntime.Bootstrap.dll" />
@@ -373,20 +256,8 @@
             <Component Id="cmpNJMQAxvIiGFPcTmavPePDKmiRrk" Guid="*">
                 <File Id="filqSvELVPNt9RR4XcW86v2l8Q3qTs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.WindowsAppRuntime.Bootstrap.Net.dll" />
             </Component>
-            <Component Id="cmpBa3MKYiJGHH.evLtoCfWF4Yl4n4" Guid="*">
-                <File Id="filLVnEzttXndZ63XGFQstt0LCEPDs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.WindowsAppRuntime.dll" />
-            </Component>
-            <Component Id="cmpuCL2EC7ONvzvG37Yvv1gHyuvGrI" Guid="*">
-                <File Id="filHOGEEa34uGIFUpkyIU9aZjBts78" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.WindowsAppRuntime.Insights.Resource.dll" />
-            </Component>
-            <Component Id="cmp19L2BVmYB85pfd4KzhIB9ZLsw0Y" Guid="*">
-                <File Id="fil2CdkwAe1UBUUqit3Ye.ucKJEpBI" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.WindowsAppRuntime.Release.Net.dll" />
-            </Component>
             <Component Id="cmpg6xbTXF.cnZl2HC7f.uy6cPlT1o" Guid="*">
                 <File Id="filJTfXGLU9OWQeqWyEHV8jlcznKKk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.WinUI.dll" />
-            </Component>
-            <Component Id="cmpIbOGu1VXRLPhi3sstg94k7iH9vQ" Guid="*">
-                <File Id="fil1zl5AXeA5_U14DnzQwFo0F7HkZQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\MRM.dll" />
             </Component>
             <Component Id="cmpu4BEzD6SA6YDmN1VfcJHMzcHbg8" Guid="*">
                 <File Id="filjyvUe4_zIqpdL8d_CB6vkjNMd5s" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\mscordaccore.dll" />
@@ -468,9 +339,6 @@
             </Component>
             <Component Id="cmpdTG3244wqJ6rv7ir8HdDbffpVhM" Guid="*">
                 <File Id="fil0evrEnku3AWb_S5R6kQkzoJ4mbY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\PresentationUI.dll" />
-            </Component>
-            <Component Id="cmp0LTR38pLnhOi7ndIPsREWmqe5Ag" Guid="*">
-                <File Id="fil2vNXgVJ7B3dpeTy5Kt2APnmcLE0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\PushNotificationsLongRunningTask.ProxyStub.dll" />
             </Component>
             <Component Id="cmpqzCzuk9ce.lRvD8mSamrslrMO04" Guid="*">
                 <File Id="filova8Utjx6MEsGMx3V6.id14CEnw" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ReachFramework.dll" />
@@ -1066,12 +934,6 @@
             <Component Id="cmpwDvcAAGOE07i8FPd4vWvBBljW4g" Guid="*">
                 <File Id="filZzzBoRzQMhjMiN1PhbSwW.mTwes" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\vcruntime140_cor3.dll" />
             </Component>
-            <Component Id="cmp5ZBnoAKVnCGPEbjLZw6h.6isF3w" Guid="*">
-                <File Id="filyM01sMtBgdd6iqzYSWlBn7UUd4A" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\WindowsAppRuntime.png" />
-            </Component>
-            <Component Id="cmpd8_WOeAaddT1t.RVV2Uu7UNPfqQ" Guid="*">
-                <File Id="filv6txgnEv7kKPq.p1lgKEkpPpmlM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\WindowsAppSdk.AppxDeploymentExtensions.Desktop.dll" />
-            </Component>
             <Component Id="cmp7FnzVpO5ruDgS7yVKHOVVii7s8Q" Guid="*">
                 <File Id="filgncz1XfuwXOjMGG6Hx2roghjirQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\WindowsBase.dll" />
             </Component>
@@ -1081,63 +943,9 @@
             <Component Id="cmpHLDzFABwU6kFu1px1smFFgmyM2U" Guid="*">
                 <File Id="filgJ783Gx2OstqLv8GnFJSlZl61co" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\WinRT.Runtime.dll" />
             </Component>
-            <Component Id="cmpWXlNj5COCcCImd1w7TBu56QxIOk" Guid="*">
-                <File Id="filBbDbKwo7fBJkrEY9uxa5TkGyRwg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\WinUIEdit.dll" />
-            </Component>
             <Component Id="cmpBGJ6nb_Il4m88tm3O.M_uuQ6B2c" Guid="*">
                 <File Id="filFdUhPTyDCMEV6lglsIZ3XzD7dfM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\wpfgfx_cor3.dll" />
             </Component>
-            <Component Id="cmpbgSC20g4YYjfU0esuQz0YMFp_vI" Guid="*">
-                <File Id="filUJ623JNvdd7QsiN5F9N4BojNYeU" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\wuceffectsi.dll" />
-            </Component>
-            <Directory Id="dirJPxHvjI0TKBc7YLI2Ff.ciFUQqk" Name="af-ZA">
-                <Component Id="cmp7KvlfbmRT7IeaCnfXf6wms0SzaQ" Guid="*">
-                    <File Id="fildaldY0BGgPr8nQQJZHrthADwNoU" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\af-ZA\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp621Xmb.sbmWpq_2pVisqIN6PZyY" Guid="*">
-                    <File Id="filHIOrFw.DtFZwVMLvLo0NHCh5OPg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\af-ZA\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirqrnfM2jqh5jJZ4Rv2S8F5HsC.h0" Name="ar-SA">
-                <Component Id="cmpddK7VcWib2SytC0RVTW0t9DMVtM" Guid="*">
-                    <File Id="filWGKImQDW0Ld1wac01XQDYcCPRE4" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ar-SA\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp1aSOqUxDBJnoOK9LfGveGLn247g" Guid="*">
-                    <File Id="fil6BS2iyS9cqKNDyZycdthTCjT_wQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ar-SA\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir8qERYgXhdSwPFjzYoEwfmvzEzno" Name="az-Latn-AZ">
-                <Component Id="cmp4Eygu3fL3FLDxcGRNFwkBJARAJU" Guid="*">
-                    <File Id="filfafr5CzGSb760sryfdZr11FRsXw" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\az-Latn-AZ\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpEC_KKEurdL.Ps1aU2lHdqb43dhQ" Guid="*">
-                    <File Id="filhkGSqA8ab5ep1IjTiS1T9TclmvI" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\az-Latn-AZ\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir0mJtYsMFwohbrUrRUcw7BbgWBHI" Name="bg-BG">
-                <Component Id="cmpjJVgdHA1r0bo5Cf7J.a0slmboN8" Guid="*">
-                    <File Id="filT8CUigYrhFI8Z30B53M3FIfj3FQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\bg-BG\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpBSHznj2wsQif_kMHLzDFCeL7Tiw" Guid="*">
-                    <File Id="fil.qhFLc6e0g_2pdI1w7MwJTXVJgM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\bg-BG\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirPDrFOY1ggdhye8gmJI_aa0fqCTw" Name="bs-Latn-BA">
-                <Component Id="cmpPamEjo5AMp6ZmJH9st992CSo87Q" Guid="*">
-                    <File Id="fildwhGFP0i7AtlUp8rsztO3WIfOXU" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\bs-Latn-BA\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmprV5OW9fVVKDiWkXhEMMeTY_1nUQ" Guid="*">
-                    <File Id="filQFaRTltfMWI3wloIhh9csJYetUw" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\bs-Latn-BA\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirgqoYqnP2TyKfhl7QiToLIE8hWqM" Name="ca-ES">
-                <Component Id="cmpWV9ikHtw.T6xUF8DuGyclB30rRg" Guid="*">
-                    <File Id="filom7B61pHIgXFeaVg1gzP65mN2Sc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ca-ES\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp_17VmG_T5za4FcJGg6cBcWIWNJQ" Guid="*">
-                    <File Id="fil19xaAwRIw1EAax8.HbKNV9CwZsc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ca-ES\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
             <Directory Id="diredd129rDUauQD_2juKNxE4KvIOo" Name="cs">
                 <Component Id="cmpICPOsxZbk6ISVKniSXUeqva.hlw" Guid="*">
                     <File Id="filpcWrzh4eWwdG8Wq42JnfMPYVSps" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\cs\Microsoft.VisualBasic.Forms.resources.dll" />
@@ -1189,30 +997,6 @@
                 </Component>
                 <Component Id="cmpvQ4TduhC2g3hTLAQS_23IKgkoR8" Guid="*">
                     <File Id="filyNqJU6N5MEDBkVFzjiimpAeiGqQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\cs\WindowsFormsIntegration.resources.dll" />
-                </Component>
-            </Directory>
-            <Directory Id="dir0mHaq0_8ItTPpwxa4zE5RU74WZo" Name="cs-CZ">
-                <Component Id="cmpqiANWSlLvwoFrrn0CBl8d7C8R7E" Guid="*">
-                    <File Id="filabzoHe2S75xt4mcANuETDmlawVA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\cs-CZ\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpBdWukX69cPRUceJsao56MSAlSXw" Guid="*">
-                    <File Id="filyTOsBszezHMKCPmGQimYKyZd9ss" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\cs-CZ\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir2RBJM9xuLMZxIJk.8lgPELu3914" Name="cy-GB">
-                <Component Id="cmpkXZ1RODATFiAD6IeWSRHpRovaQU" Guid="*">
-                    <File Id="fil_gxhByzsrOUichmO.rkciCR5ijA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\cy-GB\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpupjrN50H788_Y.KuNXu9PFVjASM" Guid="*">
-                    <File Id="filMvZMXjKtqvSnxN6dd7pSEuF7khQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\cy-GB\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirZHvhKIpUJ84NwdxbX7XUn9kkMjk" Name="da-DK">
-                <Component Id="cmpW6s9l7TZaFZht0xH0zc9qqBQMSA" Guid="*">
-                    <File Id="film3Kw7_xh9my1gIpvF7.x2MSE898" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\da-DK\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpTjiWYcoJ5.DLJ5Rf4vhpFfGcRek" Guid="*">
-                    <File Id="fillrGGjBb46RMt3j.bufDu3ri0l2A" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\da-DK\Microsoft.UI.Xaml.Phone.dll.mui" />
                 </Component>
             </Directory>
             <Directory Id="dirp1htna6aHz4ctjULFKVi6oXfCZ4" Name="de">
@@ -1271,38 +1055,6 @@
                     <File Id="filDidsRwuGxdWrwScEhOkjy45xPNk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\de\WindowsFormsIntegration.resources.dll" />
                 </Component>
             </Directory>
-            <Directory Id="dirpUmIFjpfwMXN3YBM87o6jdoW0gg" Name="de-DE">
-                <Component Id="cmpXlWx9nZdaLif9k.g1lf2EMVQ3aA" Guid="*">
-                    <File Id="fil7CIAmjYRoGlNrHiv4BGjGLaSeFk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\de-DE\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpjhsmr979aXzXLluHbsokPaNDo.k" Guid="*">
-                    <File Id="filzbwO_AO0VCWIABImmSzk3UXyVgs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\de-DE\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirx7xVdt9J5oQO3Pqk4w5VTtxohTY" Name="el-GR">
-                <Component Id="cmpR2AtIptFzFERnllO.Klya0xgdss" Guid="*">
-                    <File Id="filipN3Fzh1Wm7B_QedDmSaLYa17lk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\el-GR\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp0xTLHFjH5IQtxFYapQIkw0ukEwc" Guid="*">
-                    <File Id="filfXut4ijqXnWBNRNrZD.Yk9Jip9c" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\el-GR\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirAQUOyr5kqnWrStxbtZWbULHH38s" Name="en-GB">
-                <Component Id="cmpSlGRWYucniO1x7PyGtDEoZ2wIQg" Guid="*">
-                    <File Id="filyfPEWC1KknO_x8PTx7wVxpce5bs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\en-GB\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpj_1cVGSn9Htljt7hf1KyWhPANdI" Guid="*">
-                    <File Id="filBkygvqjdPeSzlfy.832iPLR_bqY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\en-GB\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirNYwoHF3fj.2WoQ6jueEca1kD2q8" Name="en-us">
-                <Component Id="cmp6v5ic7Ab58u54Hn6J0KuiIlTEQ8" Guid="*">
-                    <File Id="filrtxgtUTvc0o8aqMvnf3lModu73g" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\en-us\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpP5a0YiqWnZTZzVkgN8sqA..Khwk" Guid="*">
-                    <File Id="fileZhvP4wwTL6QpVdxthJVQnCC0oA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\en-us\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
             <Directory Id="dir4tGGYHq5chOScNi2WnR4E0FMNH0" Name="es">
                 <Component Id="cmprgrWvSbQgwXNlT64dNNNQPQ.3cw" Guid="*">
                     <File Id="filmjrVaV369xrY2b26Gos7qGWG.Dg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\es\Microsoft.VisualBasic.Forms.resources.dll" />
@@ -1354,54 +1106,6 @@
                 </Component>
                 <Component Id="cmpcFnJlaF8GfPl37BdIteOOZ44Z8c" Guid="*">
                     <File Id="filUIqNkfPs23xHxtjT2p._grc_QBc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\es\WindowsFormsIntegration.resources.dll" />
-                </Component>
-            </Directory>
-            <Directory Id="dirlBukGCS0ir1tJSLtjtk4F__T7BY" Name="es-ES">
-                <Component Id="cmpaJkXcYAjpbc5ISoSis_zNZd_NnU" Guid="*">
-                    <File Id="filLAeX31rkc82RG7G_q_QbxbBrZto" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\es-ES\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmplgU0PwIytwYuA7ttSrYZp2GzWRg" Guid="*">
-                    <File Id="fil.IvZV3ymOrTtXqV2jevid6LJnj4" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\es-ES\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirVfKfnXacqXrG35mLyQ8D6zpVzUs" Name="es-MX">
-                <Component Id="cmpvYjDKNZw4gFhkT5QmA.3eqdTEcw" Guid="*">
-                    <File Id="file7hRTMHljzyt9_.ZtzFxoLwTgp0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\es-MX\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpi1DeVBgSnKJ73jnVPS3x6ZhzCxg" Guid="*">
-                    <File Id="filPSVZ2sZi5zCQ5lkJxPYSJwLA8vw" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\es-MX\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirQ4WQVRHCMpfVz6weJzhlCSmO_bs" Name="et-EE">
-                <Component Id="cmp779EdHkxCTV.VQFi0HqhGEN_Klk" Guid="*">
-                    <File Id="filbXS0aVv1Y8dfx.j4umrP9UFyiYA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\et-EE\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpo8bvdDZrrObokhD5zc2FRyX5WRM" Guid="*">
-                    <File Id="filGctryfbvI.kCFf4oKtFL8Qfv4Nk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\et-EE\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirLjbcMBKWz4mmkGraowpzPX4F5jk" Name="eu-ES">
-                <Component Id="cmp0dTd6gRzacU1kLHgv2Thfio.CWc" Guid="*">
-                    <File Id="fil8RBZiSU3PPoCcY3vPCSQHKIUGu0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\eu-ES\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp0at0slykkFJqyli5AlRySk6Xt2s" Guid="*">
-                    <File Id="filVZivywdQBqbUuDBouZx2zzOZa78" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\eu-ES\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir6G5Lr7Aw1yvIgWAVktEEz7tz15I" Name="fa-IR">
-                <Component Id="cmppUeg9jw82Ldo871MwKjnjoSRoew" Guid="*">
-                    <File Id="filpWkID3zjagODkkOwnyWBCeCLuV0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fa-IR\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpFKlJo0uUG0iAKhAaWUhC.MP9zvM" Guid="*">
-                    <File Id="filHqGUTOKMbGWeD75_WiH4Oa_Su44" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fa-IR\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir33CG4Agpga0AYIY_hUtV2rkn25g" Name="fi-FI">
-                <Component Id="cmpWX2wcgXcXlEq1O5qKLzlRqYI_ts" Guid="*">
-                    <File Id="filqHdQ5K.nTAEf77dPMyQyOogMNQk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fi-FI\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp6.588Wq_GnE9xvDaf3jKzvd.ZoM" Guid="*">
-                    <File Id="filz7Xz6kJkLTnff6nMzoWyoBux81E" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fi-FI\Microsoft.UI.Xaml.Phone.dll.mui" />
                 </Component>
             </Directory>
             <Directory Id="dirq5VN.2RwCdFj7QfD5Tsuq1ioNVg" Name="fr">
@@ -1457,78 +1161,6 @@
                     <File Id="fil1xgJwjTf7DPxfHwvBgsvABo1BZo" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fr\WindowsFormsIntegration.resources.dll" />
                 </Component>
             </Directory>
-            <Directory Id="dirCvASmqRTCL0JxpVFD6n8KGHGVDE" Name="fr-CA">
-                <Component Id="cmpviqXCw3wmGI8tymxd8vGK30_2B8" Guid="*">
-                    <File Id="filC46HaBBnFZSut7WsODnnxGbgkLE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fr-CA\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpGmNZTEfZqUAzYD8pTzVbtlJ0Xzg" Guid="*">
-                    <File Id="filLjGVSE3w6HOkzf8LvRzs0YPioYA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fr-CA\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="diriWWA1P16zbdSJJVBRKIZYq3lHfQ" Name="fr-FR">
-                <Component Id="cmp0F6nmlUPCo6_dwp_HhAQeXsC.mA" Guid="*">
-                    <File Id="filZDyMUjZa5UxU7tn.UHM1VL6vzo0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fr-FR\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp3d6EKJKJ7KXVTmR.VVnuTv._3Rw" Guid="*">
-                    <File Id="fil0YpS24S2Fi4RpXy0B4YRoFR2vK8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\fr-FR\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirGwxWzot3VXBVUQzu669GNWYGvZQ" Name="gl-ES">
-                <Component Id="cmp16iyDaum260Nk6Vogif3ayAot20" Guid="*">
-                    <File Id="filRWZ2ldc17UJEU0brQgUT54dz8uw" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\gl-ES\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp40lfOttDoZsXb_r_7AnABS6cATI" Guid="*">
-                    <File Id="filrt7zX5zcwtsRObaTxgpBTomG1Ss" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\gl-ES\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirHzO.t64JSRREXp47Mk9Jug3FAWI" Name="he-IL">
-                <Component Id="cmp6tGazCcy7V1OEHqfZj9lVD88_a4" Guid="*">
-                    <File Id="filO2n9ZnHRhwB2PP1CN7hfsrlgel8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\he-IL\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp8XxXfDsjnZ6sUZjrPArFkM4RPJ8" Guid="*">
-                    <File Id="fillJkmSD2.NuAWidbCRLC8SDrryVE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\he-IL\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirJMIa2.9oMSLwyyTX0FlXR.BQhaU" Name="hi-IN">
-                <Component Id="cmpglHVhiBEPRfjR8Y0fUJ96ua0N3g" Guid="*">
-                    <File Id="filoTHIyNEDl5nDJSyh850xWyWkhg8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\hi-IN\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpislGTP33FCZjbdQ3AP6_r8HCoho" Guid="*">
-                    <File Id="filOL0lTgg05w6KmFpAcAzo.MTGIgg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\hi-IN\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirvshcQiUS.79l9CT7VP6vDrlSFPA" Name="hr-HR">
-                <Component Id="cmpozlNL24Qpa5WUZ5DBgKzC3RGLd0" Guid="*">
-                    <File Id="filkRTiUXVpULi4GaJeb2ityhNPl6s" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\hr-HR\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpjANPJ.BlgcQnBp_I6NywIowAcKY" Guid="*">
-                    <File Id="filTzB2cwTeW90lq9s2RtmY5yFNjHI" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\hr-HR\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirlBckkOlLFrKKgI0OpsQG4q._CvM" Name="hu-HU">
-                <Component Id="cmp1P0adLVXA4cSTs2iaHyFQBa_lJw" Guid="*">
-                    <File Id="film0ZGLgitlQ1i24Fv8q6zTtBSHDg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\hu-HU\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp7A2BbcgAjbXgmRnHWVOnGUr_8og" Guid="*">
-                    <File Id="filg4sRXKhc1YvppMmmUm5fNgRPz6E" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\hu-HU\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir18hcwW.p7U54cr4Y2AQY.QdK_0k" Name="id-ID">
-                <Component Id="cmpxIMh1YbrEWJGcSEV0l6YXhvOE7U" Guid="*">
-                    <File Id="fil2rYAWIRzj9_4dD0d_9k80fuz1pw" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\id-ID\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpHzcHwmAgBtIhWCcwHDdNm4MtzXc" Guid="*">
-                    <File Id="fila7KYUK92RpZXRoebz.wp2JS63Nk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\id-ID\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirP8Q3lQ_e4mBaY6kqjF.tGbQGH7w" Name="is-IS">
-                <Component Id="cmpDfcChEf_UDeIOT5Xr2Ivadub0yU" Guid="*">
-                    <File Id="fil.vTQT4egEwvdskZ.1C8O5sD9Z38" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\is-IS\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpl83QQ6aGER33vTWaWGJL2kTvm6o" Guid="*">
-                    <File Id="filbk.HdX4w3bnC1Nzjno0na7fdaUE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\is-IS\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
             <Directory Id="dir5SNrMHp1b_EyqJc4dUl_GZs9OeQ" Name="it">
                 <Component Id="cmpOWrweLDYVc5s9huMB5k9cMQySY4" Guid="*">
                     <File Id="filTJQ7TMVLGjg_06_qVlAWbKOr7bE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\it\Microsoft.VisualBasic.Forms.resources.dll" />
@@ -1580,14 +1212,6 @@
                 </Component>
                 <Component Id="cmpa4CCw9Qc0d136Y25YjEWjCHYvMA" Guid="*">
                     <File Id="fil0Mn3GcXM0dClLhwSKVLKqeSS7x8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\it\WindowsFormsIntegration.resources.dll" />
-                </Component>
-            </Directory>
-            <Directory Id="dirqknGewZErVJKxr.iPz33LhyPtvU" Name="it-IT">
-                <Component Id="cmpM82aInUQtUA9EjcK7eFvS41nfpc" Guid="*">
-                    <File Id="filkB7Y3IvPD7Iw8WI9LpiMWqE7v1g" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\it-IT\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpyQVxCwWF4WCvILrkXV2OuEdpdCU" Guid="*">
-                    <File Id="fildHJ6Wg7ufPM7KmFMWnJZujiZ_AQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\it-IT\Microsoft.UI.Xaml.Phone.dll.mui" />
                 </Component>
             </Directory>
             <Directory Id="dirIB0H0xPL17kLVLMbfjsa8IamO4c" Name="ja">
@@ -1643,30 +1267,6 @@
                     <File Id="fil9fOHSYvnLGsSOmEhUZFVhdAQfGc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ja\WindowsFormsIntegration.resources.dll" />
                 </Component>
             </Directory>
-            <Directory Id="dir1fAqhEoJ2OkcvSxEBSPuXMUpEGY" Name="ja-JP">
-                <Component Id="cmpg5bdGlAO1KDX_Nt.AI0JwM.TZkY" Guid="*">
-                    <File Id="filsRGKr02llBANoUfUyZcA907wegk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ja-JP\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpCj3aCs7otVhut7MNpKi2KPO.5ac" Guid="*">
-                    <File Id="filmMmlko1QaaQ27jrt6HyHHzYJ9tE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ja-JP\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir9Lwfj1OG.OegIY6zgrei1dSskw0" Name="ka-GE">
-                <Component Id="cmpMIC3g7P6evZYj4ylmU7wuNOQbHg" Guid="*">
-                    <File Id="filSTj6cucAfbgpG_MZyAoEpkZnQ_E" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ka-GE\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpsj.QzQe9XmB6DP6Nr102vTRO1kE" Guid="*">
-                    <File Id="filAv0DKcJ7GcjTO3wX7_tg0S8YlbQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ka-GE\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirblV6THFMvGLkh9djNzd8VyqfMsI" Name="kk-KZ">
-                <Component Id="cmpGzBg9qdrQh7fA_4KqYfK6iimJF0" Guid="*">
-                    <File Id="fil7flcncYulPTYY6oAZ_i8V0n78nY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\kk-KZ\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpVGRE3bsDaUJKHtID5z996vjcX_Q" Guid="*">
-                    <File Id="fil48INT8quJ3e.v1SHWUrJJl8KRw8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\kk-KZ\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
             <Directory Id="dir6nxgXXYnAUVpF2ZaL.8JWKIlIaQ" Name="ko">
                 <Component Id="cmprrTuBnoSLtTx3MSj5g_k2c9Bjd0" Guid="*">
                     <File Id="filY5pYUP4Js1tB5jZGig0o3i4vu.E" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ko\Microsoft.VisualBasic.Forms.resources.dll" />
@@ -1718,69 +1318,6 @@
                 </Component>
                 <Component Id="cmpMnzdU.eFB.BIepYBpqgIAA.gBjw" Guid="*">
                     <File Id="filGWBrlwH8PPh8E3JlEkV6T7W1x4o" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ko\WindowsFormsIntegration.resources.dll" />
-                </Component>
-            </Directory>
-            <Directory Id="dirwqWN2B3ewK83hGK30hlKzTqyYT0" Name="ko-KR">
-                <Component Id="cmpSTaeaHn5oiciRYxb9SHHLmD10to" Guid="*">
-                    <File Id="filWW3qwfI7Ru_3Y3fDwywTEuN.nA8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ko-KR\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpqm1mre8LKX98zI4Aj0iM4n45_Rg" Guid="*">
-                    <File Id="fillLWJ_TobrM5H_WWUGjYFj7VUYCg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ko-KR\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirHBiNXUcizRoYYLywksjFlIxrid0" Name="lt-LT">
-                <Component Id="cmpA9Qeoj9aeP4vsOzkjcYXahFBRXc" Guid="*">
-                    <File Id="filyh3B87K1j72LJxE.yJG4XeM23Qw" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\lt-LT\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpzc5woifimSxZJxx1JZnhjOYJH24" Guid="*">
-                    <File Id="filYfYTCI2ZZidrZXl7PAHcBClpqFk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\lt-LT\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirjf5QafAcI9PT_jhthosmK6JB2Jc" Name="lv-LV">
-                <Component Id="cmpgBkNjFC02OoS2hRFY3e7PvdjNbc" Guid="*">
-                    <File Id="filjLcd1by6NvCoQjPVrY2qSmS8u.s" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\lv-LV\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpMRoQM9Tb3.lva71hbGrRysr9Lis" Guid="*">
-                    <File Id="filu.HG.QXYJZh2yxRj.c3v_6HLuRY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\lv-LV\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir.PawBHjVX__jkLB3Y_XFJwgJoJU" Name="Microsoft.UI.Xaml">
-                <Directory Id="dirktt2ygSrcogRWgF2V3YzlJLsVcg" Name="Assets">
-                    <Component Id="cmpXZ_WbtSwwdGV58ycfpXTcH1vNpk" Guid="*">
-                        <File Id="filWm0QrOF.T4s1Fy8Qono.Tz1Cw64" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\Microsoft.UI.Xaml\Assets\NoiseAsset_256x256_PNG.png" />
-                    </Component>
-                </Directory>
-            </Directory>
-            <Directory Id="dirUauSnBwoc.W3Y5zaUJOhVeS58Ug" Name="ms-MY">
-                <Component Id="cmpEURS3756nzctPDd6wuRRRX4sloE" Guid="*">
-                    <File Id="filcj_b6jowiy1UVWsFO8a0DhYPpPg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ms-MY\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpGcJ1Pop9EWCnfIQNDbL80O_jJbY" Guid="*">
-                    <File Id="filSls9EnV0QT._cs4570dDCVdVsSM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ms-MY\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirNhe_ZG3DE4csEwHad5ZYGvjkfX8" Name="nb-NO">
-                <Component Id="cmp6x5znOH2talTqtwgnMlA2AzfrMw" Guid="*">
-                    <File Id="filCw9BJEymetgfe0VykU2KsPMSUVs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\nb-NO\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpuG.J6sRRdOKJxzbbr7CpiWwwcMw" Guid="*">
-                    <File Id="filLVDyoLN5UDSxWC4JxaZHZfmBgoE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\nb-NO\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirbR2WlH1d_IiU1IseVTkvyVb3cp8" Name="nl-NL">
-                <Component Id="cmpSmdrLYj8hdi82QRpgP.wTviUulA" Guid="*">
-                    <File Id="fil4dreWms215E6HUW_QWzK1dzJHNo" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\nl-NL\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpFlg4hKlum9n7gS9Od7fQZy.jQIk" Guid="*">
-                    <File Id="filqyOd.9.BOZeNvJww0cbcf7ZTlqk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\nl-NL\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirHutk0Os9OBt4BqZgB8srcgAZPsY" Name="nn-NO">
-                <Component Id="cmpuRTXZt_u.Ez8PHnqNEk07.sro5c" Guid="*">
-                    <File Id="filcnldAwnGJ2QOytfQXg3TbVbsSQA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\nn-NO\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpiYQrF9nOn0RWRqVto96w2PNhh7M" Guid="*">
-                    <File Id="filMmM.WpTB.29wmIa6OG86HySge0k" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\nn-NO\Microsoft.UI.Xaml.Phone.dll.mui" />
                 </Component>
             </Directory>
             <Directory Id="dirWc3.YM1.gtFX0mc2D.40RTRSQ5A" Name="pl">
@@ -1836,21 +1373,7 @@
                     <File Id="fil4jEbizt6C4FMpynCij_I3W5o.rA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pl\WindowsFormsIntegration.resources.dll" />
                 </Component>
             </Directory>
-            <Directory Id="dirmX63pE0NpM3Fe_MI376t6YAXZAc" Name="pl-PL">
-                <Component Id="cmpi7_CDJo.SCe.uc3JC.bv8VSxDC8" Guid="*">
-                    <File Id="filKabyj.TLJfE4dVzQ0ujGRP0wUyY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pl-PL\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpG7vprAZw1WxOBXK2rmw.w7I3Vdw" Guid="*">
-                    <File Id="filWPZMCsG6P9ISnspqFPFdynpGB0k" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pl-PL\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
             <Directory Id="dirBu2fE6dUMC.p9R9bAHUoQj_5Qv4" Name="pt-BR">
-                <Component Id="cmpZCbkVGNcyXq9J58t_4N6mjWbaEA" Guid="*">
-                    <File Id="filqfSESL66QBZYLCAsLgZ2Lbwya0M" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pt-BR\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp1lU1Za4FCRvZtpdJmtaYXdlFvVo" Guid="*">
-                    <File Id="fil9h7GvhnIENVJTjCwfx6kytXYe3A" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pt-BR\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
                 <Component Id="cmpUAMyrSEW_eAq1KHg4f_zHByozCw" Guid="*">
                     <File Id="fil6AAcGyvmrUdpmV2FfgLuXv0LEgg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pt-BR\Microsoft.VisualBasic.Forms.resources.dll" />
                 </Component>
@@ -1901,22 +1424,6 @@
                 </Component>
                 <Component Id="cmppigFUyefmRluI8PxgbvorEXsnUs" Guid="*">
                     <File Id="filxe571Nn.MIhF4Q5IP9C0BXipju0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pt-BR\WindowsFormsIntegration.resources.dll" />
-                </Component>
-            </Directory>
-            <Directory Id="dirQDY9ROyxFl0UPCYbaBy4tqUsZ5E" Name="pt-PT">
-                <Component Id="cmpUAlm_jirSR5HeJOg2Q7H4vrhjAE" Guid="*">
-                    <File Id="filg.3S57Wmn5lWRf5fCr4.O8W9Qnc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pt-PT\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpJ_uZxn6k9gEl8MvYPgKiLeHpzjM" Guid="*">
-                    <File Id="filqCbtUvy_mNzp_HGcyqHg02TpT3Y" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\pt-PT\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="diraACLh.232c9fQUO4nSFgcyiPdXM" Name="ro-RO">
-                <Component Id="cmp52aZwjpuhqiNSUT4NSDCZaUNmPM" Guid="*">
-                    <File Id="filUrNp5jnQjJg0vDgK52sGayYgJF8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ro-RO\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp9GpAmqjX5_Nb5ph.6CudlJYDygk" Guid="*">
-                    <File Id="filECUXyefrfDUXCYc5qeugUusYetM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ro-RO\Microsoft.UI.Xaml.Phone.dll.mui" />
                 </Component>
             </Directory>
             <Directory Id="diryNV.etKs4ODuhJ9y6gj1.lGFDCk" Name="ru">
@@ -1972,70 +1479,6 @@
                     <File Id="fil9vffb4O5PugE0ZBMKbyEYbwEaz0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ru\WindowsFormsIntegration.resources.dll" />
                 </Component>
             </Directory>
-            <Directory Id="diregvEv8Tr0Z.1QD_GiC2FEOujUt4" Name="ru-RU">
-                <Component Id="cmpxdGuD4iu9K5J1SfVe5UBa66..fI" Guid="*">
-                    <File Id="fil40ELvEVxvzsLpUj8KhwIYl4LQd8" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ru-RU\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp6m9VyyJ32xBXU0mAyJGZ.SS9k84" Guid="*">
-                    <File Id="filjUGbOOS7kMSSkGKGzaAlJgnAM20" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\ru-RU\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirXc7CnTniXVcGi5z_KBmrHIgJUtk" Name="sk-SK">
-                <Component Id="cmpZmHg5sVpcMRTHxUq68ZO7URmmZc" Guid="*">
-                    <File Id="filxqU1_.l7zsMLCQ780IK9MmSwJEM" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sk-SK\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpOzBl3ZZd8dNIkhl5_Jz4ykOzh_k" Guid="*">
-                    <File Id="filkHeebAK9gU5yWtHmQcXRKvSxbIk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sk-SK\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir94opLjgzjqZWPes78wgwHfZJPRw" Name="sl-SI">
-                <Component Id="cmpIMmVQiLKoyhGAtyJSNKSG_ruFxQ" Guid="*">
-                    <File Id="fil4OnEesU84vBCyaAmNzl4fc9wyb0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sl-SI\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpmQ0eF1ils4SW48nLN4TWneI5pTI" Guid="*">
-                    <File Id="filpt8lVpUpoD3RvADa0IyV3DOYmPk" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sl-SI\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="diraX_s8yHHSZvVKeEkkzyhW8W8JjU" Name="sq-AL">
-                <Component Id="cmpa7wLVdq3pHfweDfGbQ2zvcNG3mM" Guid="*">
-                    <File Id="filaWlwRP1vs_tDMV4sMsQ4Qfur4as" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sq-AL\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpB6dmj1kZLCVFL.IFNimsbxmRAus" Guid="*">
-                    <File Id="fil4LmhCYkPLsVRNzKhNFReQjbj1es" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sq-AL\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirARwOfC6VkqKu1WiGKdjQv8pll44" Name="sr-Cyrl-RS">
-                <Component Id="cmpgGZJaUPh45nGaC1etmSPo.BA1eY" Guid="*">
-                    <File Id="filyRp4pU1M4e89vkRfnx7KE7WhRUc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sr-Cyrl-RS\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpgqlKu22sohdQogN0IBgbHretmJk" Guid="*">
-                    <File Id="filaktlxPPs0OYoFRlEYRp2LdXqdbQ" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sr-Cyrl-RS\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirzigDm7xnUgcAe_BYGqiDM.Unbh0" Name="sr-Latn-RS">
-                <Component Id="cmpHi0Bh2WKNqLi5nm7BU.5h5j.sGo" Guid="*">
-                    <File Id="filOwROfFGWKKvV9Djk9OjCihjGRi4" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sr-Latn-RS\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp9rWVLQbZkWGdGFAEiTQ6pghPYvI" Guid="*">
-                    <File Id="fil.XMlickhwfJLg0g45Ucz5KRcRxc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sr-Latn-RS\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirr.x67rxWEgDjJsyY4SlTDzRTTE4" Name="sv-SE">
-                <Component Id="cmp1r7adZfkOYEc1TQARrDFYPYDXwQ" Guid="*">
-                    <File Id="filKVl.oPqVGUKFWEb21fu2LQK0Cec" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sv-SE\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpYq.4GNfsusOYmml3ovfXrQqgsng" Guid="*">
-                    <File Id="fil_JilWqyjXrNrWAWlV0Zm1AYNqXE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\sv-SE\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirkQH9Qf_qo5skpywQWYuzTXNvdWQ" Name="th-TH">
-                <Component Id="cmpfOw04GEL1TSV4CwtAnz9I0h72c0" Guid="*">
-                    <File Id="fil0sz2.k6Ppl6EiOEeDweHq.yIzms" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\th-TH\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmp4xoXY6eOie676R2qZyUdEMxQEuU" Guid="*">
-                    <File Id="filv1uM_OjXWNMeEWcZMSXdWYR.prY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\th-TH\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
             <Directory Id="dirXG_Q7OoWLJyfSW.n7DpB7qYZCU4" Name="tr">
                 <Component Id="cmpJ2XSUNSsXNLvPb3NfHM_sPbH.Wo" Guid="*">
                     <File Id="filHsUPSRO7DpQ3MgRh5b4qmTnvBqA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\tr\Microsoft.VisualBasic.Forms.resources.dll" />
@@ -2087,38 +1530,6 @@
                 </Component>
                 <Component Id="cmpb2rgL1EN6X32i8o8WEph3GJCw.s" Guid="*">
                     <File Id="filziLUc0xqSCQrk8pI7FdWttFE5Zo" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\tr\WindowsFormsIntegration.resources.dll" />
-                </Component>
-            </Directory>
-            <Directory Id="dirS1p9DnS0pTx8v1jf6I81o3P3cEg" Name="tr-TR">
-                <Component Id="cmpDaN_S5CcnwfEDTNxbUfa_8683OI" Guid="*">
-                    <File Id="filHExM4mIjPIq.rAOYTqrVchljAPs" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\tr-TR\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpLXYttSOSPSnoSPWwkh4Q33YJ6jU" Guid="*">
-                    <File Id="filIkhpq47XNZxWLU5ER6.Rm0AsRaY" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\tr-TR\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirVDHu6HSQWxPLmj0zSkO2cig4RC8" Name="uk-UA">
-                <Component Id="cmpxyiyWIO_K3XXKEiPzrTStW_ryAo" Guid="*">
-                    <File Id="filJMK2bmB9ZpnW24jvqJlPV4jLgnE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\uk-UA\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpWSZnWoJuyla22SYCMpJ.og7lql8" Guid="*">
-                    <File Id="fil_qDU3lKdFhzic0VNkwiT8rm6suE" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\uk-UA\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dirNj1cAkUUWICJGsTUBmoitI0cqvk" Name="vi-VN">
-                <Component Id="cmpfM.A2CHRgnuf6wVnHIPwOQvR0IQ" Guid="*">
-                    <File Id="filK8MD8pevOCZocYbuBdbz.9cqld0" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\vi-VN\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmphhPxG7KmKDdz81j54Z7XFDmtc68" Guid="*">
-                    <File Id="filiB6cpJTL_uS_nXL7eip.Qjm2JQc" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\vi-VN\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
-            <Directory Id="dir_vm70W2u25iLPqU7XJ6Pio4w8qM" Name="zh-CN">
-                <Component Id="cmpV3PWZwqsevEOxHbI8mEZLfNnNzI" Guid="*">
-                    <File Id="fildC87DZZxZ8UVldjZgz4fVbKO6EA" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\zh-CN\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmpJ5wBXjgWvFhROgxygSN2LwLc3tA" Guid="*">
-                    <File Id="filein3Ige1bT2FZV4o9dRFxGj1STg" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\zh-CN\Microsoft.UI.Xaml.Phone.dll.mui" />
                 </Component>
             </Directory>
             <Directory Id="dirJSjhJMByCmzWg96gjQaUu0CAzDE" Name="zh-Hans">
@@ -2227,14 +1638,6 @@
                     <File Id="filUDZF.C_DcSJkd3FbMgvNw2ju8ng" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\zh-Hant\WindowsFormsIntegration.resources.dll" />
                 </Component>
             </Directory>
-            <Directory Id="dirb9bZozG9J.QTdvJWxhx8mwhZEQo" Name="zh-TW">
-                <Component Id="cmpc4U1TDBRUj12uqlk04IzeNM42X0" Guid="*">
-                    <File Id="filhhCY41Ro6A9HpAcDPjKvkbdwXBU" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\zh-TW\Microsoft.ui.xaml.dll.mui" />
-                </Component>
-                <Component Id="cmptMDxGjD4BPNd1IKXBHwJc3oAv6I" Guid="*">
-                    <File Id="filxP51qQLOdbCCpDrOpA4GXMmV.5o" KeyPath="yes" Source="$(var.ArtifactsPathUIWindows)\zh-TW\Microsoft.UI.Xaml.Phone.dll.mui" />
-                </Component>
-            </Directory>
         </DirectoryRef>
     </Fragment>
     <Fragment>
@@ -2266,14 +1669,9 @@
             <ComponentRef Id="cmpIJk9G5U.7vzAxg4Yc1xVmABTy10" />
             <ComponentRef Id="cmpuD0HAx9kw0YXyTOe.u7vQHl41aI" />
             <ComponentRef Id="cmpiEdUsQi8w7S_PFiZuv9b..Km8nE" />
-            <ComponentRef Id="cmpNoU4SLgn1.D6BktKSr80Zc6gCnQ" />
             <ComponentRef Id="cmpoJq2eW0SbDEPK.hCUzBq4hlPHzk" />
             <ComponentRef Id="cmpamFmvl.nLYNZhEGnVjLVJw.qrRU" />
-            <ComponentRef Id="cmpNJoIjY3rZW5Q4Qw_AKc8jni_IXA" />
             <ComponentRef Id="cmpCpOfZVsPLRSLVC3MedffTBJyzzk" />
-            <ComponentRef Id="cmpc0rGZS3zxVVvXSa6wNa83kiFPnw" />
-            <ComponentRef Id="cmpczNNchbN2UpNxX85jssfAH9TvT0" />
-            <ComponentRef Id="cmpDOFE87d1FlnnFaK9fRP84w11AtI" />
             <ComponentRef Id="cmpf56rGzwdSijY5nwtaIs7PqDnj.Q" />
             <ComponentRef Id="cmpnZHf1NJ_XoiwrJW.pO39QldKkPo" />
             <ComponentRef Id="cmpJyVnLXOEj8df_Mw.1YlaDZ89_HQ" />
@@ -2285,11 +1683,9 @@
             <ComponentRef Id="cmpaMLQFtkFGEy50FOnn2dpK1tnZd8" />
             <ComponentRef Id="cmpKcfMDlYwtrCOANzG.fMI99R0VlU" />
             <ComponentRef Id="cmp4oy1WMBgqe2BKY.IRKIxj771X7I" />
-            <ComponentRef Id="cmp3UOUqqgxe.TgYC9n7eVhP7D0KWs" />
             <ComponentRef Id="cmpTxS.XXhEy3MBpYUDMQ8zn03N8J4" />
             <ComponentRef Id="cmpkb1G9H89Z4XEn.ReD0_NxbRr8Os" />
             <ComponentRef Id="cmptpkCKfg0heU.4RFauZqIcGjjgd0" />
-            <ComponentRef Id="cmpNLcYf9FHAXYnR4Nk19fVccJb6LE" />
             <ComponentRef Id="cmp8QvWsLU_uiUPon2V7yRWW0vkINs" />
             <ComponentRef Id="cmpN.m_uZW1UV6_jO6zEzIU6PRvE1k" />
             <ComponentRef Id="cmpo.J.Z3_UK5M4lrgK9SgKmeq7m0U" />
@@ -2300,13 +1696,9 @@
             <ComponentRef Id="cmphygNOBF1I0GgkLiDOd.ZvuSTZBk" />
             <ComponentRef Id="cmp3VZsvEkbNrJQYzWNJbtpXj8A_ic" />
             <ComponentRef Id="cmpU9.xyU6f3pHidY2XvRj_sdyFnZ0" />
-            <ComponentRef Id="cmpG_tri4d8DgSWuiZWudUkgmw6sMU" />
+            <ComponentRef Id="cmpRXDv_G6_AGT0vAb46_Oq3zNcitc" />
             <ComponentRef Id="cmplSlEieCnUnDFNRpfYjSZ4n2W9Ws" />
-            <ComponentRef Id="cmp3xTzaWvhf36JaHIHB6DIhHxy1_w" />
-            <ComponentRef Id="cmpWkoCrhwnjjcuL9EUZuOjuWPZ558" />
-            <ComponentRef Id="cmpcal0vUFtz2ikQrTHgF.tu7UGn94" />
             <ComponentRef Id="cmpVcS3h8n_LUqnkoKKuB3Z4C1Q7PI" />
-            <ComponentRef Id="cmpWFAYaBVeh1aioizM0QYRokHrbDc" />
             <ComponentRef Id="cmpdz4Wl5HgvUwa2L2Z2CLY637RIPo" />
             <ComponentRef Id="cmpOcZcTmmE5CRF0PLTNFaKW5Jedmg" />
             <ComponentRef Id="cmpSlsio9p5AQChZead_iAJF6r1Phs" />
@@ -2314,60 +1706,28 @@
             <ComponentRef Id="cmpQalyQe7hWVOkseYFEloom6eJaQA" />
             <ComponentRef Id="cmp3MnXldjbSicmXokAGI1q7np7FNc" />
             <ComponentRef Id="cmp_LIyFlnV1DgH6V_YquB4t8x5y7Y" />
-            <ComponentRef Id="cmpiHMTF44UEJ_ldue8jsDfzpWVd9E" />
-            <ComponentRef Id="cmp3_kkyQxHEbclmi3UC3h7YjDwApw" />
-            <ComponentRef Id="cmpI5zLzEy2kZiJoV7n2YxIWt7G9Jg" />
-            <ComponentRef Id="cmps4Rl1WkWD.xOyZXRp47.Zx3CD9s" />
-            <ComponentRef Id="cmpQU22OZIM11S0jZgw8McHkeJKN98" />
-            <ComponentRef Id="cmp49vMrzr2kIX1Mh89BYH39WL0d5c" />
-            <ComponentRef Id="cmpx0r2wXLVzBZRG.lXnB8kD...FKo" />
-            <ComponentRef Id="cmpgkMLHLXxih8RCxov3H8UqjmcCTg" />
-            <ComponentRef Id="cmpz.fhT.yxJVdRzz.vgZqFx4YqBdk" />
-            <ComponentRef Id="cmpqpBsMf6mwKkS.g.UMRMB33cFQec" />
-            <ComponentRef Id="cmp9TEE2CBDO.6r8k_NEic3ltMRY0s" />
-            <ComponentRef Id="cmpQQDXmgZc6Kn6a3C8l5h.WhDJhy8" />
-            <ComponentRef Id="cmpQU4vismR6qohg5XAHccs70Fhd5Q" />
             <ComponentRef Id="cmpVa8SdTCby.II_Ti0gwysp010C.k" />
             <ComponentRef Id="cmpfJryxREk48xGxtJ9xzyIGI6eh9g" />
             <ComponentRef Id="cmpYyybAOZ42bSkbqk5sF3Z377utG4" />
-            <ComponentRef Id="cmpLKz6yrkb_XYL54NCInGQWsAEya4" />
-            <ComponentRef Id="cmppv0LPEpr_dKapsrvJ3lWU19dAKQ" />
             <ComponentRef Id="cmpuSC6.HlVwGs6jqo2qRv6KO4mofM" />
             <ComponentRef Id="cmpNqWQ24Se4tWA0ljru0RDWBLAbR4" />
             <ComponentRef Id="cmpF_sy.9.aTb809lOnfXnWdj8kt80" />
             <ComponentRef Id="cmpty8elWtiR6KqtUB.RedelK7t4KM" />
             <ComponentRef Id="cmpklxw309YLD1Q2QHqoljUf_c2_pE" />
-            <ComponentRef Id="cmpXR9JjIIO7fsglF9WZuSe1zrPC6Y" />
-            <ComponentRef Id="cmp2vqH_XZkr7yaocmyDM8fMD4_JR4" />
             <ComponentRef Id="cmp6Se4HdvDNPDSF2h.SWMekL6vKa0" />
-            <ComponentRef Id="cmpVg.0vfICbwY_WizWWktyiOibuLE" />
             <ComponentRef Id="cmpxMaWCqlf3Og4H9Jt2otCUpdeiJs" />
-            <ComponentRef Id="cmpB2QKZ8s7YiAh4tkp5DFVEtRUYBo" />
             <ComponentRef Id="cmpwAts3RStktmJGP_FyGN5MBAytFY" />
-            <ComponentRef Id="cmp84pJksoKDqIEApD2TWTBhvAhFHc" />
             <ComponentRef Id="cmp7fP2GZD.rU9MPvA.DyfaB1_47qo" />
-            <ComponentRef Id="cmpDne5Si66ptIWl2k5UssLkkojqnQ" />
             <ComponentRef Id="cmpt4gjhedpwGUJeMoa_sUtk0q81UA" />
-            <ComponentRef Id="cmpH_DC3F0L6p0DRxT.R9mo.XZuA1I" />
             <ComponentRef Id="cmp.292jQTANl8dkePZObrcA9KDeek" />
-            <ComponentRef Id="cmpYhevtd531_vETUQWrr4BsiarJ_Q" />
             <ComponentRef Id="cmpV.R3scybqt6I.Yvjs9CwZ9R_WXE" />
             <ComponentRef Id="cmpSDlN3Ro3ZRbvHt2.tCO4r6RXAYA" />
-            <ComponentRef Id="cmp.3q59ndbo4kgScx8KL_AMAFUAgs" />
             <ComponentRef Id="cmpC3Z__I9zlaHTDVeqwSgJumrcpk8" />
-            <ComponentRef Id="cmp2Yw_myE73F3C7hBApEFJI7K0KsI" />
             <ComponentRef Id="cmpZSruARkQ_w3ixxssga6SdV4xM3g" />
-            <ComponentRef Id="cmpF3gcLD5FzszhbxIMUd7.qqrD9F8" />
-            <ComponentRef Id="cmpNE9mHcW7POG1xhT0TIvO_PM6FDc" />
             <ComponentRef Id="cmpBcM48UZ1Z85A6Hj4bZIQFX1D3hk" />
-            <ComponentRef Id="cmpt5ckqfQyKKBO45AVrxRxd88TGt4" />
             <ComponentRef Id="cmpUjIii7Pnm62mF4Tspgh0elsItxo" />
             <ComponentRef Id="cmpNJMQAxvIiGFPcTmavPePDKmiRrk" />
-            <ComponentRef Id="cmpBa3MKYiJGHH.evLtoCfWF4Yl4n4" />
-            <ComponentRef Id="cmpuCL2EC7ONvzvG37Yvv1gHyuvGrI" />
-            <ComponentRef Id="cmp19L2BVmYB85pfd4KzhIB9ZLsw0Y" />
             <ComponentRef Id="cmpg6xbTXF.cnZl2HC7f.uy6cPlT1o" />
-            <ComponentRef Id="cmpIbOGu1VXRLPhi3sstg94k7iH9vQ" />
             <ComponentRef Id="cmpu4BEzD6SA6YDmN1VfcJHMzcHbg8" />
             <ComponentRef Id="cmprWcKEssCxepm6_FEsQK80rGIFMk" />
             <ComponentRef Id="cmpDpE_NzgXR0K_.1iHCdlHGku73Tw" />
@@ -2395,7 +1755,6 @@
             <ComponentRef Id="cmp.JV2PbyBbGb6M1fnR_k2CInfmPQ" />
             <ComponentRef Id="cmpHEVI6zOGYUsPcbxW348mOgB6Nyc" />
             <ComponentRef Id="cmpdTG3244wqJ6rv7ir8HdDbffpVhM" />
-            <ComponentRef Id="cmp0LTR38pLnhOi7ndIPsREWmqe5Ag" />
             <ComponentRef Id="cmpqzCzuk9ce.lRvD8mSamrslrMO04" />
             <ComponentRef Id="cmpJyMzTTcesizNIxI7zIhcb2bJTGg" />
             <ComponentRef Id="cmp1XS4FkNkzPoD0.nbcocmScl3dQ8" />
@@ -2594,26 +1953,10 @@
             <ComponentRef Id="cmpa1T5yF7PyUkQ.6G9f_zUaSUgj2E" />
             <ComponentRef Id="cmpZoh4wH5IVUU32EDHv58aPUozBNg" />
             <ComponentRef Id="cmpwDvcAAGOE07i8FPd4vWvBBljW4g" />
-            <ComponentRef Id="cmp5ZBnoAKVnCGPEbjLZw6h.6isF3w" />
-            <ComponentRef Id="cmpd8_WOeAaddT1t.RVV2Uu7UNPfqQ" />
             <ComponentRef Id="cmp7FnzVpO5ruDgS7yVKHOVVii7s8Q" />
             <ComponentRef Id="cmptbpdIDXdSVYLIW2_HfNIZ4K_rvc" />
             <ComponentRef Id="cmpHLDzFABwU6kFu1px1smFFgmyM2U" />
-            <ComponentRef Id="cmpWXlNj5COCcCImd1w7TBu56QxIOk" />
             <ComponentRef Id="cmpBGJ6nb_Il4m88tm3O.M_uuQ6B2c" />
-            <ComponentRef Id="cmpbgSC20g4YYjfU0esuQz0YMFp_vI" />
-            <ComponentRef Id="cmp7KvlfbmRT7IeaCnfXf6wms0SzaQ" />
-            <ComponentRef Id="cmp621Xmb.sbmWpq_2pVisqIN6PZyY" />
-            <ComponentRef Id="cmpddK7VcWib2SytC0RVTW0t9DMVtM" />
-            <ComponentRef Id="cmp1aSOqUxDBJnoOK9LfGveGLn247g" />
-            <ComponentRef Id="cmp4Eygu3fL3FLDxcGRNFwkBJARAJU" />
-            <ComponentRef Id="cmpEC_KKEurdL.Ps1aU2lHdqb43dhQ" />
-            <ComponentRef Id="cmpjJVgdHA1r0bo5Cf7J.a0slmboN8" />
-            <ComponentRef Id="cmpBSHznj2wsQif_kMHLzDFCeL7Tiw" />
-            <ComponentRef Id="cmpPamEjo5AMp6ZmJH9st992CSo87Q" />
-            <ComponentRef Id="cmprV5OW9fVVKDiWkXhEMMeTY_1nUQ" />
-            <ComponentRef Id="cmpWV9ikHtw.T6xUF8DuGyclB30rRg" />
-            <ComponentRef Id="cmp_17VmG_T5za4FcJGg6cBcWIWNJQ" />
             <ComponentRef Id="cmpICPOsxZbk6ISVKniSXUeqva.hlw" />
             <ComponentRef Id="cmpFHVH1fG3cvfa7Tcf9Y4I8Tkds8M" />
             <ComponentRef Id="cmpejsy1BMrs5eJy55YOi8e5J_8EQQ" />
@@ -2631,12 +1974,6 @@
             <ComponentRef Id="cmpm9UCuBv0YR6kP.fMo.x5MhF7baU" />
             <ComponentRef Id="cmpdGWq8ht7QDHEhXMB1eGJs8JzneA" />
             <ComponentRef Id="cmpvQ4TduhC2g3hTLAQS_23IKgkoR8" />
-            <ComponentRef Id="cmpqiANWSlLvwoFrrn0CBl8d7C8R7E" />
-            <ComponentRef Id="cmpBdWukX69cPRUceJsao56MSAlSXw" />
-            <ComponentRef Id="cmpkXZ1RODATFiAD6IeWSRHpRovaQU" />
-            <ComponentRef Id="cmpupjrN50H788_Y.KuNXu9PFVjASM" />
-            <ComponentRef Id="cmpW6s9l7TZaFZht0xH0zc9qqBQMSA" />
-            <ComponentRef Id="cmpTjiWYcoJ5.DLJ5Rf4vhpFfGcRek" />
             <ComponentRef Id="cmpvV1_Xvjhtj33rMecWlLjBy0GLzQ" />
             <ComponentRef Id="cmpZEd2BbrxGb0uOHP4ICDXS6WE1Lw" />
             <ComponentRef Id="cmpin34i_lKpteHaVrM0Jo3ORqQYqs" />
@@ -2655,14 +1992,6 @@
             <ComponentRef Id="cmpRWWD6MnJP4cousZGEmDlZMpkk1Q" />
             <ComponentRef Id="cmpZyEQq.wb5622czECtEGrdJoqdn0" />
             <ComponentRef Id="cmpqCD3zJgX5a_h8xju6p_.fcmFMZA" />
-            <ComponentRef Id="cmpXlWx9nZdaLif9k.g1lf2EMVQ3aA" />
-            <ComponentRef Id="cmpjhsmr979aXzXLluHbsokPaNDo.k" />
-            <ComponentRef Id="cmpR2AtIptFzFERnllO.Klya0xgdss" />
-            <ComponentRef Id="cmp0xTLHFjH5IQtxFYapQIkw0ukEwc" />
-            <ComponentRef Id="cmpSlGRWYucniO1x7PyGtDEoZ2wIQg" />
-            <ComponentRef Id="cmpj_1cVGSn9Htljt7hf1KyWhPANdI" />
-            <ComponentRef Id="cmp6v5ic7Ab58u54Hn6J0KuiIlTEQ8" />
-            <ComponentRef Id="cmpP5a0YiqWnZTZzVkgN8sqA..Khwk" />
             <ComponentRef Id="cmprgrWvSbQgwXNlT64dNNNQPQ.3cw" />
             <ComponentRef Id="cmpA7A5MWwJhYFfeOlYguVsLuTolZM" />
             <ComponentRef Id="cmpomphiFavm0mR0xtdcR1ooiDTObo" />
@@ -2680,18 +2009,6 @@
             <ComponentRef Id="cmpyw9UuFxvNZK9alofmmzvBfpbb9I" />
             <ComponentRef Id="cmpwW_ZJZovxHu83Wzijv5BVlcil2Y" />
             <ComponentRef Id="cmpcFnJlaF8GfPl37BdIteOOZ44Z8c" />
-            <ComponentRef Id="cmpaJkXcYAjpbc5ISoSis_zNZd_NnU" />
-            <ComponentRef Id="cmplgU0PwIytwYuA7ttSrYZp2GzWRg" />
-            <ComponentRef Id="cmpvYjDKNZw4gFhkT5QmA.3eqdTEcw" />
-            <ComponentRef Id="cmpi1DeVBgSnKJ73jnVPS3x6ZhzCxg" />
-            <ComponentRef Id="cmp779EdHkxCTV.VQFi0HqhGEN_Klk" />
-            <ComponentRef Id="cmpo8bvdDZrrObokhD5zc2FRyX5WRM" />
-            <ComponentRef Id="cmp0dTd6gRzacU1kLHgv2Thfio.CWc" />
-            <ComponentRef Id="cmp0at0slykkFJqyli5AlRySk6Xt2s" />
-            <ComponentRef Id="cmppUeg9jw82Ldo871MwKjnjoSRoew" />
-            <ComponentRef Id="cmpFKlJo0uUG0iAKhAaWUhC.MP9zvM" />
-            <ComponentRef Id="cmpWX2wcgXcXlEq1O5qKLzlRqYI_ts" />
-            <ComponentRef Id="cmp6.588Wq_GnE9xvDaf3jKzvd.ZoM" />
             <ComponentRef Id="cmpCNmjyKHjdyL7A4Twp_WVubsfH0g" />
             <ComponentRef Id="cmp7fjz2I9wDbp6YYXCOLYXNeV5KVQ" />
             <ComponentRef Id="cmpPUjovcYmdG..7c1.I55etp0P3J4" />
@@ -2709,24 +2026,6 @@
             <ComponentRef Id="cmpkdkfuvaBNGqdt78KDU5KZ_xoQdE" />
             <ComponentRef Id="cmpY21p88SBVrmAAJLaIazuAhUEcQY" />
             <ComponentRef Id="cmpOvScWPEYUB74Se5dj6_ylK6_la8" />
-            <ComponentRef Id="cmpviqXCw3wmGI8tymxd8vGK30_2B8" />
-            <ComponentRef Id="cmpGmNZTEfZqUAzYD8pTzVbtlJ0Xzg" />
-            <ComponentRef Id="cmp0F6nmlUPCo6_dwp_HhAQeXsC.mA" />
-            <ComponentRef Id="cmp3d6EKJKJ7KXVTmR.VVnuTv._3Rw" />
-            <ComponentRef Id="cmp16iyDaum260Nk6Vogif3ayAot20" />
-            <ComponentRef Id="cmp40lfOttDoZsXb_r_7AnABS6cATI" />
-            <ComponentRef Id="cmp6tGazCcy7V1OEHqfZj9lVD88_a4" />
-            <ComponentRef Id="cmp8XxXfDsjnZ6sUZjrPArFkM4RPJ8" />
-            <ComponentRef Id="cmpglHVhiBEPRfjR8Y0fUJ96ua0N3g" />
-            <ComponentRef Id="cmpislGTP33FCZjbdQ3AP6_r8HCoho" />
-            <ComponentRef Id="cmpozlNL24Qpa5WUZ5DBgKzC3RGLd0" />
-            <ComponentRef Id="cmpjANPJ.BlgcQnBp_I6NywIowAcKY" />
-            <ComponentRef Id="cmp1P0adLVXA4cSTs2iaHyFQBa_lJw" />
-            <ComponentRef Id="cmp7A2BbcgAjbXgmRnHWVOnGUr_8og" />
-            <ComponentRef Id="cmpxIMh1YbrEWJGcSEV0l6YXhvOE7U" />
-            <ComponentRef Id="cmpHzcHwmAgBtIhWCcwHDdNm4MtzXc" />
-            <ComponentRef Id="cmpDfcChEf_UDeIOT5Xr2Ivadub0yU" />
-            <ComponentRef Id="cmpl83QQ6aGER33vTWaWGJL2kTvm6o" />
             <ComponentRef Id="cmpOWrweLDYVc5s9huMB5k9cMQySY4" />
             <ComponentRef Id="cmpPgauDvrLAERE1WNa1rap5Leltys" />
             <ComponentRef Id="cmpvqUvMX6j94daA9MRXTi58pypJfQ" />
@@ -2744,8 +2043,6 @@
             <ComponentRef Id="cmpYHuJJ5OQQi_k0ur4bApzN6DVEX0" />
             <ComponentRef Id="cmpxOj7NJCZdzgpwyBlBQTXOdc5cCE" />
             <ComponentRef Id="cmpa4CCw9Qc0d136Y25YjEWjCHYvMA" />
-            <ComponentRef Id="cmpM82aInUQtUA9EjcK7eFvS41nfpc" />
-            <ComponentRef Id="cmpyQVxCwWF4WCvILrkXV2OuEdpdCU" />
             <ComponentRef Id="cmpbnnOnc_uD7REg0Ys7nWvx5CToFI" />
             <ComponentRef Id="cmpMUcTTH6vH7Zq8uTSw08sQ_ACNLI" />
             <ComponentRef Id="cmpGyYuxSXPjyyUZgKKd.IEPR87J0k" />
@@ -2763,12 +2060,6 @@
             <ComponentRef Id="cmpcLl7rrm_Jpq4firqZgXEIMnpWNs" />
             <ComponentRef Id="cmp6A2UvxS_THfC4CeEQpmgfztCBJs" />
             <ComponentRef Id="cmp0MNzPFl0POotfnUwHXKhbyRaHcY" />
-            <ComponentRef Id="cmpg5bdGlAO1KDX_Nt.AI0JwM.TZkY" />
-            <ComponentRef Id="cmpCj3aCs7otVhut7MNpKi2KPO.5ac" />
-            <ComponentRef Id="cmpMIC3g7P6evZYj4ylmU7wuNOQbHg" />
-            <ComponentRef Id="cmpsj.QzQe9XmB6DP6Nr102vTRO1kE" />
-            <ComponentRef Id="cmpGzBg9qdrQh7fA_4KqYfK6iimJF0" />
-            <ComponentRef Id="cmpVGRE3bsDaUJKHtID5z996vjcX_Q" />
             <ComponentRef Id="cmprrTuBnoSLtTx3MSj5g_k2c9Bjd0" />
             <ComponentRef Id="cmpquY8LkyF.rCImveEu9.O5Rk.zfs" />
             <ComponentRef Id="cmp0keU9f5A4yakOxdb5EARvMkmzF0" />
@@ -2786,21 +2077,6 @@
             <ComponentRef Id="cmpR_lgzdmtxXrLZwSeciUw8oZ1ze0" />
             <ComponentRef Id="cmpxMy.9F38yZ4abRiaIxs0dB2flgk" />
             <ComponentRef Id="cmpMnzdU.eFB.BIepYBpqgIAA.gBjw" />
-            <ComponentRef Id="cmpSTaeaHn5oiciRYxb9SHHLmD10to" />
-            <ComponentRef Id="cmpqm1mre8LKX98zI4Aj0iM4n45_Rg" />
-            <ComponentRef Id="cmpA9Qeoj9aeP4vsOzkjcYXahFBRXc" />
-            <ComponentRef Id="cmpzc5woifimSxZJxx1JZnhjOYJH24" />
-            <ComponentRef Id="cmpgBkNjFC02OoS2hRFY3e7PvdjNbc" />
-            <ComponentRef Id="cmpMRoQM9Tb3.lva71hbGrRysr9Lis" />
-            <ComponentRef Id="cmpXZ_WbtSwwdGV58ycfpXTcH1vNpk" />
-            <ComponentRef Id="cmpEURS3756nzctPDd6wuRRRX4sloE" />
-            <ComponentRef Id="cmpGcJ1Pop9EWCnfIQNDbL80O_jJbY" />
-            <ComponentRef Id="cmp6x5znOH2talTqtwgnMlA2AzfrMw" />
-            <ComponentRef Id="cmpuG.J6sRRdOKJxzbbr7CpiWwwcMw" />
-            <ComponentRef Id="cmpSmdrLYj8hdi82QRpgP.wTviUulA" />
-            <ComponentRef Id="cmpFlg4hKlum9n7gS9Od7fQZy.jQIk" />
-            <ComponentRef Id="cmpuRTXZt_u.Ez8PHnqNEk07.sro5c" />
-            <ComponentRef Id="cmpiYQrF9nOn0RWRqVto96w2PNhh7M" />
             <ComponentRef Id="cmp8Vxcd.wpSm5xl9Bmm0wklh9ncvs" />
             <ComponentRef Id="cmphgtxBKtuD3nKCLetRPvenLjrmZw" />
             <ComponentRef Id="cmpKEUe4mv8LiLPI_T9QspTOgmVOQE" />
@@ -2818,10 +2094,6 @@
             <ComponentRef Id="cmpfHxZqG7.qqHz1OJ5xqURTGxn1qI" />
             <ComponentRef Id="cmpcY8JuR88.uuwIh6VJUG2R2Owwzo" />
             <ComponentRef Id="cmpLyT1iVBqI7dm.XHAdPZRfUIP2ek" />
-            <ComponentRef Id="cmpi7_CDJo.SCe.uc3JC.bv8VSxDC8" />
-            <ComponentRef Id="cmpG7vprAZw1WxOBXK2rmw.w7I3Vdw" />
-            <ComponentRef Id="cmpZCbkVGNcyXq9J58t_4N6mjWbaEA" />
-            <ComponentRef Id="cmp1lU1Za4FCRvZtpdJmtaYXdlFvVo" />
             <ComponentRef Id="cmpUAMyrSEW_eAq1KHg4f_zHByozCw" />
             <ComponentRef Id="cmpWigYVx34ti.z0OOwZhTqfa14Vro" />
             <ComponentRef Id="cmpRETQG53WnuAokLlhHm_SMbB_T6Y" />
@@ -2839,10 +2111,6 @@
             <ComponentRef Id="cmpcu62nqymRpC1VpPP2wWIsilmTKA" />
             <ComponentRef Id="cmplS1LRnm.e2.rilgWcM3YOv0Csr8" />
             <ComponentRef Id="cmppigFUyefmRluI8PxgbvorEXsnUs" />
-            <ComponentRef Id="cmpUAlm_jirSR5HeJOg2Q7H4vrhjAE" />
-            <ComponentRef Id="cmpJ_uZxn6k9gEl8MvYPgKiLeHpzjM" />
-            <ComponentRef Id="cmp52aZwjpuhqiNSUT4NSDCZaUNmPM" />
-            <ComponentRef Id="cmp9GpAmqjX5_Nb5ph.6CudlJYDygk" />
             <ComponentRef Id="cmpa.6IhVp_gF7cpMRXeR4eflEEakg" />
             <ComponentRef Id="cmpVVEY7m.AWmS7y7ND9wRBOz_uEFU" />
             <ComponentRef Id="cmpEUgb0hNKXowzeOVeDCldDXL4m54" />
@@ -2860,22 +2128,6 @@
             <ComponentRef Id="cmp_w0_S0MFiswPw2sqRCGgV9m.vms" />
             <ComponentRef Id="cmpW7LE57m1zW80CSvcOId2lhxnsbs" />
             <ComponentRef Id="cmphaEQj3nA9_1_yylePQLCd3GuAkw" />
-            <ComponentRef Id="cmpxdGuD4iu9K5J1SfVe5UBa66..fI" />
-            <ComponentRef Id="cmp6m9VyyJ32xBXU0mAyJGZ.SS9k84" />
-            <ComponentRef Id="cmpZmHg5sVpcMRTHxUq68ZO7URmmZc" />
-            <ComponentRef Id="cmpOzBl3ZZd8dNIkhl5_Jz4ykOzh_k" />
-            <ComponentRef Id="cmpIMmVQiLKoyhGAtyJSNKSG_ruFxQ" />
-            <ComponentRef Id="cmpmQ0eF1ils4SW48nLN4TWneI5pTI" />
-            <ComponentRef Id="cmpa7wLVdq3pHfweDfGbQ2zvcNG3mM" />
-            <ComponentRef Id="cmpB6dmj1kZLCVFL.IFNimsbxmRAus" />
-            <ComponentRef Id="cmpgGZJaUPh45nGaC1etmSPo.BA1eY" />
-            <ComponentRef Id="cmpgqlKu22sohdQogN0IBgbHretmJk" />
-            <ComponentRef Id="cmpHi0Bh2WKNqLi5nm7BU.5h5j.sGo" />
-            <ComponentRef Id="cmp9rWVLQbZkWGdGFAEiTQ6pghPYvI" />
-            <ComponentRef Id="cmp1r7adZfkOYEc1TQARrDFYPYDXwQ" />
-            <ComponentRef Id="cmpYq.4GNfsusOYmml3ovfXrQqgsng" />
-            <ComponentRef Id="cmpfOw04GEL1TSV4CwtAnz9I0h72c0" />
-            <ComponentRef Id="cmp4xoXY6eOie676R2qZyUdEMxQEuU" />
             <ComponentRef Id="cmpJ2XSUNSsXNLvPb3NfHM_sPbH.Wo" />
             <ComponentRef Id="cmp3TOJDx5A9LI3TTcuZmnTNpQ83cY" />
             <ComponentRef Id="cmp5C_cl7teduW08yWm7w4_x3oIZK4" />
@@ -2893,14 +2145,6 @@
             <ComponentRef Id="cmpDfvbp_tz6vNz03gKFpDJyMuWrSc" />
             <ComponentRef Id="cmpv1ZP7mMBfH2xv.T.v4PSvHLrLw4" />
             <ComponentRef Id="cmpb2rgL1EN6X32i8o8WEph3GJCw.s" />
-            <ComponentRef Id="cmpDaN_S5CcnwfEDTNxbUfa_8683OI" />
-            <ComponentRef Id="cmpLXYttSOSPSnoSPWwkh4Q33YJ6jU" />
-            <ComponentRef Id="cmpxyiyWIO_K3XXKEiPzrTStW_ryAo" />
-            <ComponentRef Id="cmpWSZnWoJuyla22SYCMpJ.og7lql8" />
-            <ComponentRef Id="cmpfM.A2CHRgnuf6wVnHIPwOQvR0IQ" />
-            <ComponentRef Id="cmphhPxG7KmKDdz81j54Z7XFDmtc68" />
-            <ComponentRef Id="cmpV3PWZwqsevEOxHbI8mEZLfNnNzI" />
-            <ComponentRef Id="cmpJ5wBXjgWvFhROgxygSN2LwLc3tA" />
             <ComponentRef Id="cmp4JQCG5I_qE.w1G2vLTviROv6i4s" />
             <ComponentRef Id="cmpu7TuWNigCukItKQSnnP8T_D57sQ" />
             <ComponentRef Id="cmpMN8S1NIpZJNhzdoHEJM925WY71E" />
@@ -2935,8 +2179,6 @@
             <ComponentRef Id="cmpfCXeYVIVH_WMzdyicWwoKwFwLmo" />
             <ComponentRef Id="cmpI_4wFzACmwpD3VHf7osV0yfxJtI" />
             <ComponentRef Id="cmpniMPbvT9uJPGnIrVogbGFqkzhrU" />
-            <ComponentRef Id="cmpc4U1TDBRUj12uqlk04IzeNM42X0" />
-            <ComponentRef Id="cmptMDxGjD4BPNd1IKXBHwJc3oAv6I" />
         </ComponentGroup>
     </Fragment>
 </Wix>

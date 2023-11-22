@@ -95,7 +95,8 @@
     <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\win-integration -r win-x64 --self-contained true" Timeout="60000" />
     
     <Message Importance="High" Text="--- UI Application --- " />
-    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -r win-x64 -p:Platform=x64 --self-contained true" Timeout="60000" />
+<!--    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -r win-x64 -p:Platform=x64 &#45;&#45;self-contained true" Timeout="60000" />-->
+    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -p:RuntimeIdentifierOverride=win10-x64" Timeout="60000" />
     
     <Message Importance="High" Text="--- APK --&gt; wwwroot --- " />
     <Move SourceFiles="@(ApkToMove)" DestinationFolder="$(AndroidApkDestination)">

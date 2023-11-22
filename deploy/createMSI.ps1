@@ -41,3 +41,5 @@ $buildArgs = $buildArgs.trimstart(" ")
 
 Write-Host "dotnet build `"$installerProject`" -c Release -o `"$installerOutput`" -p:SolutionDir=`"$solutionDir`" -p:ApkSource=`"$apkDirectory`" $buildArgs" -ForegroundColor Green
 &dotnet build "$installerProject" -c Release -o "$installerOutput" -p:SolutionDir=$solutionDir -p:ApkSource=$apkDirectory $buildArgs
+
+Write-Host "Script complete." -ForegroundColor Green
