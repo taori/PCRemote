@@ -52,18 +52,11 @@ public partial class MonitorsViewModel : ReloadablePageViewModel, INavigationCal
 		if (!monitors.Success)
 			return;
 
-		var vmItems = monitors.Value.Select(d => new BrightnessItem()
-		{
-			Value = d.Current,
-			Name = d.Name,
-			Min = d.Min,
-			Max = d.Max,
-			Id = d.Id,
-		}).ToArray();
+		var vmItems = monitors.Value.Select(d => new BrightnessItem(d.Id, d.Name, d.Current, d.Min, d.Max, null)).ToArray();
 
 		foreach (var item in vmItems)
 		{
-			item.UpdateCommand = new RelayCommand(() => SaveBrightness(item));
+			item.UpdateCommand = new RelayCommand(async() => await SaveBrightness(item));
 		}
 		
 		BrightnessItems = new ObservableCollection<BrightnessItem>(vmItems);
@@ -82,6 +75,16 @@ public partial class MonitorsViewModel : ReloadablePageViewModel, INavigationCal
 
 public partial class BrightnessItem : ObservableObject
 {
+	public BrightnessItem(string id, string name, int value, int min, int max, ICommand? updateCommand)
+	{
+		_id = id;
+		_name = name;
+		_value = value;
+		_min = min;
+		_max = max;
+		_updateCommand = updateCommand;
+	}
+
 	[ObservableProperty]
 	private string _id;
 
@@ -98,5 +101,5 @@ public partial class BrightnessItem : ObservableObject
 	private int _max;
 
 	[ObservableProperty]
-	private ICommand _updateCommand;
+	private ICommand? _updateCommand;
 }

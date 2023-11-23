@@ -6,6 +6,10 @@
       ArtifactsPathWeb=$(SolutionDir)..\artifacts\msi\web\;
       ArtifactsPathWinInt=$(SolutionDir)..\artifacts\msi\win-integration\;
       ArtifactsPathUIWindows=$(SolutionDir)..\artifacts\msi\ui-windows\;
+      ProductVersion=3.0.0;
+      ProductName=PC Remote 3;
+      ServiceName=PCR3;
+      ServiceDescription=!(loc.ServiceDescription);
     </DefineConstants>
     <SuppressIces>ICE80</SuppressIces>
   </PropertyGroup>
