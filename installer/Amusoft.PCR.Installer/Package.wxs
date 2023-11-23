@@ -28,13 +28,13 @@
 
 		<WixVariable Id="WixUICostingPopupOptOut" Value="0" />
 		<WixVariable Id="WixUILicenseRtf" Value="Resources\EULA.rtf" />
-		<WixVariable Id="WixUIDialogBmp" Value="Launcher.ico" />
-		<WixVariable Id="WixUIExclamationIco" Value="Resources\Launcher.ico" />
-		<WixVariable Id="WixUIInfoIco" Value="Resources\Launcher.ico" />
+<!--		<WixVariable Id="WixUIDialogBmp" Value="..\..\Resources\Launcher.ico" />-->
+		<WixVariable Id="WixUIExclamationIco" Value="..\..\Resources\Launcher.ico" />
+		<WixVariable Id="WixUIInfoIco" Value="..\..\Resources\Launcher.ico" />
 		<WixVariable Id="WixUIBannerBmp" Value="Resources\Banner.bmp" />
 		
 		<!-- icon in add/remove program-->
-		<Icon Id='ProductIcon' SourceFile='Resources\Launcher.ico' />
+		<Icon Id='ProductIcon' SourceFile='..\..\Resources\Launcher.ico' />
 		<Property Id='ARPPRODUCTICON' Value='ProductIcon' />
 		
 		<!-- see https://github.com/wixtoolset/wix/blob/develop/src/ext/UI/test/WixToolsetTest.UI/TestData/InstallDir_SpecialDlg/Package.wxs -->

@@ -15,10 +15,10 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <XRunHeat Condition="'$(XRunHeat)'==''">false</XRunHeat>
-    <XRunPublish Condition="'$(XRunPublish)'==''">false</XRunPublish>
-    <XPublishConfiguration Condition="'$(XPublishConfiguration)'==''">Release</XPublishConfiguration>
-    <ApkSource Condition="'$(ApkSource)'!=''">undefined</ApkSource>
+    <XRunHeat Condition="'$(XRunHeat)' == ''">false</XRunHeat>
+    <XRunPublish Condition="'$(XRunPublish)' == ''">false</XRunPublish>
+    <XPublishConfiguration Condition="'$(XPublishConfiguration)' == ''">Release</XPublishConfiguration>
+    <ApkSource Condition="'$(ApkSource)' != ''">undefined</ApkSource>
     <AndroidApkDestination>$(SolutionDir)..\artifacts\msi\web\wwwroot</AndroidApkDestination>
     <UserSecretsId>fff9ecb8-0258-4f9f-8333-3da6f78ab9ce</UserSecretsId>    
   </PropertyGroup>
@@ -26,7 +26,7 @@
   <ItemGroup>
     <ApkToMove Include="$(ApkSource)\*.apk" />
     <Content Include="Resources\EULA.rtf" />
-    <Content Include="Resources\Launcher.ico" />
+    <Content Include="..\..\Resources\Launcher.ico" />
     <Content Include="Resources\Banner.bmp" />
   </ItemGroup>
   

@@ -23,7 +23,25 @@
 			</Component>
 
 			<Component Guid="*" Id="SERVER_EXE_COMPONENT">
-				<File Source="$(var.ArtifactsPathWeb)Amusoft.PCR.App.Service.exe" Name="Amusoft.PCR.App.Service.exe" Vital="yes" KeyPath="yes" Id="SERVER_EXE"/>
+				<File Source="$(var.ArtifactsPathWeb)Amusoft.PCR.App.Service.exe" Name="Amusoft.PCR.App.Service.exe" Vital="yes" KeyPath="yes" Id="SERVER_EXE">
+
+					<fire:FirewallException
+							Name='Amusoft PC Remote 3 Command Server' Description='Amusoft PC Remote 3 Command Server used to delegate commands to the windows agent'
+							Id='BackendServerFirewall'
+							Protocol='tcp'
+							Profile='all'
+							Scope='localSubnet'
+							IgnoreFailure='no'/>
+
+					<fire:FirewallException
+							Name='Amusoft PC Remote 3 Client Discovery' Description='Amusoft PC Remote 3 Client Discovery used for clients to discover the command server'
+							Id='FirewallClientDiscovery'
+							Protocol='udp'
+							Profile='all'
+							Scope='localSubnet'
+							IgnoreFailure='no'/>					
+				</File>
+
 				
 				<ServiceInstall Name='$(var.ServiceName)'
 								Type='ownProcess'
@@ -34,26 +52,6 @@
 								Description="$(var.ServiceDescription)"
 								Vital="yes" ErrorControl="critical">
 					
-<!--					<fire:FirewallException-->
-<!--							Name='Amusoft PC Remote 3 Command Server' Description='Amusoft PC Remote 3 Command Server used to delegate commands to the windows agent'-->
-<!--							Id='BackendServerFirewall' -->
-<!--							OnUpdate="EnableOnly"-->
-<!--							Port='[CUSTOM_PORT_COMMANDSERVER]'-->
-<!--							Protocol='tcp'-->
-<!--							Profile='all'-->
-<!--							Scope='localSubnet'-->
-<!--							IgnoreFailure='no'/>-->
-
-<!--					<fire:FirewallException-->
-<!--							Name='Amusoft PC Remote 3 Client Discovery' Description='Amusoft PC Remote 3 Client Discovery used for clients to discover the command server'-->
-<!--							Id='FirewallClientDiscovery' -->
-<!--							OnUpdate="EnableOnly"-->
-<!--							Port='[CUSTOM_PORT_DISCOVERY]'-->
-<!--							Protocol='udp'-->
-<!--							Profile='all'-->
-<!--							Scope='localSubnet'-->
-<!--							IgnoreFailure='no'/>-->
-
 					<util:ServiceConfig
 							FirstFailureActionType="restart"
 							SecondFailureActionType="restart"
