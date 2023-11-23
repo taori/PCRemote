@@ -49,7 +49,7 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 				await TryLaunchIntegrationAsync();
 				await Task.Delay(2000, stoppingToken);
 
-				var suicideConfirm = await _desktopClient.SuicideOnProcessExit(Process.GetCurrentProcess().Id);
+				var suicideConfirm = await _desktopClient.SuicideOnProcessExit(Environment.ProcessId);
 				if (suicideConfirm != true)
 				{
 					_logger.LogWarning("Integration process is unable to terminate itself, because it failed to confirm parentship.");
