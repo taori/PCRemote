@@ -8,7 +8,7 @@
 		<ComponentGroup Id="LogComponents" Directory="LOGSFOLDER">
 			<Component NeverOverwrite="yes" Permanent="yes" Guid="DC8047E6-C8B5-4EBB-8210-CA3B258D8512" Id="LOG_PERMISSION">
 				<CreateFolder>
-					<util:PermissionEx User="Users" GenericAll="yes" />
+					<util:PermissionEx User="Users" GenericRead="yes" GenericWrite="yes" />
 				</CreateFolder>				
 			</Component>
 		</ComponentGroup>
@@ -26,7 +26,7 @@
 				<File Source="$(var.ArtifactsPathWeb)Amusoft.PCR.App.Service.exe" Name="Amusoft.PCR.App.Service.exe" Vital="yes" KeyPath="yes" Id="SERVER_EXE">
 
 					<fire:FirewallException
-							Name='Amusoft PC Remote 3 Command Server' Description='Amusoft PC Remote 3 Command Server used to delegate commands to the windows agent'
+							Name='Amusoft PC Remote 3 Command Server' Description='!(loc.FwExServer)'
 							Id='BackendServerFirewall'
 							Protocol='tcp'
 							Profile='all'
@@ -34,7 +34,7 @@
 							IgnoreFailure='no'/>
 
 					<fire:FirewallException
-							Name='Amusoft PC Remote 3 Client Discovery' Description='Amusoft PC Remote 3 Client Discovery used for clients to discover the command server'
+							Name='Amusoft PC Remote 3 Client Discovery' Description='!(loc.FwExDiscovery)'
 							Id='FirewallClientDiscovery'
 							Protocol='udp'
 							Profile='all'
@@ -58,28 +58,28 @@
 							ThirdFailureActionType="none"
 							ResetPeriodInDays="1"
 							ServiceName="$(var.ServiceName)"
-							RebootMessage="PC Remote 3 requires a reboot"
+							RebootMessage="!(loc.ServiceConfigReboot)"
 							RestartServiceDelayInSeconds="180"
 					/>
 				</ServiceInstall>
 
-				<!-- <ServiceControl Id="PCR2.Control.Start" -->
-				<!--                 Name="$(var.ServiceName)" -->
-				<!--                 Start="install" -->
-				<!--                 Wait="yes" /> -->
-				<!-- <ServiceControl Id="PCR2.Control.Stop" -->
-				<!--                 Name="$(var.ServiceName)" -->
-				<!--                 Stop="uninstall" -->
-				<!--                 Remove="uninstall" -->
-				<!--                 Wait="yes" /> -->
+				 <ServiceControl Id="PCR3.Control.Start" 
+				                 Name="$(var.ServiceName)" 
+				                 Start="install" 
+				                 Wait="yes" /> 
+				 <ServiceControl Id="PCR3.Control.Stop" 
+				                 Name="$(var.ServiceName)" 
+				                 Stop="uninstall" 
+				                 Remove="uninstall" 
+				                 Wait="yes" /> 
 
 				<!-- https://stackoverflow.com/questions/20956595/wix-installer-verify-that-you-have-sufficient-privileges-to-start-system-servic -->
-				<ServiceControl Id="PCR3.Control.Stop"
-								Name="$(var.ServiceName)"
-								Start="install"
-								Stop="both"
-								Remove="both"
-								Wait="yes" />
+<!--				<ServiceControl Id="PCR3.Control.Stop"-->
+<!--								Name="$(var.ServiceName)"-->
+<!--								Start="install"-->
+<!--								Stop="both"-->
+<!--								Remove="both"-->
+<!--								Wait="yes" />-->
 			</Component>
 		</ComponentGroup>
 	</Fragment>
