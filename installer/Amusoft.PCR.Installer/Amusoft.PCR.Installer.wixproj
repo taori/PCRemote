@@ -15,8 +15,8 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <XRunHeat Condition="'$(XRunHeat)'==''">true</XRunHeat>
-    <XRunPublish Condition="'$(XRunPublish)'==''">true</XRunPublish>
+    <XRunHeat Condition="'$(XRunHeat)'==''">false</XRunHeat>
+    <XRunPublish Condition="'$(XRunPublish)'==''">false</XRunPublish>
     <XPublishConfiguration Condition="'$(XPublishConfiguration)'==''">Release</XPublishConfiguration>
     <ApkSource Condition="'$(ApkSource)'!=''">undefined</ApkSource>
     <AndroidApkDestination>$(SolutionDir)..\artifacts\msi\web\wwwroot</AndroidApkDestination>
@@ -32,6 +32,7 @@
   
   <ItemGroup>
     <PackageReference Include="WixToolset.Heat" Version="4.0.3" />
+    <PackageReference Include="WixToolset.Firewall.wixext" Version="4.0.3" />
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
     <PackageReference Include="WixToolset.Util.wixext" Version="4.0.3" />
   </ItemGroup>
@@ -74,21 +75,21 @@
                    ComponentGroupName="WinAgentComponentsGenerated" 
                    DirectoryRefId="WINAGENTFOLDER" />
     
-    <HeatDirectory SuppressAllWarnings="False" TreatWarningsAsErrors="True" VerboseOutput="$(HarvestDirectoryVerboseOutput)" 
-                   AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)" 
-                   SuppressFragments="True" SuppressUniqueIds="False" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True" 
-                   KeepEmptyDirectories="True" 
-                   Directory="$(SolutionDir)..\artifacts\msi\ui-windows\" 
-                   OutputFile="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.WinUI.Harvested.wxs" 
-                   Transforms="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.WinUI.Harvested.xslt" 
-                   PreprocessorVariable="var.ArtifactsPathUIWindows" 
-                   ComponentGroupName="WinUIComponentsGenerated" 
-                   DirectoryRefId="WINUIFOLDER" />
+<!--    <HeatDirectory SuppressAllWarnings="False" TreatWarningsAsErrors="True" VerboseOutput="$(HarvestDirectoryVerboseOutput)" -->
+<!--                   AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)" -->
+<!--                   SuppressFragments="True" SuppressUniqueIds="False" SuppressCom="False" SuppressRootDirectory="True" SuppressRegistry="True" -->
+<!--                   KeepEmptyDirectories="True" -->
+<!--                   Directory="$(SolutionDir)..\artifacts\msi\ui-windows\" -->
+<!--                   OutputFile="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.WinUI.Harvested.wxs" -->
+<!--                   Transforms="$(SolutionDir)..\installer\Amusoft.PCR.Installer\Module.WinUI.Harvested.xslt" -->
+<!--                   PreprocessorVariable="var.ArtifactsPathUIWindows" -->
+<!--                   ComponentGroupName="WinUIComponentsGenerated" -->
+<!--                   DirectoryRefId="WINUIFOLDER" />-->
   </Target>
   
   <Target Name="XRunPublish" BeforeTargets="XRunHeat" Condition="'$(XRunPublish)'=='true'">
     
-    <Error Condition="!Exists('$(ApkSource)')" Text="$(ApkSource) does not exist" />
+    <Error Condition="!Exists('$(ApkSource)')" Text="ApkSource property does not exist" />
     
     <Message Importance="High" Text="--- Creating publish artifacts ---" />
     
@@ -98,9 +99,9 @@
     <Message Importance="High" Text="--- Windows Agent --- " />
     <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\win-integration -r win-x64 --self-contained true" Timeout="60000" />
     
-    <Message Importance="High" Text="--- UI Application --- " />
+<!--    <Message Importance="High" Text="-&#45;&#45; UI Application -&#45;&#45; " />-->
 <!--    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -r win-x64 -p:Platform=x64 &#45;&#45;self-contained true" Timeout="60000" />-->
-    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -p:RuntimeIdentifierOverride=win10-x64" Timeout="60000" />
+<!--    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -p:RuntimeIdentifierOverride=win10-x64" Timeout="60000" />-->
     
     <Message Importance="High" Text="--- APK --&gt; wwwroot --- " />
     <Move SourceFiles="@(ApkToMove)" DestinationFolder="$(AndroidApkDestination)">

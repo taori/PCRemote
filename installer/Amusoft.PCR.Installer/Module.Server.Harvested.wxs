@@ -1087,9 +1087,6 @@
                 </Component>
             </Directory>
             <Directory Id="dirS6Q94bdQnovnfNDFSwaciB_g1vs" Name="wwwroot">
-                <Component Id="cmpgDH6IAhiUPjHn6WNHHEWeSsJmHM" Guid="*">
-                    <File Id="filYgISVMq5oQqbladMs2u7BVwJ4Dc" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\wwwroot\app.apk" />
-                </Component>
                 <Component Id="cmpM4K4nkunwnDDJxHcnqDoU225kt0" Guid="*">
                     <File Id="filCcudlBHIc5OYxiug_N5nzsIULKs" KeyPath="yes" Source="$(var.ArtifactsPathWeb)\wwwroot\downloadtest.txt" />
                 </Component>
@@ -1459,7 +1456,6 @@
             <ComponentRef Id="cmpmqGAxTSjgX3gmgo8x2thDDWoeQA" />
             <ComponentRef Id="cmpRmpTRU0Z5_3Dp.lUVjBWknp3DdM" />
             <ComponentRef Id="cmp3tLdyVTNqN3sVGyGWuObZHWQPO4" />
-            <ComponentRef Id="cmpgDH6IAhiUPjHn6WNHHEWeSsJmHM" />
             <ComponentRef Id="cmpM4K4nkunwnDDJxHcnqDoU225kt0" />
         </ComponentGroup>
     </Fragment>

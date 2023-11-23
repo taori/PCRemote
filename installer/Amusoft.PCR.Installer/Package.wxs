@@ -1,7 +1,7 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
 	 xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
-	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
-	 xmlns:firewall="http://wixtoolset.org/schemas/v4/wxs/firewall">
+	 xmlns:firewall="http://wixtoolset.org/schemas/v4/wxs/firewall"
+	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
 		
 	<Package Name="$(var.ProductName)"
 			 Manufacturer="Amusoft"
@@ -14,14 +14,16 @@
 		<MediaTemplate EmbedCab="yes" />
 
 		<Feature Id="Main" Title="$(var.ProductName)" Level="1">
+			<ComponentGroupRef Id="LogComponents" />
+			
 			<ComponentGroupRef Id="WebComponents" />
 			<ComponentGroupRef Id="WebComponentsGenerated" />
 			
 			<ComponentGroupRef Id="WinAgentComponents" />
 			<ComponentGroupRef Id="WinAgentComponentsGenerated" />
 			
-			<ComponentGroupRef Id="WinUIComponents" />
-			<ComponentGroupRef Id="WinUIComponentsGenerated" />
+<!--			<ComponentGroupRef Id="WinUIComponents" />-->
+<!--			<ComponentGroupRef Id="WinUIComponentsGenerated" />-->
 		</Feature>
 
 		<WixVariable Id="WixUICostingPopupOptOut" Value="0" />
@@ -31,14 +33,12 @@
 		<WixVariable Id="WixUIInfoIco" Value="Resources\Launcher.ico" />
 		<WixVariable Id="WixUIBannerBmp" Value="Resources\Banner.bmp" />
 		
+		<!-- icon in add/remove program-->
+		<Icon Id='ProductIcon' SourceFile='Resources\Launcher.ico' />
+		<Property Id='ARPPRODUCTICON' Value='ProductIcon' />
+		
 		<!-- see https://github.com/wixtoolset/wix/blob/develop/src/ext/UI/test/WixToolsetTest.UI/TestData/InstallDir_SpecialDlg/Package.wxs -->
 		<ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
 	</Package>
-
-	<Fragment>
-		<Component Guid="*" Id="SERVER_NLOG_COMPONENT" Directory="WEBFOLDER">
-			<File Source="$(var.ArtifactsPathWeb)Amusoft.PCR.App.Service.exe" Name="Amusoft.PCR.App.Service.exe" Vital="yes" KeyPath="yes" Id="SERVER_EXE"/>
-		</Component>
-	</Fragment>
 	
 </Wix>
