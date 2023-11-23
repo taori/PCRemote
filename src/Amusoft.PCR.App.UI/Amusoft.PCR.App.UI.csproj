@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!-- <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework> -->
+<!--		 <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework> -->
+<!--		 <TargetFramework>net8.0-android</TargetFramework> -->
 		<TargetFrameworks>$(XDotnetVersion)-windows10.0.19041.0;$(XDotnetVersion)-android</TargetFrameworks>
 		<!-- <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks> -->
 		<!-- <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks> -->
@@ -11,7 +12,7 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<MauiVersion>8.0.3</MauiVersion>
+		<!-- <MauiVersion>8.0.3</MauiVersion> -->
 
 		<!-- Display name -->
 		<ApplicationTitle>PC Remote 3</ApplicationTitle>
@@ -33,8 +34,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<!-- <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" /> -->
+		<!-- <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" /> -->
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
 		<PackageReference Include="Grpc.Net.Client.Web" Version="2.59.0" />
 		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.58.0" />
@@ -49,14 +50,14 @@
 		<ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
 	</ItemGroup>
 
-<!--	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">-->
-<!--        <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>-->
-<!--        <PackageCertificateThumbprint>B10980A171BA749E3694019CEA2C125194126519</PackageCertificateThumbprint>-->
-<!--	</PropertyGroup>-->
-<!--	-->
-<!--	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(RuntimeIdentifierOverride)' != ''">-->
-<!--		<RuntimeIdentifier>$(RuntimeIdentifierOverride)</RuntimeIdentifier>-->
-<!--	</PropertyGroup>-->
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">
+        <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+        <PackageCertificateThumbprint>B10980A171BA749E3694019CEA2C125194126519</PackageCertificateThumbprint>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(RuntimeIdentifierOverride)' != ''">
+		<RuntimeIdentifier>$(RuntimeIdentifierOverride)</RuntimeIdentifier>
+	</PropertyGroup>
 	
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
 		<AndroidLinkMode>None</AndroidLinkMode>
