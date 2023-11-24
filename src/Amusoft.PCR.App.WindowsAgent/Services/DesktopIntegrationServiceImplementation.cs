@@ -24,6 +24,11 @@ public class DesktopIntegrationServiceImplementation : DesktopIntegrationService
 		_monitorManager = new NativeMonitorManager();
 	}
 
+	public override Task<DefaultResponse> Ping(DefaultRequest request, ServerCallContext context)
+	{
+		return Task.FromResult(new DefaultResponse() { Success = true });
+	}
+
 	public override Task<GetMonitorBrightnessResponse> GetMonitorBrightness(GetMonitorBrightnessRequest request, ServerCallContext context)
 	{
 		var response = new GetMonitorBrightnessResponse();

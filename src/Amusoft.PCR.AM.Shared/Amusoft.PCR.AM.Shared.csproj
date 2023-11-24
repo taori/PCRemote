@@ -21,4 +21,8 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Amusoft.PCR.Domain\Amusoft.PCR.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

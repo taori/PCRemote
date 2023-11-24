@@ -8,6 +8,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj" />
+    <ProjectReference Include="..\Amusoft.PCR.Application\Amusoft.PCR.Application.csproj" />
+    <ProjectReference Include="..\Amusoft.PCR.Domain\Amusoft.PCR.Domain.csproj" />
+    <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
