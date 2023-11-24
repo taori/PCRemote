@@ -8,7 +8,9 @@ param (
     [Parameter(HelpMessage="Whether or not to skip the APK Build")]
     [string]$SkipAPK = $false,
     [Parameter(HelpMessage="Whether or not to open explorer afterwards")]
-    [string]$OpenExplorer = $false
+    [string]$OpenExplorer = $false,
+    [Parameter(HelpMessage="Whether or not to open explorer afterwards")]
+    [string]$ProductVersion = "3.0.0"
 )
 
 Import-Module ".\functions.psm1"
@@ -40,8 +42,18 @@ if($SkipHarvesting -eq $false){
     $runHeat = "true"
 }
 
-Write-Host "dotnet build `"$installerProject`" -c Release -o `"$installerOutput`" -p:SolutionDir=`"$solutionDir`" -p:ApkSource=`"$apkDirectory`" -p:XRunPublish=$runPublish -p:XRunHeat=$runHeat" -ForegroundColor Green
-&dotnet build "$installerProject" -c Release -o "$installerOutput" -p:SolutionDir=$solutionDir -p:ApkSource=$apkDirectory -p:XRunPublish=`"$runPublish`" -p:XRunHeat=`"$runHeat`"
+$buildCode = "dotnet build `"$installerProject`" -c Release -o `"$installerOutput`" -p:SolutionDir=`"$solutionDir`" -p:ApkSource=`"$apkDirectory`" -p:XRunPublish=$runPublish -p:XRunHeat=$runHeat -p:XProductVersion=$ProductVersion"
+Write-Host $buildCode -ForegroundColor Green
+Invoke-Expression $buildCode -ErrorAction Stop
+#&dotnet build "$installerProject" -c Release -o "$installerOutput" -p:SolutionDir=$solutionDir -p:ApkSource=$apkDirectory -p:XRunPublish=`"$runPublish`" -p:XRunHeat=`"$runHeat`"
+
+Get-ChildItem -Path $installerOutput -Recurse -Filter "*Installer.msi" `
+    | %{
+        $o = $_.FullName
+        $n = "$($_.DirectoryName)\PCRemote $ProductVersion.msi"
+        Write-Host "$o -> $n"
+        Move-Item $o $n -Force 
+    }   
 
 if($OpenExplorer -eq $true){
     Get-ChildItem -Path $installerOutput -Recurse -Filter "*.msi" `

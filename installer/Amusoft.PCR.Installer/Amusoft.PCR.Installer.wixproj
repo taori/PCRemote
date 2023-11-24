@@ -3,10 +3,11 @@
     <VerboseOutput>False</VerboseOutput>
     <ProductComponentsRef>true</ProductComponentsRef>
     <DefineConstants>
+      $(DefineConstants);
       ArtifactsPathWeb=$(SolutionDir)..\artifacts\msi\web\;
       ArtifactsPathWinInt=$(SolutionDir)..\artifacts\msi\win-integration\;
       ArtifactsPathUIWindows=$(SolutionDir)..\artifacts\msi\ui-windows\;
-      ProductVersion=3.0.0;
+      ProductVersion=$(XProductVersion);
       ProductName=PC Remote 3;
       ServiceName=PCR3;
       ServiceDescription=!(loc.ServiceDescription);
@@ -15,6 +16,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
+    <XProductVersion Condition="'$(XProductVersion)' == ''">3.0.0</XProductVersion>
     <XRunHeat Condition="'$(XRunHeat)' == ''">false</XRunHeat>
     <XRunPublish Condition="'$(XRunPublish)' == ''">false</XRunPublish>
     <XPublishConfiguration Condition="'$(XPublishConfiguration)' == ''">Release</XPublishConfiguration>
