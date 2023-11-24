@@ -1,0 +1,87 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+	 xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
+	 xmlns:fire="http://wixtoolset.org/schemas/v4/wxs/firewall">
+
+<!--	<?include Module.Server.Harvested.wxi ?>-->
+
+	<Fragment>
+		<ComponentGroup Id="LogComponents" Directory="LOGSFOLDER">
+			<Component NeverOverwrite="yes" Permanent="yes" Guid="DC8047E6-C8B5-4EBB-8210-CA3B258D8512" Id="LOG_PERMISSION">
+				<CreateFolder>
+					<util:PermissionEx User="Users" GenericRead="yes" GenericWrite="yes" />
+				</CreateFolder>				
+			</Component>
+		</ComponentGroup>
+		
+		<ComponentGroup Id="WebComponents" Directory="WEBFOLDER" >
+			<Component NeverOverwrite="yes" Permanent="yes" Guid="*" Id="SERVER_APPSETTINGS_COMPONENT">
+				<File Source="$(var.ArtifactsPathWeb)appsettings.json" Name="appsettings.json" KeyPath="yes" Id="SERVER_APPSETTINGS"/>				
+			</Component>
+			
+			<Component NeverOverwrite="yes" Permanent="yes" Guid="*" Id="SERVER_NLOG_COMPONENT">
+				<File Source="$(var.ArtifactsPathWeb)nlog.config" Name="nlog.config" KeyPath="yes" Id="SERVER_NLOG"/>
+			</Component>
+
+			<Component Guid="*" Id="SERVER_EXE_COMPONENT">
+				<File Source="$(var.ArtifactsPathWeb)Amusoft.PCR.App.Service.exe" Name="Amusoft.PCR.App.Service.exe" Vital="yes" KeyPath="yes" Id="SERVER_EXE">
+
+					<fire:FirewallException
+							Name='Amusoft PC Remote 3 Command Server' Description='!(loc.FwExServer)'
+							Id='BackendServerFirewall'
+							Protocol='tcp'
+							Profile='all'
+							Scope='localSubnet'
+							IgnoreFailure='no'/>
+
+					<fire:FirewallException
+							Name='Amusoft PC Remote 3 Client Discovery' Description='!(loc.FwExDiscovery)'
+							Id='FirewallClientDiscovery'
+							Protocol='udp'
+							Profile='all'
+							Scope='localSubnet'
+							IgnoreFailure='no'/>					
+				</File>
+
+				
+				<ServiceInstall Name='$(var.ServiceName)'
+								Type='ownProcess'
+								Start='auto'
+								DisplayName="Amusoft PC Remote 3"
+								Account="LocalSystem"
+								Id="PCR3.Install"
+								Description="$(var.ServiceDescription)"
+								Vital="yes" ErrorControl="critical">
+					
+					<util:ServiceConfig
+							FirstFailureActionType="restart"
+							SecondFailureActionType="restart"
+							ThirdFailureActionType="none"
+							ResetPeriodInDays="1"
+							ServiceName="$(var.ServiceName)"
+							RebootMessage="!(loc.ServiceConfigReboot)"
+							RestartServiceDelayInSeconds="180"
+					/>
+				</ServiceInstall>
+
+				 <ServiceControl Id="PCR3.Control.Start" 
+				                 Name="$(var.ServiceName)" 
+				                 Start="install" 
+				                 Wait="yes" /> 
+				 <ServiceControl Id="PCR3.Control.Stop" 
+				                 Name="$(var.ServiceName)" 
+				                 Stop="uninstall" 
+				                 Remove="uninstall" 
+				                 Wait="yes" /> 
+
+				<!-- https://stackoverflow.com/questions/20956595/wix-installer-verify-that-you-have-sufficient-privileges-to-start-system-servic -->
+<!--				<ServiceControl Id="PCR3.Control.Stop"-->
+<!--								Name="$(var.ServiceName)"-->
+<!--								Start="install"-->
+<!--								Stop="both"-->
+<!--								Remove="both"-->
+<!--								Wait="yes" />-->
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+</Wix>

@@ -1,14 +1,8 @@
-﻿using Amusoft.PCR.Application.Resources;
-using Amusoft.PCR.Application.Services;
+﻿using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using System.Xml;
-using Amusoft.PCR.Application.Extensions;
-using Amusoft.PCR.Domain.Common;
-using Amusoft.PCR.Int.IPC;
-using System.Diagnostics;
+using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
@@ -51,7 +45,7 @@ public partial class ProgramsViewModel : PageViewModel
 	[RelayCommand]
 	private Task GotoKillPrograms()
 	{
-		return GotoKillProgramList(Navigator, _host, Translations.Programs_KillProgram, () => LoadProcessKillItems(Navigator, _host));
+		return GotoKillProgramList(Navigator, _host, AM.Shared.Resources.Translations.Programs_KillProgram, () => LoadProcessKillItems(Navigator, _host));
 	}
 
 	private static Task GotoKillProgramList(ITypedNavigator navigator, HostViewModel host, string title, Func<Task<ICollection<NavigationItem>>> source)
@@ -146,6 +140,6 @@ public partial class ProgramsViewModel : PageViewModel
 
 	protected override string GetDefaultPageTitle()
 	{
-		return Translations.Nav_Programs;
+		return AM.Shared.Resources.Translations.Nav_Programs;
 	}
 }

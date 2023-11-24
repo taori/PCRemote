@@ -104,9 +104,9 @@ public class IntegrationApplicationLocator : IIntegrationApplicationLocator
 		// D:\GitHub\taori\PCRemote\src\Amusoft.PCR.App.Service\bin\Debug\net7.0\Amusoft.PCR.Application.dll
 		var location = Assembly.GetExecutingAssembly().Location;
 		var basePath = new Uri(location, UriKind.Absolute);
-		var relativeRoute = new Uri("../../../../Amusoft.PCR.Int.Agent.Windows/bin/", UriKind.Relative);
+		var relativeRoute = new Uri("../../../../Amusoft.PCR.App.WindowsAgent/bin/", UriKind.Relative);
 		var searchRoot = new Uri(basePath, relativeRoute).LocalPath;
-		var fileMatches = Directory.GetFiles(searchRoot, "Amusoft.PCR.Int.Agent.Windows.exe", SearchOption.AllDirectories);
+		var fileMatches = Directory.GetFiles(searchRoot, "Amusoft.PCR.App.WindowsAgent.exe", SearchOption.AllDirectories);
 		if (fileMatches.FirstOrDefault(d => d.Contains("bin\\Debug", StringComparison.OrdinalIgnoreCase)) is { } match)
 			return match;
 

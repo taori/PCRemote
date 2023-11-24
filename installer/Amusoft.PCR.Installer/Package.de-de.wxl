@@ -1,8 +1,9 @@
-﻿<!--
-This file contains the declaration of all the localizable strings.
--->
-<WixLocalization xmlns="http://wixtoolset.org/schemas/v4/wxl" Culture="de-DE">
+﻿<WixLocalization xmlns="http://wixtoolset.org/schemas/v4/wxl" Culture="de-DE">
 
-  <String Id="DowngradeError" Value="Eine neuere Version von [ProductName] ist bereits installiert." />
+	<String Id="DowngradeError" Value="Eine neuere Version von [ProductName] ist bereits installiert." />
+	<String Id="ServiceDescription" Value="Backend Service der benötigt wird um per Remote mit diesem PC interagieren zu können" />
+	<String Id="FwExServer" Value="Amusoft PC Remote 3 Command Server der verwendet wird um Kommandos an den Agenten weiterzuleiten" />
+	<String Id="FwExDiscovery" Value="Amusoft PC Remote 3 Client Discovery wird benutzt um Klienten für Endgeräte finden zu können" />
+	<String Id="ServiceConfigReboot" Value="PC Remote 3 benötigt einen Neustart" />
 
 </WixLocalization>

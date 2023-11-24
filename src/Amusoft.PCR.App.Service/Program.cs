@@ -1,7 +1,10 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using Amusoft.PCR.AM.Service.Extensions;
+using Amusoft.PCR.App.Service.HealthChecks;
 using Amusoft.PCR.App.Service.Services;
 using Amusoft.PCR.Application;
+using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Domain.AgentSettings;
@@ -78,9 +81,12 @@ public class Program
 		host.UseAuthentication();
 		host.UseAuthorization();
 
+		host.MapHealthChecks("/health");
+
 		host.MapGrpcService<PingService>();
 		host.MapGrpcService<VoiceRecognitionService>();
 		host.MapGrpcService<DesktopIntegrationService>();
+
 		
 #if DEBUG
 		host.MapGet("/download/test", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().GetTestFile().ExecuteAsync(context));
@@ -91,6 +97,8 @@ public class Program
 
 		host.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
+		host.MapRazorPages();
+		
 		if (host.Environment.IsDevelopment())
 		{
 			logger.LogWarning("GRPC Reflection service is enabled");
@@ -106,9 +114,13 @@ public class Program
 		builder.Services.Configure<ApplicationSettings>(builder.Configuration.GetSection("ApplicationSettings"));
 
 		// Add services to the container.
+		builder.Services.AddHealthChecks()
+			.AddCheck<AgentConnectivityCheck>(nameof(AgentConnectivityCheck));
+		
 		builder.Services.AddLogging();
 		builder.Services.AddGrpc();
 		builder.Services.AddGrpcReflection();
+		builder.Services.AddRazorPages();
 
 		builder.Services.AddAuthentication();
 		builder.Services.AddAuthorization();
@@ -126,6 +138,7 @@ public class Program
 		builder.Services.AddSingleton<IDesktopClientMethods, DesktopServiceClientWrapper>();
 		builder.Services.AddSingleton<NamedPipeChannel>(d => new NamedPipeChannel(".", Globals.NamedPipeChannel));
 
+		builder.Services.AddApplicationModel();
 		builder.Services.AddApplication();
 	}
 

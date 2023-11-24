@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using Amusoft.PCR.Application.Extensions;
-using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Domain.Services;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
 namespace Amusoft.PCR.Application.UI.VM;
 
@@ -32,17 +32,17 @@ public partial class InputControlViewModel : PageViewModel
 	{
 		return Navigator.OpenCommandButtonList(model =>
 		{
-			model.Title = Translations.InputControl_ControlOptions;
+			model.Title = AM.Shared.Resources.Translations.InputControl_ControlOptions;
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
 			{
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_Windows,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_Windows,
 					Command = ControlOptionsWindowsCommand
 				},
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_VideoBrowser,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_VideoBrowser,
 					Command = ControlOptionsBrowserVideoPlayerCommand
 				},
 			});
@@ -63,17 +63,17 @@ public partial class InputControlViewModel : PageViewModel
 			{
 				new()
 				{
-					Text = Translations.Clipboard_LoadFromHost,
+					Text = AM.Shared.Resources.Translations.Clipboard_LoadFromHost,
 					Command = RunGetClipboardCommand
 				},
 				new()
 				{
-					Text = Translations.Clipboard_UpdateHost,
+					Text = AM.Shared.Resources.Translations.Clipboard_UpdateHost,
 					Command = RunSetClipboardCommand
 				},
 				new()
 				{
-					Text = Translations.Clipboard_TellCurrent,
+					Text = AM.Shared.Resources.Translations.Clipboard_TellCurrent,
 					Command = RunTellClipboardCommand
 				},
 			});
@@ -91,7 +91,7 @@ public partial class InputControlViewModel : PageViewModel
 			if (content is { } c)
 			{
 				await _agentEnvironment.UpdateClipboardAsync(c);
-				await _toast.Make(Translations.InputControl_ClientUpdatedMessage).Show();
+				await _toast.Make(AM.Shared.Resources.Translations.InputControl_ClientUpdatedMessage).Show();
 			}
 		}
 	}
@@ -105,7 +105,7 @@ public partial class InputControlViewModel : PageViewModel
 		{
 			var success = await updateTask;
 			if (success == true)
-				await _toast.Make(Translations.InputControl_HostUpdatedMessage).Show();
+				await _toast.Make(AM.Shared.Resources.Translations.InputControl_HostUpdatedMessage).Show();
 		}
 	}
 
@@ -122,52 +122,52 @@ public partial class InputControlViewModel : PageViewModel
 	{
 		return Navigator.OpenCommandButtonList(model =>
 		{
-			model.Title = Translations.InputControl_ControlOptions_Windows;
+			model.Title = AM.Shared.Resources.Translations.InputControl_ControlOptions_Windows;
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
 			{
 				new()
 				{
-					Text = Translations.InputControl_Windows_PickAudioSource,
+					Text = AM.Shared.Resources.Translations.InputControl_Windows_PickAudioSource,
 					Command = new AsyncRelayCommand(() => RunSendKeys("^{ESC}v"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_Up,
+					Text = AM.Shared.Resources.Translations.InputControl_Up,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{UP}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_Down,
+					Text = AM.Shared.Resources.Translations.InputControl_Down,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{DOWN}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_Left,
+					Text = AM.Shared.Resources.Translations.InputControl_Left,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{LEFT}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_Right,
+					Text = AM.Shared.Resources.Translations.InputControl_Right,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{RIGHT}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_Space,
+					Text = AM.Shared.Resources.Translations.InputControl_Space,
 					Command = new AsyncRelayCommand(() => RunSendKeys(" "))
 				},
 				new()
 				{
-					Text = Translations.InputControl_Enter,
+					Text = AM.Shared.Resources.Translations.InputControl_Enter,
 					Command = new AsyncRelayCommand(() => RunSendKeys("~"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_Escape,
+					Text = AM.Shared.Resources.Translations.InputControl_Escape,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{ESC}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_MouseControl,
+					Text = AM.Shared.Resources.Translations.InputControl_MouseControl,
 					Command = mouseControlCommand
 				},
 			});
@@ -179,52 +179,52 @@ public partial class InputControlViewModel : PageViewModel
 	{
 		return Navigator.OpenCommandButtonList(model =>
 		{
-			model.Title = Translations.InputControl_ControlOptions_VideoBrowser;
+			model.Title = AM.Shared.Resources.Translations.InputControl_ControlOptions_VideoBrowser;
 			model.Items = new ObservableCollection<NavigationItem>(new NavigationItem[]
 			{
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_VideoBrowser_PlayToggle,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_VideoBrowser_PlayToggle,
 					Command = new AsyncRelayCommand(() => RunSendKeys(" "))
 				},
 				new()
 				{
-					Text = Translations.InputControl_Escape,
+					Text = AM.Shared.Resources.Translations.InputControl_Escape,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{ESC}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_Fullscreen,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_Fullscreen,
 					Command = new AsyncRelayCommand(() => RunSendKeys("f"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_Forward,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_Forward,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{RIGHT}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_Reverse,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_Reverse,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{LEFT}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_VolumeUp,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_VolumeUp,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{UP}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_VolumeDown,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_VolumeDown,
 					Command = new AsyncRelayCommand(() => RunSendKeys("{DOWN}"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_ControlOptions_VideoBrowser_MuteToggle,
+					Text = AM.Shared.Resources.Translations.InputControl_ControlOptions_VideoBrowser_MuteToggle,
 					Command = new AsyncRelayCommand(() => RunSendKeys("m"))
 				},
 				new()
 				{
-					Text = Translations.InputControl_MouseControl,
+					Text = AM.Shared.Resources.Translations.InputControl_MouseControl,
 					Command = mouseControlCommand
 				},
 			});

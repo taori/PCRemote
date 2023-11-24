@@ -1,9 +1,15 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
-    <StandardDirectory Id="ProgramFiles6432Folder">
+	  
+	<!--    https://web.archive.org/web/20221129170321/https://wixtoolset.org/docs/v3/bundle/bundle_built_in_variables/ -->
+	  
+    <StandardDirectory Id="ProgramFiles64Folder">
 		<Directory Id="INSTALLFOLDER" Name="Amusoft">
 			<Directory Id="PRODUCTFOLDER" Name="PC Remote">
+				<Directory Id="LOGSFOLDER" Name="logs"/>
 				<Directory Id="WEBFOLDER" Name="web"/>
+				<Directory Id="WINAGENTFOLDER" Name="win-integration"/>
+				<Directory Id="WINUIFOLDER" Name="ui-windows"/>
 			</Directory>
 		</Directory>
     </StandardDirectory>

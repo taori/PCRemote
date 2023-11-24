@@ -6,6 +6,7 @@ option csharp_namespace = "Amusoft.PCR.Int.IPC";
 package Amusoft.PCR.Int.IPC;
 
 service DesktopIntegrationService {
+	rpc Ping(DefaultRequest) returns (DefaultResponse) {}
 	rpc SetMonitorBrightness(SetMonitorBrightnessRequest) returns (DefaultResponse) {}
 	rpc GetMonitorBrightness(GetMonitorBrightnessRequest) returns (GetMonitorBrightnessResponse) {}
 	rpc Login(LoginRequest) returns (LoginResponse) {}

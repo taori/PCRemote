@@ -1,14 +1,79 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-
-	<?define ProductVersion = "3.0.0" ?>
-
-	<Package Name="Amusoft.PCR.Installer" Manufacturer="Amusoft" Version="$(var.ProductVersion)" UpgradeCode="de4ddeff-2caf-4c46-b9ff-52a37586069a">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+	 xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
+	 xmlns:firewall="http://wixtoolset.org/schemas/v4/wxs/firewall"
+	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+		
+	<Package Name="$(var.ProductName)"
+			 Manufacturer="Amusoft"
+			 Language="1033"
+			 Version="$(var.ProductVersion)" 
+			 UpgradeCode="de4ddeff-2caf-4c46-b9ff-52a37586069a">
 		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+		
+		<!-- disable *.cab files-->
+		<MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="Main">
-			<!-- <ComponentGroupRef Id="ExampleComponents" /> -->
+		<Feature Id="Main" Title="$(var.ProductName)" Level="1">
+			<ComponentGroupRef Id="LogComponents" />
+			
+			<ComponentGroupRef Id="WebComponents" />
 			<ComponentGroupRef Id="WebComponentsGenerated" />
+			
+			<ComponentGroupRef Id="WinAgentComponents" />
+			<ComponentGroupRef Id="WinAgentComponentsGenerated" />
+			
+<!--			<ComponentGroupRef Id="WinUIComponents" />-->
+<!--			<ComponentGroupRef Id="WinUIComponentsGenerated" />-->
 		</Feature>
+
+		<WixVariable Id="WixUICostingPopupOptOut" Value="0" />
+		<WixVariable Id="WixUILicenseRtf" Value="Resources\EULA.rtf" />
+<!--		<WixVariable Id="WixUIDialogBmp" Value="..\..\Resources\Launcher.ico" />-->
+		<WixVariable Id="WixUIExclamationIco" Value="..\..\Resources\Launcher.ico" />
+		<WixVariable Id="WixUIInfoIco" Value="..\..\Resources\Launcher.ico" />
+		<WixVariable Id="WixUIBannerBmp" Value="Resources\Banner.bmp" />
+		
+		<WixVariable Id="WixUISupportPerUser" Value="0" Overridable="yes" />
+		<WixVariable Id="WixUISupportPerMachine" Value="1" Overridable="yes" />
+		
+		<!-- icon in add/remove program-->
+		<Icon Id='ProductIcon' SourceFile='..\..\Resources\Launcher.ico' />
+		<Property Id='ARPPRODUCTICON' Value='ProductIcon' />
+
+		<SetProperty Id="_INSTALL"   After="FindRelatedProducts" Value="1" Condition="NOT Installed AND NOT UPGRADINGPRODUCTCODE"/>
+		<SetProperty Id="_UNINSTALL" After="FindRelatedProducts" Value="1" Condition="NOT UPGRADINGPRODUCTCODE AND REMOVE=&quot;ALL&quot;"/>
+		<SetProperty Id="_CHANGE"    After="FindRelatedProducts" Value="1" Condition="Installed&lt;&gt;&quot;&quot; AND REINSTALL=&quot;&quot; AND UPGRADINGPRODUCTCODE&lt;&gt;&quot;&quot; AND REMOVE=&quot;&quot;"/>
+		<SetProperty Id="_REPAIR"    After="FindRelatedProducts" Value="1" Condition="REINSTALL&lt;&gt;&quot;&quot;"/>
+		<SetProperty Id="_UPGRADE"   After="FindRelatedProducts" Value="1" Condition="WIX_UPGRADE_DETECTED&lt;&gt;&quot;&quot; OR UPGRADINGPRODUCTCODE&lt;&gt;&quot;&quot;"/>
+		
+		<!-- see https://github.com/wixtoolset/wix/blob/develop/src/ext/UI/test/WixToolsetTest.UI/TestData/InstallDir_SpecialDlg/Package.wxs -->
+<!--		<ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />-->
+		<ui:WixUI Id="InstallDir_Custom" InstallDirectory="INSTALLFOLDER" />
 	</Package>
 
+	<Fragment>
+		<Binary Id='CustomBinary' SourceFile='$(var.Amusoft.PCR.Installer.Custom.TargetDir)$(var.Amusoft.PCR.Installer.Custom.TargetName).CA.dll'/>
+		
+		<CustomAction Id='VerifyConfigurationAction' DllEntry='VerifyConfigurationAction' Execute='immediate' Return='check'
+					  BinaryRef='CustomBinary' />
+		<CustomAction Id='PrintEulaAction' DllEntry='PrintEulaAction' Execute='immediate' Return='check'
+					  BinaryRef='CustomBinary' />
+
+		<CustomAction Id='UpdateAppSettingsAction_SetProperties'
+					  Property='UpdateAppSettingsAction'
+					  Value='ServerPort=[CUSTOM_PORT_SERVER];DiscoveryPort=[CUSTOM_PORT_DISCOVERY];WebApplicationDirectory=[WEBFOLDER];IsUpgrade=[_UPGRADE];IsUninstall=[_UNINSTALL];IsChange=[_CHANGE];IsRepair=[_REPAIR];IsInstall=[_INSTALL];'/>
+		<CustomAction Id='UpdateAppSettingsAction' DllEntry='UpdateAppSettings' Execute='deferred' Impersonate='no' Return='check'
+					  BinaryRef='CustomBinary' />
+		
+		<CustomAction Id="LaunchBrowserInstall" Directory="WEBFOLDER" Execute="immediate" Impersonate="yes" Return="asyncNoWait"
+					  ExeCommand="explorer.exe http://localhost:[CUSTOM_PORT_SERVER]/GettingStarted" />
+
+<!--		https://learn.microsoft.com/de-de/windows/win32/msi/suggested-installexecutesequence?redirectedfrom=MSDN-->
+		<InstallExecuteSequence>
+			<Custom Action='UpdateAppSettingsAction_SetProperties' Before='UpdateAppSettingsAction'/>
+			<Custom Action='UpdateAppSettingsAction' After="PatchFiles"/>
+			<Custom Action="LaunchBrowserInstall" After="InstallFinalize" Condition="(_INSTALL OR _UPGRADE) AND SHOW_GETTING_STARTED=&quot;1&quot;"/>
+		</InstallExecuteSequence>
+
+	</Fragment>
 </Wix>

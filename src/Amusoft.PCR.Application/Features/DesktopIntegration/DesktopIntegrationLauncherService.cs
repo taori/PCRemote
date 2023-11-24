@@ -2,7 +2,6 @@
 using Amusoft.Toolkit.Impersonation;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using Amusoft.PCR.Application.Services;
 
 namespace Amusoft.PCR.Application.Features.DesktopIntegration;
@@ -50,7 +49,7 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 				await TryLaunchIntegrationAsync();
 				await Task.Delay(2000, stoppingToken);
 
-				var suicideConfirm = await _desktopClient.SuicideOnProcessExit(Process.GetCurrentProcess().Id);
+				var suicideConfirm = await _desktopClient.SuicideOnProcessExit(Environment.ProcessId);
 				if (suicideConfirm != true)
 				{
 					_logger.LogWarning("Integration process is unable to terminate itself, because it failed to confirm parentship.");

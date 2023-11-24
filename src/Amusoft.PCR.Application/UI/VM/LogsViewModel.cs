@@ -2,7 +2,6 @@
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Domain.VM;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Text;
 
 namespace Amusoft.PCR.Application.UI.VM;
 

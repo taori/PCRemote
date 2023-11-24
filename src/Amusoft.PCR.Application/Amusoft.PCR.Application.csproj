@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>$(XDotnetVersion)</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
@@ -18,29 +18,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj" />
 		<ProjectReference Include="..\Amusoft.PCR.Domain\Amusoft.PCR.Domain.csproj" />
 		<ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
 		<ProjectReference Include="..\Amusoft.Toolkit.Impersonation\Amusoft.Toolkit.Impersonation.csproj" />
 		<ProjectReference Include="..\Amusoft.Toolkit.Networking\Amusoft.Toolkit.Networking.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Resources\Translations.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Translations.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Resources\Translations.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Translations.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Extensions\" />
 	</ItemGroup>
 
 </Project>

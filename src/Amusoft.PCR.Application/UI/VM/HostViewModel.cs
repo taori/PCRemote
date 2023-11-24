@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Net;
-using Amusoft.PCR.Application.Extensions;
+﻿using System.Net;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;

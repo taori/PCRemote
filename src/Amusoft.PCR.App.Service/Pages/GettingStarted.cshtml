@@ -1,0 +1,56 @@
+﻿@page "/GettingStarted"
+@model Amusoft.PCR.App.Service.Pages.GettingStarted
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>PC Remote 3</title>
+	<style>
+		body {
+			background-color: #000;
+			color: #fff;
+			font-family: Tahoma;
+		}
+		li {
+			margin-top: 1em;
+			margin-bottom: 1em;
+		}
+		a, a:visited {
+			color: teal;
+		}
+	</style>
+</head>
+<body>
+<Title WindowTitle="Getting started" Headline="Getting started"></Title>
+
+<p>There are 2 ways to control your PC using PC Remote 3:</p>
+<p>
+	<ul>
+		<li>A native app for your phone/tablet available as following:</li>
+		<ol>
+			@foreach (var item in Model.Endpoints.Where(d => d.Running))
+			{
+				<li>Android @@ <a href="@item.Endpoint/download/android">@item.Endpoint/download/android</a></li>
+			}
+		</ol>
+		<li>Using the UI Application shipped with it.</li>
+	</ul>
+</p>
+<p>
+	Your current potential host addresses are:
+	
+	<ul>
+		@foreach (var item in Model.Endpoints)
+		{
+			var color = item.Running ? "#0a0" : "#f00";
+			<li><a href="@item.Endpoint" target="_blank">@item.Endpoint</a>, Can be reached: <span style="color: @color">@(item.Running? "Yes" : "No")</span></li>
+		}
+	</ul>
+</p>
+</body>
+</html>

@@ -11,4 +11,8 @@
     <PackageReference Include="WixToolset.Dtf.CustomAction" Version="4.0.0" />
     <PackageReference Include="WixToolset.Dtf.WindowsInstaller" Version="4.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
 </Project>

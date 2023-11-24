@@ -1,8 +1,8 @@
 ﻿using Amusoft.PCR.Application.Extensions;
-using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using CommunityToolkit.Mvvm.Input;
+using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
 namespace Amusoft.PCR.Application.UI.VM;
 

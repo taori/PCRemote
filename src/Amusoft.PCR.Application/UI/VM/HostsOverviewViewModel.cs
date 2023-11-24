@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
 using System.Text;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.Resources;
 using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Domain.Services;
@@ -18,6 +11,7 @@ using Amusoft.Toolkit.Networking;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
 namespace Amusoft.PCR.Application.UI.VM;
 

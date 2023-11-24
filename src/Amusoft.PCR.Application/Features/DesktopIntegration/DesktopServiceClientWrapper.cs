@@ -1,10 +1,7 @@
 ﻿using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Domain.Common;
 using Amusoft.PCR.Int.IPC;
-using Google.Protobuf.Collections;
-using Grpc.Core;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace Amusoft.PCR.Application.Features.DesktopIntegration;
 

@@ -1,6 +1,4 @@
-﻿using System.Transactions;
-
-namespace Amusoft.PCR.Application.Utility;
+﻿namespace Amusoft.PCR.Application.Utility;
 
 public class NavigationScope : IDisposable
 {

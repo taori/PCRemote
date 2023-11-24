@@ -1,0 +1,5 @@
+<Project>
+    <PropertyGroup>
+        <XDotnetVersion>net7.0</XDotnetVersion>
+    </PropertyGroup>
+</Project>
