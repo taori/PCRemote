@@ -42,7 +42,7 @@ if($SkipHarvesting -eq $false){
     $runHeat = "true"
 }
 
-$buildCode = "dotnet build `"$installerProject`" -c Release -o `"$installerOutput`" -p:SolutionDir=`"$solutionDir`" -p:ApkSource=`"$apkDirectory`" -p:XRunPublish=$runPublish -p:XRunHeat=$runHeat -p:XProductVersion=$ProductVersion"
+$buildCode = "dotnet build `"$installerProject`" -c Release -o `"$installerOutput`" -p:SolutionDir=`"$solutionDir`" -p:ApkSource=`"$apkDirectory`" -p:XRunPublish=$runPublish -p:XRunHeat=$runHeat -p:XProductVersion=$ProductVersion -p:XSelfContainedPublish=false"
 Write-Host $buildCode -ForegroundColor Green
 Invoke-Expression $buildCode -ErrorAction Stop
 #&dotnet build "$installerProject" -c Release -o "$installerOutput" -p:SolutionDir=$solutionDir -p:ApkSource=$apkDirectory -p:XRunPublish=`"$runPublish`" -p:XRunHeat=`"$runHeat`"

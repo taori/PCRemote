@@ -3,7 +3,8 @@ param (
     [string]$SignPassword = $null,
     [Parameter(Mandatory=$true, HelpMessage="Build configuration")]
     [ValidateSet('Release','Debug')]
-    [string]$Configuration = "Release"
+    [string]$Configuration = "Release",
+    [string]$TargetFolder = "D:\tmp\PCR3SA"
 )
 
 # ü
@@ -15,7 +16,7 @@ $apkProject = Get-ResolvedPath "$PSScriptRoot\..\src\Amusoft.PCR.App.UI\Amusoft.
 $webProj = Get-ResolvedPath "$PSScriptRoot\..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj"
 $intWinProj = Get-ResolvedPath "$PSScriptRoot\..\src\Amusoft.PCR.Int.Agent.Windows\Amusoft.PCR.Int.Agent.Windows.csproj"
 
-$artifactsRoot = "D:\tmp\PCR3SA"
+$artifactsRoot = $TargetFolder
 Write-Host "Removing artifacts folder ..."
 Remove-Item -Recurse -Force -Path $artifactsRoot -ErrorAction SilentlyContinue
 Write-Host "done."

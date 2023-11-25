@@ -19,7 +19,7 @@ public class GettingStarted : PageModel
 	
 	public ServerEndpointProvider ServerEndpointProvider { get; set; }
 	
-	public List<ServerEndpointProvider.StatusModel> Endpoints { get; set; }
+	public List<ServerEndpointProvider.StatusModel>? Endpoints { get; set; }
 	
 	public async Task OnGetAsync()
 	{
