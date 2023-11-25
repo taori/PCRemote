@@ -16,6 +16,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
+    <XSelfContainedPublish Condition="'$(XProductVersion)' == ''">true</XSelfContainedPublish>
     <XProductVersion Condition="'$(XProductVersion)' == ''">3.0.0</XProductVersion>
     <XRunHeat Condition="'$(XRunHeat)' == ''">false</XRunHeat>
     <XRunPublish Condition="'$(XRunPublish)' == ''">false</XRunPublish>
@@ -96,10 +97,10 @@
     <Message Importance="High" Text="--- Creating publish artifacts ---" />
     
     <Message Importance="High" Text="--- Service --- " />
-    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\web -r win-x64 --self-contained true" Timeout="60000" />
+    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\web -r win-x64 --self-contained $(XSelfContainedPublish)" Timeout="60000" />
     
     <Message Importance="High" Text="--- Windows Agent --- " />
-    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\win-integration -r win-x64 --self-contained true" Timeout="60000" />
+    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\win-integration -r win-x64 --self-contained $(XSelfContainedPublish)" Timeout="60000" />
     
 <!--    <Message Importance="High" Text="-&#45;&#45; UI Application -&#45;&#45; " />-->
 <!--    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -r win-x64 -p:Platform=x64 &#45;&#45;self-contained true" Timeout="60000" />-->

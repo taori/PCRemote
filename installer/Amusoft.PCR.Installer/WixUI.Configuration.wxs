@@ -4,6 +4,7 @@
         <UI>
             <Property Id="CUSTOM_PORT_SERVER" Value="8080" />
             <Property Id="CUSTOM_PORT_DISCOVERY" Value="8081" />
+            <Property Id="CUSTOM_ENDPOINT_NAME" Value="Host 1" />
 
             <Dialog Id="ConfigurationDlg" Width="370" Height="270" Title="!(loc.BrowseDlg_Title)">
 
@@ -27,6 +28,8 @@
                 <Control Id="ConfigurationPortServer" Type="MaskedEdit" X="26" Y="76" Width="40" Height="16" Property="CUSTOM_PORT_SERVER" Text="#####" Sunken="yes"/>
                 <Control Id="HintDiscovery" Type="Text" X="26" Y="110" Width="250" Height="16" Transparent="yes" Text="Discovery Port"/>
                 <Control Id="ConfigurationPortDiscovery" Type="MaskedEdit" X="26" Y="126" Width="40" Height="16" Property="CUSTOM_PORT_DISCOVERY" Text="#####" Sunken="yes"/>
+                <Control Id="HintEndpointName" Type="Text" X="26" Y="160" Width="250" Height="16" Transparent="yes" Text="Endpoint Name"/>
+                <Control Id="ConfigurationEndpointName" Type="Edit" X="26" Y="176" Width="320" Height="16" Property="CUSTOM_ENDPOINT_NAME" Sunken="yes"/>
 
             </Dialog>
         </UI>

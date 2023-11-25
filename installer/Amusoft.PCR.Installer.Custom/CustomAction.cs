@@ -76,6 +76,11 @@ namespace Amusoft.PCR.Installer.Custom
 				session.Log("Failed to access DiscoveryPort");
 				return ActionResult.Failure;
 			}
+			if (!session.CustomActionData.TryGetValue("EndpointName", out var endpointName))
+			{
+				session.Log("Failed to access EndpointName");
+				return ActionResult.Failure;
+			}
 
 			var isUpgrade = session.TryGetIntOrDefault("IsUpgrade", 0, out var upgradeValue) && upgradeValue > 0;
 			var isInstall = session.TryGetIntOrDefault("IsInstall", 0, out var installValue) && installValue > 0;
@@ -111,6 +116,9 @@ namespace Amusoft.PCR.Installer.Custom
 					
 					session.Log($"Replacing discovery port 50001 with {discoveryPort}");
 					stringBuilder.Replace("\"HandshakePort\": 50001,", $"\"HandshakePort\": {discoveryPort},");
+					
+					session.Log($"Replacing endpoint name \"Endpoint 1 (Prod)\" with {endpointName}");
+					stringBuilder.Replace("\"HostAlias\": \"Endpoint 1 (Prod)\"", $"\"HostAlias\": \"{endpointName}\"");
 					
 					session.Log("Updating production file");
 					File.WriteAllText(appsettingsFile, stringBuilder.ToString());

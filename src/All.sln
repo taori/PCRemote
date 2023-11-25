@@ -29,15 +29,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_scripts", "_scripts", "{6E
 	ProjectSection(SolutionItems) = preProject
 		..\deploy\buildAndCopy.ps1 = ..\deploy\buildAndCopy.ps1
 		..\deploy\buildDeploymentPackage.ps1 = ..\deploy\buildDeploymentPackage.ps1
-		..\deploy\createSelfSignedCertificate.ps1 = ..\deploy\createSelfSignedCertificate.ps1
 		..\deploy\functions.psm1 = ..\deploy\functions.psm1
-		..\deploy\installCompiledMSI.ps1 = ..\deploy\installCompiledMSI.ps1
 		..\deploy\installService.ps1 = ..\deploy\installService.ps1
 		..\deploy\publishapk.ps1 = ..\deploy\publishapk.ps1
 		..\deploy\refreshService.ps1 = ..\deploy\refreshService.ps1
 		..\deploy\refreshServiceAndAPK.ps1 = ..\deploy\refreshServiceAndAPK.ps1
 		..\deploy\uninstallService.ps1 = ..\deploy\uninstallService.ps1
 		..\deploy\createMSI.ps1 = ..\deploy\createMSI.ps1
+		..\deploy\createMSIFast.ps1 = ..\deploy\createMSIFast.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{B51D6584-FE79-4372-A50D-B90AB85587F8}"

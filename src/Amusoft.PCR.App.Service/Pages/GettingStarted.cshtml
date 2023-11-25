@@ -33,9 +33,16 @@
 	<ul>
 		<li>A native app for your phone/tablet available as following:</li>
 		<ol>
-			@foreach (var item in Model.Endpoints.Where(d => d.Running))
+			@if (Model.Endpoints is not null)
 			{
-				<li>Android @@ <a href="@item.Endpoint/download/android">@item.Endpoint/download/android</a></li>
+				foreach (var item in Model.Endpoints.Where(d => d.Running))
+				{
+					<li>Android @@ <a href="@item.Endpoint/download/android">@item.Endpoint/download/android</a></li>
+				}
+			}
+			else
+			{
+				<li>No endpoints are available because Endpoints is null</li>
 			}
 		</ol>
 		<li>Using the UI Application shipped with it.</li>
@@ -45,10 +52,17 @@
 	Your current potential host addresses are:
 	
 	<ul>
-		@foreach (var item in Model.Endpoints)
+		@if (Model.Endpoints is not null)
 		{
-			var color = item.Running ? "#0a0" : "#f00";
-			<li><a href="@item.Endpoint" target="_blank">@item.Endpoint</a>, Can be reached: <span style="color: @color">@(item.Running? "Yes" : "No")</span></li>
+			foreach (var item in Model.Endpoints)
+			{
+				var color = item.Running ? "#0a0" : "#f00";
+				<li><a href="@item.Endpoint" target="_blank">@item.Endpoint</a>, Can be reached: <span style="color: @color">@(item.Running? "Yes" : "No")</span></li>
+			}
+		}
+		else
+		{
+			<li>No endpoints are available because Endpoints is null</li>
 		}
 	</ul>
 </p>

@@ -61,7 +61,7 @@
 
 		<CustomAction Id='UpdateAppSettingsAction_SetProperties'
 					  Property='UpdateAppSettingsAction'
-					  Value='ServerPort=[CUSTOM_PORT_SERVER];DiscoveryPort=[CUSTOM_PORT_DISCOVERY];WebApplicationDirectory=[WEBFOLDER];IsUpgrade=[_UPGRADE];IsUninstall=[_UNINSTALL];IsChange=[_CHANGE];IsRepair=[_REPAIR];IsInstall=[_INSTALL];'/>
+					  Value='EndpointName=[CUSTOM_ENDPOINT_NAME];ServerPort=[CUSTOM_PORT_SERVER];DiscoveryPort=[CUSTOM_PORT_DISCOVERY];WebApplicationDirectory=[WEBFOLDER];IsUpgrade=[_UPGRADE];IsUninstall=[_UNINSTALL];IsChange=[_CHANGE];IsRepair=[_REPAIR];IsInstall=[_INSTALL];'/>
 		<CustomAction Id='UpdateAppSettingsAction' DllEntry='UpdateAppSettings' Execute='deferred' Impersonate='no' Return='check'
 					  BinaryRef='CustomBinary' />
 		
