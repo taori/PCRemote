@@ -33,6 +33,7 @@ function Build-Android {
     $storePass = "env:PCR3PW"
     
     $tempDest = New-TemporaryDirectory
+    Write-Host "New Temp folder is: $tempDest"
     
     if(Test-Path "$tempDest" -eq $false){
         Write-Host "Failed to create Temp Directory $tempDest"
