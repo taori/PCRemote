@@ -13,7 +13,7 @@ on:
     types: 
       - opened
       - reopened
-      - synchronize   
+      - synchronize
       
   # manual trigger
   workflow_dispatch:
@@ -36,7 +36,12 @@ on:
         default: false
   
 env:
+  DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
   WS: ${{ github.workspace }}
+  VSVersion: "17.8.1"
   BUILDCONFIGURATION : ${{ github.event.inputs.buildConfiguration }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -62,18 +67,27 @@ jobs:
           echo "head: $GITHUB_HEAD_REF"
           echo "base: $GITHUB_BASE_REF"
           
-      - name: Set Product Version
-        id: productVersion
+      - name: Set environment variables
+        id: setVars
         shell: pwsh
         run: |
-          $value = "$env:VS"
-          if([string]::IsNullOrEmpty("$value") -eq $true){
-            $value = '1.0.0'
+          Write-Host "Using pwsh version$($Host.Version.ToString())"
+          
+          $productVersion = "$Env:LPRODUCTVERSION"
+          if([string]::IsNullOrEmpty("$productVersion") -eq $true){
+            $productVersion = '3.0.0'
           }
-          echo "PRODUCT_VERSION=$value" >> $env:GITHUB_ENV
-          echo "::set-output name=value1::$value"          
-        env: 
-          VS : ${{ github.event.inputs.productVersion }}          
+          
+          $buildConfiguration = "$Env:LBUILDCONFIGURATION"
+          if([string]::IsNullOrEmpty("$buildConfiguration") -eq $true){
+            $buildConfiguration = 'Release'
+          }
+          
+          Write-Output "PRODUCT_VERSION=$($productVersion)" >> $Env:GITHUB_OUTPUT
+          Write-Output "BUILD_CONFIGURATION=$($buildConfiguration)" >> $Env:GITHUB_OUTPUT
+        env:
+          LPRODUCTVERSION : ${{ github.event.inputs.productVersion }}
+          LBUILDCONFIGURATION : ${{ github.event.inputs.buildConfiguration }}
           
       - name: Environment CI Build
         shell: pwsh
@@ -99,30 +113,16 @@ jobs:
         shell: pwsh
         run: |
           echo "::set-output name=value1::$env:RELEASE_VERSION" 
-          
-      - name: Set output buildConfiguration
-        id: buildConfiguration
-        shell: pwsh
-        run: |
-          $value = "$env:INPUT"
-          if([string]::IsNullOrEmpty("$value") -eq $true){
-            $value = 'Release'
-          }
-          echo "BUILDCONFIGURATION=$value" >> $env:GITHUB_ENV
-          echo "::set-output name=value1::$value"          
-        env: 
-          INPUT : ${{ github.event.inputs.buildConfiguration }}  
         
-      - name: Tell RELEASE_VERSION
+      - name: Tell Environment
         shell: bash
-        run: echo $RELEASE_VERSION
+        run: | 
+          echo $RELEASE_VERSION
+          echo $PRODUCT_VERSION
+          echo $BUILD_CONFIGURATION
         
       - name: Stop
-        if: failure()
-        run: foo
-        
-     # - name: stop
-     #   run: exit 1
+        run: exit 1
           
   Android:
     concurrency:
@@ -137,7 +137,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
         with:
           # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: 17.8.1
+          vs-version: ${{ env.VSVersion }}
           
       - shell : bash
         name: Load android keystore
@@ -202,7 +202,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
         with:
           # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: 16.9
+          vs-version: ${{ env.VSVersion }}
           
       - shell: pwsh
         name: Build server
@@ -245,7 +245,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
         with:
           # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: 16.9
+          vs-version: ${{ env.VSVersion }}
           
       - name: Download APK Artifact
         uses: actions/download-artifact@v2.0.10
