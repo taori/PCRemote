@@ -22,6 +22,10 @@ on:
     inputs:
     
       buildConfiguration:
+        type: choice
+        options:
+          - Release
+          - Debug
         required: true
         description: "Configuration for build processes"
         default: 'Release'
