@@ -167,19 +167,23 @@ jobs:
           $newVersion = "$env:PRODUCTVERSION"
           Write-Host "Updating $oldVersion to $newVersion"
           $replacedContent = [System.IO.File]::ReadAllText($manifestPath).Replace("android:versionName=`"$oldVersion`"", "android:versionName=`"$newVersion`"")
-          [System.IO.File]::WriteAllText($manifestPath, $replacedContent)
-          
+          [System.IO.File]::WriteAllText($manifestPath, $replacedContent)          
         env:      
           PRODUCTVERSION : ${{needs.Environment.outputs.productVersion}}
 
+      - shell: pwsh
+        name: publishapk.ps1
+        run: |
+          dotnet user-secrets set SignPassword "$PASSWORD" --id "fff9ecb8-0258-4f9f-8333-3da6f78ab9ce"       
+        env:
+          PASSWORD : ${{ secrets.ANDROID_KEYSTORE_PASS }}
 
       - shell: pwsh
         name: publishapk.ps1
         run: |
           $apkPath = "$($Env:WS)\artifacts\apk\amusoft.pcr-$($Env:RV).apk"
           Write-Host "Writing APK to $apkPath"
-          & "$($Env:WS)\deploy\publishapk.ps1" -SignPassword $PASSWORD -PublishFilePath "$apkPath"
-          
+          & "$($Env:WS)\deploy\publishapk.ps1" -SignPassword $PASSWORD -PublishFilePath "$apkPath"          
         env:
           RV : ${{ needs.Environment.outputs.productVersion }}
           PASSWORD : ${{ secrets.ANDROID_KEYSTORE_PASS }}
