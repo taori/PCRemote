@@ -195,6 +195,7 @@ jobs:
           
           $paths = & "$($Env:WS)\deploy\createMSI.ps1" -DeleteArtifacts $true -SkipPublish $false -SkipHarvesting $false -SkipAPK $false -OpenExplorer $false -ProductVersion "$releaseVersion"
           
+          Write-Host "APK: $($paths.ApkPath), MSI: $($paths.MsiPath)"
           Write-Output "PRODUCT_APK=$($paths.ApkPath)" >> $Env:GITHUB_OUTPUT
           Write-Output "PRODUCT_MSI=$($paths.MsiPath)" >> $Env:GITHUB_OUTPUT
         env:
@@ -216,13 +217,12 @@ jobs:
           if-no-files-found: error
           retention-days: 1 
 
-  BuildCompletes:
+  Publishing:
     concurrency:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
     runs-on: windows-latest
     needs: [ WindowsPublish ]
-    if: false
     steps:
       - name: Status message
         shell: bash
@@ -231,7 +231,7 @@ jobs:
   GitHubRelease:    
     runs-on: windows-latest
     if: ${{ github.event.inputs.createRelease == '1' }}
-    needs: [BuildCompletes, Environment]
+    needs: [ Publishing, VerifyEnvironment]
     steps:
                                 
       - name: Download artifact apk
