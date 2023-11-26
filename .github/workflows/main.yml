@@ -5,8 +5,9 @@ on:
   push:
     branches:
       - master 
-    paths: 
+    paths:
       - src/*
+      - tests/*
       
   pull_request:    
     types: 
@@ -26,12 +27,13 @@ on:
       productVersion:
         required: true
         description: "Version for Release numbers"
-        default: '1.0.0'
+        default: '3.0.0'
         
       createRelease:
         required: true
-        description: "Provide GitHub release?: 1/0"
-        default: "0"
+        type: boolean
+        description: "Provide GitHub release?"
+        default: false
   
 env:
   WS: ${{ github.workspace }}
@@ -42,6 +44,9 @@ jobs:
 
   Environment:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     outputs:
       buildConfiguration : ${{ steps.buildConfiguration.outputs.value1 }}
       productVersion : ${{ steps.productVersion.outputs.value1 }}
@@ -52,6 +57,7 @@ jobs:
       - name: Tell Environment Information
         shell: bash
         run: |
+          echo "event: $HOST"
           echo "event: $GITHUB_EVENT_NAME"
           echo "head: $GITHUB_HEAD_REF"
           echo "base: $GITHUB_BASE_REF"
@@ -111,10 +117,17 @@ jobs:
         shell: bash
         run: echo $RELEASE_VERSION
         
+      - name: Stop
+        if: failure()
+        run: foo
+        
      # - name: stop
      #   run: exit 1
           
   Android:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: windows-latest
     needs: Environment
     steps:
@@ -124,7 +137,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
         with:
           # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: 16.9
+          vs-version: 17.8.1
           
       - shell : bash
         name: Load android keystore
@@ -176,7 +189,10 @@ jobs:
           retention-days: 1 
           
                     
-  Windows:    
+  Windows:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     needs: Environment
     runs-on: windows-latest
     steps:
@@ -205,7 +221,10 @@ jobs:
           if-no-files-found: error
           retention-days: 1    
 
-  BuildCompletes:    
+  BuildCompletes:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: windows-latest
     needs: [Windows, Android]
     steps:
@@ -213,7 +232,10 @@ jobs:
         shell: bash
         run: echo Builds are successful
     
-  InstallerWindows:    
+  InstallerWindows:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true  
     runs-on: windows-latest
     needs: [BuildCompletes, Environment]
     steps:     
@@ -245,15 +267,7 @@ jobs:
         name: Move APK to Server content directory
         run: |
           mkdir -p artifacts/msi/web/wwwroot/downloads/
-          cp artifacts/apk/amusoft.pcr.mobile.droid.apk artifacts/msi/web/wwwroot/downloads/amusoft.pcr.mobile.droid.apk
-              
-   #  - shell : bash
-   #    name: Load MSI signing key
-   #    run: |
-   #      echo -n "$MSI_SNK_B64" > "$WS\MSI_SNK_B64.encoded"
-   #      base64 --decode "$WS\MSI_SNK_B64.encoded" > "$WS\MSI_SNK_B64.snk"  
-   #    env:
-   #      MSI_SNK_B64: ${{ secrets.MSI_SNK_B64 }}          
+          cp artifacts/apk/amusoft.pcr.mobile.droid.apk artifacts/msi/web/wwwroot/downloads/amusoft.pcr.mobile.droid.apk                      
           
       - shell: pwsh
         name: Compile MSI using WiX Installer
@@ -263,16 +277,8 @@ jobs:
         env:          
           PRODUCT_VERSION : ${{needs.Environment.outputs.productVersion}}
           BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}
-            
-   #  - shell : bash
-   #    name: Remove MSI signing keys
-   #    run: |
-   #      rm $WS\MSI_SNK_B64.encoded
-   #      rm $WS\MSI_SNK_B64.snk
-   #    env:
-   #      MSI_SNK_B64: ${{ secrets.MSI_SNK_B64 }}   
       
-      - name: Upload Artifacts
+      - name: Upload MSI
         uses: actions/upload-artifact@v2.2.4
         with:
           name: windows-installer
@@ -291,22 +297,20 @@ jobs:
       - name: Download artifact apk
         uses: actions/download-artifact@v2.0.10
         with:
-          name: apk
-          #path: artifacts/msi/web/wwwroot/downloads/   
+          name: apk  
           path: artifacts/apk/
           
       - name: Download artifact server
         uses: actions/download-artifact@v2.0.10
         with:
           name: windows-installer
-          #path: artifacts/msi/web/wwwroot/downloads/   
           path: artifacts/msi/
 
       - name: Check release asset existance
         id: check_files
         uses: andstor/file-existence-action@v1
         with:
-          files: "artifacts/apk/amusoft.pcr.mobile.droid.apk, artifacts/msi/Amusoft PC Remote 2.msi"
+          files: "artifacts/apk/amusoft.pcr.mobile.droid.apk, artifacts/msi/Amusoft PC Remote 3.msi"
                              
       - name: Create GitHub release
         uses: actions/create-release@v1
@@ -343,6 +347,6 @@ jobs:
           RN: ${{ needs.Environment.outputs.releaseVersion }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: artifacts/msi/Amusoft PC Remote 2.msi
-          asset_name: Amusoft PC Remote 2 ${{ env.RN }}.msi
+          asset_path: artifacts/msi/Amusoft PC Remote 3.msi
+          asset_name: Amusoft PC Remote 3 ${{ env.RN }}.msi
           asset_content_type: application/octet-stream
