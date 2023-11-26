@@ -8,6 +8,7 @@ on:
     paths:
       - src/*
       - tests/*
+      - .github/workflows/main.yml
       
   pull_request:    
     types: 
@@ -57,6 +58,7 @@ jobs:
       buildConfiguration : ${{ steps.setVars.outputs.BUILD_CONFIGURATION }}
       productVersion : ${{ steps.setVars.outputs.PRODUCT_VERSION }}
       releaseVersion : ${{ steps.setVars.outputs.RELEASE_VERSION }}
+      apkArtifactsPath : ${{ steps.setVars.outputs.APKTARGETPATH }}
       
     steps:
             
@@ -104,7 +106,8 @@ jobs:
           
           Write-Output "PRODUCT_VERSION=$($productVersion)" >> $Env:GITHUB_OUTPUT
           Write-Output "BUILD_CONFIGURATION=$($buildConfiguration)" >> $Env:GITHUB_OUTPUT
-          Write-Output "RELEASE_VERSION=$($buildConfiguration)" >> $Env:GITHUB_OUTPUT
+          Write-Output "RELEASE_VERSION=$($Env:LRELEASEVERSION)" >> $Env:GITHUB_OUTPUT
+          Write-Output "APKTARGETPATH=$($Env:WS)\artifacts\apk\amusoft.pcr-$($Env:RV).apk" >> $Env:GITHUB_OUTPUT
         env:
           LPRODUCTVERSION : ${{ github.event.inputs.productVersion }}
           LRELEASEVERSION : ${{ env.RELEASE_VERSION }}
@@ -137,15 +140,15 @@ jobs:
           OV2: ${{needs.Environment.outputs.productVersion}}
           OV3: ${{needs.Environment.outputs.releaseVersion}}
           
-      - name: Stop
-        run: exit 1
+#      - name: Stop
+#        run: exit 1
           
   Android:
     concurrency:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
     runs-on: windows-latest
-    needs: VerifyEnvironment
+    needs: [VerifyEnvironment, Environment]
     steps:
             
       - uses: actions/checkout@v2      
@@ -154,16 +157,9 @@ jobs:
         with:
           # Version of Visual Studio to search; defaults to latest if not specified
           vs-version: ${{ env.VSVersion }}
-          
-      - shell : bash
-        name: Load android keystore
-        run: |
-          echo -n "$ANDROID_KEYSTORE" > "$WS\android.keystore.encoded"
-          base64 --decode "$WS\android.keystore.encoded" > "$WS\android.keystore"            
-        env:
-          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
              
       - shell: pwsh
+        if: false
         name: Update android manifest
         run: |
           $manifestPath = "src/Amusoft.PCR.Mobile.Droid/Properties/AndroidManifest.xml"
@@ -174,43 +170,35 @@ jobs:
           [System.IO.File]::WriteAllText($manifestPath, $replacedContent)
           
         env:      
-          PRODUCTVERSION : ${{needs.Environment.outputs.productVersion}}    
-          
+          PRODUCTVERSION : ${{needs.Environment.outputs.productVersion}}
+
+
       - shell: pwsh
-        name: Build APK
+        name: publishapk.ps1
         run: |
-          msbuild src/Amusoft.PCR.Mobile.Droid/Amusoft.PCR.Mobile.Droid.csproj /verbosity:minimal /restore /t:"SignAndroidPackage" /bl /p:Configuration=$env:BUILDCONFIGURATION /p:OutputPath="$env:WS\artifacts\android" /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias="$env:ANDROID_KEY_ALIAS" /p:AndroidSigningKeyPass="$env:ANDROID_KEY_PASS" /p:AndroidSigningKeyStore="$env:WS\android.keystore" /p:AndroidSigningStorePass="$env:ANDROID_KEYSTORE_PASS"
-          Remove-Item "$env:WS\android.keystore.encoded"
-          Remove-Item "$env:WS\android.keystore"
-        env:      
-          BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}    
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          ANDROID_KEY_PASS: ${{ secrets.ANDROID_KEY_PASS }}
-          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
-              
-      - shell: bash
-        name: Remove excess android files
-        run: |
-          mkdir artifacts/apk/
-          find artifacts/android/ -name '*-Signed.apk' -exec cp "{}" artifacts/apk/ \;
-          rm -rf artifacts/android/
-          mv artifacts/apk/amusoft.pcr.mobile.droid-Signed.apk artifacts/apk/amusoft.pcr.mobile.droid.apk
+          $apkPath = "$($Env:WS)\artifacts\apk\amusoft.pcr-$($Env:RV).apk"
+          Write-Host "Writing APK to $apkPath"
+          & "$($Env:WS)\deploy\publishapk.ps1" -SignPassword $PASSWORD -PublishFilePath "$apkPath"
+          
+        env:
+          RV : ${{ needs.Environment.outputs.productVersion }}
+          PASSWORD : ${{ secrets.ANDROID_KEYSTORE_PASS }}
                     
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2.2.4
         with:
           name: apk
-          path: "artifacts/apk/amusoft.pcr.mobile.droid.apk"          
+          path: ${{ needs.Environment.outputs.apkArtifactsPath }}        
           if-no-files-found: error
           retention-days: 1 
-          
                     
   Windows:
     concurrency:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
-    needs: VerifyEnvironment
+    needs: [VerifyEnvironment, Environment]
     runs-on: windows-latest
+    if: false
     steps:
             
       - uses: actions/checkout@v2      
