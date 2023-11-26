@@ -34,11 +34,6 @@ function Build-Android {
     
     $tempDest = New-TemporaryDirectory
     Write-Host "New Temp folder is: $tempDest"
-    
-    if(Test-Path "$tempDest" -eq $false){
-        Write-Host "Failed to create Temp Directory $tempDest"
-        exit 1
-    }
 
     # https://learn.microsoft.com/de-de/dotnet/maui/android/deployment/publish-cli ü
     $publishCode = "dotnet publish $ProjectPath -f net7.0-android -c $Configuration -o `"$tempDest`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass"
@@ -46,6 +41,8 @@ function Build-Android {
         
     #Invoke-Expression -Command $publishCode -ErrorAction Stop
     &dotnet publish $ProjectPath -f net7.0-android -c $Configuration -o `"$tempDest`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass | Out-Host
+    
+    &dir "$tempDest"
     
     Write-Host "Looking for apk file in $tempDest" -ForegroundColor Cyan
     $apk = Get-ChildItem "$tempDest" -Filter "*.apk" | %{$_.FullName}
