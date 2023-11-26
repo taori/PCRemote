@@ -9,7 +9,7 @@ param (
 
 # ü
 
-Import-Module ".\functions.psm1"
+Import-Module (Resolve-Path "$PSScriptRoot\functions.psm1")
 
 $keyStore = Get-ResolvedPath "$PSScriptRoot\PCR3.keystore"
 $apkProject = Get-ResolvedPath "$PSScriptRoot\..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj"

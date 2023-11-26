@@ -11,7 +11,7 @@ param (
 )
 
 switch($Configuration){
-    "Fresh" { & .\createMSI.ps1 -DeleteArtifacts $true -SkipPublish $false -SkipHarvesting $false -OpenExplorer $OpenExplorer -ProductVersion "$Version"}
-    "RecycleBoth" { & .\createMSI.ps1 -DeleteArtifacts $false -SkipPublish $true -SkipHarvesting $true -OpenExplorer $OpenExplorer -ProductVersion "$Version"}
-    "JustHarvest" { & .\createMSI.ps1 -DeleteArtifacts $false -SkipPublish $true -SkipHarvesting $false -OpenExplorer $OpenExplorer -ProductVersion "$Version" }
+    "Fresh" { & "$scriptPath" -DeleteArtifacts $true -SkipPublish $false -SkipHarvesting $false -OpenExplorer $OpenExplorer -ProductVersion "$Version" }
+    "RecycleBoth" { & "$scriptPath" -DeleteArtifacts $false -SkipPublish $true -SkipHarvesting $true -OpenExplorer $OpenExplorer -ProductVersion "$Version" }
+    "JustHarvest" { & "$scriptPath" -DeleteArtifacts $false -SkipPublish $true -SkipHarvesting $false -OpenExplorer $OpenExplorer -ProductVersion "$Version" }
 }

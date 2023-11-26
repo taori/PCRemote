@@ -13,7 +13,7 @@ param (
     [string]$ProductVersion = "3.0.0"
 )
 
-Import-Module ".\functions.psm1"
+Import-Module (Resolve-Path "$PSScriptRoot\functions.psm1")
 
 #Write-Host "Generating MSI with artifacts deletion: $DeleteArtifacts skipPublish: $SkipPublish skipHeat: $SkipHarvesting"
 
