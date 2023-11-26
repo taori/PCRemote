@@ -35,9 +35,12 @@ $solutionDir = Resolve-Path "$PSScriptRoot\..\src\"
 
 $runHeat = "false"
 $runPublish = "false"
+
+Write-Host "Starting creation" -ForegroundColor Cyan
 if($SkipPublish -eq $false){
     $runPublish = "true"
     if($SkipAPK -eq $false){
+        Write-Host "Publishing APK" -ForegroundColor Cyan
         & ".\publishapk.ps1" -PublishFilePath "$apkFile"        
     }
 }
@@ -49,8 +52,8 @@ if($SkipHarvesting -eq $false){
 $buildCode = "dotnet build `"$installerProject`" -c Release -o `"$installerOutput`" -p:SolutionDir=`"$solutionDir`" -p:ApkSource=`"$apkDirectory`" -p:XRunPublish=$runPublish -p:XRunHeat=$runHeat -p:XProductVersion=$ProductVersion -p:XSelfContainedPublish=false"
 Write-Host $buildCode -ForegroundColor Green
 Invoke-Expression $buildCode -ErrorAction Stop
-#&dotnet build "$installerProject" -c Release -o "$installerOutput" -p:SolutionDir=$solutionDir -p:ApkSource=$apkDirectory -p:XRunPublish=`"$runPublish`" -p:XRunHeat=`"$runHeat`"
 
+Write-Host "Renaming MSI" -ForegroundColor Cyan
 Get-ChildItem -Path $installerOutput -Recurse -Filter "*Installer.msi" `
     | %{
         $o = $_.FullName
@@ -64,6 +67,7 @@ $msiPath = Get-ChildItem -Path "." -Recurse -Filter "*.msi" `
             | % { $_.FullName }
 
 if($OpenExplorer -eq $true){
+    Write-Host "Opening folder for $msiPath" -ForegroundColor Cyan
     &explorer ([System.IO.Path]::GetDirectoryName($msiPath))
 }
 

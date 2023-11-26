@@ -168,19 +168,6 @@ jobs:
         with:
           # Version of Visual Studio to search; defaults to latest if not specified
           vs-version: ${{ env.VSVersion }}
-             
-      - shell: pwsh
-        if: false
-        name: Update android manifest
-        run: |
-          $manifestPath = "src/Amusoft.PCR.Mobile.Droid/Properties/AndroidManifest.xml"
-          $oldVersion = "1.0"
-          $newVersion = "$env:PRODUCTVERSION"
-          Write-Host "Updating $oldVersion to $newVersion"
-          $replacedContent = [System.IO.File]::ReadAllText($manifestPath).Replace("android:versionName=`"$oldVersion`"", "android:versionName=`"$newVersion`"")
-          [System.IO.File]::WriteAllText($manifestPath, $replacedContent)          
-        env:      
-          PRODUCTVERSION : ${{needs.Environment.outputs.productVersion}}
 
       - shell: pwsh
         name: set user-secrets
