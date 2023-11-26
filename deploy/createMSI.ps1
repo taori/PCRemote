@@ -9,25 +9,27 @@ param (
     [string]$SkipAPK = $false,
     [Parameter(HelpMessage="Whether or not to open explorer afterwards")]
     [string]$OpenExplorer = $false,
-    [Parameter(HelpMessage="Whether or not to open explorer afterwards")]
+    [Parameter(HelpMessage="Product Version for MSI")]
     [string]$ProductVersion = "3.0.0"
 )
 
 Import-Module (Resolve-Path "$PSScriptRoot\functions.psm1")
+
+# todo dotnet publish -p:PublishProfile=Package -f net7.0-windows10.0.19041.0 -c Release -o d:\tmp\mauagain -p:PublishDir=D:\tmp\mauiagain2
 
 #Write-Host "Generating MSI with artifacts deletion: $DeleteArtifacts skipPublish: $SkipPublish skipHeat: $SkipHarvesting"
 
 #ütf8
 
 if($DeleteArtifacts -eq $true){
-    Remove-Item -Recurse -Force -Path $(Get-ResolvedPath "$PSScriptRoot\..\artifacts\") -ErrorAction Stop    
+    Remove-Item -Recurse -Force -Path $(Resolve-Path "$PSScriptRoot\..\artifacts\") -ErrorAction Stop    
 }
 
-$installerProject = Get-ResolvedPath "$PSScriptRoot\..\installer\Amusoft.PCR.Installer\Amusoft.PCR.Installer.wixproj"
-$installerOutput = Get-ResolvedPath "$PSScriptRoot\..\artifacts\msi\compiled"
-$apkFile = Get-ResolvedPath "$PSScriptRoot\..\artifacts\msi\apk\app.apk"
+$apkFile = Resolve-Path "$PSScriptRoot\..\artifacts\msi\apk\app.apk"
+$installerProject = Resolve-Path "$PSScriptRoot\..\installer\Amusoft.PCR.Installer\Amusoft.PCR.Installer.wixproj"
+$installerOutput = Resolve-Path "$PSScriptRoot\..\artifacts\msi\compiled"
 $apkDirectory = [System.IO.Path]::GetDirectoryName($apkFile)
-$solutionDir = Get-ResolvedPath "$PSScriptRoot\..\src\"
+$solutionDir = Resolve-Path "$PSScriptRoot\..\src\"
 
 $runHeat = "false"
 $runPublish = "false"
@@ -55,10 +57,17 @@ Get-ChildItem -Path $installerOutput -Recurse -Filter "*Installer.msi" `
         Move-Item $o $n -Force 
     }   
 
+$msiPath = Get-ChildItem -Path "." -Recurse -Filter "*.msi" `
+            | Where-Object { $_.FullName -like "*en-US*" } `
+            | % { $_.FullName }
+
 if($OpenExplorer -eq $true){
-    Get-ChildItem -Path $installerOutput -Recurse -Filter "*.msi" `
-    | Select-Object -First 1 `
-    | %{ &explorer ([System.IO.Path]::GetDirectoryName($_.FullName)) }    
+    &explorer ([System.IO.Path]::GetDirectoryName($msiPath))
 }
 
 Write-Host "Script complete." -ForegroundColor Green
+
+return @{
+    ApkPath = $apkFile
+    MsiPath = $msiPath
+}

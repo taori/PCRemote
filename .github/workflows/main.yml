@@ -114,13 +114,6 @@ jobs:
           LPRODUCTVERSION : ${{ github.event.inputs.productVersion }}
           LRELEASEVERSION : ${{ env.RELEASE_VERSION }}
         
-#          echo "event: $GITHUB_EVENT_NAME"
-#          echo "head: $GITHUB_HEAD_REF"
-#          echo "base: $GITHUB_BASE_REF"
-        
-#      - name: Stop
-#        run: exit 1
-        
   VerifyEnvironment:
     concurrency:
       group: ci-${{ github.ref }}
@@ -145,19 +138,19 @@ jobs:
 #      - name: Stop
 #        run: exit 1
           
-  Android:
+  WindowsPublish:
     concurrency:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
     runs-on: windows-latest
     needs: [VerifyEnvironment, Environment]
+    if: false
     steps:
       
       - name: Install .NET MAUI
         shell: pwsh
         run: |
           # dotnet nuget locals all --clear 
-          # dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
           dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
           dotnet workload install android maui wasm-tools --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
           
@@ -194,128 +187,51 @@ jobs:
           PASSWORD : ${{ secrets.ANDROID_KEYSTORE_PASS }}
 
       - shell: pwsh
-        name: publishapk.ps1
+        name: createMSI.ps1
+        id: publishProducts
         run: |
-          $apkPath = "$($Env:APKPATH)"
-          Write-Host "Writing APK to $apkPath"
-          & "$($Env:WS)\deploy\publishapk.ps1" -SignPassword "$($Env:PASSWORD)" -PublishFilePath "$apkPath"          
+          $releaseVersion = "$($Env:RV)"
+          Write-Host "Generating APK + MSI"
+          
+          $paths = & "$($Env:WS)\deploy\createMSI.ps1" -DeleteArtifacts $true -SkipPublish $false -SkipHarvesting $false -SkipAPK $false -OpenExplorer $false -ProductVersion "$releaseVersion"
+          
+          Write-Output "PRODUCT_APK=$($paths.ApkPath)" >> $Env:GITHUB_OUTPUT
+          Write-Output "PRODUCT_MSI=$($paths.MsiPath)" >> $Env:GITHUB_OUTPUT
         env:
-          APKPATH : ${{ needs.Environment.outputs.apkArtifactsPath }}
           RV : ${{ needs.Environment.outputs.productVersion }}
-          PASSWORD : ${{ secrets.ANDROID_KEYSTORE_PASS }}
                     
-      - name: Upload Artifacts
+      - name: Upload APK
         uses: actions/upload-artifact@v2.2.4
         with:
           name: apk
-          path: ${{ needs.Environment.outputs.apkArtifactsPath }}        
+          path: ${{ steps.publishProducts.outputs.PRODUCT_APK }}        
           if-no-files-found: error
           retention-days: 1 
                     
-  Windows:
-    concurrency:
-      group: ci-${{ github.ref }}
-      cancel-in-progress: true
-    needs: [VerifyEnvironment, Environment]
-    runs-on: windows-latest
-    if: false
-    steps:
-            
-      - uses: actions/checkout@v2      
-      - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1.0.2
-        with:
-          # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: ${{ env.VSVersion }}
-          
-      - shell: pwsh
-        name: Build server
-        run: |
-          dotnet publish src/Amusoft.PCR.Server/Amusoft.PCR.Server.csproj -c $env:BUILDCONFIGURATION -o artifacts/server/web /property:Version=$env:PRODUCT_VERSION --sc -r win-x64
-          dotnet publish src/Amusoft.PCR.Integration.WindowsDesktop/Amusoft.PCR.Integration.WindowsDesktop.csproj -c $env:BUILDCONFIGURATION -o artifacts/server/win-integration /property:Version=$env:PRODUCT_VERSION --sc -r win-x64
-        env:
-          BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}
-          PRODUCT_VERSION : ${{needs.Environment.outputs.productVersion}}
-          
-      - name: Upload Artifacts
+      - name: Upload MSI
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: server
-          path: "artifacts/server/"          
+          name: apk
+          path: ${{ steps.publishProducts.outputs.PRODUCT_MSI }}        
           if-no-files-found: error
-          retention-days: 1    
+          retention-days: 1 
 
   BuildCompletes:
     concurrency:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
     runs-on: windows-latest
-    needs: [Windows, Android]
+    needs: [ WindowsPublish ]
+    if: false
     steps:
       - name: Status message
         shell: bash
         run: echo Builds are successful
-    
-  InstallerWindows:
-    concurrency:
-      group: ci-${{ github.ref }}
-      cancel-in-progress: true  
-    runs-on: windows-latest
-    needs: [BuildCompletes, Environment]
-    steps:     
-    
-      - uses: actions/checkout@v2      
-      - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1.0.2
-        with:
-          # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: ${{ env.VSVersion }}
-          
-      - name: Download APK Artifact
-        uses: actions/download-artifact@v2.0.10
-        with:
-          name: apk
-          path: artifacts/apk/
-          
-      - name: Download Server Artifact
-        uses: actions/download-artifact@v2.0.10
-        with:
-          name: server
-          path: artifacts/msi/
-                    
-     #- name: Display folder structure
-     #  shell: bash
-     #  run: ls -R artifacts/
-          
-      - shell: bash
-        name: Move APK to Server content directory
-        run: |
-          mkdir -p artifacts/msi/web/wwwroot/downloads/
-          cp artifacts/apk/amusoft.pcr.mobile.droid.apk artifacts/msi/web/wwwroot/downloads/amusoft.pcr.mobile.droid.apk                      
-          
-      - shell: pwsh
-        name: Compile MSI using WiX Installer
-        run: |
-          $newProductContent = (Get-Content -path deploy\Amusoft.PCR.Installer\Product.wxs -Raw) -replace 'ProductVersion = "1.0.1"',"ProductVersion = `"$env:PRODUCT_VERSION`"" | Set-Content -Path deploy\Amusoft.PCR.Installer\Product.wxs        
-          msbuild /verbosity:normal /t:"Build" /bl /p:Configuration=$env:BUILDCONFIGURATION src/WixBuild.sln /p:AssemblyVersion=${{ github.event.inputs.productVersion }} /p:XRunHeat=true
-        env:          
-          PRODUCT_VERSION : ${{needs.Environment.outputs.productVersion}}
-          BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}
-      
-      - name: Upload MSI
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          name: windows-installer
-          path: "artifacts/msi-compiled/${{ env.BUILDCONFIGURATION }}/*.msi"          
-          if-no-files-found: error
-          retention-days: 1    
-        env:        
-          BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}
           
   GitHubRelease:    
     runs-on: windows-latest
     if: ${{ github.event.inputs.createRelease == '1' }}
-    needs: [InstallerWindows, Environment]
+    needs: [BuildCompletes, Environment]
     steps:
                                 
       - name: Download artifact apk

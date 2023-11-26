@@ -11,10 +11,10 @@ param (
 
 Import-Module (Resolve-Path "$PSScriptRoot\functions.psm1")
 
-$keyStore = Get-ResolvedPath "$PSScriptRoot\PCR3.keystore"
-$apkProject = Get-ResolvedPath "$PSScriptRoot\..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj"
-$webProj = Get-ResolvedPath "$PSScriptRoot\..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj"
-$intWinProj = Get-ResolvedPath "$PSScriptRoot\..\src\Amusoft.PCR.Int.Agent.Windows\Amusoft.PCR.Int.Agent.Windows.csproj"
+$keyStore = Resolve-Path "$PSScriptRoot\PCR3.keystore"
+$apkProject = Resolve-Path "$PSScriptRoot\..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj"
+$webProj = Resolve-Path "$PSScriptRoot\..\src\Amusoft.PCR.App.Service\Amusoft.PCR.App.Service.csproj"
+$intWinProj = Resolve-Path "$PSScriptRoot\..\src\Amusoft.PCR.Int.Agent.Windows\Amusoft.PCR.Int.Agent.Windows.csproj"
 
 $artifactsRoot = $TargetFolder
 Write-Host "Removing artifacts folder ..."
