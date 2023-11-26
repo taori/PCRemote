@@ -27,11 +27,11 @@ if($DeleteArtifacts -eq $true){
     }    
 }
 
-$apkFile = Resolve-Path "$PSScriptRoot\..\artifacts\msi\apk\app.apk"
-$installerProject = Resolve-Path "$PSScriptRoot\..\installer\Amusoft.PCR.Installer\Amusoft.PCR.Installer.wixproj"
-$installerOutput = Resolve-Path "$PSScriptRoot\..\artifacts\msi\compiled"
+$apkFile = Get-ResolvedPath "$PSScriptRoot\..\artifacts\msi\apk\app.apk"
+$installerProject = Get-ResolvedPath "$PSScriptRoot\..\installer\Amusoft.PCR.Installer\Amusoft.PCR.Installer.wixproj"
+$installerOutput = Get-ResolvedPath "$PSScriptRoot\..\artifacts\msi\compiled"
 $apkDirectory = [System.IO.Path]::GetDirectoryName($apkFile)
-$solutionDir = Resolve-Path "$PSScriptRoot\..\src\"
+$solutionDir = Get-ResolvedPath "$PSScriptRoot\..\src\"
 
 $runHeat = "false"
 $runPublish = "false"

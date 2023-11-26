@@ -87,3 +87,9 @@ function Get-FirstNonNull {
         $Things | Select-Object -First 1
     }
 }
+
+function Get-ResolvedPath($path)
+{
+    [System.Uri]$uri = New-Object System.Uri($path);
+    return $uri.LocalPath;
+}
