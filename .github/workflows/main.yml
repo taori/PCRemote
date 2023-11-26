@@ -109,7 +109,7 @@ jobs:
           Write-Output "PRODUCT_VERSION=$($productVersion)" >> $Env:GITHUB_OUTPUT
           Write-Output "BUILD_CONFIGURATION=$($buildConfiguration)" >> $Env:GITHUB_OUTPUT
           Write-Output "RELEASE_VERSION=$($Env:LRELEASEVERSION)" >> $Env:GITHUB_OUTPUT
-          Write-Output "APKTARGETPATH=$($Env:WS)\artifacts\apk\amusoft.pcr-$($Env:RV).apk" >> $Env:GITHUB_OUTPUT
+          Write-Output "APKTARGETPATH=$($Env:WS)\artifacts\apk\amusoft.pcr.android-$productVersion.apk" >> $Env:GITHUB_OUTPUT
         env:
           LPRODUCTVERSION : ${{ github.event.inputs.productVersion }}
           LRELEASEVERSION : ${{ env.RELEASE_VERSION }}
@@ -196,10 +196,11 @@ jobs:
       - shell: pwsh
         name: publishapk.ps1
         run: |
-          $apkPath = "$($Env:WS)\artifacts\apk\amusoft.pcr-$($Env:RV).apk"
+          $apkPath = "$($Env:APKPATH)"
           Write-Host "Writing APK to $apkPath"
           & "$($Env:WS)\deploy\publishapk.ps1" -SignPassword "$($Env:PASSWORD)" -PublishFilePath "$apkPath"          
         env:
+          APKPATH : ${{ needs.Environment.outputs.apkArtifactsPath }}
           RV : ${{ needs.Environment.outputs.productVersion }}
           PASSWORD : ${{ secrets.ANDROID_KEYSTORE_PASS }}
                     
