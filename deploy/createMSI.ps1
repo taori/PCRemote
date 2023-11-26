@@ -22,7 +22,10 @@ Import-Module (Resolve-Path "$PSScriptRoot\functions.psm1")
 #ütf8
 
 if($DeleteArtifacts -eq $true){
-    Remove-Item -Recurse -Force -Path $(Resolve-Path "$PSScriptRoot\..\artifacts\") -ErrorAction Stop    
+    $artifactsRoot = Resolve-Path "$PSScriptRoot\..\artifacts\"
+    if(Test-Path $artifactsRoot -eq $true){
+        Remove-Item -Recurse -Force -Path $artifactsRoot -ErrorAction Stop        
+    }    
 }
 
 $apkFile = Resolve-Path "$PSScriptRoot\..\artifacts\msi\apk\app.apk"
