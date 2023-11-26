@@ -14,27 +14,32 @@
         <controls:ErrorFrame Text="{x:Static resources:Translations.HostsOverview_NoPortsConfigured}"
                              IsVisible="{x:Binding ArePortsMissing, Mode=OneWay}"/>
 
-        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+        <RefreshView IsRefreshing="{x:Binding IsReloading}" 
                      Grid.Row="1"
                      Command="{x:Binding ReloadCommand}">
             <CollectionView ItemsSource="{x:Binding Path=Items}"
-                      SelectionMode="None">
+                            SelectionMode="None">
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" />
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="vm:HostItemViewModel">
-                            <controls:ListViewButton
-                                CommandParameter="{x:Binding}"
-                                Command="{x:Binding Path=ExecuteCallbackCommand}"
-                                Text="{x:Binding Path=Name}"/>
+                        <controls:ListViewButton
+                            CommandParameter="{x:Binding}"
+                            Command="{x:Binding Path=ExecuteCallbackCommand}"
+                            Text="{x:Binding Path=Name}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
 
         <VerticalStackLayout Grid.Row="2">
-            <Button 
+            <Button
+                Command="{x:Binding Path=ReloadCommand}"
+                IsVisible="{OnPlatform WinUI=True, Default=False}"
+                Text="Reload"
+                />
+            <Button
                 Text="{x:Static resources:Translations.HostsOverview_Configure}"
                 Command="{x:Binding Path=ConfigureHostsCommand}"
                 VerticalOptions="Center"  />

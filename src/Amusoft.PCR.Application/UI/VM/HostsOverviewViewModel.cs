@@ -84,7 +84,7 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 	{
 		var ports = await _hostRepository.GetHostPortsAsync();
 		var items = new List<HostItemViewModel>();
-		await foreach (var udpReceiveResult in GetUdpReceiveResults(ports).WithCancellation(cancellationToken))
+		await foreach (var udpReceiveResult in GetUdpReceiveResultsAsync(ports).WithCancellation(cancellationToken))
 		{
 			if(cancellationToken.IsCancellationRequested)
 				continue;
@@ -109,14 +109,14 @@ public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, IN
 			: items;
 	}
 
-	private static IAsyncEnumerable<UdpReceiveResult> GetUdpReceiveResults(int[] ports)
+	private static IAsyncEnumerable<UdpReceiveResult> GetUdpReceiveResultsAsync(int[] ports)
 	{
 		return AsyncEnumerableEx.Merge(GetPortSourcesAsync(ports));
 
 		static async IAsyncEnumerable<IAsyncEnumerable<UdpReceiveResult>> GetPortSourcesAsync(int[] ports)
 		{
-			var limit = Math.Pow(2, 16);
-			foreach (var port in ports.Where(d => d < limit))
+			var portRange = Math.Pow(2, 16);
+			foreach (var port in ports.Where(d => d < portRange))
 			{
 				var duration = TimeSpan.FromSeconds(1);
 				using var cts = new CancellationTokenSource(duration);

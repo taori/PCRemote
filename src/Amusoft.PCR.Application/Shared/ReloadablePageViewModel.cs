@@ -1,4 +1,5 @@
 ﻿using Amusoft.PCR.Application.Services;
+using Amusoft.PCR.Application.Utility;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
@@ -9,19 +10,24 @@ public abstract partial class ReloadablePageViewModel : PageViewModel
 {
 	private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
-	private CancellationTokenSource? _reloadCts;
+	private readonly Cooldown _reloadCooldown = new(TimeSpan.FromMilliseconds(1000));
+
 	[RelayCommand(AllowConcurrentExecutions = false)]
 	protected async Task ReloadAsync()
 	{
+		if (!_reloadCooldown.TryClaim())
+		{
+			Log.Debug("Reload blocked because of cooldown");
+			return;
+		}
+		
 		Log.Debug("Reloading");
 
-		_reloadCts?.Cancel(false);
-		_reloadCts?.Dispose();
-		_reloadCts = new();
 		try
 		{
+			Log.Trace("IsReloading = true");	
 			IsReloading = true;
-			await OnReloadAsync(_reloadCts.Token);
+			await OnReloadAsync(CancellationToken.None);
 		}
 		catch (OperationCanceledException)
 		{
@@ -29,6 +35,7 @@ public abstract partial class ReloadablePageViewModel : PageViewModel
 		}
 		finally
 		{
+			Log.Trace("IsReloading = false");
 			IsReloading = false;
 		}
 	}
@@ -37,15 +44,6 @@ public abstract partial class ReloadablePageViewModel : PageViewModel
 
 	[ObservableProperty]
 	private bool _isReloading;
-
-	public override void OnDispose(bool disposeManaged)
-	{
-		if (disposeManaged)
-		{
-			_reloadCts?.Dispose();
-		}
-		base.OnDispose(disposeManaged);
-	}
 
 	protected ReloadablePageViewModel(ITypedNavigator navigator) : base(navigator)
 	{

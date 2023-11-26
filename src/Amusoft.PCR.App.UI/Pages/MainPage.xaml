@@ -10,12 +10,11 @@
     <Grid Padding="16,10,16,0">
         <CollectionView ItemsSource="{x:Binding Items}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" />
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="shared:NavigationItem">
-                    <Button Margin="0,0,0,10"
-                            ImageSource="{x:Binding ImagePath}"
+                    <Button ImageSource="{x:Binding ImagePath}"
                             Command="{x:Binding Command}"
                             Text="{x:Binding Text}"/>
                 </DataTemplate>
