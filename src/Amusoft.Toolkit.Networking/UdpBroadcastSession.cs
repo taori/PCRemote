@@ -3,11 +3,14 @@ using System.Net.Sockets;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Channels;
+using NLog;
 
 namespace Amusoft.Toolkit.Networking;
 
 public class UdpBroadcastSession : IDisposable, IUdpBroadcastChannel
 {
+	private static readonly NLog.ILogger Log = NLog.LogManager.GetLogger(nameof(UdpBroadcastSession));
+	
 	private readonly UdpBroadcastCommunicationChannel _channel;
 
 	private readonly ReplaySubject<UdpReceiveResult> _buffer = new();
@@ -22,6 +25,7 @@ public class UdpBroadcastSession : IDisposable, IUdpBroadcastChannel
 
 	private void OnNext(UdpReceiveResult obj)
 	{
+		Log.Trace("Received from {Address}", obj.RemoteEndPoint);
 		_buffer.OnNext(obj);
 	}
 
@@ -44,15 +48,14 @@ public class UdpBroadcastSession : IDisposable, IUdpBroadcastChannel
 	{
 		var pipe = Channel.CreateUnbounded<UdpReceiveResult>();
 
-		using var sub = Observable
-			.Interval(TimeSpan.FromMilliseconds(50))
-			.CombineLatest(_buffer)
-			.DistinctUntilChanged(d => d.Second)
+		using var sub = _buffer
+			.DistinctUntilChanged(d => d.RemoteEndPoint)
 			.TakeUntil(DateTimeOffset.Now.Add(duration))
 			.Subscribe(
 				result =>
 				{
-					pipe.Writer.TryWrite(result.Second);
+					Log.Trace("Pipe written from {Address}", result.RemoteEndPoint);
+					pipe.Writer.TryWrite(result);
 				},
 				() =>
 				{
