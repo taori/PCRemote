@@ -20,6 +20,11 @@ function Build-Android {
         [ValidateSet('Release','Debug')]
 		[string]$Configuration = "Release"
     )
+    
+    Write-Host "Build-Android: `"KeyStorePath`": $KeyStorePath "`
+                                + " `"ProjectPath`": $ProjectPath "`
+                                + " `"PublishFilePath`": $PublishFilePath "`
+                                + " `"Configuration`": $Configuration "
 
     [Environment]::SetEnvironmentVariable('PCR3PW', $SignPassword, 'Process')
 
