@@ -29,7 +29,7 @@ function Build-Android {
     
     $tempDest = New-TemporaryDirectory
     
-    if(Test-Path $tempDest -eq $false){
+    if(Test-Path "$tempDest" -eq $false){
         Write-Host "Failed to create Temp Directory $tempDest"
         exit 1
     }
@@ -57,7 +57,7 @@ function Build-Android {
 function New-TemporaryDirectory {
     $parent = [System.IO.Path]::GetTempPath()
     [string] $name = [System.Guid]::NewGuid()
-    $f = New-Item -ItemType Directory -Path (Join-Path $parent $name)
+    $f = New-Item -ItemType Directory -Path (Join-Path "$parent" "$name")
     return $f.FullName
 }
 
