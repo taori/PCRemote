@@ -52,26 +52,45 @@ jobs:
     concurrency:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
+      
     outputs:
-      buildConfiguration : ${{ steps.buildConfiguration.outputs.value1 }}
-      productVersion : ${{ steps.productVersion.outputs.value1 }}
-      releaseVersion : ${{ steps.releaseVersion.outputs.value1 }}
+      buildConfiguration : ${{ steps.setVars.outputs.BUILD_CONFIGURATION }}
+      productVersion : ${{ steps.setVars.outputs.PRODUCT_VERSION }}
+      releaseVersion : ${{ steps.setVars.outputs.RELEASE_VERSION }}
       
     steps:
             
-      - name: Tell Environment Information
+      - name: Github Information
         shell: bash
         run: |
-          echo "event: $HOST"
           echo "event: $GITHUB_EVENT_NAME"
           echo "head: $GITHUB_HEAD_REF"
           echo "base: $GITHUB_BASE_REF"
+
+      - name: Environment CI Build
+        shell: pwsh
+        if: ${{ !( github.event_name == 'workflow_dispatch' && github.event.inputs.productVersion != '1.0.0') }}
+        run: |
+          $sha = ([string]"${{ github.sha }}").Substring(0,12)
+          $date = Get-Date -Format "yyMMdd-HHmmss"
+          $version = "beta-$date-$sha"
+          echo "RELEASE_VERSION=$version" >> $env:GITHUB_ENV   
+
+      - name: Environment Workflow Dispatch Build
+        shell: pwsh
+        if: ${{ ( github.event_name == 'workflow_dispatch' && github.event.inputs.productVersion != '1.0.0') }}
+        run: |
+          $sha = ([string]"${{ github.sha }}").Substring(0,26)
+          $version = "release-$env:PV"
+          echo "RELEASE_VERSION=$version" >> $env:GITHUB_ENV  
+        env:
+          PV : ${{ github.event.inputs.productVersion }}
           
       - name: Set environment variables
         id: setVars
         shell: pwsh
         run: |
-          Write-Host "Using pwsh version$($Host.Version.ToString())"
+          Write-Host "Using pwsh version $($Host.Version.ToString())"
           
           $productVersion = "$Env:LPRODUCTVERSION"
           if([string]::IsNullOrEmpty("$productVersion") -eq $true){
@@ -85,42 +104,39 @@ jobs:
           
           Write-Output "PRODUCT_VERSION=$($productVersion)" >> $Env:GITHUB_OUTPUT
           Write-Output "BUILD_CONFIGURATION=$($buildConfiguration)" >> $Env:GITHUB_OUTPUT
+          Write-Output "RELEASE_VERSION=$($buildConfiguration)" >> $Env:GITHUB_OUTPUT
         env:
           LPRODUCTVERSION : ${{ github.event.inputs.productVersion }}
-          LBUILDCONFIGURATION : ${{ github.event.inputs.buildConfiguration }}
-          
-      - name: Environment CI Build
-        shell: pwsh
-        if: ${{ !( github.event_name == 'workflow_dispatch' && github.event.inputs.productVersion != '1.0.0') }}
-        run: |          
-          $sha = ([string]"${{ github.sha }}").Substring(0,12)
-          $date = Get-Date -Format "yyMMdd-HHmmss"
-          $version = "beta-$date-$sha"
-          echo "RELEASE_VERSION=$version" >> $env:GITHUB_ENV   
-                  
-      - name: Environment Workflow Dispatch Build
-        shell: pwsh
-        if: ${{ ( github.event_name == 'workflow_dispatch' && github.event.inputs.productVersion != '1.0.0') }}
-        run: |        
-          $sha = ([string]"${{ github.sha }}").Substring(0,26)
-          $version = "release-$env:PV"
-          echo "RELEASE_VERSION=$version" >> $env:GITHUB_ENV  
-        env: 
-          PV : ${{ github.event.inputs.productVersion }}
-         
-      - name: Set output releaseVersion
-        id : releaseVersion
-        shell: pwsh
-        run: |
-          echo "::set-output name=value1::$env:RELEASE_VERSION" 
+          LRELEASEVERSION : ${{ env.RELEASE_VERSION }}
         
+#          echo "event: $GITHUB_EVENT_NAME"
+#          echo "head: $GITHUB_HEAD_REF"
+#          echo "base: $GITHUB_BASE_REF"
+        
+#      - name: Stop
+#        run: exit 1
+        
+  VerifyEnvironment:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
+    runs-on: windows-latest
+    needs: Environment
+    steps:
       - name: Tell Environment
         shell: bash
-        run: | 
-          echo $RELEASE_VERSION
-          echo $PRODUCT_VERSION
-          echo $BUILD_CONFIGURATION
-        
+        run: |
+          echo "buildConfiguration: $OV1"
+          echo "productVersion: $OV2"
+          echo "releaseVersion: $OV3"
+          echo "event: $GITHUB_EVENT_NAME"
+          echo "head: $GITHUB_HEAD_REF"
+          echo "base: $GITHUB_BASE_REF"
+        env:
+          OV1: ${{needs.Environment.outputs.buildConfiguration}}
+          OV2: ${{needs.Environment.outputs.productVersion}}
+          OV3: ${{needs.Environment.outputs.releaseVersion}}
+          
       - name: Stop
         run: exit 1
           
@@ -129,7 +145,7 @@ jobs:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
     runs-on: windows-latest
-    needs: Environment
+    needs: VerifyEnvironment
     steps:
             
       - uses: actions/checkout@v2      
@@ -193,7 +209,7 @@ jobs:
     concurrency:
       group: ci-${{ github.ref }}
       cancel-in-progress: true
-    needs: Environment
+    needs: VerifyEnvironment
     runs-on: windows-latest
     steps:
             
