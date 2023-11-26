@@ -51,9 +51,20 @@
 	</ItemGroup>
 
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">
-        <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild>
-        <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+        <!-- <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild> -->
+        <!-- <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled> -->
         <PackageCertificateThumbprint>B10980A171BA749E3694019CEA2C125194126519</PackageCertificateThumbprint>
+
+
+        <!-- <PackageCertificateThumbprint>2201301EC91932510A2712B8E63136DBEA51A8BD</PackageCertificateThumbprint> -->
+		<GenerateAppInstallerFile>True</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA512</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+		<AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<AppInstallerUri>http://amusoft.pcr3.app</AppInstallerUri>
+		<HoursBetweenUpdateChecks>720</HoursBetweenUpdateChecks>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(RuntimeIdentifierOverride)' != ''">
