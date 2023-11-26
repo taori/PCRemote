@@ -12,7 +12,7 @@ Import-Module (Resolve-Path "$PSScriptRoot\functions.psm1")
 $SecretSignPassword = Get-SecretKeyValue "$env:APPDATA\microsoft\UserSecrets\fff9ecb8-0258-4f9f-8333-3da6f78ab9ce\secrets.json" "SignPassword"
 $SignPassword = $SignPassword, $SecretSignPassword | Get-FirstNonNull
 
-$keyStore = Get-ResolvedPath "$PSScriptRoot\PCR3.keystore"
-$apkProject = Get-ResolvedPath "$PSScriptRoot\..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj"
+$keyStore = Resolve-Path "$PSScriptRoot\PCR3.keystore"
+$apkProject = Resolve-Path "$PSScriptRoot\..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj"
 
 Build-Android -KeyStorePath $keyStore -SignPassword $SignPassword -ProjectPath $apkProject -PublishFilePath $PublishFilePath
