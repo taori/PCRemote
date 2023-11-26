@@ -22,7 +22,7 @@ Import-Module (Resolve-Path "$PSScriptRoot\functions.psm1")
 #ütf8
 
 if($DeleteArtifacts -eq $true){
-    if(Test-Path "$PSScriptRoot\..\artifacts\" -eq $true){
+    if(Test-Path "$PSScriptRoot\..\artifacts\"){
         Remove-Item -Recurse -Force -Path (Resolve-Path "$PSScriptRoot\..\artifacts\") -ErrorAction Stop        
     }    
 }
