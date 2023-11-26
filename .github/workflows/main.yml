@@ -144,7 +144,6 @@ jobs:
       cancel-in-progress: true
     runs-on: windows-latest
     needs: [VerifyEnvironment, Environment]
-    if: false
     steps:
       
       - name: Install .NET MAUI
