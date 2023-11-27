@@ -1,7 +1,7 @@
 ﻿using Amusoft.PCR.Domain.Common;
 using Amusoft.PCR.Int.IPC;
 
-namespace Amusoft.PCR.Application.Services;
+namespace Amusoft.PCR.AM.Shared.Services;
 
 public interface IDesktopClientMethods
 {

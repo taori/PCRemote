@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Application.Services;
+﻿namespace Amusoft.PCR.AM.Shared.Services;
 
 public interface IAgentEnvironment
 {

@@ -1,6 +1,6 @@
 ﻿using System.Net;
+using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Int.IPC;
 using Grpc.Core;
 using Grpc.Net.Client;

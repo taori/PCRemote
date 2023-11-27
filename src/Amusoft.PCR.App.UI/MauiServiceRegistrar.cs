@@ -1,7 +1,7 @@
-﻿using Amusoft.PCR.App.UI.Implementations;
+﻿using Amusoft.PCR.AM.Shared.Services;
+using Amusoft.PCR.App.UI.Implementations;
 using Amusoft.PCR.App.UI.Pages;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Application.UI.VM;
 using Amusoft.PCR.Domain.Services;

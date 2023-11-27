@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Application.Services;
+﻿using Amusoft.PCR.AM.Shared.Services;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 

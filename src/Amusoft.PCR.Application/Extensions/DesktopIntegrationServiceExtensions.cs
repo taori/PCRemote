@@ -1,5 +1,5 @@
-﻿using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.Services;
+﻿using Amusoft.PCR.AM.Shared.Services;
+using Amusoft.PCR.Application.Features.DesktopIntegration;
 
 namespace Amusoft.PCR.Application.Extensions;
 

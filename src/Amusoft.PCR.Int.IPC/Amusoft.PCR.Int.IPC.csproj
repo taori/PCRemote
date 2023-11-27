@@ -8,10 +8,6 @@
 		<NoWarn>1701;1702;CS8981</NoWarn>
 	</PropertyGroup>
 
-
-	<ItemGroup>
-	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Google.Protobuf" Version="3.15.8" />
 		<PackageReference Include="Grpc" Version="2.26.0" />

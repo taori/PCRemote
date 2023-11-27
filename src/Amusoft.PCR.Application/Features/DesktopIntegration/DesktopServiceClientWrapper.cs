@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Application.Services;
+﻿using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.Domain.Common;
 using Amusoft.PCR.Int.IPC;
 using Microsoft.Extensions.Logging;

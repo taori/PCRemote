@@ -1,7 +1,6 @@
 ﻿using Amusoft.PCR.App.UI.Controls;
 using Amusoft.PCR.App.UI.Implementations;
 using Amusoft.PCR.App.UI.Pages;
-using Amusoft.PCR.Application.Resources;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NLog;

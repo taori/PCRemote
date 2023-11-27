@@ -1,7 +1,6 @@
-﻿using Amusoft.PCR.Application.UI.VM;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Amusoft.PCR.Application.Services;
+namespace Amusoft.PCR.AM.Shared.Services;
 
 public interface ITypedNavigator
 {

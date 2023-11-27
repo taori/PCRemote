@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Application.Services;
+﻿using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.Application.Utility;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

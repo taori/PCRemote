@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Application.Resources;
+﻿namespace Amusoft.PCR.AM.UI.Resources;
 
 public static class PageNames
 {
