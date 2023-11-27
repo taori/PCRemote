@@ -3,7 +3,6 @@ using Amusoft.PCR.App.WindowsAgent.Events;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Google.Protobuf.WellKnownTypes;
 using MahApps.Metro.Controls;
 
 namespace Amusoft.PCR.App.WindowsAgent.Windows

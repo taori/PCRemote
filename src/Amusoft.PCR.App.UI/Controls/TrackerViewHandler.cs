@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Handlers;
-using System.Windows.Input;
 using Microsoft.Maui.Platform;
 
 #if IOS || MACCATALYST

@@ -3,7 +3,6 @@ using System.Net.Sockets;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Channels;
-using NLog;
 
 namespace Amusoft.Toolkit.Networking;
 

@@ -1,6 +1,5 @@
 ﻿using Amusoft.PCR.AM.UI.Interfaces;
 using CommunityToolkit.Maui.Core;
-using IToast = Amusoft.PCR.AM.UI.Interfaces.IToast;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 

@@ -1,11 +1,9 @@
 ﻿using Amusoft.PCR.App.UI.Controls;
 using Amusoft.PCR.App.UI.Implementations;
-using Amusoft.PCR.App.UI.Pages;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Extensions.Logging;
-using NLog.Layouts;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace Amusoft.PCR.App.UI;

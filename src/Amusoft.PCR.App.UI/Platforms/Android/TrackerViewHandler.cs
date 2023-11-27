@@ -1,6 +1,5 @@
 ﻿
 using Amusoft.PCR.App.UI.Platforms.Android;
-using Microsoft.Maui.Controls.Platform;
 
 // ReSharper disable once CheckNamespace
 namespace Amusoft.PCR.App.UI.Controls;

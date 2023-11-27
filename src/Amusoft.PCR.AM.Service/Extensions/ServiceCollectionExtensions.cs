@@ -1,5 +1,4 @@
-﻿using Amusoft.PCR.AM.Service.Features;
-using Amusoft.PCR.AM.Service.Features.GettingStarted;
+﻿using Amusoft.PCR.AM.Service.Features.GettingStarted;
 using Amusoft.PCR.AM.Service.Interfaces;
 using Amusoft.PCR.AM.Service.Services;
 using Amusoft.PCR.AM.Service.Utility;

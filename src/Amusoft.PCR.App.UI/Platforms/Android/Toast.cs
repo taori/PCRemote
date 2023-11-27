@@ -1,21 +1,10 @@
 ﻿using System.Timers;
 using Amusoft.PCR.AM.UI.Interfaces;
-using Android.App;
 using Android.OS;
-using Android.OS.Ext;
 using Android.Views;
 using Android.Widget;
-using Android.Window;
-using AndroidX.Activity;
-using AndroidX.Core.View;
-using AndroidX.Core.Widget;
-using AndroidX.Fragment.App;
-using CommunityToolkit.Maui.Core;
-using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Platform;
-using Debug = System.Diagnostics.Debug;
 using Fragment = AndroidX.Fragment.App.Fragment;
-using IToast = Amusoft.PCR.AM.UI.Interfaces.IToast;
 using View = Android.Views.View;
 
 namespace Amusoft.PCR.App.UI.Implementations;

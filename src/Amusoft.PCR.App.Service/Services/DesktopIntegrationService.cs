@@ -1,6 +1,4 @@
 ﻿using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.Int.IPC;
 using Grpc.Core;

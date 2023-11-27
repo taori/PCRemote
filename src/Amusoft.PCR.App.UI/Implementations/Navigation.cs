@@ -1,7 +1,5 @@
 ﻿#nullable enable
 
-using INavigation = Amusoft.PCR.AM.UI.Interfaces.INavigation;
-
 namespace Amusoft.PCR.App.UI.Implementations;
 
 public class Navigation : AM.UI.Interfaces.INavigation
