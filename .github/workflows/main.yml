@@ -131,6 +131,7 @@ jobs:
           echo "buildConfiguration: $OV1"
           echo "productVersion: $OV2"
           echo "releaseVersion: $OV3"
+          echo "apkArtifactsPath: $OV4"
           echo "event: $GITHUB_EVENT_NAME"
           echo "head: $GITHUB_HEAD_REF"
           echo "base: $GITHUB_BASE_REF"
@@ -138,6 +139,7 @@ jobs:
           OV1: ${{needs.Environment.outputs.buildConfiguration}}
           OV2: ${{needs.Environment.outputs.productVersion}}
           OV3: ${{needs.Environment.outputs.releaseVersion}}
+          OV4: ${{needs.Environment.outputs.apkArtifactsPath}}
           
 #      - name: Stop
 #        run: exit 1
@@ -148,6 +150,13 @@ jobs:
       cancel-in-progress: true
     runs-on: windows-latest
     needs: [VerifyEnvironment, Environment]
+    
+    outputs:
+      apkPath : ${{ steps.publishProducts.outputs.PRODUCT_APK }}
+      apkFileName : ${{ steps.publishProducts.outputs.PRODUCT_APKFILENAME }}
+      msiPath : ${{ steps.publishProducts.outputs.PRODUCT_MSI }}
+      msiFileName : ${{ steps.publishProducts.outputs.PRODUCT_MSIFILENAME }}
+      
     steps:
       
       - name: Install .NET MAUI
@@ -187,7 +196,10 @@ jobs:
           
           Write-Host "APK: $($paths.ApkPath), MSI: $($paths.MsiPath)"
           Write-Output "PRODUCT_APK=$($paths.ApkPath)" >> $Env:GITHUB_OUTPUT
+          Write-Output "PRODUCT_APKFILENAME=$([System.IO.Path]::GetFileName($paths.ApkPath))" >> $Env:GITHUB_OUTPUT
+          
           Write-Output "PRODUCT_MSI=$($paths.MsiPath)" >> $Env:GITHUB_OUTPUT
+          Write-Output "PRODUCT_MSIFILENAME=$([System.IO.Path]::GetFileName($paths.MsiPath))" >> $Env:GITHUB_OUTPUT
           
           #Get-ChildItem -Path "." -Recurse | %{ $_.Fullname }
         env:
@@ -208,9 +220,7 @@ jobs:
           path: ${{ steps.publishProducts.outputs.PRODUCT_APK }}        
           if-no-files-found: error
           retention-days: 1 
-                    
-
-
+             
   Publishing:
     concurrency:
       group: ci-${{ github.ref }}
@@ -225,28 +235,31 @@ jobs:
   GitHubRelease:    
     runs-on: windows-latest
     if: ${{ github.event.inputs.createRelease == '1' }}
-    needs: [ Publishing, VerifyEnvironment]
+    needs: [ Publishing, VerifyEnvironment, WindowsPublish ]
     steps:
                                 
       - name: Download artifact apk
         uses: actions/download-artifact@v2.0.10
         with:
           name: apk  
-          path: artifacts/apk/
+          path: ghrelease/apk/
           
       - name: Download artifact server
         uses: actions/download-artifact@v2.0.10
         with:
           name: windows-installer
-          path: artifacts/msi/
+          path: ghrelease/msi/
 
-      - name: Check release asset existance
-        id: check_files
-        uses: andstor/file-existence-action@v1
+      - name: Check file existance
+        uses: andstor/file-existence-action@v2.0.0
         with:
-          files: "artifacts/apk/amusoft.pcr.mobile.droid.apk, artifacts/msi/Amusoft PC Remote 3.msi"
+          # Comma separated string with paths to files and directories to check for existence.
+          files: ghrelease/apk/${{ needs.WindowsPublish.outputs.apkFileName }}, ghrelease/msi/${{ needs.WindowsPublish.outputs.msiFileName }}
+          ignore_case: true
+          fail: true
                              
       - name: Create GitHub release
+        if : false
         uses: actions/create-release@v1
         id: create_release
         with:
@@ -263,17 +276,19 @@ jobs:
       #  run: ls -R $GITHUB_WORKSPACE/downloads/
           
       - id: upload-release-asset-apk
+        if : false
         name: Upload APK
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: artifacts/apk/amusoft.pcr.mobile.droid.apk
-          asset_name: amusoft.pcr.mobile.droid.apk
+          asset_path: ghrelease/apk/${{ needs.WindowsPublish.outputs.apkFileName }}
+          asset_name: Amusoft PC Remote 3 ${{ env.RN }}.apk
           asset_content_type: application/vnd.android.package-archive
                     
       - id: upload-release-asset-msi
+        if : false
         name: Upload MSI
         uses: actions/upload-release-asset@v1
         env:
@@ -281,6 +296,6 @@ jobs:
           RN: ${{ needs.Environment.outputs.releaseVersion }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: artifacts/msi/Amusoft PC Remote 3.msi
+          asset_path: ghrelease/apk/${{ needs.WindowsPublish.outputs.msiFileName }}
           asset_name: Amusoft PC Remote 3 ${{ env.RN }}.msi
           asset_content_type: application/octet-stream
