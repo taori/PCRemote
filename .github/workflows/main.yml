@@ -294,6 +294,6 @@ jobs:
           RN: ${{ needs.Environment.outputs.releaseVersion }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ghrelease/apk/${{ needs.WindowsPublish.outputs.msiFileName }}
+          asset_path: ghrelease/msi/${{ needs.WindowsPublish.outputs.msiFileName }}
           asset_name: Amusoft PC Remote 3 ${{ env.RN }}.msi
           asset_content_type: application/octet-stream
