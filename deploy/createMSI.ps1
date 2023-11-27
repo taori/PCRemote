@@ -28,7 +28,6 @@ if($DeleteArtifacts -eq $true){
 }
 
 $apkFile = Get-ResolvedPath "$PSScriptRoot\..\artifacts\msi\apk\app.apk"
-$apkPublishScript = Get-ResolvedPath "$PSScriptRoot\publishapk.ps1"
 $installerProject = Get-ResolvedPath "$PSScriptRoot\..\installer\Amusoft.PCR.Installer\Amusoft.PCR.Installer.wixproj"
 $installerOutput = Get-ResolvedPath "$PSScriptRoot\..\artifacts\msi\compiled"
 $apkDirectory = [System.IO.Path]::GetDirectoryName($apkFile)
@@ -42,7 +41,7 @@ if($SkipPublish -eq $false){
     $runPublish = "true"
     if($SkipAPK -eq $false){
         Write-Host "Publishing APK" -ForegroundColor Cyan
-        & "$apkPublishScript" -PublishFilePath "$apkFile"        
+        & "$(Get-ResolvedPath "$PSScriptRoot\publishapk.ps1")" -PublishFilePath "$apkFile"        
     }
 }
 
