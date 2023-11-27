@@ -107,9 +107,9 @@
 <!--    <Exec Command="dotnet publish $(SolutionDir)..\src\Amusoft.PCR.App.UI\Amusoft.PCR.App.UI.csproj -c $(XPublishConfiguration) -o $(SolutionDir)..\artifacts\msi\ui-windows -f net7.0-windows10.0.19041.0 -p:RuntimeIdentifierOverride=win10-x64" Timeout="60000" />-->
     
     <Message Importance="High" Text="--- APK --&gt; wwwroot --- " />
-    <Move SourceFiles="@(ApkToMove)" DestinationFolder="$(AndroidApkDestination)">
+    <Copy SourceFiles="@(ApkToMove)" DestinationFolder="$(AndroidApkDestination)">
       <Output TaskParameter="DestinationFiles" ItemName="FilesWritten" />
-    </Move>
+    </Copy>
     <Message Text="Copied @(ApkToMove) to @(FilesWritten)" Importance="high" />
   </Target>
   

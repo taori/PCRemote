@@ -3,22 +3,29 @@ name: CI
 on:
 
   push:
-    branches:
-      - master 
-    paths: 
+    branches: [main]
+    paths:
       - src/*
+      - tests/*
+      - .github/workflows/main.yml
       
   pull_request:    
-    types: 
-      - opened
-      - reopened
-      - synchronize   
+    branches : [main]
+    
+#    types: 
+#      - opened
+#      - reopened
+#      - synchronize
       
   # manual trigger
   workflow_dispatch:
     inputs:
     
       buildConfiguration:
+        type: choice
+        options:
+          - Release
+          - Debug
         required: true
         description: "Configuration for build processes"
         default: 'Release'
@@ -26,15 +33,22 @@ on:
       productVersion:
         required: true
         description: "Version for Release numbers"
-        default: '1.0.0'
+        default: '3.0.0'
         
       createRelease:
         required: true
-        description: "Provide GitHub release?: 1/0"
-        default: "0"
+        type: boolean
+        description: "Provide GitHub release?"
+        default: false
   
 env:
+  DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
   WS: ${{ github.workspace }}
+  VSVersion: "17.8.1"
+  DOTNETVERSION: "7.0"
   BUILDCONFIGURATION : ${{ github.event.inputs.buildConfiguration }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -42,274 +56,210 @@ jobs:
 
   Environment:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
+      
     outputs:
-      buildConfiguration : ${{ steps.buildConfiguration.outputs.value1 }}
-      productVersion : ${{ steps.productVersion.outputs.value1 }}
-      releaseVersion : ${{ steps.releaseVersion.outputs.value1 }}
+      buildConfiguration : ${{ steps.setVars.outputs.BUILD_CONFIGURATION }}
+      productVersion : ${{ steps.setVars.outputs.PRODUCT_VERSION }}
+      releaseVersion : ${{ steps.setVars.outputs.RELEASE_VERSION }}
+      apkArtifactsPath : ${{ steps.setVars.outputs.APKTARGETPATH }}
       
     steps:
             
-      - name: Tell Environment Information
+      - name: Github Information
         shell: bash
         run: |
           echo "event: $GITHUB_EVENT_NAME"
           echo "head: $GITHUB_HEAD_REF"
           echo "base: $GITHUB_BASE_REF"
-          
-      - name: Set Product Version
-        id: productVersion
-        shell: pwsh
-        run: |
-          $value = "$env:VS"
-          if([string]::IsNullOrEmpty("$value") -eq $true){
-            $value = '1.0.0'
-          }
-          echo "PRODUCT_VERSION=$value" >> $env:GITHUB_ENV
-          echo "::set-output name=value1::$value"          
-        env: 
-          VS : ${{ github.event.inputs.productVersion }}          
-          
+
       - name: Environment CI Build
         shell: pwsh
         if: ${{ !( github.event_name == 'workflow_dispatch' && github.event.inputs.productVersion != '1.0.0') }}
-        run: |          
+        run: |
           $sha = ([string]"${{ github.sha }}").Substring(0,12)
           $date = Get-Date -Format "yyMMdd-HHmmss"
           $version = "beta-$date-$sha"
           echo "RELEASE_VERSION=$version" >> $env:GITHUB_ENV   
-                  
+
       - name: Environment Workflow Dispatch Build
         shell: pwsh
         if: ${{ ( github.event_name == 'workflow_dispatch' && github.event.inputs.productVersion != '1.0.0') }}
-        run: |        
+        run: |
           $sha = ([string]"${{ github.sha }}").Substring(0,26)
           $version = "release-$env:PV"
           echo "RELEASE_VERSION=$version" >> $env:GITHUB_ENV  
-        env: 
+        env:
           PV : ${{ github.event.inputs.productVersion }}
-         
-      - name: Set output releaseVersion
-        id : releaseVersion
-        shell: pwsh
-        run: |
-          echo "::set-output name=value1::$env:RELEASE_VERSION" 
           
-      - name: Set output buildConfiguration
-        id: buildConfiguration
+      - name: Set environment variables
+        id: setVars
         shell: pwsh
         run: |
-          $value = "$env:INPUT"
-          if([string]::IsNullOrEmpty("$value") -eq $true){
-            $value = 'Release'
+          Write-Host "Using pwsh version $($Host.Version.ToString())"
+          
+          $productVersion = "$Env:LPRODUCTVERSION"
+          if([string]::IsNullOrEmpty("$productVersion") -eq $true){
+            $productVersion = '3.0.0'
           }
-          echo "BUILDCONFIGURATION=$value" >> $env:GITHUB_ENV
-          echo "::set-output name=value1::$value"          
-        env: 
-          INPUT : ${{ github.event.inputs.buildConfiguration }}  
-        
-      - name: Tell RELEASE_VERSION
-        shell: bash
-        run: echo $RELEASE_VERSION
-        
-     # - name: stop
-     #   run: exit 1
           
-  Android:
+          $buildConfiguration = "$Env:LBUILDCONFIGURATION"
+          if([string]::IsNullOrEmpty("$buildConfiguration") -eq $true){
+            $buildConfiguration = 'Release'
+          }
+          
+          Write-Output "PRODUCT_VERSION=$($productVersion)" >> $Env:GITHUB_OUTPUT
+          Write-Output "BUILD_CONFIGURATION=$($buildConfiguration)" >> $Env:GITHUB_OUTPUT
+          Write-Output "RELEASE_VERSION=$($Env:LRELEASEVERSION)" >> $Env:GITHUB_OUTPUT
+          Write-Output "APKTARGETPATH=$($Env:WS)\artifacts\apk\amusoft.pcr.android-$productVersion.apk" >> $Env:GITHUB_OUTPUT
+        env:
+          LPRODUCTVERSION : ${{ github.event.inputs.productVersion }}
+          LRELEASEVERSION : ${{ env.RELEASE_VERSION }}
+        
+  VerifyEnvironment:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: windows-latest
     needs: Environment
     steps:
-            
-      - uses: actions/checkout@v2      
+      - name: Tell Environment
+        shell: bash
+        run: |
+          echo "buildConfiguration: $OV1"
+          echo "productVersion: $OV2"
+          echo "releaseVersion: $OV3"
+          echo "apkArtifactsPath: $OV4"
+          echo "event: $GITHUB_EVENT_NAME"
+          echo "head: $GITHUB_HEAD_REF"
+          echo "base: $GITHUB_BASE_REF"
+        env:
+          OV1: ${{needs.Environment.outputs.buildConfiguration}}
+          OV2: ${{needs.Environment.outputs.productVersion}}
+          OV3: ${{needs.Environment.outputs.releaseVersion}}
+          OV4: ${{needs.Environment.outputs.apkArtifactsPath}}
+          
+#      - name: Stop
+#        run: exit 1
+          
+  WindowsPublish:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
+    runs-on: windows-latest
+    needs: [VerifyEnvironment, Environment]
+    
+    outputs:
+      apkPath : ${{ steps.publishProducts.outputs.PRODUCT_APK }}
+      apkFileName : ${{ steps.publishProducts.outputs.PRODUCT_APKFILENAME }}
+      msiPath : ${{ steps.publishProducts.outputs.PRODUCT_MSI }}
+      msiFileName : ${{ steps.publishProducts.outputs.PRODUCT_MSIFILENAME }}
+      
+    steps:
+      
+      - name: Install .NET MAUI
+        shell: pwsh
+        run: |
+          # dotnet nuget locals all --clear 
+          dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+          dotnet workload install android maui wasm-tools --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+          
+      - uses: actions/setup-java@v3.13.0
+        with:
+          distribution: 'microsoft'
+          java-version: '11'
+              
+      - uses: actions/checkout@v4.1.1    
       - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1.0.2
+        uses: microsoft/setup-msbuild@v1.3.1
         with:
           # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: 16.9
-          
-      - shell : bash
-        name: Load android keystore
+          vs-version: ${{ env.VSVersion }}
+
+      - shell: pwsh
+        name: set user-secrets
         run: |
-          echo -n "$ANDROID_KEYSTORE" > "$WS\android.keystore.encoded"
-          base64 --decode "$WS\android.keystore.encoded" > "$WS\android.keystore"            
+          dotnet user-secrets set "SignPassword" "$($Env:PASSWORD)" --id "fff9ecb8-0258-4f9f-8333-3da6f78ab9ce"       
         env:
-          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
-             
+          PASSWORD : ${{ secrets.ANDROID_KEYSTORE_PASS }}
+
       - shell: pwsh
-        name: Update android manifest
+        name: createMSI.ps1
+        id: publishProducts
         run: |
-          $manifestPath = "src/Amusoft.PCR.Mobile.Droid/Properties/AndroidManifest.xml"
-          $oldVersion = "1.0"
-          $newVersion = "$env:PRODUCTVERSION"
-          Write-Host "Updating $oldVersion to $newVersion"
-          $replacedContent = [System.IO.File]::ReadAllText($manifestPath).Replace("android:versionName=`"$oldVersion`"", "android:versionName=`"$newVersion`"")
-          [System.IO.File]::WriteAllText($manifestPath, $replacedContent)
+          $releaseVersion = "$($Env:RV)"
+          Write-Host "Generating APK + MSI"
           
-        env:      
-          PRODUCTVERSION : ${{needs.Environment.outputs.productVersion}}    
+          $paths = & "$($Env:WS)\deploy\createMSI.ps1" -DeleteArtifacts $true -SkipPublish $false -SkipHarvesting $false -SkipAPK $false -OpenExplorer $false -ProductVersion "$releaseVersion"
           
-      - shell: pwsh
-        name: Build APK
-        run: |
-          msbuild src/Amusoft.PCR.Mobile.Droid/Amusoft.PCR.Mobile.Droid.csproj /verbosity:minimal /restore /t:"SignAndroidPackage" /bl /p:Configuration=$env:BUILDCONFIGURATION /p:OutputPath="$env:WS\artifacts\android" /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias="$env:ANDROID_KEY_ALIAS" /p:AndroidSigningKeyPass="$env:ANDROID_KEY_PASS" /p:AndroidSigningKeyStore="$env:WS\android.keystore" /p:AndroidSigningStorePass="$env:ANDROID_KEYSTORE_PASS"
-          Remove-Item "$env:WS\android.keystore.encoded"
-          Remove-Item "$env:WS\android.keystore"
-        env:      
-          BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}    
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          ANDROID_KEY_PASS: ${{ secrets.ANDROID_KEY_PASS }}
-          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
-              
-      - shell: bash
-        name: Remove excess android files
-        run: |
-          mkdir artifacts/apk/
-          find artifacts/android/ -name '*-Signed.apk' -exec cp "{}" artifacts/apk/ \;
-          rm -rf artifacts/android/
-          mv artifacts/apk/amusoft.pcr.mobile.droid-Signed.apk artifacts/apk/amusoft.pcr.mobile.droid.apk
-                    
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2.2.4
+          Write-Host "APK: $($paths.ApkPath), MSI: $($paths.MsiPath)"
+          Write-Output "PRODUCT_APK=$($paths.ApkPath)" >> $Env:GITHUB_OUTPUT
+          Write-Output "PRODUCT_APKFILENAME=$([System.IO.Path]::GetFileName($paths.ApkPath))" >> $Env:GITHUB_OUTPUT
+          
+          Write-Output "PRODUCT_MSI=$($paths.MsiPath)" >> $Env:GITHUB_OUTPUT
+          Write-Output "PRODUCT_MSIFILENAME=$([System.IO.Path]::GetFileName($paths.MsiPath))" >> $Env:GITHUB_OUTPUT
+          
+          #Get-ChildItem -Path "." -Recurse | %{ $_.Fullname }
+        env:
+          RV : ${{ needs.Environment.outputs.productVersion }}
+          
+      - name: Upload MSI
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: msi
+          path: ${{ steps.publishProducts.outputs.PRODUCT_MSI }}
+          if-no-files-found: error
+          retention-days: 1
+          
+      - name: Upload APK
+        uses: actions/upload-artifact@v3.1.3
         with:
           name: apk
-          path: "artifacts/apk/amusoft.pcr.mobile.droid.apk"          
+          path: ${{ steps.publishProducts.outputs.PRODUCT_APK }}        
           if-no-files-found: error
           retention-days: 1 
-          
-                    
-  Windows:    
-    needs: Environment
+             
+  Publishing:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     runs-on: windows-latest
-    steps:
-            
-      - uses: actions/checkout@v2      
-      - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1.0.2
-        with:
-          # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: 16.9
-          
-      - shell: pwsh
-        name: Build server
-        run: |
-          dotnet publish src/Amusoft.PCR.Server/Amusoft.PCR.Server.csproj -c $env:BUILDCONFIGURATION -o artifacts/server/web /property:Version=$env:PRODUCT_VERSION --sc -r win-x64
-          dotnet publish src/Amusoft.PCR.Integration.WindowsDesktop/Amusoft.PCR.Integration.WindowsDesktop.csproj -c $env:BUILDCONFIGURATION -o artifacts/server/win-integration /property:Version=$env:PRODUCT_VERSION --sc -r win-x64
-        env:
-          BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}
-          PRODUCT_VERSION : ${{needs.Environment.outputs.productVersion}}
-          
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          name: server
-          path: "artifacts/server/"          
-          if-no-files-found: error
-          retention-days: 1    
-
-  BuildCompletes:    
-    runs-on: windows-latest
-    needs: [Windows, Android]
+    needs: [ WindowsPublish ]
     steps:
       - name: Status message
         shell: bash
         run: echo Builds are successful
-    
-  InstallerWindows:    
-    runs-on: windows-latest
-    needs: [BuildCompletes, Environment]
-    steps:     
-    
-      - uses: actions/checkout@v2      
-      - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1.0.2
-        with:
-          # Version of Visual Studio to search; defaults to latest if not specified
-          vs-version: 16.9
-          
-      - name: Download APK Artifact
-        uses: actions/download-artifact@v2.0.10
-        with:
-          name: apk
-          path: artifacts/apk/
-          
-      - name: Download Server Artifact
-        uses: actions/download-artifact@v2.0.10
-        with:
-          name: server
-          path: artifacts/msi/
-                    
-     #- name: Display folder structure
-     #  shell: bash
-     #  run: ls -R artifacts/
-          
-      - shell: bash
-        name: Move APK to Server content directory
-        run: |
-          mkdir -p artifacts/msi/web/wwwroot/downloads/
-          cp artifacts/apk/amusoft.pcr.mobile.droid.apk artifacts/msi/web/wwwroot/downloads/amusoft.pcr.mobile.droid.apk
-              
-   #  - shell : bash
-   #    name: Load MSI signing key
-   #    run: |
-   #      echo -n "$MSI_SNK_B64" > "$WS\MSI_SNK_B64.encoded"
-   #      base64 --decode "$WS\MSI_SNK_B64.encoded" > "$WS\MSI_SNK_B64.snk"  
-   #    env:
-   #      MSI_SNK_B64: ${{ secrets.MSI_SNK_B64 }}          
-          
-      - shell: pwsh
-        name: Compile MSI using WiX Installer
-        run: |
-          $newProductContent = (Get-Content -path deploy\Amusoft.PCR.Installer\Product.wxs -Raw) -replace 'ProductVersion = "1.0.1"',"ProductVersion = `"$env:PRODUCT_VERSION`"" | Set-Content -Path deploy\Amusoft.PCR.Installer\Product.wxs        
-          msbuild /verbosity:normal /t:"Build" /bl /p:Configuration=$env:BUILDCONFIGURATION src/WixBuild.sln /p:AssemblyVersion=${{ github.event.inputs.productVersion }} /p:XRunHeat=true
-        env:          
-          PRODUCT_VERSION : ${{needs.Environment.outputs.productVersion}}
-          BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}
-            
-   #  - shell : bash
-   #    name: Remove MSI signing keys
-   #    run: |
-   #      rm $WS\MSI_SNK_B64.encoded
-   #      rm $WS\MSI_SNK_B64.snk
-   #    env:
-   #      MSI_SNK_B64: ${{ secrets.MSI_SNK_B64 }}   
-      
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          name: windows-installer
-          path: "artifacts/msi-compiled/${{ env.BUILDCONFIGURATION }}/*.msi"          
-          if-no-files-found: error
-          retention-days: 1    
-        env:        
-          BUILDCONFIGURATION : ${{needs.Environment.outputs.buildConfiguration}}
           
   GitHubRelease:    
     runs-on: windows-latest
-    if: ${{ github.event.inputs.createRelease == '1' }}
-    needs: [InstallerWindows, Environment]
+    if: ${{ github.event.inputs.createRelease }}
+    needs: [ Publishing, VerifyEnvironment, Environment, WindowsPublish ]
     steps:
                                 
       - name: Download artifact apk
-        uses: actions/download-artifact@v2.0.10
+        uses: actions/download-artifact@v2.1.1
         with:
-          name: apk
-          #path: artifacts/msi/web/wwwroot/downloads/   
-          path: artifacts/apk/
+          name: apk  
+          path: ghrelease/apk/
           
       - name: Download artifact server
-        uses: actions/download-artifact@v2.0.10
+        uses: actions/download-artifact@v2.1.1
         with:
-          name: windows-installer
-          #path: artifacts/msi/web/wwwroot/downloads/   
-          path: artifacts/msi/
+          name: msi
+          path: ghrelease/msi/
 
-      - name: Check release asset existance
-        id: check_files
-        uses: andstor/file-existence-action@v1
+      - name: Check file existance
+        uses: andstor/file-existence-action@v2.0.0
         with:
-          files: "artifacts/apk/amusoft.pcr.mobile.droid.apk, artifacts/msi/Amusoft PC Remote 2.msi"
+          # Comma separated string with paths to files and directories to check for existence.
+          files: ghrelease/apk/${{ needs.WindowsPublish.outputs.apkFileName }}, ghrelease/msi/${{ needs.WindowsPublish.outputs.msiFileName }}
+          ignore_case: true
+          fail: true
                              
       - name: Create GitHub release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v1.1.4
         id: create_release
         with:
           draft: false
@@ -326,23 +276,24 @@ jobs:
           
       - id: upload-release-asset-apk
         name: Upload APK
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: artifacts/apk/amusoft.pcr.mobile.droid.apk
-          asset_name: amusoft.pcr.mobile.droid.apk
-          asset_content_type: application/vnd.android.package-archive
-                    
-      - id: upload-release-asset-msi
-        name: Upload MSI
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RN: ${{ needs.Environment.outputs.releaseVersion }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: artifacts/msi/Amusoft PC Remote 2.msi
-          asset_name: Amusoft PC Remote 2 ${{ env.RN }}.msi
+          asset_path: ghrelease/apk/${{ needs.WindowsPublish.outputs.apkFileName }}
+          asset_name: Amusoft PC Remote 3 ${{ env.RN }}.apk
+          asset_content_type: application/vnd.android.package-archive
+                    
+      - id: upload-release-asset-msi
+        name: Upload MSI
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RN: ${{ needs.Environment.outputs.releaseVersion }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ghrelease/msi/${{ needs.WindowsPublish.outputs.msiFileName }}
+          asset_name: Amusoft PC Remote 3 ${{ env.RN }}.msi
           asset_content_type: application/octet-stream
