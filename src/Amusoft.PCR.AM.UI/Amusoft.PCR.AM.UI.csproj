@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj" />
+    <ProjectReference Include="..\Amusoft.PCR.Domain.UI\Amusoft.PCR.Domain.UI.csproj" />
   </ItemGroup>
 
 </Project>

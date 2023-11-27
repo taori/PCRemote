@@ -11,6 +11,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj" />
+		<ProjectReference Include="..\Amusoft.PCR.Domain.WindowsAgent\Amusoft.PCR.Domain.WindowsAgent.csproj" />
 	</ItemGroup>
 
 </Project>
