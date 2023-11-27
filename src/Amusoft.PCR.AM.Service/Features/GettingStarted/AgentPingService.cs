@@ -18,7 +18,7 @@ public class AgentPingService : IAgentPingService
 			var r = await _client.PingAsync(new DefaultRequest());
 			return r.Success;
 		}
-		catch (Exception e)
+		catch (Exception)
 		{
 			return false;
 		}

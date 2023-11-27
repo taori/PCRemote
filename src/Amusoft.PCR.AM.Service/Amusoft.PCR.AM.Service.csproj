@@ -10,6 +10,8 @@
     <ProjectReference Include="..\Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj" />
     <ProjectReference Include="..\Amusoft.PCR.Domain.Service\Amusoft.PCR.Domain.Service.csproj" />
     <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
+    <ProjectReference Include="..\Amusoft.Toolkit.Impersonation\Amusoft.Toolkit.Impersonation.csproj" />
+    <ProjectReference Include="..\Amusoft.Toolkit.Networking\Amusoft.Toolkit.Networking.csproj" />
   </ItemGroup>
 
   <ItemGroup>
