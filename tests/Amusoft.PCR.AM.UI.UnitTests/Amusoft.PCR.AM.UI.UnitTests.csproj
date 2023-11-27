@@ -24,7 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj" />
       <ProjectReference Include="..\..\src\Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj" />
     </ItemGroup>
 
