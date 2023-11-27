@@ -239,15 +239,15 @@ jobs:
     steps:
                                 
       - name: Download artifact apk
-        uses: actions/download-artifact@v2.0.10
+        uses: actions/download-artifact@v2.1.1
         with:
           name: apk  
           path: ghrelease/apk/
           
       - name: Download artifact server
-        uses: actions/download-artifact@v2.0.10
+        uses: actions/download-artifact@v2.1.1
         with:
-          name: windows-installer
+          name: msi
           path: ghrelease/msi/
 
       - name: Check file existance
