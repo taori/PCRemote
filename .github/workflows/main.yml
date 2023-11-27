@@ -202,7 +202,7 @@ jobs:
       - name: Upload MSI
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: apk
+          name: msi
           path: ${{ steps.publishProducts.outputs.PRODUCT_MSI }}        
           if-no-files-found: error
           retention-days: 1 

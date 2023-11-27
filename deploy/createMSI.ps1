@@ -63,7 +63,7 @@ Get-ChildItem -Path $installerOutput -Recurse -Filter "*Installer.msi" `
         Move-Item $o $n -Force 
     }   
 
-$msiPath = Get-ChildItem -Path "." -Recurse -Filter "*.msi" `
+$msiPath = Get-ChildItem -Path "$installerOutput" -Recurse -Filter "*.msi" `
             | Where-Object { $_.FullName -like "*en-US*" } `
             | % { $_.FullName }
 
