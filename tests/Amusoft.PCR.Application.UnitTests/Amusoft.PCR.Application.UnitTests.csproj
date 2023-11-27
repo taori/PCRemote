@@ -24,8 +24,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Amusoft.PCR.Application\Amusoft.PCR.Application.csproj" />
-  </ItemGroup>
-
 </Project>
