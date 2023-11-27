@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Amusoft.PCR.Application.Services;
+using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.Application.Shared;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

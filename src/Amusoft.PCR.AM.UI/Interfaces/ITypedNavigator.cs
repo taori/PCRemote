@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Amusoft.PCR.Application.UI.VM;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Amusoft.PCR.AM.Shared.Services;
 

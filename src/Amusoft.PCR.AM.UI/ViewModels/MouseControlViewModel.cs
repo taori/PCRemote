@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using System.Threading.Channels;
+using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.Application.Extensions;
-using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Application.Utility;

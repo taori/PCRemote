@@ -2,8 +2,8 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.Services;
 using Amusoft.PCR.Application.UI.Repos;
 using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Domain.VM;

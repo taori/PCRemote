@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Application.Services;
+﻿using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.Application.Shared;
 using Amusoft.PCR.Domain.Services;
 using CommunityToolkit.Mvvm.Input;

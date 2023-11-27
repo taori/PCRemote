@@ -9,6 +9,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj" />
     <ProjectReference Include="..\Amusoft.PCR.Domain.UI\Amusoft.PCR.Domain.UI.csproj" />
+    <ProjectReference Include="..\Amusoft.Toolkit.Networking\Amusoft.Toolkit.Networking.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OneOf" Version="3.0.263" />
+    <PackageReference Include="System.Interactive.Async" Version="6.0.1" />
   </ItemGroup>
 
 </Project>
