@@ -9,7 +9,7 @@ namespace Amusoft.PCR.AM.Service.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-	public static void AddApplicationModel(this IServiceCollection source)
+	public static void AddServiceApplicationModel(this IServiceCollection source)
 	{
 		source.AddScoped<ServerEndpointProvider>();
 

@@ -1,19 +1,14 @@
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 using Amusoft.PCR.AM.Service.Extensions;
 using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.App.Service.HealthChecks;
 using Amusoft.PCR.App.Service.Services;
-using Amusoft.PCR.Application;
-using Amusoft.PCR.Application.Extensions;
 using Amusoft.PCR.Application.Features.DesktopIntegration;
 using Amusoft.PCR.Domain.AgentSettings;
 using Amusoft.PCR.Domain.Services;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
-using Microsoft.AspNetCore.StaticFiles;
 using NLog;
-using NLog.Fluent;
 using NLog.Web;
 using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
 
@@ -138,8 +133,7 @@ public class Program
 		builder.Services.AddSingleton<IDesktopClientMethods, DesktopServiceClientWrapper>();
 		builder.Services.AddSingleton<NamedPipeChannel>(d => new NamedPipeChannel(".", Globals.NamedPipeChannel));
 
-		builder.Services.AddApplicationModel();
-		builder.Services.AddApplication();
+		builder.Services.AddServiceApplicationModel();
 	}
 
 	private static void RegisterAsWindowsService(WebApplicationBuilder builder)

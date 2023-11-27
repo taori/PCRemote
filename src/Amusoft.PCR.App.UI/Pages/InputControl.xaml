@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Amusoft.PCR.App.UI.Controls"
              xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
+             xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.AM.UI"
              xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
              x:Class="Amusoft.PCR.App.UI.Pages.InputControl"
              x:DataType="vm:InputControlViewModel"
