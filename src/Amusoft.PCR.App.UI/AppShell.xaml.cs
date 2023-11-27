@@ -14,14 +14,14 @@ public partial class AppShell
 
 	protected override async void OnNavigated(ShellNavigatedEventArgs args)
 	{
-		Log.Debug("AppShell.OnNavigated");
+		Log.Trace("AppShell.OnNavigated");
 		if (Current is { CurrentPage.BindingContext: INavigationCallbacks nav })
 			await nav.OnNavigatedToAsync();
 	}
 
 	protected override async void OnNavigating(ShellNavigatingEventArgs args)
 	{
-		Log.Debug("AppShell.OnNavigating");
+		Log.Trace("AppShell.OnNavigating");
 		if (Current is {CurrentPage.BindingContext: INavigationCallbacks nav })
 			await nav.OnNavigatedAwayAsync();
 	}
