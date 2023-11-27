@@ -259,7 +259,7 @@ jobs:
           fail: true
                              
       - name: Create GitHub release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v1.1.4
         id: create_release
         with:
           draft: false
@@ -276,7 +276,7 @@ jobs:
           
       - id: upload-release-asset-apk
         name: Upload APK
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RN: ${{ needs.Environment.outputs.releaseVersion }}
@@ -288,7 +288,7 @@ jobs:
                     
       - id: upload-release-asset-msi
         name: Upload MSI
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RN: ${{ needs.Environment.outputs.releaseVersion }}
