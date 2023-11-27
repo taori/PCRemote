@@ -1,10 +1,10 @@
-﻿using Amusoft.PCR.Domain.Services;
+﻿using System.Diagnostics;
+using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.Toolkit.Impersonation;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using Amusoft.PCR.AM.Shared.Services;
 
-namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+namespace Amusoft.PCR.AM.Service.Services;
 
 public class DesktopIntegrationLauncherService : IBackgroundService
 {

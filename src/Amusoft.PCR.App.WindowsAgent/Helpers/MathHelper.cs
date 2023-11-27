@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Amusoft.PCR.Int.Agent.Windows.Helpers;
+﻿namespace Amusoft.PCR.App.WindowsAgent.Helpers;
 
 
 public static class MathHelper

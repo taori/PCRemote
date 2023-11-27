@@ -1,9 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using NLog;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Interop;
+namespace Amusoft.PCR.App.WindowsAgent.Interop;
 
 
 internal static class ProcessExitListenerManager

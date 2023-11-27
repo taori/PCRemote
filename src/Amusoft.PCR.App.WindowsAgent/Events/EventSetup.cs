@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using Amusoft.PCR.Int.Agent.Windows.Windows;
+using Amusoft.PCR.App.WindowsAgent.Windows;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Events;
+namespace Amusoft.PCR.App.WindowsAgent.Events;
 
 public static class EventSetup
 {

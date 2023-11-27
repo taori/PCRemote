@@ -1,10 +1,10 @@
-﻿using Amusoft.PCR.AM.Shared.Services;
+﻿using Amusoft.PCR.AM.Shared.Interfaces;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.Repositories;
+using Amusoft.PCR.AM.UI.ViewModels;
 using Amusoft.PCR.App.UI.Implementations;
 using Amusoft.PCR.App.UI.Pages;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.UI.Repos;
-using Amusoft.PCR.Application.UI.VM;
-using Amusoft.PCR.Domain.Services;
+using INavigation = Amusoft.PCR.AM.UI.Interfaces.INavigation;
 
 namespace Amusoft.PCR.App.UI;
 
@@ -15,7 +15,7 @@ public static class MauiServiceRegistrar
 		// This switch must be set before creating the GrpcChannel/HttpClient.
 		// AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-		services.AddSingleton<Amusoft.PCR.Domain.Services.INavigation, Navigation>();
+		services.AddSingleton<INavigation, Navigation>();
 		services.AddSingleton<ITypedNavigator, TypedNavigator>();
 		services.AddSingleton<IToast, Toast>();
 		services.AddSingleton<IAgentEnvironment, AgentEnvironment>();

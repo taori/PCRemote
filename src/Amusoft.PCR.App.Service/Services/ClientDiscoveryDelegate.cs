@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Application.Features.DesktopIntegration;
+﻿using Amusoft.PCR.AM.Service.Services;
 
 namespace Amusoft.PCR.App.Service.Services;
 

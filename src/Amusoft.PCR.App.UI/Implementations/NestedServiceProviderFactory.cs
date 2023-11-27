@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Amusoft.PCR.AM.Shared.Services;
+using Amusoft.PCR.AM.Shared.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Events;
+namespace Amusoft.PCR.App.WindowsAgent.Events;
 
 
 public static class ViewModelSpawner

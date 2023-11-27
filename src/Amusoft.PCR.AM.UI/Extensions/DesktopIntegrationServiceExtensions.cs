@@ -1,7 +1,7 @@
-﻿using Amusoft.PCR.AM.Shared.Services;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
+﻿using Amusoft.PCR.AM.Shared.Interfaces;
+using Amusoft.PCR.AM.UI.Interfaces;
 
-namespace Amusoft.PCR.Application.Extensions;
+namespace Amusoft.PCR.AM.UI.Extensions;
 
 public static class DesktopIntegrationServiceExtensions
 {

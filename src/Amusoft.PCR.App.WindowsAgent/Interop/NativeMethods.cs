@@ -1,11 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
 using NLog;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Interop;
+namespace Amusoft.PCR.App.WindowsAgent.Interop;
 
 
 [Flags]

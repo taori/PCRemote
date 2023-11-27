@@ -1,11 +1,7 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using static Amusoft.PCR.Int.Agent.Windows.Interop.NativeMonitorManager;
+﻿using System.Runtime.InteropServices;
+using NLog;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Interop;
+namespace Amusoft.PCR.App.WindowsAgent.Interop;
 
 
 public partial class NativeMonitorManager : IDisposable

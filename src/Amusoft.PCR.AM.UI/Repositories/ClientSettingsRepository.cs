@@ -1,8 +1,8 @@
-﻿using Amusoft.PCR.Domain.ClientSettings;
-using Amusoft.PCR.Domain.Services;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.Domain.UI.Entities;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.Application.UI.Repos;
+namespace Amusoft.PCR.AM.UI.Repositories;
 
 public class ClientSettingsRepository
 {

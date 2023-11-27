@@ -1,8 +1,8 @@
 ﻿using Amusoft.PCR.AM.Service.Features;
 using Amusoft.PCR.AM.Service.Features.GettingStarted;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.Utility;
-using Amusoft.PCR.Domain.Services;
+using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.AM.Service.Services;
+using Amusoft.PCR.AM.Service.Utility;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Amusoft.PCR.AM.Service.Extensions;

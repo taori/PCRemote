@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="using:Amusoft.PCR.App.UI.Controls"
-             xmlns:shared="clr-namespace:Amusoft.PCR.Application.Shared;assembly=Amusoft.PCR.AM.UI"
-             xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.AM.UI"
+             xmlns:shared="clr-namespace:Amusoft.PCR.AM.UI.ViewModels.Shared;assembly=Amusoft.PCR.AM.UI"
+             xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
              x:Class="Amusoft.PCR.App.UI.Pages.CommandButtonList"
              x:DataType="vm:CommandButtonListViewModel"
              Title="{x:Binding Title}">

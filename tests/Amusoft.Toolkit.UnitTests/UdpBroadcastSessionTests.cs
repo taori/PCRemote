@@ -3,7 +3,7 @@ using System.Reactive.Subjects;
 using System.Threading.Channels;
 using Shouldly;
 
-namespace Amusoft.PCR.Application.UnitTests;
+namespace Amusoft.Toolkit.UnitTests;
 
 public class UdpBroadcastSessionTests
 {

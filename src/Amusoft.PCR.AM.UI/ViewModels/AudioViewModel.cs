@@ -1,16 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Amusoft.PCR.AM.Shared.Services;
-using Amusoft.PCR.Application.Extensions;
-using Amusoft.PCR.Domain.VM;
+using Amusoft.PCR.AM.UI.Extensions;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using Amusoft.PCR.Int.IPC;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
-namespace Amusoft.PCR.Application.UI.VM;
+namespace Amusoft.PCR.AM.UI.ViewModels;
 
-public partial class AudioViewModel : Shared.ReloadablePageViewModel, INavigationCallbacks
+public partial class AudioViewModel : ReloadablePageViewModel, INavigationCallbacks
 {
 	private readonly HostViewModel _hostViewModel;
 

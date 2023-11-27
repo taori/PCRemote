@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Application.Utility;
+﻿namespace Amusoft.PCR.AM.Shared.Utility;
 
 public class Cooldown
 {

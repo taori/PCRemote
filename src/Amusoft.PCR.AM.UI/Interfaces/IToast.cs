@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Domain.Services;
+﻿namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public enum Position
 {

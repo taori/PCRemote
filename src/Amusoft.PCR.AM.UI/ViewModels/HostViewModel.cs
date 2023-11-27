@@ -1,12 +1,10 @@
 ﻿using System.Net;
-using Amusoft.PCR.AM.Shared.Services;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.Shared;
-using Amusoft.PCR.Domain.VM;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Amusoft.PCR.Application.UI.VM;
+namespace Amusoft.PCR.AM.UI.ViewModels;
 
 public partial class HostViewModel : PageViewModel, INavigationCallbacks
 {

@@ -1,10 +1,10 @@
-﻿using Amusoft.PCR.AM.Shared.Services;
-using Amusoft.PCR.Application.Utility;
+﻿using Amusoft.PCR.AM.Shared.Utility;
+using Amusoft.PCR.AM.UI.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
 
-namespace Amusoft.PCR.Application.Shared;
+namespace Amusoft.PCR.AM.UI.ViewModels.Shared;
 
 public abstract partial class ReloadablePageViewModel : PageViewModel
 {

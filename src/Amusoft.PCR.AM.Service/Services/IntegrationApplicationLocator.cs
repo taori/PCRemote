@@ -1,11 +1,11 @@
-﻿using Amusoft.PCR.Domain.AgentSettings;
-using Amusoft.PCR.Domain.Services;
+﻿using System.Diagnostics;
+using System.Reflection;
+using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.Domain.Service.Entities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Diagnostics;
-using System.Reflection;
 
-namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+namespace Amusoft.PCR.AM.Service.Services;
 
 public class IntegrationApplicationLocator : IIntegrationApplicationLocator
 {

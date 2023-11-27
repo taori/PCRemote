@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Domain.Common;
+﻿namespace Amusoft.PCR.Domain.Shared.Entities;
 
 
 public static class Result

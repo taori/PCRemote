@@ -1,8 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Amusoft.PCR.Int.Agent.Windows.Helpers;
+﻿namespace Amusoft.PCR.App.WindowsAgent.Helpers;
 
 /*
  * STA is required for clipboard to work properly. At the time of writing this, getting wpf net5+ to run in STA is not straight forward

@@ -1,17 +1,15 @@
 ﻿using System.Numerics;
 using System.Threading.Channels;
-using Amusoft.PCR.AM.Shared.Services;
-using Amusoft.PCR.Application.Extensions;
-using Amusoft.PCR.Application.Shared;
-using Amusoft.PCR.Application.UI.Repos;
-using Amusoft.PCR.Application.Utility;
-using Amusoft.PCR.Domain.Services;
-using Amusoft.PCR.Domain.VM;
+using Amusoft.PCR.AM.UI.Extensions;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.Repositories;
+using Amusoft.PCR.AM.UI.ViewModels.Shared;
+using Amusoft.PCR.Int.IPC.Utility;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
-namespace Amusoft.PCR.Application.UI.VM;
+namespace Amusoft.PCR.AM.UI.ViewModels;
 
 public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 {

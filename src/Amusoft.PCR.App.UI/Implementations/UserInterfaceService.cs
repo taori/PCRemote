@@ -1,5 +1,5 @@
 ﻿using Amusoft.PCR.AM.Shared.Resources;
-using Amusoft.PCR.Domain.Services;
+using Amusoft.PCR.AM.UI.Interfaces;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 

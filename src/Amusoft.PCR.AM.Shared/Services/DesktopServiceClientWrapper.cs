@@ -1,9 +1,9 @@
-﻿using Amusoft.PCR.AM.Shared.Services;
-using Amusoft.PCR.Domain.Common;
+﻿using Amusoft.PCR.AM.Shared.Interfaces;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Int.IPC;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+namespace Amusoft.PCR.AM.Shared.Services;
 
 public class DesktopServiceClientWrapper : IDesktopClientMethods
 {

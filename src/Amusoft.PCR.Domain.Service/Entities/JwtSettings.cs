@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Domain.AgentSettings;
+﻿namespace Amusoft.PCR.Domain.Service.Entities;
 
 public class JwtSettings
 {

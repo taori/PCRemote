@@ -1,8 +1,7 @@
-﻿using Amusoft.PCR.Application.Shared;
-using Amusoft.PCR.Application.Utility;
+﻿using Amusoft.PCR.AM.Shared.Utility;
 using Shouldly;
 
-namespace Amusoft.PCR.Application.UnitTests;
+namespace Amusoft.PCR.AM.UI.UnitTests;
 
 public class CooldownTests
 {

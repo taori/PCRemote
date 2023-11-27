@@ -1,6 +1,6 @@
-﻿using Amusoft.PCR.AM.Shared.Services;
+﻿using Amusoft.PCR.AM.Shared.Interfaces;
 
-namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IDesktopIntegrationService
 {

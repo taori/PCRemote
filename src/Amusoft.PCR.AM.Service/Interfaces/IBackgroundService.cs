@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Domain.Services;
+﻿namespace Amusoft.PCR.AM.Service.Interfaces;
 
 
 public interface IBackgroundService : IDisposable

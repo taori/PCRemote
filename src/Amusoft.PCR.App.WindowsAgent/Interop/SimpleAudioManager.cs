@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Amusoft.PCR.Int.Agent.Windows.Helpers;
+﻿using System.Diagnostics;
+using Amusoft.PCR.App.WindowsAgent.Helpers;
 using Amusoft.PCR.Int.IPC;
 using NAudio.CoreAudioApi;
 using NLog;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Interop;
+namespace Amusoft.PCR.App.WindowsAgent.Interop;
 
 
 public static class SimpleAudioManager

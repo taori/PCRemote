@@ -1,7 +1,7 @@
 ﻿using System.Threading.Channels;
 using Grpc.Core;
 
-namespace Amusoft.PCR.Application.Utility;
+namespace Amusoft.PCR.Int.IPC.Utility;
 
 public class ChannelStreamReader<T> : IAsyncStreamReader<T>
 	where T : notnull, new()

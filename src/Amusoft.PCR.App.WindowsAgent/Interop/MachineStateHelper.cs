@@ -1,8 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Forms;
+﻿using System.Diagnostics;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Interop;
+namespace Amusoft.PCR.App.WindowsAgent.Interop;
 
 public static class MachineStateHelper
 {

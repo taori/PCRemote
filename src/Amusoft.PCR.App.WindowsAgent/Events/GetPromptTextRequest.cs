@@ -1,7 +1,7 @@
-﻿using Amusoft.PCR.Int.Agent.Windows.Windows;
+﻿using Amusoft.PCR.App.WindowsAgent.Windows;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Events;
+namespace Amusoft.PCR.App.WindowsAgent.Events;
 
 public class GetPromptTextRequest : AsyncRequestMessage<PromptCompleted>
 {

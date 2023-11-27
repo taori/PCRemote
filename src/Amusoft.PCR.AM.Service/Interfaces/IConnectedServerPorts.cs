@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+﻿namespace Amusoft.PCR.AM.Service.Interfaces;
 
 public interface IConnectedServerPorts
 {

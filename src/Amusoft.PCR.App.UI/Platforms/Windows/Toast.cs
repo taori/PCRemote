@@ -1,10 +1,10 @@
-﻿using Amusoft.PCR.Domain.Services;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
 using CommunityToolkit.Maui.Core;
-using IToast = Amusoft.PCR.Domain.Services.IToast;
+using IToast = Amusoft.PCR.AM.UI.Interfaces.IToast;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
-internal class Toast : IToast
+internal class Toast : AM.UI.Interfaces.IToast
 {
 	public IToastable Make(string text, bool shortDuration = true, double textSize = 14)
 	{

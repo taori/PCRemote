@@ -1,4 +1,4 @@
-using Amusoft.PCR.Application.UI.VM;
+using Amusoft.PCR.AM.UI.ViewModels;
 
 namespace Amusoft.PCR.App.UI.Pages;
 

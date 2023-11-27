@@ -1,3 +1,3 @@
-﻿namespace Amusoft.PCR.Application.UI.Repos;
+﻿namespace Amusoft.PCR.AM.UI.Repositories;
 
 public readonly struct Success{}

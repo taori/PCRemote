@@ -1,7 +1,8 @@
 ﻿#nullable enable
-using Amusoft.PCR.AM.Shared.Services;
+using Amusoft.PCR.AM.Shared.Interfaces;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.ViewModels;
 using Amusoft.PCR.App.UI.Pages;
-using Amusoft.PCR.Application.UI.VM;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 

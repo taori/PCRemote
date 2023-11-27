@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using Amusoft.PCR.Int.Agent.Windows.Interop;
+using Amusoft.PCR.App.WindowsAgent.Interop;
 using Amusoft.PCR.Int.IPC;
 using NLog;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Helpers;
+namespace Amusoft.PCR.App.WindowsAgent.Helpers;
 
 public class ProcessHelper
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Amusoft.PCR.AM.Shared.Services;
+namespace Amusoft.PCR.AM.Shared.Interfaces;
 
 public interface INestedServiceProviderFactory
 {

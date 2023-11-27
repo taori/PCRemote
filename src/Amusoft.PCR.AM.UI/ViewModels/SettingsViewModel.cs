@@ -1,14 +1,12 @@
 ﻿using System.Collections.ObjectModel;
-using Amusoft.PCR.AM.Shared.Services;
-using Amusoft.PCR.Application.Shared;
-using Amusoft.PCR.Application.UI.Repos;
-using Amusoft.PCR.Domain.Services;
-using Amusoft.PCR.Domain.VM;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.Repositories;
+using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
-namespace Amusoft.PCR.Application.UI.VM;
+namespace Amusoft.PCR.AM.UI.ViewModels;
 
 public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
 {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Amusoft.PCR.Int.IPC;
+﻿using Amusoft.PCR.Int.IPC;
 using Grpc.Core;
 using NLog;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Services;
+namespace Amusoft.PCR.App.WindowsAgent.Services;
 
 public class VoiceRecognitionServiceImplementation : VoiceCommandService.VoiceCommandServiceBase
 {

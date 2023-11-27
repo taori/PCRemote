@@ -1,10 +1,10 @@
-﻿using Amusoft.PCR.Application.Shared;
+﻿using System.Collections.ObjectModel;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using Amusoft.PCR.AM.Shared.Services;
 using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
-namespace Amusoft.PCR.Application.UI.VM;
+namespace Amusoft.PCR.AM.UI.ViewModels;
 
 public partial class ProgramsViewModel : PageViewModel
 {

@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Domain.VM;
+﻿namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface INavigationCallbacks
 {

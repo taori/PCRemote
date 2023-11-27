@@ -1,10 +1,10 @@
 ﻿#nullable enable
 
-using INavigation = Amusoft.PCR.Domain.Services.INavigation;
+using INavigation = Amusoft.PCR.AM.UI.Interfaces.INavigation;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
-public class Navigation : INavigation
+public class Navigation : AM.UI.Interfaces.INavigation
 {
 	public Task GoToAsync(string path, Dictionary<string, object>? parameters = null)
 	{

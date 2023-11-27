@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Application.Shared;
+﻿using Amusoft.PCR.AM.UI.ViewModels.Shared;
 
 namespace Amusoft.PCR.App.UI.Workarounds;
 

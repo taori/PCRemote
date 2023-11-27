@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IDesktopIntegrationServiceFactory
 {

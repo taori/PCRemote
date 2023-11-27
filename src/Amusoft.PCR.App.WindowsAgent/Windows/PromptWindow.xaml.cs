@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Amusoft.PCR.Int.Agent.Windows.Events;
+using Amusoft.PCR.App.WindowsAgent.Events;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Google.Protobuf.WellKnownTypes;
 using MahApps.Metro.Controls;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Windows
+namespace Amusoft.PCR.App.WindowsAgent.Windows
 {
 	/// <summary>
 	/// Interaction logic for PromptWindow.xaml

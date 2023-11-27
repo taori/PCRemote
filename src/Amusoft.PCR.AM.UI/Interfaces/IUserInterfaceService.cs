@@ -1,6 +1,4 @@
-﻿using System.Threading.Channels;
-
-namespace Amusoft.PCR.Domain.Services;
+﻿namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IUserInterfaceService
 {

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Amusoft.PCR.Int.Agent.Windows.Events;
-using Amusoft.PCR.Int.Agent.Windows.Helpers;
-using Amusoft.PCR.Int.Agent.Windows.Interop;
-using Amusoft.PCR.Int.Agent.Windows.Windows;
+﻿using Amusoft.PCR.App.WindowsAgent.Events;
+using Amusoft.PCR.App.WindowsAgent.Helpers;
+using Amusoft.PCR.App.WindowsAgent.Interop;
+using Amusoft.PCR.App.WindowsAgent.Windows;
 using Amusoft.PCR.Int.IPC;
 using Grpc.Core;
 using NLog;
-using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Services;
+namespace Amusoft.PCR.App.WindowsAgent.Services;
 
 public class DesktopIntegrationServiceImplementation : DesktopIntegrationService.DesktopIntegrationServiceBase, IDisposable
 {

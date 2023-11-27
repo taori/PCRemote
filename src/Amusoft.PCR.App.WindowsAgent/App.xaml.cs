@@ -1,18 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using Amusoft.PCR.Int.Agent.Windows.Events;
-using Amusoft.PCR.Int.Agent.Windows.Interop;
-using Amusoft.PCR.Int.Agent.Windows.Services;
-using Amusoft.PCR.Int.Agent.Windows.Windows;
+﻿using System.Diagnostics;
+using Amusoft.PCR.App.WindowsAgent.Events;
+using Amusoft.PCR.App.WindowsAgent.Interop;
+using Amusoft.PCR.App.WindowsAgent.Services;
+using Amusoft.PCR.App.WindowsAgent.Windows;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
 using NLog;
 
-namespace Amusoft.PCR.Int.Agent.Windows;
+namespace Amusoft.PCR.App.WindowsAgent;
 
 /// <summary>
 /// Interaction logic for App.xaml

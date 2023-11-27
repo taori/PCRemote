@@ -2,20 +2,19 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Amusoft.PCR.AM.Shared.Services;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.UI.Repos;
-using Amusoft.PCR.Domain.Services;
-using Amusoft.PCR.Domain.VM;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.Repositories;
+using Amusoft.PCR.AM.UI.ViewModels.Shared;
+using Amusoft.PCR.Int.IPC;
 using Amusoft.Toolkit.Networking;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
 
-namespace Amusoft.PCR.Application.UI.VM;
+namespace Amusoft.PCR.AM.UI.ViewModels;
 
-public partial class HostsOverviewViewModel : Shared.ReloadablePageViewModel, INavigationCallbacks
+public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigationCallbacks
 {
 	private readonly ILogger<HostsOverviewViewModel> _logger;
 	private readonly HostRepository _hostRepository;

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Amusoft.PCR.Application.Shared;
+namespace Amusoft.PCR.AM.UI.ViewModels.Shared;
 
 public partial class NavigationItem : ObservableObject
 {

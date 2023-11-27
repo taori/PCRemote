@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Events;
+namespace Amusoft.PCR.App.WindowsAgent.Events;
 
 public class GetConfirmRequest : AsyncRequestMessage<GetConfirmResponse>
 {

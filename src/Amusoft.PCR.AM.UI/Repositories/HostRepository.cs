@@ -1,6 +1,6 @@
 ﻿using OneOf;
 
-namespace Amusoft.PCR.Application.UI.Repos;
+namespace Amusoft.PCR.AM.UI.Repositories;
 
 public class HostRepository
 {

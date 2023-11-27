@@ -1,6 +1,6 @@
 ﻿using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
+using Amusoft.PCR.AM.Service.Interfaces;
 
 namespace Amusoft.PCR.AM.Service.Features.GettingStarted;
 

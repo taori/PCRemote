@@ -1,12 +1,14 @@
 ﻿using System.Net;
-using Amusoft.PCR.Domain.AgentSettings;
-using Amusoft.Toolkit.Networking;
-using Microsoft.Extensions.Logging;
 using System.Net.Sockets;
 using System.Text;
+using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.Domain.Service.Entities;
+using Amusoft.PCR.Int.IPC;
+using Amusoft.Toolkit.Networking;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+namespace Amusoft.PCR.AM.Service.Services;
 
 public class ClientDiscoveryService : IDisposable
 {

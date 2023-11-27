@@ -1,7 +1,7 @@
-﻿using System.Text.RegularExpressions;
-using System.Text;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
-namespace Amusoft.PCR.Application.Features.DesktopIntegration;
+namespace Amusoft.PCR.Int.IPC;
 
 
 public class GrpcHandshakeFormatter

@@ -1,5 +1,5 @@
 ﻿using System.Timers;
-using Amusoft.PCR.Domain.Services;
+using Amusoft.PCR.AM.UI.Interfaces;
 using Android.App;
 using Android.OS;
 using Android.OS.Ext;
@@ -15,12 +15,12 @@ using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Platform;
 using Debug = System.Diagnostics.Debug;
 using Fragment = AndroidX.Fragment.App.Fragment;
-using IToast = Amusoft.PCR.Domain.Services.IToast;
+using IToast = Amusoft.PCR.AM.UI.Interfaces.IToast;
 using View = Android.Views.View;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
-internal class Toast : IToast
+internal class Toast : AM.UI.Interfaces.IToast
 {
 	public IToastable Make(string text, bool shortDuration = true, double textSize = 14)
 	{

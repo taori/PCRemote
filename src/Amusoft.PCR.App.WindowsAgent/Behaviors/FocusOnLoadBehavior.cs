@@ -1,9 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Microsoft.Xaml.Behaviors;
+﻿using Microsoft.Xaml.Behaviors;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Behaviors;
+namespace Amusoft.PCR.App.WindowsAgent.Behaviors;
 
 public class FocusOnLoadBehavior : Behavior<FrameworkElement>
 {

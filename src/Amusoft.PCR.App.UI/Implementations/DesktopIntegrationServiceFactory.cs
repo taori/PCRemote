@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
+using Amusoft.PCR.AM.UI.Interfaces;
 using Grpc.Net.ClientFactory;
 
 namespace Amusoft.PCR.App.UI.Implementations;

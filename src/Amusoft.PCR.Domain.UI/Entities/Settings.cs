@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Domain.ClientSettings;
+﻿namespace Amusoft.PCR.Domain.UI.Entities;
 
 public class Settings
 {

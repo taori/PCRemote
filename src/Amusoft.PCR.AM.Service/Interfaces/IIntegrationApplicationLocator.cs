@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-using Amusoft.PCR.Domain.AgentSettings;
-
-namespace Amusoft.PCR.Domain.Services;
+﻿namespace Amusoft.PCR.AM.Service.Interfaces;
 
 
 public interface IIntegrationApplicationLocator

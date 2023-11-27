@@ -1,6 +1,6 @@
-﻿using Amusoft.PCR.Domain.Services;
+﻿using Amusoft.PCR.AM.Service.Interfaces;
 
-namespace Amusoft.PCR.Application.Utility;
+namespace Amusoft.PCR.AM.Service.Utility;
 
 public class ApplicationStateTransmitter : IApplicationStateTransmitter
 {

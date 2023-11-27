@@ -1,11 +1,11 @@
 using System.Runtime.InteropServices;
 using Amusoft.PCR.AM.Service.Extensions;
+using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.App.Service.HealthChecks;
 using Amusoft.PCR.App.Service.Services;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Domain.AgentSettings;
-using Amusoft.PCR.Domain.Services;
+using Amusoft.PCR.Domain.Service.Entities;
 using Amusoft.PCR.Int.IPC;
 using GrpcDotNetNamedPipes;
 using NLog;

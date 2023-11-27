@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Amusoft.PCR.Int.Agent.Windows.Windows;
+﻿namespace Amusoft.PCR.App.WindowsAgent.Windows;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

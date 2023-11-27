@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Domain.VM;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
 using NLog;
 
 namespace Amusoft.PCR.App.UI;
