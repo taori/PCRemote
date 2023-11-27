@@ -5,7 +5,7 @@ namespace Amusoft.PCR.App.UI;
 
 public partial class AppShell
 {
-	private static readonly ILogger Log = LogManager.GetLogger(nameof(AppShell));
+	private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 	
 	public AppShell()
 	{

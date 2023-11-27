@@ -9,7 +9,7 @@ namespace Amusoft.Toolkit.Networking;
 
 public class UdpBroadcastSession : IDisposable, IUdpBroadcastChannel
 {
-	private static readonly NLog.ILogger Log = NLog.LogManager.GetLogger(nameof(UdpBroadcastSession));
+	private static readonly NLog.ILogger Log = NLog.LogManager.GetCurrentClassLogger();
 	
 	private readonly UdpBroadcastCommunicationChannel _channel;
 

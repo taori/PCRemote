@@ -8,7 +8,7 @@ namespace Amusoft.PCR.Int.Agent.Windows.Interop;
 
 internal static class ProcessExitListenerManager
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(ProcessExitListenerManager));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	public static event EventHandler<int>? ProcessExited;
 

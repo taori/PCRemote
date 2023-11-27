@@ -8,7 +8,7 @@ namespace Amusoft.PCR.Int.Agent.Windows.Services;
 
 public class VoiceRecognitionServiceImplementation : VoiceCommandService.VoiceCommandServiceBase
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(VoiceRecognitionServiceImplementation));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	public override Task<DefaultResponse> UpdateVoiceRecognition(UpdateVoiceRecognitionRequest request, ServerCallContext context)
 	{
