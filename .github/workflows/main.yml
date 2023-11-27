@@ -189,7 +189,7 @@ jobs:
           Write-Output "PRODUCT_APK=$($paths.ApkPath)" >> $Env:GITHUB_OUTPUT
           Write-Output "PRODUCT_MSI=$($paths.MsiPath)" >> $Env:GITHUB_OUTPUT
           
-          Get-ChildItem -Path "." -Recurse | %{ $_.Fullname }
+          #Get-ChildItem -Path "." -Recurse | %{ $_.Fullname }
         env:
           RV : ${{ needs.Environment.outputs.productVersion }}
           
