@@ -188,9 +188,19 @@ jobs:
           Write-Host "APK: $($paths.ApkPath), MSI: $($paths.MsiPath)"
           Write-Output "PRODUCT_APK=$($paths.ApkPath)" >> $Env:GITHUB_OUTPUT
           Write-Output "PRODUCT_MSI=$($paths.MsiPath)" >> $Env:GITHUB_OUTPUT
+          
+          Get-ChildItem -Path "." -Recurse | %{ $_.Fullname }
         env:
           RV : ${{ needs.Environment.outputs.productVersion }}
-                    
+          
+      - name: Upload MSI
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: msi
+          path: ${{ steps.publishProducts.outputs.PRODUCT_MSI }}
+          if-no-files-found: error
+          retention-days: 1
+          
       - name: Upload APK
         uses: actions/upload-artifact@v2.2.4
         with:
@@ -199,13 +209,7 @@ jobs:
           if-no-files-found: error
           retention-days: 1 
                     
-      - name: Upload MSI
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          name: msi
-          path: ${{ steps.publishProducts.outputs.PRODUCT_MSI }}        
-          if-no-files-found: error
-          retention-days: 1 
+
 
   Publishing:
     concurrency:
