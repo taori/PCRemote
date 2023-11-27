@@ -15,7 +15,7 @@ public static class SetupLoadConfigurationExtensions
 	/// <param name="configBuilder"></param>
 	/// <param name="layout">Override the default Layout for output</param>
 	/// <param name="category">Override the logging category</param>
-	public static ISetupConfigurationTargetBuilder WriteToMauiLogCustom(this ISetupConfigurationTargetBuilder configBuilder, NLog.Layouts.Layout layout = null, NLog.Layouts.Layout category = null)
+	public static ISetupConfigurationTargetBuilder WriteToMauiLogCustom(this ISetupConfigurationTargetBuilder configBuilder, NLog.Layouts.Layout? layout = null, NLog.Layouts.Layout? category = null)
 	{
 		var logTarget = new MauiLog();
 		

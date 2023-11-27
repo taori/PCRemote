@@ -4,8 +4,10 @@ using NLog.Targets;
 using Log = Android.Util.Log;
 using Layout = NLog.Layouts.Layout;
 
+// ReSharper disable once CheckNamespace
 namespace Amusoft.PCR.App.UI.Platforms;
 
+#nullable disable
 [Target("MauiLog")]
 [Preserve]
 public partial class MauiLog
@@ -89,3 +91,4 @@ public partial class MauiLog
         }
     }
 }
+#nullable restore
