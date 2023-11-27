@@ -234,8 +234,8 @@ jobs:
           
   GitHubRelease:    
     runs-on: windows-latest
-    if: ${{ github.event.inputs.createRelease == '1' }}
-    needs: [ Publishing, VerifyEnvironment, WindowsPublish ]
+    if: ${{ github.event.inputs.createRelease }}
+    needs: [ Publishing, VerifyEnvironment, Environment, WindowsPublish ]
     steps:
                                 
       - name: Download artifact apk
@@ -259,7 +259,6 @@ jobs:
           fail: true
                              
       - name: Create GitHub release
-        if : false
         uses: actions/create-release@v1
         id: create_release
         with:
@@ -276,11 +275,11 @@ jobs:
       #  run: ls -R $GITHUB_WORKSPACE/downloads/
           
       - id: upload-release-asset-apk
-        if : false
         name: Upload APK
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RN: ${{ needs.Environment.outputs.releaseVersion }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: ghrelease/apk/${{ needs.WindowsPublish.outputs.apkFileName }}
@@ -288,7 +287,6 @@ jobs:
           asset_content_type: application/vnd.android.package-archive
                     
       - id: upload-release-asset-msi
-        if : false
         name: Upload MSI
         uses: actions/upload-release-asset@v1
         env:
