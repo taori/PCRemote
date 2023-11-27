@@ -6,7 +6,7 @@ namespace Amusoft.Toolkit.Impersonation;
 
 internal static class NativeMethods
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(NativeMethods));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	[DllImport("advapi32.dll", SetLastError = true)]
 	internal static extern bool CreateProcessAsUser(

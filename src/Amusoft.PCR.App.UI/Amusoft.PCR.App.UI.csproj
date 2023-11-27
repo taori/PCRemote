@@ -40,7 +40,7 @@
 		<PackageReference Include="Grpc.Net.Client.Web" Version="2.59.0" />
 		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.58.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-		<PackageReference Include="NLog.Targets.MauiLog" Version="5.*" />
+<!--		<PackageReference Include="NLog.Targets.MauiLog" Version="5.*" />-->
 		<PackageReference Include="NLog.Extensions.Logging" Version="5.*" />
 	</ItemGroup>
 
@@ -122,6 +122,12 @@
 		<MauiXaml Update="Controls\*.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Platforms\Windows\MauiLog.cs">
+	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

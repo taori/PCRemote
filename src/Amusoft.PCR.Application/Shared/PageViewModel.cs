@@ -7,6 +7,8 @@ namespace Amusoft.PCR.Application.Shared;
 
 public abstract partial class PageViewModel : ObservableObject, IDisposable
 {
+	private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
+	
 	protected readonly ITypedNavigator Navigator;
 
 	[ObservableProperty]
@@ -47,7 +49,7 @@ public abstract partial class PageViewModel : ObservableObject, IDisposable
 		}
 		catch (Exception e)
 		{
-			LogManager.GetLogger(GetType().Name).Error(e, "Error occured while disposing viewmodel");
+			Log.Error(e, "Error occured while disposing viewmodel");
 		}
 		finally
 		{

@@ -11,7 +11,7 @@ namespace Amusoft.PCR.Int.Agent.Windows.Interop;
 
 public static class SimpleAudioManager
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(SimpleAudioManager));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	private static AudioSessionManager GetMultiMediaSessionManager(DataFlow dataFlow)
 	{

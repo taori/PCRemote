@@ -10,7 +10,7 @@ namespace Amusoft.PCR.Int.Agent.Windows.Interop;
 
 public partial class NativeMonitorManager : IDisposable
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(NativeMonitorManager));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	[DllImport("dxva2.dll", EntryPoint = "GetNumberOfPhysicalMonitorsFromHMONITOR")]
 	[return: MarshalAs(UnmanagedType.Bool)]

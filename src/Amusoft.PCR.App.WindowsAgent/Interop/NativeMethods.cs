@@ -36,7 +36,7 @@ public struct MousePoint
 
 internal class NativeMethods
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(NativeMethods));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	[DllImport("user32.dll")]
 	static extern bool SetForegroundWindow(IntPtr hWnd);

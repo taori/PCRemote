@@ -11,7 +11,7 @@ namespace Amusoft.PCR.Int.Agent.Windows.Helpers;
 
 public class ProcessHelper
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(ProcessHelper));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	public static bool TryKillProcess(int processId)
 	{

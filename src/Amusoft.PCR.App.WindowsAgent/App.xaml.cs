@@ -19,7 +19,7 @@ namespace Amusoft.PCR.Int.Agent.Windows;
 /// </summary>
 public partial class App : System.Windows.Application
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(App));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	private NamedPipeServer? _namedPipeServer;
 	private Mutex? _runOnceMutex;

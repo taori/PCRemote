@@ -15,7 +15,7 @@ namespace Amusoft.PCR.Int.Agent.Windows.Services;
 
 public class DesktopIntegrationServiceImplementation : DesktopIntegrationService.DesktopIntegrationServiceBase, IDisposable
 {
-	private static readonly Logger Log = LogManager.GetLogger(nameof(DesktopIntegrationServiceImplementation));
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 	private readonly NativeMonitorManager _monitorManager;
 
