@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Amusoft.PCR.Domain\Amusoft.PCR.Domain.csproj" />
     <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
   </ItemGroup>
   
