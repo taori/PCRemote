@@ -37,30 +37,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Platforms\Android\MauiLog.cs">
-            <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-        </Compile>
-        <Compile Update="Platforms\Android\MauiTrackerView.cs">
-            <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-        </Compile>
-        <Compile Update="Platforms\Android\TrackerViewHandler.cs">
-            <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-        </Compile>
-        <Compile Update="Platforms\Android\Toast.cs">
-            <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-        </Compile>
-        <Compile Update="Platforms\Windows\MauiLog.cs">
-            <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-        </Compile>
-        <Compile Update="Platforms\Windows\MauiTrackerView.cs">
-            <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-        </Compile>
-        <Compile Update="Platforms\Windows\Toast.cs">
-            <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-        </Compile>
-        <Compile Update="Platforms\Windows\TrackerViewHandler.cs">
-            <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-        </Compile>
+        <Compile Update="Platforms\Android\**\*.cs" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'"/>
+        <Compile Update="Platforms\Windows\**\*.cs" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -77,14 +55,5 @@
             <Generator>MSBuild:UpdateGeneratedFiles</Generator>
         </AndroidResource>
     </ItemGroup>
-
-<!--    <ItemGroup>-->
-<!--        <MauiIcon Include="..\Amusoft.PCR.App.UI\Resources\AppIcon\appicon_desktop.svg" ForegroundFile="..\Amusoft.PCR.App.UI\Resources\AppIcon\appicon_desktop.svg" Color="#ff8000" BaseSize="90,90" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">-->
-<!--            <Link>Resources\AppIcon\appicon_desktop.svg</Link>-->
-<!--        </MauiIcon>        -->
-<!--        <MauiIcon Include="..\Amusoft.PCR.App.UI\Resources\AppIcon\appicon.svg" ForegroundFile="..\Amusoft.PCR.App.UI\Resources\AppIcon\appicon.svg" Color="#ff8000" BaseSize="40,40">-->
-<!--            <Link>Resources\AppIcon\appicon.svg</Link>-->
-<!--        </MauiIcon>-->
-<!--    </ItemGroup>-->
 
 </Project>
