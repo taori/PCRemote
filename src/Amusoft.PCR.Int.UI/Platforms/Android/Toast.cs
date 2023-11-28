@@ -93,8 +93,8 @@ public class ToastFragment : Fragment, IToastable
 	{
 		if (view.FindViewById<ImageView>(Resource.Id.imageView1) is { } imageView)
 		{
-			// todo reinsert icon
-			// imageView.SetImageResource(Resource.);
+			// todo find best practices to pass resources from UI application into MAUI classlib
+			imageView.SetImageResource(2131558403);
 			// imageView.SetImageResource(Resource.Mipmap.appicon_round);
 			if (imageView.LayoutParameters is ViewGroup.MarginLayoutParams { } ivMarginParams)
 			{
