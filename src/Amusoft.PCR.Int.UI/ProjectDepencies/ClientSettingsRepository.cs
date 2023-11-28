@@ -2,7 +2,7 @@
 using Amusoft.PCR.Domain.UI.Entities;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.AM.UI.Repositories;
+namespace Amusoft.PCR.Int.UI.ProjectDepencies;
 
 internal class ClientSettingsRepository : IClientSettingsRepository
 {

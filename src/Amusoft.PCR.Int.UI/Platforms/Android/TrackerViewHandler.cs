@@ -1,8 +1,6 @@
 ﻿
-using Amusoft.PCR.App.UI.Platforms.Android;
-
 // ReSharper disable once CheckNamespace
-namespace Amusoft.PCR.App.UI.Controls;
+namespace Amusoft.PCR.Int.UI;
 
 public partial class TrackerViewHandler
 {

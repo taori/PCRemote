@@ -5,7 +5,7 @@ using Amusoft.PCR.Int.IPC;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.Int.UI.ProjectDepencies;
 
 public class DesktopIntegrationService : IDesktopIntegrationService
 {

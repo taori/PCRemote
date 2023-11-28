@@ -1,7 +1,7 @@
 ﻿using Amusoft.PCR.AM.Shared.Resources;
 using Amusoft.PCR.AM.UI.Interfaces;
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.Int.UI.Shared;
 
 internal class UserInterfaceService : IUserInterfaceService
 {

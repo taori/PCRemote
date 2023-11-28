@@ -1,6 +1,6 @@
 ﻿using Amusoft.PCR.AM.Shared.Interfaces;
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.Int.UI.Shared;
 
 public class AgentEnvironment : IAgentEnvironment
 {

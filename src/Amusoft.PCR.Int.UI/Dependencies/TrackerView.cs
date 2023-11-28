@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 
-namespace Amusoft.PCR.App.UI.Controls;
+// ReSharper disable once CheckNamespace
+namespace Amusoft.PCR.Int.UI;
 
 public class TrackerView : View
 {

@@ -1,6 +1,6 @@
 ﻿#nullable enable
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.Int.UI.Shared;
 
 public class Navigation : AM.UI.Interfaces.INavigation
 {

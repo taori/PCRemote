@@ -1,10 +1,10 @@
-﻿using Amusoft.PCR.App.UI.Controls;
-using Android.Content;
+﻿using Android.Content;
 using Android.Views;
 using AndroidX.CoordinatorLayout.Widget;
 using System.Numerics;
 
-namespace Amusoft.PCR.App.UI.Platforms.Android;
+// ReSharper disable once CheckNamespace
+namespace Amusoft.PCR.Int.UI;
 
 public class MauiTrackerView : CoordinatorLayout
 {

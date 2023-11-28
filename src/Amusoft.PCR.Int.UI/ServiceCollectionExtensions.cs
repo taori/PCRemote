@@ -2,6 +2,8 @@
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Repositories;
 using Amusoft.PCR.App.UI.Implementations;
+using Amusoft.PCR.Int.UI.ProjectDepencies;
+using Amusoft.PCR.Int.UI.Shared;
 
 namespace Amusoft.PCR.Int.UI;
 

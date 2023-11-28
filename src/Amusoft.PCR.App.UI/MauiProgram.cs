@@ -1,5 +1,4 @@
-﻿using Amusoft.PCR.App.UI.Controls;
-using Amusoft.PCR.App.UI.Implementations;
+﻿using Amusoft.PCR.Int.UI;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NLog;
@@ -14,8 +13,7 @@ public static class MauiProgram
 	{
 		var logger = LogManager.Setup()
 			.LoadConfigurationFromAssemblyResource(typeof(MauiProgram).Assembly, "Amusoft.PCR.App.UI.Resources.Raw.nlog.config")
-			// .RegisterMauiLog((_, args) => LogManager.GetLogger("Application").Fatal(args.ExceptionObject))
-			// .LoadConfiguration(configurationBuilder => configurationBuilder.ForLogger(NLog.LogLevel.Debug).WriteToMauiLog(new SimpleLayout("${pad:padding=50:inner=${logger}} ${message}")))
+			.RegisterMauiLog((_, args) => LogManager.GetLogger("Amusoft.PCR.App.UI.MauiProgram").Fatal(args.ExceptionObject))
 			.LoadConfiguration(configurationBuilder =>
 			{
 				configurationBuilder.ForLogger()

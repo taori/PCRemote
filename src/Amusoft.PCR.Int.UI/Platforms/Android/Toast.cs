@@ -8,7 +8,7 @@ using Fragment = AndroidX.Fragment.App.Fragment;
 using Resource = Amusoft.PCR.Int.UI.Resource;
 using View = Android.Views.View;
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.Int.UI;
 
 internal class Toast : AM.UI.Interfaces.IToast
 {
@@ -93,6 +93,7 @@ public class ToastFragment : Fragment, IToastable
 	{
 		if (view.FindViewById<ImageView>(Resource.Id.imageView1) is { } imageView)
 		{
+			// todo reinsert icon
 			// imageView.SetImageResource(Resource.);
 			// imageView.SetImageResource(Resource.Mipmap.appicon_round);
 			if (imageView.LayoutParameters is ViewGroup.MarginLayoutParams { } ivMarginParams)

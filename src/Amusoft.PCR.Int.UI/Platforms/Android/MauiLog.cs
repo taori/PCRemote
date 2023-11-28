@@ -5,7 +5,7 @@ using Log = Android.Util.Log;
 using Layout = NLog.Layouts.Layout;
 
 // ReSharper disable once CheckNamespace
-namespace Amusoft.PCR.App.UI.Platforms;
+namespace Amusoft.PCR.Int.UI;
 
 #nullable disable
 [Target("MauiLog")]

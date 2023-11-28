@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:Amusoft.PCR.App.UI.Controls;assembly=Amusoft.PCR.Int.UI"
              xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
+             xmlns:dependencies="clr-namespace:Amusoft.PCR.Int.UI;assembly=Amusoft.PCR.Int.UI"
              x:Class="Amusoft.PCR.App.UI.Pages.MouseControl"
              x:DataType="vm:MouseControlViewModel"
              Title="{x:Binding Title}">
@@ -23,12 +24,12 @@
                Grid.Row="1"
                Padding="0"
                Margin="20,10,20,0">
-            <controls:TrackerView BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Primary}}"
+            <dependencies:TrackerView BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Primary}}"
                                   Sensitivity="{x:Binding Sensitivity}"
                                   TapCommand="{x:Binding Path=SingleTapCommand}"
                                   MultiTapCommand="{x:Binding Path=DoubleTapCommand}"
                                   VelocityOccuredCommand="{x:Binding VelocityChangedCommand}">
-            </controls:TrackerView>
+            </dependencies:TrackerView>
         </Frame>
 
         <Label Grid.Row="2" Grid.ColumnSpan="3" 

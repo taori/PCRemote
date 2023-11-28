@@ -5,7 +5,7 @@ using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.Int.UI.ProjectDepencies;
 
 public class GrpcChannelFactory : IGrpcChannelFactory
 {

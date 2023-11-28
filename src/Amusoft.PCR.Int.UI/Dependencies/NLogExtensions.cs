@@ -1,8 +1,7 @@
-﻿using Amusoft.PCR.App.UI.Platforms;
-using NLog;
+﻿using NLog;
 using NLog.Config;
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.Int.UI;
 
 /// <summary>
 /// Extension methods to setup NLog <see cref="LoggingConfiguration"/>
@@ -24,5 +23,18 @@ public static class SetupLoadConfigurationExtensions
 		if (category != null)
 			logTarget.Category = category;
 		return configBuilder.WriteTo(logTarget);
+	}
+
+	/// <summary>
+	/// Register the NLog.Web LayoutRenderers before loading NLog config
+	/// </summary>
+	public static ISetupBuilder RegisterMauiLog(this ISetupBuilder setupBuilder, UnhandledExceptionEventHandler unhandledException)
+	{
+		if (unhandledException is null)
+			throw new ArgumentNullException(nameof(unhandledException));
+
+		MauiExceptions.UnhandledException -= unhandledException;
+		MauiExceptions.UnhandledException += unhandledException;
+		return setupBuilder;
 	}
 }

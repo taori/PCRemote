@@ -1,7 +1,7 @@
-﻿using Amusoft.PCR.App.UI.Controls;
-using Grid = Microsoft.UI.Xaml.Controls.Grid;
+﻿using Grid = Microsoft.UI.Xaml.Controls.Grid;
 
-namespace Amusoft.PCR.App.UI.Platforms.Windows;
+// ReSharper disable once CheckNamespace
+namespace Amusoft.PCR.Int.UI;
 
 public class MauiTrackerView : Grid
 {

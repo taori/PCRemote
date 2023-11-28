@@ -1,7 +1,7 @@
 ﻿using Amusoft.PCR.AM.UI.Interfaces;
 using CommunityToolkit.Maui.Core;
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.Int.UI;
 
 internal class Toast : AM.UI.Interfaces.IToast
 {

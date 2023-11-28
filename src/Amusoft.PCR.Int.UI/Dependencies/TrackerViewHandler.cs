@@ -1,17 +1,18 @@
-﻿using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform;
-
-#if IOS || MACCATALYST
+﻿#if IOS || MACCATALYST
 // using PlatformView = VideoDemos.Platforms.MaciOS.MauiVideoPlayer;
 #elif ANDROID
-using PlatformView = Amusoft.PCR.App.UI.Platforms.Android.MauiTrackerView;
+using PlatformView = Amusoft.PCR.Int.UI.MauiTrackerView;
 #elif WINDOWS
-using PlatformView = Amusoft.PCR.App.UI.Platforms.Windows.MauiTrackerView;
+using PlatformView = Amusoft.PCR.Int.UI.MauiTrackerView;
 #elif (NETSTANDARD || !PLATFORM) || (NET6_0_OR_GREATER && !IOS && !ANDROID)
 using PlatformView = System.Object;
 #endif
 
-namespace Amusoft.PCR.App.UI.Controls;
+using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Platform;
+
+// ReSharper disable once CheckNamespace
+namespace Amusoft.PCR.Int.UI;
 
 public partial class TrackerViewHandler : ViewHandler<TrackerView, PlatformView>
 {

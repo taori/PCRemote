@@ -4,7 +4,7 @@ using NLog.Internal.Xamarin;
 using NLog.Targets;
 using Layout = NLog.Layouts.Layout;
 
-namespace Amusoft.PCR.App.UI.Platforms;
+namespace Amusoft.PCR.Int.UI;
 
 [Target("MauiLog")]
 [Preserve]
