@@ -94,8 +94,8 @@ public class ToastFragment : Fragment, IToastable
 		if (view.FindViewById<ImageView>(Resource.Id.imageView1) is { } imageView)
 		{
 			// todo find best practices to pass resources from UI application into MAUI classlib
-			imageView.SetImageResource(2131558403);
-			// imageView.SetImageResource(Resource.Mipmap.appicon_round);
+			if (ResourceBridge.ToastIcon.HasValue)
+				imageView.SetImageResource(ResourceBridge.ToastIcon.Value);
 			if (imageView.LayoutParameters is ViewGroup.MarginLayoutParams { } ivMarginParams)
 			{
 				var l = Platform.AppContext.Resources?.DisplayMetrics?.Density * -10 ?? 0;

@@ -44,6 +44,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 		
+		ResourceBridgeConfiguration.Apply();
 		MauiRoutes.Register();
 
 #if DEBUG
