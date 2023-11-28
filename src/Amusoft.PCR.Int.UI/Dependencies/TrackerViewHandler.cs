@@ -2,7 +2,7 @@
 using Microsoft.Maui.Platform;
 
 #if IOS || MACCATALYST
-using PlatformView = VideoDemos.Platforms.MaciOS.MauiVideoPlayer;
+// using PlatformView = VideoDemos.Platforms.MaciOS.MauiVideoPlayer;
 #elif ANDROID
 using PlatformView = Amusoft.PCR.App.UI.Platforms.Android.MauiTrackerView;
 #elif WINDOWS

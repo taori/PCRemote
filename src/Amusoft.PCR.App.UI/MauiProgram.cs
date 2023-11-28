@@ -31,7 +31,7 @@ public static class MauiProgram
 		builder.Logging.ClearProviders();
 		builder.Logging.AddNLog();
 
-		MauiServiceRegistrar.Register(builder.Services);
+		ServiceRegistrarUI.Register(builder.Services);
 
 		builder
 			.UseMauiApp<App>()

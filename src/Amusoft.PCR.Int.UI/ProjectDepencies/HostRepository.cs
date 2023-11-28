@@ -1,12 +1,13 @@
-﻿using OneOf;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
+using OneOf;
 
 namespace Amusoft.PCR.AM.UI.Repositories;
 
-public class HostRepository
+internal class HostRepository : IHostRepository
 {
-	private readonly ClientSettingsRepository _settingsRepository;
+	private readonly IClientSettingsRepository _settingsRepository;
 
-	public HostRepository(ClientSettingsRepository settingsRepository)
+	public HostRepository(IClientSettingsRepository settingsRepository)
 	{
 		_settingsRepository = settingsRepository;
 	}

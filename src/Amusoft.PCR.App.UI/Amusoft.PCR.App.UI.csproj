@@ -47,6 +47,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj" />
 		<ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
+		<ProjectReference Include="..\Amusoft.PCR.Int.UI\Amusoft.PCR.Int.UI.csproj" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">
@@ -121,12 +122,6 @@
 		<MauiXaml Update="Controls\*.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Platforms\Windows\MauiLog.cs">
-	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
-	  </Compile>
 	</ItemGroup>
 
 </Project>

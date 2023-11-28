@@ -11,7 +11,7 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
 {
 	private readonly IUserInterfaceService _userInterfaceService;
-	private readonly HostRepository _hostRepository;
+	private readonly IHostRepository _hostRepository;
 	private readonly IToast _toast;
 
 	[ObservableProperty]
@@ -22,7 +22,7 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
         return Translations.Page_Title_Settings;
     }
 
-    public SettingsViewModel(ITypedNavigator navigator, IUserInterfaceService userInterfaceService, HostRepository hostRepository, IToast toast) : base(navigator)
+    public SettingsViewModel(ITypedNavigator navigator, IUserInterfaceService userInterfaceService, IHostRepository hostRepository, IToast toast) : base(navigator)
     {
 	    _userInterfaceService = userInterfaceService;
 	    _hostRepository = hostRepository;

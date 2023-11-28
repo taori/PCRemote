@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.AM.UI.Repositories;
 
-public class ClientSettingsRepository
+internal class ClientSettingsRepository : IClientSettingsRepository
 {
 	private readonly IFileStorage _fileStorage;
 	private readonly ILogger<ClientSettingsRepository> _logger;

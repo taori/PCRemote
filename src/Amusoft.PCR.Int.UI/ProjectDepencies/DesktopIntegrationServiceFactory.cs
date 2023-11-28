@@ -3,12 +3,12 @@ using Amusoft.PCR.AM.UI.Interfaces;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
-public class DesktopIntegrationServiceFactory : IDesktopIntegrationServiceFactory
+internal class DesktopIntegrationServiceFactory : IDesktopIntegrationServiceFactory
 {
 	private readonly IServiceProvider _serviceProvider;
-	private readonly GrpcChannelFactory _grpcChannelFactory;
+	private readonly IGrpcChannelFactory _grpcChannelFactory;
 
-	public DesktopIntegrationServiceFactory(IServiceProvider serviceProvider, GrpcChannelFactory grpcChannelFactory)
+	public DesktopIntegrationServiceFactory(IServiceProvider serviceProvider, IGrpcChannelFactory grpcChannelFactory)
 	{
 		_serviceProvider = serviceProvider;
 		_grpcChannelFactory = grpcChannelFactory;

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Concurrent;
 using System.Net;
+using Amusoft.PCR.AM.UI.Interfaces;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
-public class GrpcChannelFactory
+public class GrpcChannelFactory : IGrpcChannelFactory
 {
 	private readonly ILoggerFactory _loggerFactory;
 

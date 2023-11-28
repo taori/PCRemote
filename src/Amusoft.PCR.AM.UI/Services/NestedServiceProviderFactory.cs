@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
 using Amusoft.PCR.AM.Shared.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
-public class NestedServiceProviderFactory : INestedServiceProviderFactory
+internal class NestedServiceProviderFactory : INestedServiceProviderFactory
 {
 	private readonly IServiceScopeFactory _serviceScopeFactory;
 

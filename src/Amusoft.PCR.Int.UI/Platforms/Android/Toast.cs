@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 using Microsoft.Maui.Platform;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using Resource = Amusoft.PCR.Int.UI.Resource;
 using View = Android.Views.View;
 
 namespace Amusoft.PCR.App.UI.Implementations;
@@ -92,7 +93,8 @@ public class ToastFragment : Fragment, IToastable
 	{
 		if (view.FindViewById<ImageView>(Resource.Id.imageView1) is { } imageView)
 		{
-			imageView.SetImageResource(Resource.Mipmap.appicon_round);
+			// imageView.SetImageResource(Resource.);
+			// imageView.SetImageResource(Resource.Mipmap.appicon_round);
 			if (imageView.LayoutParameters is ViewGroup.MarginLayoutParams { } ivMarginParams)
 			{
 				var l = Platform.AppContext.Resources?.DisplayMetrics?.Density * -10 ?? 0;

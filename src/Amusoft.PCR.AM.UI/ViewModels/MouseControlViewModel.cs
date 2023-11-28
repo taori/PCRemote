@@ -14,7 +14,7 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 {
 	private readonly HostViewModel _host;
-	private readonly ClientSettingsRepository _settingsRepository;
+	private readonly IClientSettingsRepository _settingsRepository;
 	private readonly IToast _toast;
 
 	private CancellationTokenSource? _moveCts = new();
@@ -23,7 +23,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	private readonly ChannelStreamReader<(int x, int y)> _streamReader;
 
-	public MouseControlViewModel(ITypedNavigator navigator, HostViewModel host, ClientSettingsRepository settingsRepository, IToast toast) : base(navigator)
+	public MouseControlViewModel(ITypedNavigator navigator, HostViewModel host, IClientSettingsRepository settingsRepository, IToast toast) : base(navigator)
 	{
 		_host = host;
 		_settingsRepository = settingsRepository;

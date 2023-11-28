@@ -17,7 +17,7 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigationCallbacks
 {
 	private readonly ILogger<HostsOverviewViewModel> _logger;
-	private readonly HostRepository _hostRepository;
+	private readonly IHostRepository _hostRepository;
 	private readonly IToast _toast;
 	private readonly ITypedNavigator _navigator;
 
@@ -27,7 +27,7 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 	[ObservableProperty]
 	private ObservableCollection<HostItemViewModel> _items = new();
 
-	public HostsOverviewViewModel(ILogger<HostsOverviewViewModel> logger, HostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
+	public HostsOverviewViewModel(ILogger<HostsOverviewViewModel> logger, IHostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
 	{
 		_logger = logger;
 		_hostRepository = hostRepository;
