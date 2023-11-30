@@ -46,7 +46,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj" />
-		<ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
 		<ProjectReference Include="..\Amusoft.PCR.Int.UI\Amusoft.PCR.Int.UI.csproj" />
 	</ItemGroup>
 

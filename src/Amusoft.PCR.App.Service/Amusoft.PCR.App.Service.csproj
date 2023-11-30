@@ -19,7 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Amusoft.PCR.AM.Service\Amusoft.PCR.AM.Service.csproj" />
-		<ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
+		<ProjectReference Include="..\Amusoft.PCR.Int.Service\Amusoft.PCR.Int.Service.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
