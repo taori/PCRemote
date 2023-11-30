@@ -8,6 +8,6 @@ public partial class MainWindow : Window
 	public MainWindow()
 	{
 		InitializeComponent();
-		System.Windows.Application.Current.MainWindow = this;
+		Application.Current.MainWindow = this;
 	}
 }

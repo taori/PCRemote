@@ -8,13 +8,19 @@
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
     xmlns:behaviors="clr-namespace:Amusoft.PCR.App.WindowsAgent.Behaviors"
-    xmlns:windows="clr-namespace:Amusoft.PCR.App.WindowsAgent.Windows"
+    xmlns:viewModels="clr-namespace:Amusoft.PCR.AM.Agent.ViewModels;assembly=Amusoft.PCR.AM.Agent"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignInstance windows:ConfirmWindowViewModel}"
+    d:DataContext="{d:DesignInstance viewModels:ConfirmWindowViewModel}"
     SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterScreen"
     Topmost="True"
     Title="{Binding Path=Title}" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding Path=DeclineCommand}"></KeyBinding>
+    </Window.InputBindings>
+    <b:Interaction.Behaviors>
+        <behaviors:RaiseCommandOnWindowClose Command="{Binding Path=DeclineCommand}" />
+    </b:Interaction.Behaviors>
     <Border Padding="10">
         <StackPanel>
             <StackPanel>
@@ -22,7 +28,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                <Button Content="{x:Static resources:Translations.Generic_No}"
+                <Button Content="{x:Static resources:Translations.Generic_Yes}"
                         Margin="0,0,10,0" 
                         Command="{Binding Path=ConfirmCommand}">
                     <b:Interaction.Behaviors>

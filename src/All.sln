@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.Shared", "Am
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.Service", "Amusoft.PCR.AM.Service\Amusoft.PCR.AM.Service.csproj", "{00D65D7A-FDF5-43C6-B2EB-1DDACBD51A69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.WindowsAgent", "Amusoft.PCR.AM.WindowsAgent\Amusoft.PCR.AM.WindowsAgent.csproj", "{9EE79B4D-951C-4BEA-BC77-D2FBBD504618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.Agent", "Amusoft.PCR.AM.Agent\Amusoft.PCR.AM.Agent.csproj", "{9EE79B4D-951C-4BEA-BC77-D2FBBD504618}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.App.WindowsAgent", "Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj", "{97BD3755-4E51-445F-9569-DAFCBB7DC3C0}"
 EndProject
@@ -61,13 +61,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain.Service"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain.UI", "Amusoft.PCR.Domain.UI\Amusoft.PCR.Domain.UI.csproj", "{96752617-333D-41FF-A4D5-6F5F9951F568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain.WindowsAgent", "Amusoft.PCR.Domain.WindowsAgent\Amusoft.PCR.Domain.WindowsAgent.csproj", "{E81A5206-AC90-4300-848F-1A5A1EAB3FD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain.Agent", "Amusoft.PCR.Domain.Agent\Amusoft.PCR.Domain.Agent.csproj", "{E81A5206-AC90-4300-848F-1A5A1EAB3FD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.UI.UnitTests", "..\tests\Amusoft.PCR.AM.UI.UnitTests\Amusoft.PCR.AM.UI.UnitTests.csproj", "{5E745AA6-A528-45E1-BB1C-9071DF2E7428}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.Toolkit.UnitTests", "..\tests\Amusoft.Toolkit.UnitTests\Amusoft.Toolkit.UnitTests.csproj", "{57AE21AF-9B9D-441C-B728-81CDF77B2F6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Int.UI", "Amusoft.PCR.Int.UI\Amusoft.PCR.Int.UI.csproj", "{B2513934-5A07-4151-BF80-B453A7166D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Int.WindowsAgent", "Amusoft.PCR.Int.WindowsAgent\Amusoft.PCR.Int.WindowsAgent.csproj", "{D18F213C-05E5-475E-98D4-77F950B93593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Int.Agent", "Amusoft.PCR.Int.Agent\Amusoft.PCR.Int.Agent.csproj", "{CBE40C75-4509-417D-883F-FF73A7EAE0CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -393,6 +397,38 @@ Global
 		{B2513934-5A07-4151-BF80-B453A7166D9E}.Release|x64.Build.0 = Release|Any CPU
 		{B2513934-5A07-4151-BF80-B453A7166D9E}.Release|x86.ActiveCfg = Release|Any CPU
 		{B2513934-5A07-4151-BF80-B453A7166D9E}.Release|x86.Build.0 = Release|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Debug|x64.Build.0 = Debug|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Debug|x86.Build.0 = Debug|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Release|ARM64.Build.0 = Release|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Release|x64.ActiveCfg = Release|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Release|x64.Build.0 = Release|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Release|x86.ActiveCfg = Release|Any CPU
+		{D18F213C-05E5-475E-98D4-77F950B93593}.Release|x86.Build.0 = Release|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Release|ARM64.Build.0 = Release|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Release|x64.Build.0 = Release|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -417,6 +453,8 @@ Global
 		{5E745AA6-A528-45E1-BB1C-9071DF2E7428} = {B517B907-9417-4926-9F5C-80B7EDCE05B3}
 		{57AE21AF-9B9D-441C-B728-81CDF77B2F6F} = {B517B907-9417-4926-9F5C-80B7EDCE05B3}
 		{B2513934-5A07-4151-BF80-B453A7166D9E} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
+		{D18F213C-05E5-475E-98D4-77F950B93593} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
+		{CBE40C75-4509-417D-883F-FF73A7EAE0CE} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88301734-C574-410B-9ED2-10A3EFB9998B}

@@ -7,16 +7,19 @@
                  xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
                  xmlns:behaviors="clr-namespace:Amusoft.PCR.App.WindowsAgent.Behaviors"
-                 xmlns:windows="clr-namespace:Amusoft.PCR.App.WindowsAgent.Windows"
+                 xmlns:viewModels="clr-namespace:Amusoft.PCR.AM.Agent.ViewModels;assembly=Amusoft.PCR.AM.Agent"
                  mc:Ignorable="d"
                  Topmost="True"
                  WindowStartupLocation="CenterScreen"
-                 d:DataContext="{d:DesignInstance windows:PromptWindowModel}"
+                 d:DataContext="{d:DesignInstance viewModels:PromptWindowModel}"
                  Title="{Binding Path=Title}" SizeToContent="WidthAndHeight" Height="450" Width="800">
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding Path=CancelAsyncCommand}"></KeyBinding>
         <KeyBinding Key="Enter" Command="{Binding Path=ConfirmAsyncCommand}"></KeyBinding>
     </Window.InputBindings>
+    <b:Interaction.Behaviors>
+        <behaviors:RaiseCommandOnWindowClose Command="{Binding Path=CancelAsyncCommand}" />
+    </b:Interaction.Behaviors>
     <Grid>
         <StackPanel>
             <TextBlock Margin="10,10,10,10" Text="{Binding Path=Description}"></TextBlock>
