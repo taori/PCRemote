@@ -2,9 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Amusoft.PCR.AM.Shared;
 using Amusoft.PCR.AM.UI.Interfaces;
-using Amusoft.PCR.AM.UI.Repositories;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.Toolkit.Networking;

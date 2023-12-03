@@ -1,5 +1,4 @@
-﻿using Amusoft.PCR.AM.UI.Extensions;
-using Amusoft.PCR.AM.UI.Interfaces;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.Input;
 using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;

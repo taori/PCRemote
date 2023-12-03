@@ -1,4 +1,6 @@
-﻿namespace Amusoft.PCR.AM.UI.Interfaces;
+﻿using Amusoft.PCR.Domain.UI.ValueTypes;
+
+namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IUserInterfaceService
 {
@@ -9,7 +11,8 @@ public interface IUserInterfaceService
 		string? cancelText = null, 
 		string? placeholder = null, 
 		int? maxLength = null, 
-		string? initialValue = null);
+		string? initialValue = null,
+		Keyboard keyboard = Keyboard.Default);
 
 	Task<bool> DisplayConfirmAsync(string title, string message, string? acceptText = null, string? cancelText = null);
 

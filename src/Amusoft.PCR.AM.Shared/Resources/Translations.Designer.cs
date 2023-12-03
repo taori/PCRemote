@@ -546,11 +546,47 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a number.
+        /// </summary>
+        public static string Settings_AddNumber {
+            get {
+                return ResourceManager.GetString("Settings.AddNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add port.
         /// </summary>
         public static string Settings_AddPorts {
             get {
                 return ResourceManager.GetString("Settings_AddPorts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to insert a number.
+        /// </summary>
+        public static string Settings_FailedToInsertPort {
+            get {
+                return ResourceManager.GetString("Settings.FailedToInsertPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Port.
+        /// </summary>
+        public static string Settings_NewPort {
+            get {
+                return ResourceManager.GetString("Settings.NewPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port already exists.
+        /// </summary>
+        public static string Settings_PortAlreadyExists {
+            get {
+                return ResourceManager.GetString("Settings.PortAlreadyExists", resourceCulture);
             }
         }
         

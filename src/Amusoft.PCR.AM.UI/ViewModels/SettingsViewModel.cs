@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Amusoft.PCR.AM.UI.Interfaces;
-using Amusoft.PCR.AM.UI.Repositories;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
+using Amusoft.PCR.Domain.UI.ValueTypes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
@@ -49,13 +49,13 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
 	{
 		await _hostRepository.RemoveAsync(portItem.Value);
 		Ports.Remove(portItem);
-		await _toast.Make(AM.Shared.Resources.Translations.Generic_ChangesSaved).Show();
+		await _toast.Make(Translations.Generic_ChangesSaved).Show();
 	}
 
     [RelayCommand]
     public async Task AddPort()
     {
-	    if (await _userInterfaceService.GetPromptText("New Port", "Add a number", maxLength: 5) is var input && input is null)
+	    if (await _userInterfaceService.GetPromptText(Translations.Settings_NewPort, Translations.Settings_AddNumber, maxLength: 5, keyboard: Keyboard.Numeric) is var input && input is null)
 		    return;
 
 	    if (int.TryParse(input, out var number))
@@ -64,16 +64,16 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
 		    addition.Switch(success =>
 		    {
 			    Ports.Add(CreateNavigationItem(number));
-			    _ = _toast.Make(AM.Shared.Resources.Translations.Generic_ChangesSaved).Show();
+			    _ = _toast.Make(Translations.Generic_ChangesSaved).Show();
 
 			}, async exists =>
 		    {
-			    await _userInterfaceService.DisplayAlert(AM.Shared.Resources.Translations.Generic_Error, "Port already exists.");
+			    await _userInterfaceService.DisplayAlert(Translations.Generic_Error, Translations.Settings_PortAlreadyExists);
 		    });
 		}
 	    else
 	    {
-		    await _userInterfaceService.DisplayAlert(Translations.Generic_Error, "Failed to insert a number");
+		    await _userInterfaceService.DisplayAlert(Translations.Generic_Error, Translations.Settings_FailedToInsertPort);
 	    }
     }
 }

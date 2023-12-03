@@ -191,4 +191,16 @@
   <data name="SystemState.Shutdown" xml:space="preserve">
     <value>Herunterfahren</value>
   </data>
+  <data name="Settings.NewPort" xml:space="preserve">
+    <value>Neuer Port</value>
+  </data>
+  <data name="Settings.AddNumber" xml:space="preserve">
+    <value>Nummer hinzufügen</value>
+  </data>
+  <data name="Settings.PortAlreadyExists" xml:space="preserve">
+    <value>Port existiert bereits</value>
+  </data>
+  <data name="Settings.FailedToInsertPort" xml:space="preserve">
+    <value>Nummereingabe fehlgeschlagen</value>
+  </data>
 </root>
