@@ -1,21 +1,15 @@
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 using Amusoft.PCR.AM.Service.Extensions;
+using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.App.Service.HealthChecks;
 using Amusoft.PCR.App.Service.Services;
-using Amusoft.PCR.Application;
-using Amusoft.PCR.Application.Extensions;
-using Amusoft.PCR.Application.Features.DesktopIntegration;
-using Amusoft.PCR.Application.Services;
-using Amusoft.PCR.Domain.AgentSettings;
-using Amusoft.PCR.Domain.Services;
+using Amusoft.PCR.Domain.Service.Entities;
 using Amusoft.PCR.Int.IPC;
-using GrpcDotNetNamedPipes;
-using Microsoft.AspNetCore.StaticFiles;
+using Amusoft.PCR.Int.Service;
+using Amusoft.PCR.Int.Service.Services;
 using NLog;
-using NLog.Fluent;
 using NLog.Web;
-using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
 
 namespace Amusoft.PCR.App.Service;
 
@@ -85,7 +79,7 @@ public class Program
 
 		host.MapGrpcService<PingService>();
 		host.MapGrpcService<VoiceRecognitionService>();
-		host.MapGrpcService<DesktopIntegrationService>();
+		host.MapGrpcService<DesktopIntegrationServiceBridge>();
 
 		
 #if DEBUG
@@ -131,15 +125,9 @@ public class Program
 		
 		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
 		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
-		builder.Services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
-		{
-			return new Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient(provider.GetRequiredService<NamedPipeChannel>());
-		});
-		builder.Services.AddSingleton<IDesktopClientMethods, DesktopServiceClientWrapper>();
-		builder.Services.AddSingleton<NamedPipeChannel>(d => new NamedPipeChannel(".", Globals.NamedPipeChannel));
 
-		builder.Services.AddApplicationModel();
-		builder.Services.AddApplication();
+		builder.Services.AddServiceApplicationModel();
+		builder.Services.AddServiceIntegration();
 	}
 
 	private static void RegisterAsWindowsService(WebApplicationBuilder builder)

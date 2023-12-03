@@ -1,12 +1,5 @@
-﻿using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using Amusoft.PCR.AM.Service.Features;
-using Amusoft.PCR.AM.Service.Features.GettingStarted;
-using Amusoft.PCR.Domain.AgentSettings;
-using Microsoft.AspNetCore.Components;
+﻿using Amusoft.PCR.AM.Service.Features.GettingStarted;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualBasic;
 
 namespace Amusoft.PCR.App.Service.Pages;
 

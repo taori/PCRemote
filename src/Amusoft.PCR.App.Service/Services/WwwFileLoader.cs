@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Amusoft.PCR.App.Service.Services;
+﻿namespace Amusoft.PCR.App.Service.Services;
 
 public class WwwFileLoader : IWwwFileLoader
 {

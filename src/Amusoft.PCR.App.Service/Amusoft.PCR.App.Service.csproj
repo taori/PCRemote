@@ -12,15 +12,13 @@
 		<PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
 		<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.49.0" />
 		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.59.0" />
-		<PackageReference Include="GrpcDotNetNamedPipes" Version="2.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.1" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.5" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Amusoft.PCR.AM.Service\Amusoft.PCR.AM.Service.csproj" />
-		<ProjectReference Include="..\Amusoft.PCR.Application\Amusoft.PCR.Application.csproj" />
-		<ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
+		<ProjectReference Include="..\Amusoft.PCR.Int.Service\Amusoft.PCR.Int.Service.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

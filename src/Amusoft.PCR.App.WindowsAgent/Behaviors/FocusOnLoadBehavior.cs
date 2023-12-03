@@ -1,15 +1,12 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Microsoft.Xaml.Behaviors;
+﻿using Microsoft.Xaml.Behaviors;
 
-namespace Amusoft.PCR.Int.Agent.Windows.Behaviors;
+namespace Amusoft.PCR.App.WindowsAgent.Behaviors;
 
 public class FocusOnLoadBehavior : Behavior<FrameworkElement>
 {
 	protected override void OnAttached()
 	{
-		this.AssociatedObject.Loaded += AssociatedObjectOnLoaded;
+		AssociatedObject.Loaded += AssociatedObjectOnLoaded;
 		base.OnAttached();
 	}
 
@@ -17,6 +14,6 @@ public class FocusOnLoadBehavior : Behavior<FrameworkElement>
 	{
 		if (sender is FrameworkElement focusable)
 			focusable.Focus();
-		this.AssociatedObject.Loaded -= AssociatedObjectOnLoaded;
+		AssociatedObject.Loaded -= AssociatedObjectOnLoaded;
 	}
 }

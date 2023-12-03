@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:Amusoft.PCR.Application.UI.VM;assembly=Amusoft.PCR.Application"
+             xmlns:shared="clr-namespace:Amusoft.PCR.AM.UI.ViewModels.Shared;assembly=Amusoft.PCR.AM.UI"
+             xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
              x:DataType="vm:LogsViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.Logs"
              Title="{x:Binding Path=Title}">

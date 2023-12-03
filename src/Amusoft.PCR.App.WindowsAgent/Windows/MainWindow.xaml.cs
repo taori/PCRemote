@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Amusoft.PCR.Int.Agent.Windows.Windows;
+﻿namespace Amusoft.PCR.App.WindowsAgent.Windows;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -10,6 +8,6 @@ public partial class MainWindow : Window
 	public MainWindow()
 	{
 		InitializeComponent();
-		System.Windows.Application.Current.MainWindow = this;
+		Application.Current.MainWindow = this;
 	}
 }

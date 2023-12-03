@@ -25,14 +25,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Amusoft.PCR.AM.WindowsAgent\Amusoft.PCR.AM.WindowsAgent.csproj" />
-		<ProjectReference Include="..\Amusoft.PCR.Application\Amusoft.PCR.Application.csproj" />
-		<ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
+		<ProjectReference Include="..\Amusoft.PCR.AM.Agent\Amusoft.PCR.AM.Agent.csproj" />
+		<ProjectReference Include="..\Amusoft.PCR.Int.WindowsAgent\Amusoft.PCR.Int.WindowsAgent.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-		<PackageReference Include="GrpcDotNetNamedPipes" Version="2.1.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="NLog" Version="5.2.5" />

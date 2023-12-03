@@ -1,5 +1,5 @@
-﻿using Amusoft.PCR.App.UI.Pages;
-using Amusoft.PCR.Application.Resources;
+﻿using Amusoft.PCR.AM.UI.Resources;
+using Amusoft.PCR.App.UI.Pages;
 
 namespace Amusoft.PCR.App.UI;
 

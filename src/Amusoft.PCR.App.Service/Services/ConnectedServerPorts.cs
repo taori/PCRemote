@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Application.Features.DesktopIntegration;
+﻿using Amusoft.PCR.AM.Service.Interfaces;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 
