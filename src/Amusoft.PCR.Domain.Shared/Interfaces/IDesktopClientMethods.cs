@@ -1,12 +1,12 @@
 ﻿using Amusoft.PCR.Domain.Shared.Entities;
-using Amusoft.PCR.Int.IPC;
+using Amusoft.PCR.Domain.Shared.ValueTypes;
 
-namespace Amusoft.PCR.AM.Shared.Interfaces;
+namespace Amusoft.PCR.Domain.Shared.Interfaces;
 
 public interface IDesktopClientMethods
 {
 	Task<bool?> SetMonitorBrightness(string id, int value);
-	Task<Result<List<GetMonitorBrightnessResponseItem>>> GetMonitorBrightness();
+	Task<Result<List<MonitorData>>> GetMonitorBrightness();
 	Task<bool?> MonitorOn();
 	Task<bool?> MonitorOff();
 	Task<bool?> LockWorkStation();
@@ -20,18 +20,18 @@ public interface IDesktopClientMethods
 	Task<bool?> AbortShutdown();
 	Task<bool?> Hibernate();
 	Task<bool?> Restart(TimeSpan delay, bool force);
-	Task<Result<IList<ProcessListResponseItem>>> GetProcessList();
+	Task<Result<List<ProcessData>>> GetProcessList();
 	Task<bool?> KillProcessById(int processId);
 	Task<bool?> FocusProcessWindow(int processId);
 	Task<bool?> LaunchProgram(string programName, string? arguments = default);
-	Task<bool?> SendMediaKey(SendMediaKeysRequest.Types.MediaKeyCode code);
+	Task<bool?> SendMediaKey(MediaKeyCode code);
 	Task<string?> GetClipboardAsync(string requestee);
 	Task<bool?> SetClipboardAsync(string requestee, string content);
 	Task<bool?> SendMouseMoveAsync(int x, int y);
 	Task<bool?> SendLeftMouseClickAsync();
 	Task<bool?> SendRightMouseClickAsync();
-	Task<AudioFeedResponse?> GetAudioFeedsResponse();
-	Task<DefaultResponse?> UpdateAudioFeed(UpdateAudioFeedRequest request);
-	Task<StringResponse?> SetUserPassword(ChangeUserPasswordRequest request);
+	Task<Result<List<AudioFeedData>>> GetAudioFeeds();
+	Task<bool?> UpdateAudioFeed(AudioFeedData data);
+	Task<Result<string>> SetUserPassword(string userName);
 	Task<bool?> SuicideOnProcessExit(int processId);
 }

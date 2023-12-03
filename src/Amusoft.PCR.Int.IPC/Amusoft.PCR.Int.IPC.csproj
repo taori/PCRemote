@@ -13,11 +13,23 @@
 		<PackageReference Include="Grpc" Version="2.26.0" />
 		<PackageReference Include="Grpc.Core.Api" Version="2.26.0" />
 		<PackageReference Include="Grpc.Tools" Version="2.26.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Remove="**\*.proto" />
 		<Protobuf Include="**\*.proto" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Amusoft.PCR.Domain.Shared\Amusoft.PCR.Domain.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+	    <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\7.0.14\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 </Project>

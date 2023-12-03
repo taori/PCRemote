@@ -4,5 +4,5 @@ namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IDesktopIntegrationServiceFactory
 {
-	IDesktopIntegrationService Create(string protocol, IPEndPoint endPoint);
+	IIpcIntegrationService Create(string protocol, IPEndPoint endPoint);
 }

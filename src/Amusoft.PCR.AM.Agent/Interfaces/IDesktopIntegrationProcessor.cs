@@ -1,6 +1,5 @@
-﻿using Amusoft.PCR.Domain.Agent.Entities;
-using Amusoft.PCR.Domain.Agent.ValueTypes;
-using Amusoft.PCR.Domain.Shared.Entities;
+﻿using Amusoft.PCR.Domain.Shared.Entities;
+using Amusoft.PCR.Domain.Shared.ValueTypes;
 
 namespace Amusoft.PCR.AM.Agent.Interfaces;
 

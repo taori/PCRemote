@@ -1,9 +1,10 @@
-﻿using Amusoft.PCR.AM.Shared.Interfaces;
-using Amusoft.PCR.Domain.Shared.Entities;
-using Amusoft.PCR.Int.IPC;
+﻿using Amusoft.PCR.Domain.Shared.Entities;
+using Amusoft.PCR.Domain.Shared.Interfaces;
+using Amusoft.PCR.Domain.Shared.ValueTypes;
+using Amusoft.PCR.Int.IPC.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.AM.Shared.Services;
+namespace Amusoft.PCR.Int.IPC.Integration;
 
 public class DesktopServiceClientWrapper : IDesktopClientMethods
 {
@@ -46,18 +47,18 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 	}
 
-	public async Task<Result<List<GetMonitorBrightnessResponseItem>>> GetMonitorBrightness()
+	public async Task<Result<List<MonitorData>>> GetMonitorBrightness()
 	{
 		try
 		{
 			_logger.LogDebug("{Method}()", nameof(GetMonitorBrightness));
 			var monitors = await _service.GetMonitorBrightnessAsync(new GetMonitorBrightnessRequest());
-			return Result.Success(monitors.Items.ToList());
+			return Result.Success(monitors.Items.Select(d => d.ToDomainItem()).ToList());
 		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetMonitorBrightness));
-			return Result.Error<List<GetMonitorBrightnessResponseItem>>();
+			return Result.Error<List<MonitorData>>();
 		}
 	}
 
@@ -181,20 +182,18 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 	}
 
-	private static readonly List<ProcessListResponseItem> EmptyProcessList = new();
-
-	public async Task<Result<IList<ProcessListResponseItem>>> GetProcessList()
+	public async Task<Result<List<ProcessData>>> GetProcessList()
 	{
 		try
 		{
 			_logger.LogDebug("{Method}", nameof(GetProcessList));
 			var reply = await _service.GetProcessListAsync(new ProcessListRequest());
-			return Result.Success(reply.Results as IList<ProcessListResponseItem>);
+			return Result.Success(reply.Results.Select(d => d.ToDomainItem()).ToList());
 		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetProcessList));
-			return Result.Error<IList<ProcessListResponseItem>>();
+			return Result.Error<List<ProcessData>>();
 		}
 	}
 
@@ -247,14 +246,14 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 	}
 
-	public async Task<bool?> SendMediaKey(SendMediaKeysRequest.Types.MediaKeyCode code)
+	public async Task<bool?> SendMediaKey(MediaKeyCode code)
 	{
 		try
 		{
 			_logger.LogDebug("{Method}({Code})", nameof(SendMediaKey), code);
 			var reply = await _service.SendMediaKeysAsync(new SendMediaKeysRequest()
 			{
-				KeyCode = code
+				KeyCode = code.ToGrpcType()
 			});
 			return reply.Success;
 		}
@@ -340,28 +339,30 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 	}
 
-	public async Task<AudioFeedResponse?> GetAudioFeedsResponse()
+	public async Task<Result<List<AudioFeedData>>> GetAudioFeeds()
 	{
 		try
 		{
-			_logger.LogDebug("{Method}", nameof(GetAudioFeedsResponse));
+			_logger.LogDebug("{Method}", nameof(GetAudioFeeds));
 			var result = await _service.GetAudioFeedsAsync(new AudioFeedRequest());
-			return result;
+			return result.Success
+				? Result.Success(result.Items.Select(d => d.ToDomainItem()).ToList())
+				: Result.Error<List<AudioFeedData>>();
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetAudioFeedsResponse));
-			return default;
+			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetAudioFeeds));
+			return Result.Error<List<AudioFeedData>>();
 		}
 	}
 
-	public async Task<DefaultResponse?> UpdateAudioFeed(UpdateAudioFeedRequest request)
+	public async Task<bool?> UpdateAudioFeed(AudioFeedData data)
 	{
 		try
 		{
 			_logger.LogDebug("{Method}", nameof(UpdateAudioFeed));
-			var result = await _service.UpdateAudioFeedAsync(request);
-			return result;
+			var result = await _service.UpdateAudioFeedAsync(new UpdateAudioFeedRequest(){Item = data.ToGrpcItem()});
+			return result.Success;
 		}
 		catch (Exception e)
 		{
@@ -370,18 +371,18 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 	}
 
-	public async Task<StringResponse?> SetUserPassword(ChangeUserPasswordRequest request)
+	public async Task<Result<string>> SetUserPassword(string userName)
 	{
 		try
 		{
 			_logger.LogDebug("{Method}", nameof(SetUserPassword));
-			var result = await _service.SetUserPasswordAsync(request);
-			return result;
+			var result = await _service.SetUserPasswordAsync(new ChangeUserPasswordRequest(){UserName = userName});
+			return result.Success ? Result.Success(result.Content) : Result.Error<string>();
 		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SetUserPassword));
-			return default;
+			return Result.Error<string>();
 		}
 	}
 }

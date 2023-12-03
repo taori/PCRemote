@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 	public static void AddWindowsAgentCore(this IServiceCollection services)
 	{
 		services.AddSingleton<IAgentUserInterface, AgentUserInterface>();
-		services.AddScoped<PromptWindow>();
-		services.AddScoped<ConfirmWindow>();
+		services.AddTransient<PromptWindow>();
+		services.AddTransient<ConfirmWindow>();
 	}
 }

@@ -9,14 +9,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj" />
     <ProjectReference Include="..\Amusoft.PCR.Domain.Service\Amusoft.PCR.Domain.Service.csproj" />
-    <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
-    <ProjectReference Include="..\Amusoft.Toolkit.Impersonation\Amusoft.Toolkit.Impersonation.csproj" />
-    <ProjectReference Include="..\Amusoft.Toolkit.Networking\Amusoft.Toolkit.Networking.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
+    <PackageReference Include="System.Reactive" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Amusoft.PCR.AM.Service.Interfaces;
 using Amusoft.PCR.AM.Shared.Interfaces;
-using Amusoft.Toolkit.Impersonation;
+using Amusoft.PCR.Domain.Shared.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.AM.Service.Services;
@@ -12,14 +12,16 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 	private readonly IIntegrationApplicationLocator _integrationApplicationLocator;
 	private readonly IApplicationStateTransmitter _applicationStateTransmitter;
 	private readonly IDesktopClientMethods _desktopClient;
+	private readonly IImpersonatedProcessLauncher _impersonatedProcessLauncher;
 	private bool _canOperate;
 
-	public DesktopIntegrationLauncherService(ILogger<DesktopIntegrationLauncherService> logger, IIntegrationApplicationLocator integrationApplicationLocator, IApplicationStateTransmitter applicationStateTransmitter, IDesktopClientMethods desktopClient)
+	public DesktopIntegrationLauncherService(ILogger<DesktopIntegrationLauncherService> logger, IIntegrationApplicationLocator integrationApplicationLocator, IApplicationStateTransmitter applicationStateTransmitter, IDesktopClientMethods desktopClient, IImpersonatedProcessLauncher impersonatedProcessLauncher)
 	{
 		_logger = logger;
 		_integrationApplicationLocator = integrationApplicationLocator;
 		_applicationStateTransmitter = applicationStateTransmitter;
 		_desktopClient = desktopClient;
+		_impersonatedProcessLauncher = impersonatedProcessLauncher;
 	}
 
 	public Task StartAsync(CancellationToken cancellationToken)
@@ -106,7 +108,7 @@ public class DesktopIntegrationLauncherService : IBackgroundService
 
 			_logger.LogInformation("Launching application at {Path}", fullPath);
 
-			ProcessImpersonation.Launch(fullPath);
+			_impersonatedProcessLauncher.Launch(fullPath);
 
 			return true;
 		}

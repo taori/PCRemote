@@ -1,4 +1,5 @@
-﻿using Amusoft.PCR.AM.UI.ViewModels;
+﻿using System.Net;
+using Amusoft.PCR.AM.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Amusoft.PCR.AM.UI.Interfaces;
@@ -6,7 +7,7 @@ namespace Amusoft.PCR.AM.UI.Interfaces;
 public interface ITypedNavigator
 {
 	Task PopAsync();
-	Task OpenHost(Action<HostViewModel> configureModel);
+	Task OpenHost(IPEndPoint endPoint, string title);
 	Task OpenHostOverview();
 	Task OpenSettings();
 	Task OpenAudio();

@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Amusoft.PCR.Domain.Shared\Amusoft.PCR.Domain.Shared.csproj" />
-    <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
   </ItemGroup>
   
   <ItemGroup>
@@ -32,6 +31,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

@@ -22,25 +22,25 @@ public partial class SystemStateViewModel : PageViewModel
 
 	[RelayCommand]
 	private Task Shutdown() => 
-		_host.DesktopIntegrationClient.Desktop(d => d.Shutdown(TimeSpan.FromMinutes(1), false));
+		_host.IpcClient.DesktopClient.Shutdown(TimeSpan.FromMinutes(1), false);
 
 	[RelayCommand]
 	private Task Restart() =>
-		_host.DesktopIntegrationClient.Desktop(d => d.Restart(TimeSpan.FromMinutes(1), false));
+		_host.IpcClient.DesktopClient.Restart(TimeSpan.FromMinutes(1), false);
 
 	[RelayCommand]
 	private Task Abort() =>
-		_host.DesktopIntegrationClient.Desktop(d => d.AbortShutdown());
+		_host.IpcClient.DesktopClient.AbortShutdown();
 
 	[RelayCommand]
 	private Task Lock() =>
-		_host.DesktopIntegrationClient.Desktop(d => d.LockWorkStation());
+		_host.IpcClient.DesktopClient.LockWorkStation();
 
 	[RelayCommand]
 	private Task Hibernate()
 	{
 		// hibernation does not return a result before entering hibernation so it cannot be awaited
-		_ = _host.DesktopIntegrationClient.Desktop(d => d.Hibernate());
+		_ = _host.IpcClient.DesktopClient.Hibernate();
 		return Task.CompletedTask;
 	}
 }

@@ -8,8 +8,8 @@ public static class ServiceCollectionExtensions
 {
 	public static void AddWindowsAgentApplicationModel(this IServiceCollection services)
 	{
-		services.AddScoped<ConfirmWindowViewModel>();
-		services.AddScoped<PromptWindowModel>();
+		services.AddTransient<ConfirmWindowViewModel>();
+		services.AddTransient<PromptWindowModel>();
 	}
 	
 }

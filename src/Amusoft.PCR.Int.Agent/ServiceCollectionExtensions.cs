@@ -1,5 +1,6 @@
 ﻿using Amusoft.PCR.AM.Agent.Interfaces;
 using Amusoft.PCR.Int.Agent.Dependencies;
+using Amusoft.PCR.Int.IPC;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Amusoft.PCR.Int.Agent;

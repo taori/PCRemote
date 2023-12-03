@@ -84,15 +84,12 @@ public partial class InputControlViewModel : PageViewModel
 	[RelayCommand]
 	private async Task RunGetClipboard()
 	{
-		var task = _host.DesktopIntegrationClient?.Desktop(d => d.GetClipboardAsync(_agentEnvironment.AgentName));
-		if (task != null)
+		var task = _host.IpcClient.DesktopClient.GetClipboardAsync(_agentEnvironment.AgentName);
+		var content = await task;
+		if (content is { } c)
 		{
-			var content = await task;
-			if (content is { } c)
-			{
-				await _agentEnvironment.UpdateClipboardAsync(c);
-				await _toast.Make(AM.Shared.Resources.Translations.InputControl_ClientUpdatedMessage).Show();
-			}
+			await _agentEnvironment.UpdateClipboardAsync(c);
+			await _toast.Make(AM.Shared.Resources.Translations.InputControl_ClientUpdatedMessage).Show();
 		}
 	}
 
@@ -100,13 +97,10 @@ public partial class InputControlViewModel : PageViewModel
 	private async Task RunSetClipboard()
 	{
 		var cc = await _agentEnvironment.GetClipboardAsync();
-		var updateTask = _host.DesktopIntegrationClient?.Desktop((d => d.SetClipboardAsync(_agentEnvironment.AgentName, cc ?? string.Empty)));
-		if (updateTask != null)
-		{
-			var success = await updateTask;
-			if (success == true)
-				await _toast.Make(AM.Shared.Resources.Translations.InputControl_HostUpdatedMessage).Show();
-		}
+		var updateTask = _host.IpcClient.DesktopClient.SetClipboardAsync(_agentEnvironment.AgentName, cc ?? string.Empty);
+		var success = await updateTask;
+		if (success == true)
+			await _toast.Make(AM.Shared.Resources.Translations.InputControl_HostUpdatedMessage).Show();
 	}
 
 	[RelayCommand]
@@ -233,6 +227,6 @@ public partial class InputControlViewModel : PageViewModel
 
 	private Task RunSendKeys(string keys)
 	{
-		return _host.DesktopIntegrationClient.Desktop(d => d.SendKeys(keys));
+		return _host.IpcClient.DesktopClient.SendKeys(keys);
 	}
 }

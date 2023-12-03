@@ -1,7 +1,9 @@
 ﻿#nullable enable
+using System.Net;
 using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels;
+using Amusoft.PCR.App.UI.Dependencies;
 using Amusoft.PCR.App.UI.Pages;
 
 namespace Amusoft.PCR.App.UI.Implementations;
@@ -22,9 +24,10 @@ public class TypedNavigator : ITypedNavigator
 		return Shell.Current.Navigation.PopAsync();
 	}
 
-	public Task OpenHost(Action<HostViewModel> configureModel)
+	public Task OpenHost(IPEndPoint endPoint, string title)
 	{
-		return SpawnPushConfigureAsync<Host, HostViewModel>(_serviceProvider, configureModel);
+		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection => collection.AddSingleton<IHostCredentialProvider>(new EndpointData(endPoint, title)));
+		return SpawnPushAsync<Host, HostViewModel>(provider);
 	}
 
 	public Task OpenHostOverview()

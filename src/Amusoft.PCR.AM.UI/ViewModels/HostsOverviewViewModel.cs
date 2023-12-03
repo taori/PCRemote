@@ -2,10 +2,11 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Amusoft.PCR.AM.Shared;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Repositories;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
-using Amusoft.PCR.Int.IPC;
+using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.Toolkit.Networking;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -20,6 +21,7 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 	private readonly IHostRepository _hostRepository;
 	private readonly IToast _toast;
 	private readonly ITypedNavigator _navigator;
+	private readonly IDiscoveryMessageInterface _discoveryMessageInterface;
 
 	[ObservableProperty]
 	private bool _arePortsMissing;
@@ -27,12 +29,13 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 	[ObservableProperty]
 	private ObservableCollection<HostItemViewModel> _items = new();
 
-	public HostsOverviewViewModel(ILogger<HostsOverviewViewModel> logger, IHostRepository hostRepository, IToast toast, ITypedNavigator navigator) : base(navigator)
+	public HostsOverviewViewModel(ILogger<HostsOverviewViewModel> logger, IHostRepository hostRepository, IToast toast, ITypedNavigator navigator, IDiscoveryMessageInterface discoveryMessageInterface) : base(navigator)
 	{
 		_logger = logger;
 		_hostRepository = hostRepository;
 		_toast = toast;
 		_navigator = navigator;
+		_discoveryMessageInterface = discoveryMessageInterface;
 	}
 
 	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
@@ -43,10 +46,9 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 	}
 
 	[RelayCommand]
-	public async Task OpenHostAsync(HostItemViewModel viewModel)
+	public Task OpenHostAsync(HostItemViewModel viewModel)
 	{
-		await _navigator.OpenHost(d => d.Setup(viewModel));
-		// await _toast.Make($"Connecting to {viewModel.Connection.ToString()}").Show();
+		return _navigator.OpenHost(viewModel.Connection, viewModel.Name);
 	}
 
 	[RelayCommand]
@@ -67,15 +69,16 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 
 	private HostItemViewModel[] GetHostItemModel(UdpReceiveResult result)
 	{
-		if (GrpcHandshakeFormatter.Parse(result.Buffer) is { } host)
+		if (_discoveryMessageInterface.TryParse(result.Buffer, out var host) && host is {} h)
 		{
-			return host.Ports.Select(port => new HostItemViewModel(
+			return h.Ports.Select(port => new HostItemViewModel(
 				new(result.RemoteEndPoint.Address, port),
-				$"{host.MachineName}",
+				$"{h.MachineName}",
 				item => _ = OpenHostAsync(item))
 			).ToArray();
 		}
 		
+		_logger.LogDebug("Received buffer contains no data about hosts");
 		return Array.Empty<HostItemViewModel>();
 	}
 
@@ -108,11 +111,11 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 			: items;
 	}
 
-	private static IAsyncEnumerable<UdpReceiveResult> GetUdpReceiveResultsAsync(int[] ports)
+	private IAsyncEnumerable<UdpReceiveResult> GetUdpReceiveResultsAsync(int[] ports)
 	{
 		return AsyncEnumerableEx.Merge(GetPortSourcesAsync(ports));
 
-		static async IAsyncEnumerable<IAsyncEnumerable<UdpReceiveResult>> GetPortSourcesAsync(int[] ports)
+		async IAsyncEnumerable<IAsyncEnumerable<UdpReceiveResult>> GetPortSourcesAsync(int[] ports)
 		{
 			var portRange = Math.Pow(2, 16);
 			foreach (var port in ports.Where(d => d < portRange))
@@ -120,7 +123,7 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 				var duration = TimeSpan.FromSeconds(1);
 				using var cts = new CancellationTokenSource(duration);
 				using var session = new UdpBroadcastSession(new UdpBroadcastCommunicationChannelSettings(port), cts.Token);
-				await session.BroadcastAsync(Encoding.UTF8.GetBytes(GrpcHandshakeClientMessage.Message), cts.Token);
+				await session.BroadcastAsync(Encoding.UTF8.GetBytes(_discoveryMessageInterface.DiscoveryRequestMessage), cts.Token);
 				yield return session.GetResponsesAsync(duration);
 			}
 		}

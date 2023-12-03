@@ -1,16 +1,17 @@
 ﻿using System.Net.NetworkInformation;
-using Amusoft.PCR.AM.Shared.Interfaces;
+using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.PCR.Int.IPC;
+using Amusoft.PCR.Int.IPC.Extensions;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Amusoft.PCR.App.Service.Services;
+namespace Amusoft.PCR.Int.Service.Services;
 
-public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceBase
+public class DesktopIntegrationServiceBridge : Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceBase
 {
 	private readonly IDesktopClientMethods _impersonatedChannel;
 
-	public DesktopIntegrationService(IDesktopClientMethods impersonatedChannel)
+	public DesktopIntegrationServiceBridge(IDesktopClientMethods impersonatedChannel)
 	{
 		_impersonatedChannel = impersonatedChannel;
 	}
@@ -25,7 +26,7 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 	{
 		var result = await _impersonatedChannel.GetMonitorBrightness();
 		if (result.Success)
-			return new GetMonitorBrightnessResponse() {Items = {result.Value}};
+			return new GetMonitorBrightnessResponse() {Items = {result.Value.ToGrpcItems()}};
 
 		return new GetMonitorBrightnessResponse() { };
 	}
@@ -156,14 +157,27 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 	
 	public override async Task<AudioFeedResponse> GetAudioFeeds(AudioFeedRequest request, ServerCallContext context)
 	{
-		var value = await _impersonatedChannel.GetAudioFeedsResponse();
-		return value ?? new AudioFeedResponse() {Success = value is {Success: true}};
+		var value = await _impersonatedChannel.GetAudioFeeds();
+		if (value.Success)
+		{
+			return new AudioFeedResponse()
+			{
+				Success = true,
+				Items = { value.Value.ToGrpcItems() }
+			};
+		}
+
+		return new AudioFeedResponse()
+		{
+			Success = false,
+			Items = { ArraySegment<AudioFeedResponseItem>.Empty }
+		};
 	}
 
 	public override async Task<DefaultResponse> UpdateAudioFeed(UpdateAudioFeedRequest request, ServerCallContext context)
 	{
-		var value = await _impersonatedChannel.UpdateAudioFeed(request);
-		return value ?? new DefaultResponse() { Success = value?.Success ?? false };
+		var value = await _impersonatedChannel.UpdateAudioFeed(request.Item.ToDomainItem());
+		return new DefaultResponse() { Success = value == true };
 	}
 	
 	public override async Task<SendKeysReply> SendKeys(SendKeysRequest request, ServerCallContext context)
@@ -177,7 +191,7 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 	
 	public override async Task<SendMediaKeysReply> SendMediaKeys(SendMediaKeysRequest request, ServerCallContext context)
 	{
-		var success = await _impersonatedChannel.SendMediaKey(request.KeyCode);
+		var success = await _impersonatedChannel.SendMediaKey(request.KeyCode.ToDomainType());
 		return new SendMediaKeysReply()
 		{
 			Success = success == true
@@ -197,7 +211,7 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 	{
 		var results = await _impersonatedChannel.GetProcessList();
 		var processListResponse = new ProcessListResponse();
-		processListResponse.Results.AddRange(results.Value);
+		processListResponse.Results.AddRange(results.Value.ToGrpcItems());
 		return processListResponse;
 	}
 	
@@ -297,9 +311,9 @@ public class DesktopIntegrationService : Int.IPC.DesktopIntegrationService.Deskt
 	[AllowAnonymous]
 	public override async Task<StringResponse> SetUserPassword(ChangeUserPasswordRequest request, ServerCallContext context)
 	{
-		var result = await _impersonatedChannel.SetUserPassword(request);
+		var result = await _impersonatedChannel.SetUserPassword(request.UserName);
 		if (result is {Success: true})
-			return new StringResponse() {Content = result.Content, Success = true};
+			return new StringResponse() {Content = result.Value, Success = true};
 
 		return new StringResponse() {Success = false, Content = string.Empty};
 	}

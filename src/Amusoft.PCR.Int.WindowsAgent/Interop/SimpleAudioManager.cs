@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using Amusoft.PCR.Domain.Agent.Entities;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Int.IPC;
 using NAudio.CoreAudioApi;
 using NLog;

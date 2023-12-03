@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Domain.Agent.ValueTypes;
+﻿namespace Amusoft.PCR.Domain.Shared.ValueTypes;
 
 public enum MediaKeyCode
 {

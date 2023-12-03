@@ -15,20 +15,11 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	{
 		return Task.CompletedTask;
 	}
-	
-	private IPEndPoint? _address;
-	public IDesktopIntegrationService? DesktopIntegrationClient { get; set; }
+	public IIpcIntegrationService IpcClient { get; }
 
 	protected override string GetDefaultPageTitle()
 	{
 		return "default";
-	}
-
-	public void Setup(HostItemViewModel viewModel)
-	{
-		Title = viewModel.Name;
-		_address = viewModel.Connection;
-		DesktopIntegrationClient = _integrationServiceFactory.Create("http", viewModel.Connection);
 	}
 
 	[RelayCommand]
@@ -61,9 +52,11 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenPrograms());
 	}
 
-	public HostViewModel(ITypedNavigator navigator, IDesktopIntegrationServiceFactory integrationServiceFactory) : base(navigator)
+	public HostViewModel(ITypedNavigator navigator, IDesktopIntegrationServiceFactory integrationServiceFactory, IHostCredentialProvider credentialProvider) : base(navigator)
 	{
 		_navigator = navigator;
 		_integrationServiceFactory = integrationServiceFactory;
+		IpcClient = _integrationServiceFactory.Create("http", credentialProvider.Address);
+		Title = credentialProvider.Title;
 	}
 }

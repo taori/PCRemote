@@ -1,10 +1,11 @@
-﻿using Amusoft.PCR.Int.IPC;
+﻿using Amusoft.PCR.AM.Service.Features.GettingStarted;
+using Amusoft.PCR.Int.IPC;
 
-namespace Amusoft.PCR.AM.Service.Features.GettingStarted;
+namespace Amusoft.PCR.Int.Service.Services;
 
-public class AgentPingService : IAgentPingService
+internal class AgentPingService : IAgentPingService
 {
-	private readonly DesktopIntegrationService.DesktopIntegrationServiceClient _client;
+	private readonly Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient _client;
 
 	public AgentPingService(Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient client)
 	{

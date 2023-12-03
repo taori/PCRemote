@@ -14,10 +14,10 @@ internal class DesktopIntegrationServiceFactory : IDesktopIntegrationServiceFact
 		_grpcChannelFactory = grpcChannelFactory;
 	}
 
-	public IDesktopIntegrationService Create(string protocol, IPEndPoint endPoint)
+	public IIpcIntegrationService Create(string protocol, IPEndPoint endPoint)
 	{
 		AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 		var channel = _grpcChannelFactory.Create(protocol, endPoint);
-		return new DesktopIntegrationService(channel, _serviceProvider);
+		return new IpcIntegrationService(channel, _serviceProvider);
 	}
 }

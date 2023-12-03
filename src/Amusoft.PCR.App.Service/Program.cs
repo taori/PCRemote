@@ -2,15 +2,14 @@ using System.Runtime.InteropServices;
 using Amusoft.PCR.AM.Service.Extensions;
 using Amusoft.PCR.AM.Service.Interfaces;
 using Amusoft.PCR.AM.Shared.Interfaces;
-using Amusoft.PCR.AM.Shared.Services;
 using Amusoft.PCR.App.Service.HealthChecks;
 using Amusoft.PCR.App.Service.Services;
 using Amusoft.PCR.Domain.Service.Entities;
 using Amusoft.PCR.Int.IPC;
-using GrpcDotNetNamedPipes;
+using Amusoft.PCR.Int.Service;
+using Amusoft.PCR.Int.Service.Services;
 using NLog;
 using NLog.Web;
-using DesktopIntegrationService = Amusoft.PCR.App.Service.Services.DesktopIntegrationService;
 
 namespace Amusoft.PCR.App.Service;
 
@@ -80,7 +79,7 @@ public class Program
 
 		host.MapGrpcService<PingService>();
 		host.MapGrpcService<VoiceRecognitionService>();
-		host.MapGrpcService<DesktopIntegrationService>();
+		host.MapGrpcService<DesktopIntegrationServiceBridge>();
 
 		
 #if DEBUG
@@ -126,14 +125,9 @@ public class Program
 		
 		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
 		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
-		builder.Services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
-		{
-			return new Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient(provider.GetRequiredService<NamedPipeChannel>());
-		});
-		builder.Services.AddSingleton<IDesktopClientMethods, DesktopServiceClientWrapper>();
-		builder.Services.AddSingleton<NamedPipeChannel>(d => new NamedPipeChannel(".", Globals.NamedPipeChannel));
 
 		builder.Services.AddServiceApplicationModel();
+		builder.Services.AddServiceIntegration();
 	}
 
 	private static void RegisterAsWindowsService(WebApplicationBuilder builder)

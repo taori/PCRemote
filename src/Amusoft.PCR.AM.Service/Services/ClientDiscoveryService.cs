@@ -2,9 +2,9 @@
 using System.Net.Sockets;
 using System.Text;
 using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.AM.Shared;
 using Amusoft.PCR.Domain.Service.Entities;
-using Amusoft.PCR.Int.IPC;
-using Amusoft.Toolkit.Networking;
+using Amusoft.PCR.Domain.Shared.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -14,18 +14,18 @@ public class ClientDiscoveryService : IDisposable
 {
 	private readonly ILogger<ClientDiscoveryService> _logger;
 	private readonly IConnectedServerPorts _connectedServerPorts;
-	private readonly ServerUrlTransmitterSettings _settings;
-	private UdpBroadcastCommunicationChannel _channel;
+	private readonly IDiscoveryMessageInterface _discoveryMessageInterface;
 
-	public ClientDiscoveryService(ILogger<ClientDiscoveryService> logger, IOptions<ApplicationSettings> settings, IConnectedServerPorts connectedServerPorts)
+	private readonly ServerUrlTransmitterSettings _settings;
+	private readonly IBroadcastCommunicator _channel;
+
+	public ClientDiscoveryService(ILogger<ClientDiscoveryService> logger, IOptions<ApplicationSettings> settings, IConnectedServerPorts connectedServerPorts, IBroadcastCommunicatorFactory broadcastCommunicatorFactory, IDiscoveryMessageInterface discoveryMessageInterface)
 	{
 		_logger = logger;
 		_connectedServerPorts = connectedServerPorts;
+		_discoveryMessageInterface = discoveryMessageInterface;
 		_settings = settings.Value.ServerUrlTransmitter ?? throw new ArgumentNullException(nameof(settings.Value.ServerUrlTransmitter));
-		var channelSettings = new UdpBroadcastCommunicationChannelSettings(_settings.HandshakePort);
-		channelSettings.AllowNatTraversal = true;
-
-		_channel = new UdpBroadcastCommunicationChannel(channelSettings);
+		_channel = broadcastCommunicatorFactory.Create(_settings);
 	}
 
 	public void Dispose()
@@ -59,7 +59,7 @@ public class ClientDiscoveryService : IDisposable
 	private async Task HandleReceive(UdpReceiveResult received)
 	{
 		var message = Encoding.UTF8.GetString(received.Buffer);
-		if (!string.Equals(message, GrpcHandshakeClientMessage.Message))
+		if (!_discoveryMessageInterface.IsRespondableMessage(message))
 		{
 			_logger.LogDebug("Discarding message - invalid (Origin: {Origin})", received.RemoteEndPoint.Address.ToString());
 			return;
@@ -68,7 +68,7 @@ public class ClientDiscoveryService : IDisposable
 		_logger.LogInformation("Received handshake from [{Address}]", received.RemoteEndPoint);
 		if (_connectedServerPorts.Addresses is {Count: > 0} ports)
 		{
-			var replyText = GrpcHandshakeFormatter.Write(GetMachineName(), ports.ToArray());
+			var replyText = _discoveryMessageInterface.GetResponseMessage(GetMachineName(), ports.ToArray());
 			if (await IsSameOriginMessageAsync(received.RemoteEndPoint))
 			{
 				await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), new IPEndPoint(IPAddress.Broadcast, received.RemoteEndPoint.Port), CancellationToken.None);

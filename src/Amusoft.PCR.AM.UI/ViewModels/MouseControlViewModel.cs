@@ -1,10 +1,7 @@
 ﻿using System.Numerics;
 using System.Threading.Channels;
-using Amusoft.PCR.AM.UI.Extensions;
 using Amusoft.PCR.AM.UI.Interfaces;
-using Amusoft.PCR.AM.UI.Repositories;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
-using Amusoft.PCR.Int.IPC.Utility;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
@@ -21,15 +18,12 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	private readonly Channel<(int x, int y)> _mouseMoveChannel;
 
-	private readonly ChannelStreamReader<(int x, int y)> _streamReader;
-
 	public MouseControlViewModel(ITypedNavigator navigator, HostViewModel host, IClientSettingsRepository settingsRepository, IToast toast) : base(navigator)
 	{
 		_host = host;
 		_settingsRepository = settingsRepository;
 		_toast = toast;
 		_mouseMoveChannel = Channel.CreateUnbounded<(int x, int y)>();
-		_streamReader = new ChannelStreamReader<(int x, int y)>(_mouseMoveChannel);
 		_toastable = _toast.Make("").SetPosition(Position.Center);
 	}
 
@@ -85,9 +79,10 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 		_moveCts = new();
 		_ = Task.Run(async() =>
 		{
-			while (await _streamReader.MoveNext(_moveCts.Token) && !_moveCts.IsCancellationRequested)
+			while (await _mouseMoveChannel.Reader.WaitToReadAsync(_moveCts.Token) && !_moveCts.IsCancellationRequested)
 			{
-				await _host.DesktopIntegrationClient.Desktop(d => d.SendMouseMoveAsync(_streamReader.Current.x, _streamReader.Current.y));
+				var tuple = await _mouseMoveChannel.Reader.ReadAsync(_moveCts.Token);
+				await _host.IpcClient.DesktopClient.SendMouseMoveAsync(tuple.x, tuple.y);
 			}
 		}, _moveCts.Token);
 	}
@@ -95,12 +90,12 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 	[RelayCommand]
 	private Task SingleTap()
 	{
-		return _host.DesktopIntegrationClient.Desktop(d => d.SendLeftMouseClickAsync());
+		return _host.IpcClient.DesktopClient.SendLeftMouseClickAsync();
 	}
 
 	[RelayCommand]
 	private Task DoubleTap()
 	{
-		return _host.DesktopIntegrationClient.Desktop(d => d.SendRightMouseClickAsync());
+		return _host.IpcClient.DesktopClient.SendRightMouseClickAsync();
 	}
 }

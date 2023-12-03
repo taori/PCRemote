@@ -1,10 +1,9 @@
 ﻿using System.Collections.Immutable;
 using Amusoft.PCR.AM.Agent.Interfaces;
-using Amusoft.PCR.Domain.Agent.Entities;
-using Amusoft.PCR.Domain.Agent.ValueTypes;
+using Amusoft.PCR.Domain.Shared.Entities;
+using Amusoft.PCR.Domain.Shared.ValueTypes;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.IPC.Extensions;
-using Google.Protobuf.Collections;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 

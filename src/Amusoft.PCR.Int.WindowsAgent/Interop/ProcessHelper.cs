@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
-using Amusoft.PCR.Domain.Agent.Entities;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Int.IPC;
 using NLog;
 

@@ -27,11 +27,11 @@ public partial class MonitorsViewModel : ReloadablePageViewModel, INavigationCal
 
 	[RelayCommand]
 	private Task MonitorOff() =>
-		_host.DesktopIntegrationClient.Desktop(d => d.MonitorOff());
+		_host.IpcClient.DesktopClient.MonitorOff();
 
 	[RelayCommand]
 	private Task MonitorOn() =>
-		_host.DesktopIntegrationClient.Desktop(d => d.MonitorOn());
+		_host.IpcClient.DesktopClient.MonitorOn();
 
 	[ObservableProperty]
 	private ObservableCollection<BrightnessItem>? _brightnessItems;
@@ -43,14 +43,14 @@ public partial class MonitorsViewModel : ReloadablePageViewModel, INavigationCal
 
 	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
-		if (_host.DesktopIntegrationClient?.DesktopClient is null)
+		if (_host.IpcClient?.DesktopClient is null)
 			return;
 
-		var monitors = await _host.DesktopIntegrationClient.DesktopClient.GetMonitorBrightness();
+		var monitors = await _host.IpcClient.DesktopClient.GetMonitorBrightness();
 		if (!monitors.Success)
 			return;
 
-		var vmItems = monitors.Value.Select(d => new BrightnessItem(d.Id, d.Name, d.Current, d.Min, d.Max, null)).ToArray();
+		var vmItems = monitors.Value.Select(d => new BrightnessItem(d.Id, d.Description, (int)d.Current, (int)d.Min, (int)d.Max, null)).ToArray();
 
 		foreach (var item in vmItems)
 		{
@@ -63,10 +63,10 @@ public partial class MonitorsViewModel : ReloadablePageViewModel, INavigationCal
 	[RelayCommand]
 	public async Task SaveBrightness(BrightnessItem brightness)
 	{
-		if (_host.DesktopIntegrationClient?.DesktopClient == null)
+		if (_host.IpcClient?.DesktopClient == null)
 			return;
 
-		await _host.DesktopIntegrationClient.DesktopClient.SetMonitorBrightness(brightness.Id, brightness.Value);
+		await _host.IpcClient.DesktopClient.SetMonitorBrightness(brightness.Id, brightness.Value);
 		await _toast.Make(string.Format(AM.Shared.Resources.Translations.Monitors_Brightness_0, (object?)brightness.Value)).Show();
 	}
 }

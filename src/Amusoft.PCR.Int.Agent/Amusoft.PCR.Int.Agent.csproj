@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Amusoft.PCR.AM.Agent\Amusoft.PCR.AM.Agent.csproj" />
+      <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
     </ItemGroup>
 
 </Project>

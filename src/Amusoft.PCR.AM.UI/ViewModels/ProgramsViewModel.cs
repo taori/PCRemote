@@ -39,7 +39,7 @@ public partial class ProgramsViewModel : PageViewModel
 
 	private static Task LaunchHostProgramAsync(HostViewModel host, string programName, string? arguments = default)
 	{
-		return host.DesktopIntegrationClient?.DesktopClient.LaunchProgram(programName, arguments) ?? Task.CompletedTask;
+		return host.IpcClient?.DesktopClient.LaunchProgram(programName, arguments) ?? Task.CompletedTask;
 	}
 	
 	[RelayCommand]
@@ -59,7 +59,7 @@ public partial class ProgramsViewModel : PageViewModel
 
 	private static async Task<ICollection<NavigationItem>> LoadProcessKillItems(ITypedNavigator navigator, HostViewModel host, Predicate<string>? filter = null)
 	{
-		if (host.DesktopIntegrationClient?.DesktopClient.GetProcessList() is {} task)
+		if (host.IpcClient?.DesktopClient.GetProcessList() is {} task)
 		{
 			var processes = await task;
 			var results = new List<NavigationItem>(processes.Value.Count);
@@ -124,7 +124,7 @@ public partial class ProgramsViewModel : PageViewModel
 						results.Add(new NavigationItem()
 						{
 							Text = $"Kill {process.ProcessId}",
-							Command = new AsyncRelayCommand(() => host.DesktopIntegrationClient.DesktopClient.KillProcessById(process.ProcessId))
+							Command = new AsyncRelayCommand(() => host.IpcClient.DesktopClient.KillProcessById(process.ProcessId))
 						});
 					}
 				}

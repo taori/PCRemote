@@ -1,7 +1,8 @@
 ﻿using Amusoft.PCR.Int.IPC;
 using Grpc.Core;
+using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.App.Service.Services;
+namespace Amusoft.PCR.Int.Service.Services;
 
 public class VoiceRecognitionService : VoiceCommandService.VoiceCommandServiceBase
 {
