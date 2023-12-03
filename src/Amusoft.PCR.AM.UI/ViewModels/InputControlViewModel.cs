@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using Amusoft.PCR.AM.Shared.Interfaces;
-using Amusoft.PCR.AM.UI.Extensions;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.Input;

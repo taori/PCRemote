@@ -198,4 +198,16 @@
   <data name="SystemState.Shutdown" xml:space="preserve">
     <value>Shutdown</value>
   </data>
+  <data name="Settings.NewPort" xml:space="preserve">
+    <value>New Port</value>
+  </data>
+  <data name="Settings.AddNumber" xml:space="preserve">
+    <value>Add a number</value>
+  </data>
+  <data name="Settings.PortAlreadyExists" xml:space="preserve">
+    <value>Port already exists</value>
+  </data>
+  <data name="Settings.FailedToInsertPort" xml:space="preserve">
+    <value>Failed to insert a number</value>
+  </data>
 </root>
