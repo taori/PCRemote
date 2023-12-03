@@ -3,6 +3,7 @@ using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Repositories;
 using Amusoft.PCR.App.UI.Implementations;
 using Amusoft.PCR.Int.IPC;
+using Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 using Amusoft.PCR.Int.UI.ProjectDepencies;
 using Amusoft.PCR.Int.UI.Shared;
 
@@ -19,6 +20,8 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
 		services.AddSingleton<IFileStorage, FileStorage>();
 		services.AddSingleton<IGrpcChannelFactory, GrpcChannelFactory>();
+
+		services.AddScoped<IDelayedSystemStateWorker, DelayedSystemStateWorker>();
 
 		services.AddSingleton<IHostRepository, HostRepository>();
 		services.AddSingleton<IClientSettingsRepository, ClientSettingsRepository>();
