@@ -8,10 +8,12 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class SystemStateViewModel : PageViewModel
 {
 	private readonly HostViewModel _host;
+	private readonly IDelayedSystemStateWorker _delayedSystemStateWorker;
 
-	public SystemStateViewModel(ITypedNavigator navigator, HostViewModel host) : base(navigator)
+	public SystemStateViewModel(ITypedNavigator navigator, HostViewModel host, IDelayedSystemStateWorker delayedSystemStateWorker) : base(navigator)
 	{
 		_host = host;
+		_delayedSystemStateWorker = delayedSystemStateWorker;
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -20,16 +22,23 @@ public partial class SystemStateViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private Task Shutdown() => 
-		_host.IpcClient.DesktopClient.Shutdown(TimeSpan.FromMinutes(1), false);
+	private Task Shutdown()
+	{
+		return _delayedSystemStateWorker.ShutdownAtAsync(DateTimeOffset.Now.AddSeconds(30), false);
+	}
 
 	[RelayCommand]
-	private Task Restart() =>
-		_host.IpcClient.DesktopClient.Restart(TimeSpan.FromMinutes(1), false);
+	private Task Restart()
+	{
+		return _delayedSystemStateWorker.RestartAtAsync(DateTimeOffset.Now.AddSeconds(30), false);
+	}
 
 	[RelayCommand]
-	private Task Abort() =>
-		_host.IpcClient.DesktopClient.AbortShutdown();
+	private Task Abort()
+	{
+		_delayedSystemStateWorker.Clear();
+		return _host.IpcClient.DesktopClient.AbortShutdown();
+	}
 
 	[RelayCommand]
 	private Task Lock() =>
@@ -39,7 +48,7 @@ public partial class SystemStateViewModel : PageViewModel
 	private Task Hibernate()
 	{
 		// hibernation does not return a result before entering hibernation so it cannot be awaited
-		_ = _host.IpcClient.DesktopClient.Hibernate();
+		_ = _delayedSystemStateWorker.HibernateAtAsync(DateTimeOffset.Now.AddSeconds(30));
 		return Task.CompletedTask;
 	}
 }

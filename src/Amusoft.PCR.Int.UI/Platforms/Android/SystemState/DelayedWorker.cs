@@ -1,0 +1,170 @@
+﻿using System.Net;
+using Amusoft.PCR.Int.IPC;
+using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
+using Amusoft.PCR.Int.UI.ProjectDepencies;
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using AndroidX.Work;
+using Java.Lang;
+using NLog;
+using Exception = System.Exception;
+using Logger = NLog.Logger;
+
+namespace Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
+
+internal class DelayedWorker : Worker
+{
+	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
+	public static class InputParameters
+	{
+		public const string Address = "Adress";
+		public const string Protocol = "Protocol";
+		public const string DelayedActionType = "DelayedActionType";
+		public const string FinalizeActionAt = "FinalizeActionAt";
+		public const string HostName = "HostName";
+		public const string ExecuteWithForce = "ExecuteWithForce";
+	}
+
+	public DelayedWorker(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
+	{
+	}
+
+	public DelayedWorker(Context context, WorkerParameters workerParams) : base(context, workerParams)
+	{
+	}
+
+	public override Result DoWork()
+	{
+		return DoWorkAsync().GetAwaiter().GetResult();
+	}
+
+	private async Task<Result> DoWorkAsync()
+	{
+		var actionType = (DelayedStateType)InputData.GetInt(InputParameters.DelayedActionType, -1);
+		var protocol = InputData.GetString(InputParameters.Protocol) ?? throw new Exception("Protocol is null");
+		var address = InputData.GetString(InputParameters.Address)?? throw new Exception("address is null");
+		var finalizeActionAt = InputData.GetString(InputParameters.FinalizeActionAt) ?? throw new Exception("finalizeActionAt is null");
+		var force = InputData.GetBoolean(InputParameters.ExecuteWithForce, false);
+		if (string.IsNullOrEmpty(address) || !IPEndPoint.TryParse(address, out var addressParsed))
+		{
+			Log.Error("Failed to parse address");
+			return Result.InvokeFailure();
+		}
+		if (string.IsNullOrEmpty(finalizeActionAt) || !DateTimeOffset.TryParse(finalizeActionAt, out var finalizeActionAtParsed))
+		{
+			Log.Error("Failed to parse finalizeActionAt");
+			return Result.InvokeFailure();
+		}
+		if (Tags.Count != 2)
+		{
+			Log.Error("Tag count mismatch");
+			return Result.InvokeFailure();
+		}
+		
+		var notificationId = $"{actionType}+{addressParsed}".GetHashCode();
+		var intentAction = GetIntentAction(actionType);
+		var intent = new Intent(intentAction);
+		var tagValue = Tags.Skip(1).First();
+
+		intent.PutExtra(DelayedSystemStateBroadcastReceiver.InputWorkerTag, tagValue);
+		intent.PutExtra(DelayedSystemStateBroadcastReceiver.InputNotificationId, notificationId);
+
+		var start = DateTimeOffset.Now;
+		var progressMax = (int)(finalizeActionAtParsed - start).TotalSeconds;
+
+		if (progressMax < 0)
+		{
+			Log.Debug("Shutdown is in the past - cancelling");
+			return Result.InvokeSuccess();
+		}
+
+		static string RenderDelay(TimeSpan duration)
+		{
+			return duration.ToString("hh\\:mm\\:ss");
+		}
+
+		var notificationBuilder = NotificationHelper.DisplayNotification(notificationId, NotificationChannelType.General, builder =>
+		{
+			var abortIntent = PendingIntent.GetBroadcast(Microsoft.Maui.ApplicationModel.Platform.AppContext, 1, intent, PendingIntentFlags.Immutable);
+
+			builder
+				.SetProgress(progressMax, progressMax, false)
+				.SetOnlyAlertOnce(true)
+				.SetFlag((int) NotificationFlags.AutoCancel, false)
+				.SetContentTitle(GetNotificationTitle(actionType))
+				.SetContentText(RenderDelay(TimeSpan.FromSeconds(progressMax)))
+				.SetActions(
+					new Notification.Action(Resource.Drawable.outline_power_settings_new_24, "abort", abortIntent)
+				);
+		});
+
+		if (notificationBuilder is null)
+			return Result.InvokeFailure();
+
+		double diff;
+		do
+		{
+			if (IsStopped)
+			{
+				Log.Info("Worker was stopped");
+				NotificationHelper.DestroyNotification(notificationId);
+				return Result.InvokeSuccess();
+			}
+
+			diff = (finalizeActionAtParsed - DateTimeOffset.Now).TotalSeconds;
+			notificationBuilder
+				.SetProgress(progressMax, (int)diff, false)
+				.SetContentText(RenderDelay(TimeSpan.FromSeconds(diff)));
+			NotificationHelper.UpdateNotification(notificationId, notificationBuilder);
+
+			if (diff > 0)
+				await Task.Delay(1000);
+
+		} while (diff > 0);
+
+		NotificationHelper.DestroyNotification(notificationId);
+
+		var stateClient = new SystemStateClient(protocol, addressParsed);
+		switch (actionType)
+		{
+			case DelayedStateType.Shutdown:
+				await stateClient.ShutdownAsync(TimeSpan.FromSeconds(30), force);
+				break;
+			case DelayedStateType.Restart:
+				await stateClient.RestartAsync(TimeSpan.FromSeconds(30), force);
+				break;
+			case DelayedStateType.Hibernate:
+				await stateClient.HibernateAsync(TimeSpan.FromSeconds(30), force);
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
+		}
+
+		return Result.InvokeSuccess();
+	}
+
+	private string GetNotificationTitle(DelayedStateType delayedStateType)
+	{
+		return delayedStateType switch
+		{
+			DelayedStateType.Shutdown => $"Shutdown {InputData.GetString(InputParameters.HostName)}",
+			DelayedStateType.Restart => $"Restart {InputData.GetString(InputParameters.HostName)}",
+			DelayedStateType.Hibernate => $"Hibernate {InputData.GetString(InputParameters.HostName)}",
+			_ => throw new ArgumentOutOfRangeException()
+		};
+	}
+
+	private static string GetIntentAction(DelayedStateType actionType)
+	{
+		return actionType switch
+		{
+			DelayedStateType.Shutdown => DelayedSystemStateBroadcastReceiver.ActionKindShutdown,
+			DelayedStateType.Restart => DelayedSystemStateBroadcastReceiver.ActionKindRestart,
+			DelayedStateType.Hibernate => DelayedSystemStateBroadcastReceiver.ActionKindHibernate,
+			_ => throw new ArgumentOutOfRangeException()
+		};
+	}
+}

@@ -55,7 +55,7 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
     [RelayCommand]
     public async Task AddPort()
     {
-	    if (await _userInterfaceService.GetPromptText(Translations.Settings_NewPort, Translations.Settings_AddNumber, maxLength: 5, keyboard: Keyboard.Numeric) is var input && input is null)
+	    if (await _userInterfaceService.GetPromptText(Translations.Settings_NewPort, Translations.Settings_AddNumber, maxLength: 5, keyboard: Keyboard.Default) is var input && input is null)
 		    return;
 
 	    if (int.TryParse(input, out var number))

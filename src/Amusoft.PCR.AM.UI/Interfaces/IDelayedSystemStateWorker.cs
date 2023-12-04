@@ -7,4 +7,6 @@ public interface IDelayedSystemStateWorker
 	Task RestartAtAsync(DateTimeOffset scheduleAt, bool force);
 	
 	Task HibernateAtAsync(DateTimeOffset scheduleAt);
+
+	void Clear();
 }

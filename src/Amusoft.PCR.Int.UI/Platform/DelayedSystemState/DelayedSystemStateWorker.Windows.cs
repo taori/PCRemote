@@ -5,11 +5,11 @@ namespace Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 
 public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 {
-	private readonly IDesktopClientMethods _desktopClientMethods;
+	private readonly IIpcIntegrationService _ipcService;
 
-	public DelayedSystemStateWorker(IDesktopClientMethods desktopClientMethods)
+	public DelayedSystemStateWorker(IIpcIntegrationService ipcService)
 	{
-		_desktopClientMethods = desktopClientMethods;
+		_ipcService = ipcService;
 	}
 	
 	public Task ShutdownAtAsync(DateTimeOffset scheduleAt, bool force)
@@ -17,7 +17,7 @@ public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 		var diff = scheduleAt - DateTimeOffset.Now;
 		if (diff.Ticks > 0)
 		{
-			return _desktopClientMethods.Shutdown(diff, force);
+			return _ipcService.DesktopClient.Shutdown(diff, force);
 		}
 
 		return Task.CompletedTask;
@@ -28,7 +28,7 @@ public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 		var diff = scheduleAt - DateTimeOffset.Now;
 		if (diff.Ticks > 0)
 		{
-			return _desktopClientMethods.Restart(diff, force);
+			return _ipcService.DesktopClient.Restart(diff, force);
 		}
 
 		return Task.CompletedTask;
@@ -39,9 +39,13 @@ public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 		var diff = scheduleAt - DateTimeOffset.Now;
 		if (diff.Ticks > 0)
 		{
-			return _desktopClientMethods.Hibernate();
+			return _ipcService.DesktopClient.Hibernate();
 		}
 
 		return Task.CompletedTask;
+	}
+
+	public void Clear()
+	{
 	}
 }
