@@ -72,30 +72,25 @@
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
 		<!--add trim warnings-->
 		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
 		<!--detailed trimming-->
 		<TrimmerSingleWarn>false</TrimmerSingleWarn>
-		
+
 		<PublishSelfContained>true</PublishSelfContained>
 		<PublishTrimmed>true</PublishTrimmed>
 		<ReadyToRun>true</ReadyToRun>
 		<RuntimeIdentifier>android-arm64</RuntimeIdentifier>
-	</PropertyGroup>
-	
-	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
-<!--		<AndroidLinkMode>None</AndroidLinkMode>-->
-<!--		<RunAOTCompilation>false</RunAOTCompilation>-->
-<!--		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>-->
-
-
 		<RunAOTCompilation>true</RunAOTCompilation>
 		<AndroidStripILAfterAOT>true</AndroidStripILAfterAOT>
 		<AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='$(XDotNetVersion)-android'">
-	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+<!--	  <AndroidPackageFormat>apk</AndroidPackageFormat>-->
 	</PropertyGroup>
 
 	<ItemGroup>
