@@ -1,14 +1,13 @@
 ﻿using System.Net;
 using Amusoft.PCR.Int.IPC;
-using Grpc.Net.Client;
 
 namespace Amusoft.PCR.Int.UI.ProjectDepencies;
 
-public class SystemStateClient
+public class DelayedSystemStateClient
 {
 	private readonly DesktopIntegrationService.DesktopIntegrationServiceClient _client;
 
-	public SystemStateClient(string protocol, IPEndPoint endPoint)
+	public DelayedSystemStateClient(string protocol, IPEndPoint endPoint)
 	{
 		var channelFactory = new GrpcChannelFactory(null);
 		var channel = channelFactory.Create(protocol, endPoint);
@@ -17,17 +16,21 @@ public class SystemStateClient
 
 	public async Task ShutdownAsync(TimeSpan delay, bool force)
 	{
-		await _client.ShutDownDelayedAsync(new ShutdownDelayedRequest() { Force = force, Seconds = (int)delay.TotalSeconds });
+		await _client.ShutDownDelayedAsync(new ShutdownDelayedRequest() { Force = force, Seconds = (int)delay.TotalSeconds })
+			.ConfigureAwait(false);
 	}
 
 	public async Task RestartAsync(TimeSpan delay, bool force)
 	{
-		await _client.RestartAsync(new RestartRequest() { Force = force, Delay = (int)delay.TotalSeconds });
+		await _client.RestartAsync(new RestartRequest() { Force = force, Delay = (int)delay.TotalSeconds })
+			.ConfigureAwait(false);
 	}
 
-	public Task HibernateAsync(TimeSpan delay, bool force)
+	public async Task HibernateAsync(TimeSpan delay)
 	{
+		// hibernation is an immediate process by default and therefore requires a delay
+		await Task.Delay(delay)
+			.ConfigureAwait(false);
 		_ = _client.HibernateAsync(new HibernateRequest());
-		return Task.CompletedTask;
 	}
 }

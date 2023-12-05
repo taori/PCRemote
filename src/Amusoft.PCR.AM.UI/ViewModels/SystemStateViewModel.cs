@@ -24,13 +24,13 @@ public partial class SystemStateViewModel : PageViewModel
 	[RelayCommand]
 	private Task Shutdown()
 	{
-		return _delayedSystemStateWorker.ShutdownAtAsync(DateTimeOffset.Now.AddSeconds(30), false);
+		return _delayedSystemStateWorker.ShutdownAtAsync(DateTimeOffset.Now.AddMinutes(1), false);
 	}
 
 	[RelayCommand]
 	private Task Restart()
 	{
-		return _delayedSystemStateWorker.RestartAtAsync(DateTimeOffset.Now.AddSeconds(30), false);
+		return _delayedSystemStateWorker.RestartAtAsync(DateTimeOffset.Now.AddMinutes(1), false);
 	}
 
 	[RelayCommand]
@@ -48,7 +48,7 @@ public partial class SystemStateViewModel : PageViewModel
 	private Task Hibernate()
 	{
 		// hibernation does not return a result before entering hibernation so it cannot be awaited
-		_ = _delayedSystemStateWorker.HibernateAtAsync(DateTimeOffset.Now.AddSeconds(30));
+		_ = _delayedSystemStateWorker.HibernateAtAsync(DateTimeOffset.Now.AddMinutes(1));
 		return Task.CompletedTask;
 	}
 }

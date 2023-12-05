@@ -1,8 +1,6 @@
-﻿using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using AndroidX.Work;
-using Java.Util;
 using NLog;
 using Logger = NLog.Logger;
 
