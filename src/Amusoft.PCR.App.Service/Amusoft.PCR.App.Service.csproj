@@ -12,7 +12,7 @@
 		<PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
 		<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.49.0" />
 		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.59.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="$(XNetPackageVersion)" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.5" />
 	</ItemGroup>
 

@@ -25,14 +25,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_scripts", "_scripts", "{6E
 	ProjectSection(SolutionItems) = preProject
 		..\deploy\buildAndCopy.ps1 = ..\deploy\buildAndCopy.ps1
 		..\deploy\buildDeploymentPackage.ps1 = ..\deploy\buildDeploymentPackage.ps1
+		..\deploy\createMSI.ps1 = ..\deploy\createMSI.ps1
+		..\deploy\createMSIFast.ps1 = ..\deploy\createMSIFast.ps1
 		..\deploy\functions.psm1 = ..\deploy\functions.psm1
 		..\deploy\installService.ps1 = ..\deploy\installService.ps1
 		..\deploy\publishapk.ps1 = ..\deploy\publishapk.ps1
 		..\deploy\refreshService.ps1 = ..\deploy\refreshService.ps1
 		..\deploy\refreshServiceAndAPK.ps1 = ..\deploy\refreshServiceAndAPK.ps1
 		..\deploy\uninstallService.ps1 = ..\deploy\uninstallService.ps1
-		..\deploy\createMSI.ps1 = ..\deploy\createMSI.ps1
-		..\deploy\createMSIFast.ps1 = ..\deploy\createMSIFast.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "toolkits", "toolkits", "{B51D6584-FE79-4372-A50D-B90AB85587F8}"
@@ -45,35 +45,42 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B517B907
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "appmodel", "appmodel", "{9952E29C-AA15-4067-B1FE-3EDB5E336F0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.UI", "Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj", "{6D62752F-A78A-4859-B2BD-85702BB01F15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.AM.UI", "Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj", "{6D62752F-A78A-4859-B2BD-85702BB01F15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.Shared", "Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj", "{FF1B6315-BDD2-4FAE-AA22-8D098D86D640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.AM.Shared", "Amusoft.PCR.AM.Shared\Amusoft.PCR.AM.Shared.csproj", "{FF1B6315-BDD2-4FAE-AA22-8D098D86D640}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.Service", "Amusoft.PCR.AM.Service\Amusoft.PCR.AM.Service.csproj", "{00D65D7A-FDF5-43C6-B2EB-1DDACBD51A69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.AM.Service", "Amusoft.PCR.AM.Service\Amusoft.PCR.AM.Service.csproj", "{00D65D7A-FDF5-43C6-B2EB-1DDACBD51A69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.Agent", "Amusoft.PCR.AM.Agent\Amusoft.PCR.AM.Agent.csproj", "{9EE79B4D-951C-4BEA-BC77-D2FBBD504618}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.AM.Agent", "Amusoft.PCR.AM.Agent\Amusoft.PCR.AM.Agent.csproj", "{9EE79B4D-951C-4BEA-BC77-D2FBBD504618}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.App.WindowsAgent", "Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj", "{97BD3755-4E51-445F-9569-DAFCBB7DC3C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.App.WindowsAgent", "Amusoft.PCR.App.WindowsAgent\Amusoft.PCR.App.WindowsAgent.csproj", "{97BD3755-4E51-445F-9569-DAFCBB7DC3C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain.Shared", "Amusoft.PCR.Domain.Shared\Amusoft.PCR.Domain.Shared.csproj", "{75B3BF67-927A-48CB-9549-ED9C441AF58A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Domain.Shared", "Amusoft.PCR.Domain.Shared\Amusoft.PCR.Domain.Shared.csproj", "{75B3BF67-927A-48CB-9549-ED9C441AF58A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain.Service", "Amusoft.PCR.Domain.Service\Amusoft.PCR.Domain.Service.csproj", "{FCAF8BFF-A60A-4978-8AB9-C6B707AC545C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Domain.Service", "Amusoft.PCR.Domain.Service\Amusoft.PCR.Domain.Service.csproj", "{FCAF8BFF-A60A-4978-8AB9-C6B707AC545C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain.UI", "Amusoft.PCR.Domain.UI\Amusoft.PCR.Domain.UI.csproj", "{96752617-333D-41FF-A4D5-6F5F9951F568}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Domain.UI", "Amusoft.PCR.Domain.UI\Amusoft.PCR.Domain.UI.csproj", "{96752617-333D-41FF-A4D5-6F5F9951F568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Domain.Agent", "Amusoft.PCR.Domain.Agent\Amusoft.PCR.Domain.Agent.csproj", "{E81A5206-AC90-4300-848F-1A5A1EAB3FD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Domain.Agent", "Amusoft.PCR.Domain.Agent\Amusoft.PCR.Domain.Agent.csproj", "{E81A5206-AC90-4300-848F-1A5A1EAB3FD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.AM.UI.UnitTests", "..\tests\Amusoft.PCR.AM.UI.UnitTests\Amusoft.PCR.AM.UI.UnitTests.csproj", "{5E745AA6-A528-45E1-BB1C-9071DF2E7428}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.AM.UI.UnitTests", "..\tests\Amusoft.PCR.AM.UI.UnitTests\Amusoft.PCR.AM.UI.UnitTests.csproj", "{5E745AA6-A528-45E1-BB1C-9071DF2E7428}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.Toolkit.UnitTests", "..\tests\Amusoft.Toolkit.UnitTests\Amusoft.Toolkit.UnitTests.csproj", "{57AE21AF-9B9D-441C-B728-81CDF77B2F6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.Toolkit.UnitTests", "..\tests\Amusoft.Toolkit.UnitTests\Amusoft.Toolkit.UnitTests.csproj", "{57AE21AF-9B9D-441C-B728-81CDF77B2F6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Int.UI", "Amusoft.PCR.Int.UI\Amusoft.PCR.Int.UI.csproj", "{B2513934-5A07-4151-BF80-B453A7166D9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Int.UI", "Amusoft.PCR.Int.UI\Amusoft.PCR.Int.UI.csproj", "{B2513934-5A07-4151-BF80-B453A7166D9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Int.WindowsAgent", "Amusoft.PCR.Int.WindowsAgent\Amusoft.PCR.Int.WindowsAgent.csproj", "{D18F213C-05E5-475E-98D4-77F950B93593}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Int.WindowsAgent", "Amusoft.PCR.Int.WindowsAgent\Amusoft.PCR.Int.WindowsAgent.csproj", "{D18F213C-05E5-475E-98D4-77F950B93593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Int.Agent", "Amusoft.PCR.Int.Agent\Amusoft.PCR.Int.Agent.csproj", "{CBE40C75-4509-417D-883F-FF73A7EAE0CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Int.Agent", "Amusoft.PCR.Int.Agent\Amusoft.PCR.Int.Agent.csproj", "{CBE40C75-4509-417D-883F-FF73A7EAE0CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.PCR.Int.Service", "Amusoft.PCR.Int.Service\Amusoft.PCR.Int.Service.csproj", "{684926F8-DBD4-4D22-87A3-FD7BAE13110C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Int.Service", "Amusoft.PCR.Int.Service\Amusoft.PCR.Int.Service.csproj", "{684926F8-DBD4-4D22-87A3-FD7BAE13110C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_meta", "_meta", "{47E75373-71AB-459E-8090-5DCF6071D71F}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Directory.Build", "..\Directory.Build.props", "{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -447,6 +454,22 @@ Global
 		{684926F8-DBD4-4D22-87A3-FD7BAE13110C}.Release|x64.Build.0 = Release|Any CPU
 		{684926F8-DBD4-4D22-87A3-FD7BAE13110C}.Release|x86.ActiveCfg = Release|Any CPU
 		{684926F8-DBD4-4D22-87A3-FD7BAE13110C}.Release|x86.Build.0 = Release|Any CPU
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|Any CPU.Build.0 = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|ARM64.ActiveCfg = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|ARM64.Build.0 = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|x64.ActiveCfg = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|x64.Build.0 = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|x86.ActiveCfg = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|x86.Build.0 = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|Any CPU.ActiveCfg = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|Any CPU.Build.0 = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|ARM64.ActiveCfg = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|ARM64.Build.0 = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|x64.ActiveCfg = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|x64.Build.0 = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|x86.ActiveCfg = Debug|x86
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -474,6 +497,7 @@ Global
 		{D18F213C-05E5-475E-98D4-77F950B93593} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
 		{CBE40C75-4509-417D-883F-FF73A7EAE0CE} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
 		{684926F8-DBD4-4D22-87A3-FD7BAE13110C} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
+		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6} = {47E75373-71AB-459E-8090-5DCF6071D71F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88301734-C574-410B-9ED2-10A3EFB9998B}

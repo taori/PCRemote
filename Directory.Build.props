@@ -1,5 +1,6 @@
 <Project>
     <PropertyGroup>
-        <XDotnetVersion>net7.0</XDotnetVersion>
+        <XDotnetVersion>net8.0</XDotnetVersion>
+        <XNetPackageVersion>8.0.0</XNetPackageVersion>
     </PropertyGroup>
 </Project>

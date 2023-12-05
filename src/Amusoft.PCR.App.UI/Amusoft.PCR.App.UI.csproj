@@ -9,10 +9,11 @@
 
 		<OutputType>Exe</OutputType>
 		<UseMaui>true</UseMaui>
+		<SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<!-- <MauiVersion>8.0.3</MauiVersion> -->
+		<MauiVersion>8.0.3</MauiVersion> 
 
 		<!-- Display name -->
 		<ApplicationTitle>PC Remote 3</ApplicationTitle>
@@ -34,12 +35,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" /> -->
-		<!-- <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" /> -->
+		 <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" /> 
+		 <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" /> 
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
 		<PackageReference Include="Grpc.Net.Client.Web" Version="2.59.0" />
 		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.58.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="$(XNetPackageVersion)" />
 <!--		<PackageReference Include="NLog.Targets.MauiLog" Version="5.*" />-->
 		<PackageReference Include="NLog.Extensions.Logging" Version="5.*" />
 	</ItemGroup>
@@ -70,13 +71,30 @@
 		<RuntimeIdentifier>$(RuntimeIdentifierOverride)</RuntimeIdentifier>
 	</PropertyGroup>
 	
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
+		<!--add trim warnings-->
+		<SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+		<!--detailed trimming-->
+		<TrimmerSingleWarn>false</TrimmerSingleWarn>
+		
+		<PublishSelfContained>true</PublishSelfContained>
+		<PublishTrimmed>true</PublishTrimmed>
+		<ReadyToRun>true</ReadyToRun>
+		<RuntimeIdentifier>android-arm64</RuntimeIdentifier>
+	</PropertyGroup>
+	
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
-		<AndroidLinkMode>None</AndroidLinkMode>
-		<RunAOTCompilation>false</RunAOTCompilation>
-		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+<!--		<AndroidLinkMode>None</AndroidLinkMode>-->
+<!--		<RunAOTCompilation>false</RunAOTCompilation>-->
+<!--		<AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>-->
+
+
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<AndroidStripILAfterAOT>true</AndroidStripILAfterAOT>
+		<AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-android'">
+	<PropertyGroup Condition="'$(TargetFramework)'=='$(XDotNetVersion)-android'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 

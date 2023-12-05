@@ -36,11 +36,11 @@ function Build-Android {
     Write-Host "New Temp folder is: $tempDest"
 
     # https://learn.microsoft.com/de-de/dotnet/maui/android/deployment/publish-cli ü
-    $publishCode = "dotnet publish $ProjectPath -f net7.0-android -c $Configuration -o `"$tempDest`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass"
+    $publishCode = "dotnet publish $ProjectPath -f net8.0-android -c $Configuration -o `"$tempDest`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass"
     Write-Host "$publishCode" -ForegroundColor DarkGreen
         
     #Invoke-Expression -Command $publishCode -ErrorAction Stop
-    &dotnet publish $ProjectPath -f net7.0-android -c $Configuration -o `"$tempDest`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass | Out-Host
+    &dotnet publish $ProjectPath -f net8.0-android -c $Configuration --self-contained=true -p:PublishTrimmed=true -p:ReadyToRun=true -p:RuntimeIdentifier=android-arm64 -o `"$tempDest`" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=$KeyStorePath -p:AndroidSigningKeyAlias=$keyAlias -p:AndroidSigningKeyPass=$keyPass -p:AndroidSigningStorePass=$storePass | Out-Host
         
     Write-Host "Looking for apk file in $tempDest" -ForegroundColor Cyan
     $apk = Get-ChildItem "$tempDest" -Filter "*.apk" | %{$_.FullName}
