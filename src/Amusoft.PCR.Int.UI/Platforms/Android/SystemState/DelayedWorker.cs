@@ -95,12 +95,13 @@ internal class DelayedWorker : Worker
 
 				builder
 					.SetProgress(progressMax, progressMax, false)
+					.SetSmallIcon(GetNotificationIcon(actionType))
 					.SetOnlyAlertOnce(true)
 					.SetFlag((int) NotificationFlags.AutoCancel, false)
 					.SetContentTitle(GetNotificationTitle(actionType))
 					.SetContentText(DurationToTime(TimeSpan.FromSeconds(progressMax)))
 					.SetActions(
-						new Notification.Action(Resource.Drawable.outline_power_settings_new_24, _locAbort, abortIntent)
+						new Notification.Action(GetNotificationIcon(actionType), _locAbort, abortIntent)
 					);
 			});
 
@@ -140,6 +141,17 @@ internal class DelayedWorker : Worker
 			Log.Error(e, "An error occured while trying to execute the worker");
 			return Result.InvokeFailure();
 		}
+	}
+
+	private int GetNotificationIcon(DelayedStateType actionType)
+	{
+		return actionType switch
+		{
+			DelayedStateType.Shutdown => Resource.Drawable.outline_power_settings_new_24,
+			DelayedStateType.Restart => Resource.Drawable.restart_alt_24px,
+			DelayedStateType.Hibernate => Resource.Drawable.energy_savings_leaf_24px,
+			_ => throw new ArgumentOutOfRangeException(nameof(actionType), actionType, null)
+		};
 	}
 
 	private NotificationChannelType GetNotificationChannel(DelayedStateType actionType)
