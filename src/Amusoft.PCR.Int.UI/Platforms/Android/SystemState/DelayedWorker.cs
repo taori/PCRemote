@@ -3,7 +3,6 @@ using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
 using Amusoft.PCR.Int.UI.ProjectDepencies;
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using AndroidX.Work;
 using NLog;
 using Exception = System.Exception;
@@ -14,6 +13,10 @@ namespace Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
 internal class DelayedWorker : Worker
 {
 	private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+	private readonly string _locAbort;
+	private readonly string _locRestart;
+	private readonly string _locShutdown;
+	private readonly string _locHibernate;
 
 	public static class InputParameters
 	{
@@ -23,14 +26,18 @@ internal class DelayedWorker : Worker
 		public const string FinalizeActionAt = "FinalizeActionAt";
 		public const string HostName = "HostName";
 		public const string ExecuteWithForce = "ExecuteWithForce";
-	}
-
-	public DelayedWorker(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
-	{
+		public const string LocalizationAbort = "LocalizationAbort";
+		public const string LocalizationRestart = "LocalizationRestart";
+		public const string LocalizationHibernate = "LocalizationHibernate";
+		public const string LocalizationShutdown = "LocalizationShutdown";
 	}
 
 	public DelayedWorker(Context context, WorkerParameters workerParams) : base(context, workerParams)
 	{
+		_locAbort = InputData.GetString(InputParameters.LocalizationAbort) ?? throw new Exception(nameof(InputParameters.LocalizationAbort));
+		_locRestart = InputData.GetString(InputParameters.LocalizationRestart) ?? throw new Exception(nameof(InputParameters.LocalizationRestart));
+		_locShutdown = InputData.GetString(InputParameters.LocalizationShutdown) ?? throw new Exception(nameof(InputParameters.LocalizationShutdown));
+		_locHibernate= InputData.GetString(InputParameters.LocalizationHibernate) ?? throw new Exception(nameof(InputParameters.LocalizationHibernate));
 	}
 
 	public override Result DoWork()
@@ -93,7 +100,7 @@ internal class DelayedWorker : Worker
 					.SetContentTitle(GetNotificationTitle(actionType))
 					.SetContentText(DurationToTime(TimeSpan.FromSeconds(progressMax)))
 					.SetActions(
-						new Notification.Action(Resource.Drawable.outline_power_settings_new_24, "abort", abortIntent)
+						new Notification.Action(Resource.Drawable.outline_power_settings_new_24, _locAbort, abortIntent)
 					);
 			});
 
@@ -105,7 +112,7 @@ internal class DelayedWorker : Worker
 			{
 				if (IsStopped)
 				{
-					Log.Info("Worker was stopped");
+					Log.Debug("Worker was stopped");
 					NotificationHelper.DestroyNotification(notificationId);
 					return Result.InvokeSuccess();
 				}
@@ -117,7 +124,7 @@ internal class DelayedWorker : Worker
 				NotificationHelper.UpdateNotification(notificationId, notificationBuilder);
 
 				if (diff > 0)
-					await Task.Delay(1000);
+					await Task.Delay(1000).ConfigureAwait(false);
 
 			} while (diff > 0);
 
@@ -173,9 +180,9 @@ internal class DelayedWorker : Worker
 	{
 		return delayedStateType switch
 		{
-			DelayedStateType.Shutdown => $"Shutdown {InputData.GetString(InputParameters.HostName)}",
-			DelayedStateType.Restart => $"Restart {InputData.GetString(InputParameters.HostName)}",
-			DelayedStateType.Hibernate => $"Hibernate {InputData.GetString(InputParameters.HostName)}",
+			DelayedStateType.Shutdown => string.Format(_locShutdown, InputData.GetString(InputParameters.HostName)),
+			DelayedStateType.Restart => string.Format(_locRestart, InputData.GetString(InputParameters.HostName)),
+			DelayedStateType.Hibernate => string.Format(_locHibernate, InputData.GetString(InputParameters.HostName)),
 			_ => throw new ArgumentOutOfRangeException()
 		};
 	}

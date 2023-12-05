@@ -1,0 +1,16 @@
+﻿<resources>
+	<style name="SpinnerTimePickerDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<item name="android:dialogTheme">@style/TimeSpinnerDialogTheme</item>
+		<item name="android:timePickerStyle">@style/SpinnerTimePicker</item>
+		<item name="android:textColor">@color/colorAccent</item>
+		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+
+	<style name="TimeSpinnerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+		<item name="android:timePickerStyle">@style/SpinnerTimePicker</item>
+	</style>
+
+	<style name="SpinnerTimePicker" parent="@android:style/Widget.Material.Light.TimePicker">
+		<item name="android:timePickerMode">spinner</item>
+	</style>
+</resources>

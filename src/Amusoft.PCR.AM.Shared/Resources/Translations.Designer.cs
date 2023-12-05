@@ -132,6 +132,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hibernate {0}.
+        /// </summary>
+        public static string Generic_Hibernate_0 {
+            get {
+                return ResourceManager.GetString("Generic.Hibernate_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string Generic_No {
@@ -155,6 +164,24 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string Generic_Remove {
             get {
                 return ResourceManager.GetString("Generic.Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart {0}.
+        /// </summary>
+        public static string Generic_Restart_0 {
+            get {
+                return ResourceManager.GetString("Generic.Restart_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shutdown {0}.
+        /// </summary>
+        public static string Generic_Shutdown_0 {
+            get {
+                return ResourceManager.GetString("Generic.Shutdown_0", resourceCulture);
             }
         }
         
@@ -614,6 +641,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string SystemState_Lock {
             get {
                 return ResourceManager.GetString("SystemState.Lock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick delay.
+        /// </summary>
+        public static string SystemState_PickDelay {
+            get {
+                return ResourceManager.GetString("SystemState.PickDelay", resourceCulture);
             }
         }
         

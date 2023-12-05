@@ -210,4 +210,16 @@
   <data name="Settings.FailedToInsertPort" xml:space="preserve">
     <value>Failed to insert a number</value>
   </data>
+  <data name="Generic.Shutdown_0" xml:space="preserve">
+    <value>Shutdown {0}</value>
+  </data>
+  <data name="Generic.Restart_0" xml:space="preserve">
+    <value>Restart {0}</value>
+  </data>
+  <data name="Generic.Hibernate_0" xml:space="preserve">
+    <value>Hibernate {0}</value>
+  </data>
+  <data name="SystemState.PickDelay" xml:space="preserve">
+    <value>Pick delay</value>
+  </data>
 </root>

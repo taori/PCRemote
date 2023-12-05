@@ -203,4 +203,16 @@
   <data name="Settings.FailedToInsertPort" xml:space="preserve">
     <value>Nummereingabe fehlgeschlagen</value>
   </data>
+  <data name="Generic.Shutdown_0" xml:space="preserve">
+    <value>Herunterfahren {0}</value>
+  </data>
+  <data name="Generic.Restart_0" xml:space="preserve">
+    <value>Neustart {0}</value>
+  </data>
+  <data name="Generic.Hibernate_0" xml:space="preserve">
+    <value>Ruhezustand {0}</value>
+  </data>
+  <data name="SystemState.PickDelay" xml:space="preserve">
+    <value>Verzögerung wählen</value>
+  </data>
 </root>

@@ -9,11 +9,13 @@ public partial class SystemStateViewModel : PageViewModel
 {
 	private readonly HostViewModel _host;
 	private readonly IDelayedSystemStateWorker _delayedSystemStateWorker;
+	private readonly IUserInterfaceService _userInterfaceService;
 
-	public SystemStateViewModel(ITypedNavigator navigator, HostViewModel host, IDelayedSystemStateWorker delayedSystemStateWorker) : base(navigator)
+	public SystemStateViewModel(ITypedNavigator navigator, HostViewModel host, IDelayedSystemStateWorker delayedSystemStateWorker, IUserInterfaceService userInterfaceService) : base(navigator)
 	{
 		_host = host;
 		_delayedSystemStateWorker = delayedSystemStateWorker;
+		_userInterfaceService = userInterfaceService;
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -22,15 +24,17 @@ public partial class SystemStateViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private Task Shutdown()
+	private async Task Shutdown()
 	{
-		return _delayedSystemStateWorker.ShutdownAtAsync(DateTimeOffset.Now.AddMinutes(1), false);
+		if (await _userInterfaceService.GetTimeFromPickerAsync(Translations.SystemState_PickDelay, TimeSpan.FromMinutes(1)) is { } delay)
+			await _delayedSystemStateWorker.ShutdownAtAsync(DateTimeOffset.Now.Add(delay), false);
 	}
 
 	[RelayCommand]
-	private Task Restart()
+	private async Task Restart()
 	{
-		return _delayedSystemStateWorker.RestartAtAsync(DateTimeOffset.Now.AddMinutes(1), false);
+		if (await _userInterfaceService.GetTimeFromPickerAsync(Translations.SystemState_PickDelay, TimeSpan.FromMinutes(1)) is { } delay)
+			await _delayedSystemStateWorker.RestartAtAsync(DateTimeOffset.Now.Add(delay), false);
 	}
 
 	[RelayCommand]
@@ -45,10 +49,10 @@ public partial class SystemStateViewModel : PageViewModel
 		_host.IpcClient.DesktopClient.LockWorkStation();
 
 	[RelayCommand]
-	private Task Hibernate()
+	private async Task Hibernate()
 	{
 		// hibernation does not return a result before entering hibernation so it cannot be awaited
-		_ = _delayedSystemStateWorker.HibernateAtAsync(DateTimeOffset.Now.AddMinutes(1));
-		return Task.CompletedTask;
+		if (await _userInterfaceService.GetTimeFromPickerAsync(Translations.SystemState_PickDelay, TimeSpan.FromMinutes(1)) is { } delay)
+			_ = _delayedSystemStateWorker.HibernateAtAsync(DateTimeOffset.Now.Add(delay));
 	}
 }

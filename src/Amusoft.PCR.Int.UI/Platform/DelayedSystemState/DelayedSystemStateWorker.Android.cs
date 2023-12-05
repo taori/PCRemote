@@ -1,14 +1,7 @@
 ﻿using Amusoft.PCR.AM.UI.Interfaces;
-using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
 using Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
-using Android.Media;
-using Android.OS;
-using AndroidX.Annotations;
-using AndroidX.Core.App;
 using AndroidX.Work;
-using Java.Lang;
-using static Microsoft.Maui.MauiApplication;
 using MauiPlatform = Microsoft.Maui.ApplicationModel.Platform;
 
 namespace Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
@@ -16,10 +9,12 @@ namespace Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 {
 	private readonly IHostCredentialProvider _hostCredential;
+	private readonly IAndroidResourceBridge _androidResourceBridge;
 
-	public DelayedSystemStateWorker(IHostCredentialProvider hostCredential)
+	public DelayedSystemStateWorker(IHostCredentialProvider hostCredential, IAndroidResourceBridge androidResourceBridge)
 	{
 		_hostCredential = hostCredential;
+		_androidResourceBridge = androidResourceBridge;
 	}
 	
 	public async Task ShutdownAtAsync(DateTimeOffset scheduleAt, bool force)
@@ -67,6 +62,10 @@ public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 			.PutString(DelayedWorker.InputParameters.HostName, _hostCredential.Title)
 			.PutString(DelayedWorker.InputParameters.Address, _hostCredential.Address.ToString())
 			.PutString(DelayedWorker.InputParameters.Protocol, "http")
+			.PutString(DelayedWorker.InputParameters.LocalizationAbort, _androidResourceBridge.MessageAbort)
+			.PutString(DelayedWorker.InputParameters.LocalizationRestart, _androidResourceBridge.MessageRestart_0)
+			.PutString(DelayedWorker.InputParameters.LocalizationShutdown, _androidResourceBridge.MessageShutdown_0)
+			.PutString(DelayedWorker.InputParameters.LocalizationHibernate, _androidResourceBridge.MessageHibernate_0)
 			.PutBoolean(DelayedWorker.InputParameters.ExecuteWithForce, force);
 
 		var constraints = new Constraints.Builder()

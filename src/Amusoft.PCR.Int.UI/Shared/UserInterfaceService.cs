@@ -3,9 +3,9 @@ using Amusoft.PCR.AM.UI.Interfaces;
 
 namespace Amusoft.PCR.Int.UI.Shared;
 
-internal class UserInterfaceService : IUserInterfaceService
+internal partial class UserInterfaceService : IUserInterfaceService
 {
-	public Task<string?> GetPromptText(string title, string message, string? acceptText, string? cancelText, string? placeholder, int? maxLength, string? initialValue, Domain.UI.ValueTypes.Keyboard keyboard = Domain.UI.ValueTypes.Keyboard.Default)
+	public Task<string?> GetPromptTextAsync(string title, string message, string? acceptText, string? cancelText, string? placeholder, int? maxLength, string? initialValue, Domain.UI.ValueTypes.Keyboard keyboard = Domain.UI.ValueTypes.Keyboard.Default)
 	{
 		return Shell.Current.DisplayPromptAsync(title, message,
 			acceptText ?? Translations.Generic_OK,
@@ -44,7 +44,7 @@ internal class UserInterfaceService : IUserInterfaceService
 		);
 	}
 
-	public Task DisplayAlert(string title, string message, string? acceptText = null)
+	public Task DisplayAlertAsync(string title, string message, string? acceptText = null)
 	{
 		return Shell.Current.DisplayAlert(
 			title,

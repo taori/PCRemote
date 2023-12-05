@@ -55,7 +55,7 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
     [RelayCommand]
     public async Task AddPort()
     {
-	    if (await _userInterfaceService.GetPromptText(Translations.Settings_NewPort, Translations.Settings_AddNumber, maxLength: 5, keyboard: Keyboard.Default) is var input && input is null)
+	    if (await _userInterfaceService.GetPromptTextAsync(Translations.Settings_NewPort, Translations.Settings_AddNumber, maxLength: 5, keyboard: Keyboard.Default) is var input && input is null)
 		    return;
 
 	    if (int.TryParse(input, out var number))
@@ -68,12 +68,12 @@ public partial class SettingsViewModel : PageViewModel, INavigationCallbacks
 
 			}, async exists =>
 		    {
-			    await _userInterfaceService.DisplayAlert(Translations.Generic_Error, Translations.Settings_PortAlreadyExists);
+			    await _userInterfaceService.DisplayAlertAsync(Translations.Generic_Error, Translations.Settings_PortAlreadyExists);
 		    });
 		}
 	    else
 	    {
-		    await _userInterfaceService.DisplayAlert(Translations.Generic_Error, Translations.Settings_FailedToInsertPort);
+		    await _userInterfaceService.DisplayAlertAsync(Translations.Generic_Error, Translations.Settings_FailedToInsertPort);
 	    }
     }
 }

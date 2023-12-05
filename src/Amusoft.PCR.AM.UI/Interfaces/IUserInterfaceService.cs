@@ -4,7 +4,7 @@ namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IUserInterfaceService
 {
-	Task<string?> GetPromptText(
+	Task<string?> GetPromptTextAsync(
 		string title, 
 		string message, 
 		string? acceptText = null, 
@@ -16,5 +16,6 @@ public interface IUserInterfaceService
 
 	Task<bool> DisplayConfirmAsync(string title, string message, string? acceptText = null, string? cancelText = null);
 
-	Task DisplayAlert(string title, string message, string? acceptText = null);
+	Task DisplayAlertAsync(string title, string message, string? acceptText = null);
+	Task<TimeSpan?> GetTimeFromPickerAsync(string title, TimeSpan intialTime);
 }
