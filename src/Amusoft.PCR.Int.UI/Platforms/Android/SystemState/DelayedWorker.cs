@@ -64,7 +64,7 @@ internal class DelayedWorker : Worker
 				Log.Error("Failed to parse finalizeActionAt");
 				return Result.InvokeFailure();
 			}
-			if (Tags.Count != 2)
+			if (Tags.Count != 3)
 			{
 				Log.Error("Tag count mismatch");
 				return Result.InvokeFailure();

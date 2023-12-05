@@ -49,8 +49,7 @@ public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 
 	public void Clear()
 	{
-		WorkManager.GetInstance(MauiPlatform.AppContext).CancelAllWork();
-		NotificationHelper.ClearNotifications();
+		WorkManager.GetInstance(MauiPlatform.AppContext).CancelAllWorkByTag(_hostCredential.Address.ToString());
 	}
 
 	private void StartDelayedWorker(DateTimeOffset scheduleAt, DelayedStateType stateType, bool force)
@@ -74,6 +73,7 @@ public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 			.SetInputData(dataBuilder.Build())
 			.SetConstraints(constraints.Build())
 			.AddTag(workerId)
+			.AddTag(_hostCredential.Address.ToString())
 			.Build();
 		var workManager = WorkManager.GetInstance(MauiPlatform.AppContext);
 		workManager.EnqueueUniqueWork(workerId, ExistingWorkPolicy.Keep!, request);
