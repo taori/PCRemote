@@ -1,5 +1,14 @@
 ﻿<Project Sdk="WixToolset.Sdk/4.0.3">
+
   <PropertyGroup>
+    <XSelfContainedPublish Condition="'$(XProductVersion)' == ''">true</XSelfContainedPublish>
+    <XProductVersion Condition="'$(XProductVersion)' == ''">3.0.0</XProductVersion>
+    <XRunHeat Condition="'$(XRunHeat)' == ''">false</XRunHeat>
+    <XRunPublish Condition="'$(XRunPublish)' == ''">false</XRunPublish>
+    <XPublishConfiguration Condition="'$(XPublishConfiguration)' == ''">Release</XPublishConfiguration>
+    <ApkSource Condition="'$(ApkSource)' != ''">undefined</ApkSource>
+    <AndroidApkDestination>$(SolutionDir)..\artifacts\msi\web\wwwroot</AndroidApkDestination>
+    <UserSecretsId>fff9ecb8-0258-4f9f-8333-3da6f78ab9ce</UserSecretsId>
     <VerboseOutput>False</VerboseOutput>
     <ProductComponentsRef>true</ProductComponentsRef>
     <DefineConstants>
@@ -12,18 +21,10 @@
       ServiceName=PCR3;
       ServiceDescription=!(loc.ServiceDescription);
     </DefineConstants>
-    <SuppressIces>ICE80</SuppressIces>
   </PropertyGroup>
   
   <PropertyGroup>
-    <XSelfContainedPublish Condition="'$(XProductVersion)' == ''">true</XSelfContainedPublish>
-    <XProductVersion Condition="'$(XProductVersion)' == ''">3.0.0</XProductVersion>
-    <XRunHeat Condition="'$(XRunHeat)' == ''">false</XRunHeat>
-    <XRunPublish Condition="'$(XRunPublish)' == ''">false</XRunPublish>
-    <XPublishConfiguration Condition="'$(XPublishConfiguration)' == ''">Release</XPublishConfiguration>
-    <ApkSource Condition="'$(ApkSource)' != ''">undefined</ApkSource>
-    <AndroidApkDestination>$(SolutionDir)..\artifacts\msi\web\wwwroot</AndroidApkDestination>
-    <UserSecretsId>fff9ecb8-0258-4f9f-8333-3da6f78ab9ce</UserSecretsId>    
+    <SuppressIces>ICE80</SuppressIces>
   </PropertyGroup>
   
   <ItemGroup>
@@ -53,6 +54,11 @@
   <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>
+  
+  <Target Name="BuildDiagnostics" BeforeTargets="BeforeBuild" >
+    <Message Importance="High" Text="XProductVersion: $(XProductVersion)" />
+    <Message Importance="High" Text="DefineConstants: $(DefineConstants)" />
+  </Target>
   
   <Target Name="XRunHeat" BeforeTargets="BeforeResolveReferences" Condition="'$(XRunHeat)'=='true'">
     <Message Importance="High" Text="Harvesting files using HeatDirectory." />
