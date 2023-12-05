@@ -27,6 +27,7 @@ internal partial class UserInterfaceService : IUserInterfaceService
 
 		var timePicker = new MaterialTimePicker.Builder()
 			.SetTitleText(title)
+			.SetInputMode(MaterialTimePicker.InputModeClock)
 			.SetHour(intialTime.Hours)
 			.SetMinute(intialTime.Minutes)
 			.SetTimeFormat(TimeFormat.Clock24h)

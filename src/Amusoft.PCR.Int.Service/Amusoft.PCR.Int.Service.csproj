@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>$(XDotnetVersion)</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -9,9 +9,9 @@
     <ItemGroup>
         <PackageReference Include="Grpc.AspNetCore.Server" Version="2.49.0" />
         <PackageReference Include="Grpc.Core" Version="2.46.6" />
-        <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="$(XNetPackageVersion)" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(XNetPackageVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="$(XNetPackageVersion)"/>
         <PackageReference Include="System.Reactive" Version="6.0.0" />
         <PackageReference Include="GrpcDotNetNamedPipes" Version="2.1.0" />
     </ItemGroup>

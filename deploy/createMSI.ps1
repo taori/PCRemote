@@ -41,7 +41,7 @@ if($SkipPublish -eq $false){
     $runPublish = "true"
     if($SkipAPK -eq $false){
         Write-Host "Publishing APK" -ForegroundColor Cyan
-        & "$(Get-ResolvedPath "$PSScriptRoot\publishapk.ps1")" -PublishFilePath "$apkFile"        
+        & "$(Get-ResolvedPath "$PSScriptRoot\publishapk.ps1")" -PublishFilePath "$apkFile" -DisplayVersion $ProductVersion   
     }
 }
 

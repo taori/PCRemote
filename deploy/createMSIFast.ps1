@@ -10,6 +10,8 @@ param (
     [bool]$OpenExplorer=$true
 )
 
+$scriptPath = Resolve-Path "$PSScriptRoot\createMsi.ps1"
+
 switch($Configuration){
     "Fresh" { & "$scriptPath" -DeleteArtifacts $true -SkipPublish $false -SkipHarvesting $false -OpenExplorer $OpenExplorer -ProductVersion "$Version" }
     "RecycleBoth" { & "$scriptPath" -DeleteArtifacts $false -SkipPublish $true -SkipHarvesting $true -OpenExplorer $OpenExplorer -ProductVersion "$Version" }
