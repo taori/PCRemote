@@ -75,12 +75,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Int.Agent", "Am
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amusoft.PCR.Int.Service", "Amusoft.PCR.Int.Service\Amusoft.PCR.Int.Service.csproj", "{684926F8-DBD4-4D22-87A3-FD7BAE13110C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_meta", "_meta", "{47E75373-71AB-459E-8090-5DCF6071D71F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{092731F6-CA7A-4604-B379-9C635F313725}"
 	ProjectSection(SolutionItems) = preProject
+		..\Directory.Build.props = ..\Directory.Build.props
 		global.json = global.json
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Directory.Build", "..\Directory.Build.props", "{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -454,22 +453,6 @@ Global
 		{684926F8-DBD4-4D22-87A3-FD7BAE13110C}.Release|x64.Build.0 = Release|Any CPU
 		{684926F8-DBD4-4D22-87A3-FD7BAE13110C}.Release|x86.ActiveCfg = Release|Any CPU
 		{684926F8-DBD4-4D22-87A3-FD7BAE13110C}.Release|x86.Build.0 = Release|Any CPU
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|Any CPU.Build.0 = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|ARM64.ActiveCfg = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|ARM64.Build.0 = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|x64.ActiveCfg = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|x64.Build.0 = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|x86.ActiveCfg = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Debug|x86.Build.0 = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|Any CPU.ActiveCfg = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|Any CPU.Build.0 = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|ARM64.ActiveCfg = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|ARM64.Build.0 = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|x64.ActiveCfg = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|x64.Build.0 = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|x86.ActiveCfg = Debug|x86
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6}.Release|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -497,7 +480,6 @@ Global
 		{D18F213C-05E5-475E-98D4-77F950B93593} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
 		{CBE40C75-4509-417D-883F-FF73A7EAE0CE} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
 		{684926F8-DBD4-4D22-87A3-FD7BAE13110C} = {7AC81780-BB98-474E-A191-44DCE606DFE8}
-		{F740FB1C-EB80-4BFB-9A26-65E74F000FA6} = {47E75373-71AB-459E-8090-5DCF6071D71F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88301734-C574-410B-9ED2-10A3EFB9998B}
