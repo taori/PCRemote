@@ -1,0 +1,18 @@
+<resources>
+	<string name="app_name">PC Remote 3</string>
+	<string name="notification_channel_general_id">General</string>
+	<string name="notification_channel_general_name">General</string>
+	<string name="notification_channel_general_description">General notifications</string>
+
+	<string name="notification_channel_shutdown_id">Shutdown</string>
+	<string name="notification_channel_shutdown_name">Shutdown</string>
+	<string name="notification_channel_shutdown_description">Shutdown notifications</string>
+
+	<string name="notification_channel_restart_id">Restart</string>
+	<string name="notification_channel_restart_name">Restart</string>
+	<string name="notification_channel_restart_description">Restart notifications</string>
+
+	<string name="notification_channel_hibernate_id">Hibernation</string>
+	<string name="notification_channel_hibernate_name">Hibernate</string>
+	<string name="notification_channel_hibernate_description">Hibernate notifications</string>
+</resources>

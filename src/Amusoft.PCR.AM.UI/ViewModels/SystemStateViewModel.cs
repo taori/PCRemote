@@ -8,10 +8,14 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class SystemStateViewModel : PageViewModel
 {
 	private readonly HostViewModel _host;
+	private readonly IDelayedSystemStateWorker _delayedSystemStateWorker;
+	private readonly IUserInterfaceService _userInterfaceService;
 
-	public SystemStateViewModel(ITypedNavigator navigator, HostViewModel host) : base(navigator)
+	public SystemStateViewModel(ITypedNavigator navigator, HostViewModel host, IDelayedSystemStateWorker delayedSystemStateWorker, IUserInterfaceService userInterfaceService) : base(navigator)
 	{
 		_host = host;
+		_delayedSystemStateWorker = delayedSystemStateWorker;
+		_userInterfaceService = userInterfaceService;
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -20,26 +24,35 @@ public partial class SystemStateViewModel : PageViewModel
 	}
 
 	[RelayCommand]
-	private Task Shutdown() => 
-		_host.IpcClient.DesktopClient.Shutdown(TimeSpan.FromMinutes(1), false);
+	private async Task Shutdown()
+	{
+		if (await _userInterfaceService.GetTimeFromPickerAsync(Translations.SystemState_PickDelay, TimeSpan.FromMinutes(1)) is { } delay)
+			await _delayedSystemStateWorker.ShutdownAtAsync(DateTimeOffset.Now.Add(delay), false);
+	}
 
 	[RelayCommand]
-	private Task Restart() =>
-		_host.IpcClient.DesktopClient.Restart(TimeSpan.FromMinutes(1), false);
+	private async Task Restart()
+	{
+		if (await _userInterfaceService.GetTimeFromPickerAsync(Translations.SystemState_PickDelay, TimeSpan.FromMinutes(1)) is { } delay)
+			await _delayedSystemStateWorker.RestartAtAsync(DateTimeOffset.Now.Add(delay), false);
+	}
 
 	[RelayCommand]
-	private Task Abort() =>
-		_host.IpcClient.DesktopClient.AbortShutdown();
+	private Task Abort()
+	{
+		_delayedSystemStateWorker.Clear();
+		return _host.IpcClient.DesktopClient.AbortShutdown();
+	}
 
 	[RelayCommand]
 	private Task Lock() =>
 		_host.IpcClient.DesktopClient.LockWorkStation();
 
 	[RelayCommand]
-	private Task Hibernate()
+	private async Task Hibernate()
 	{
 		// hibernation does not return a result before entering hibernation so it cannot be awaited
-		_ = _host.IpcClient.DesktopClient.Hibernate();
-		return Task.CompletedTask;
+		if (await _userInterfaceService.GetTimeFromPickerAsync(Translations.SystemState_PickDelay, TimeSpan.FromMinutes(1)) is { } delay)
+			_ = _delayedSystemStateWorker.HibernateAtAsync(DateTimeOffset.Now.Add(delay));
 	}
 }

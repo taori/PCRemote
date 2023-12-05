@@ -15,7 +15,7 @@ public partial class MauiLog : TargetWithLayoutHeaderAndFooter
 internal static class MauiExceptions
 {
 	// We'll route all unhandled exceptions through this one event.
-	public static event UnhandledExceptionEventHandler UnhandledException;
+	public static event UnhandledExceptionEventHandler? UnhandledException;
 
 	static MauiExceptions()
 	{

@@ -9,11 +9,11 @@ namespace Amusoft.PCR.Int.UI.ProjectDepencies;
 
 public class GrpcChannelFactory : IGrpcChannelFactory
 {
-	private readonly ILoggerFactory _loggerFactory;
+	private readonly ILoggerFactory? _loggerFactory;
 
 	private static readonly ConcurrentDictionary<IPEndPoint, HttpClient> ClientByEndpoint = new();
 
-	public GrpcChannelFactory(ILoggerFactory loggerFactory)
+	public GrpcChannelFactory(ILoggerFactory? loggerFactory)
 	{
 		_loggerFactory = loggerFactory;
 	}

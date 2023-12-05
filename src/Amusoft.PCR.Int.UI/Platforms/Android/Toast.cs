@@ -98,8 +98,9 @@ public class ToastFragment : Fragment, IToastable
 				imageView.SetImageResource(ResourceBridge.ToastIcon.Value);
 			if (imageView.LayoutParameters is ViewGroup.MarginLayoutParams { } ivMarginParams)
 			{
-				var l = Platform.AppContext.Resources?.DisplayMetrics?.Density * -10 ?? 0;
-				var r = Platform.AppContext.Resources?.DisplayMetrics?.Density * -10 ?? 0;
+				
+				var l = Microsoft.Maui.ApplicationModel.Platform.AppContext.Resources?.DisplayMetrics?.Density * -10 ?? 0;
+				var r = Microsoft.Maui.ApplicationModel.Platform.AppContext.Resources?.DisplayMetrics?.Density * -10 ?? 0;
 				ivMarginParams.SetMargins((int) l, 0, (int) r, 0);
 			}
 		}
@@ -170,7 +171,7 @@ public class ToastFragment : Fragment, IToastable
 
 	public void DisplayFragment(DateTime dateTime)
 	{
-		var fragmentManager = Platform.CurrentActivity?.GetFragmentManager();
+		var fragmentManager = Microsoft.Maui.ApplicationModel.Platform.CurrentActivity?.GetFragmentManager();
 		if (fragmentManager is null)
 			return;
 		

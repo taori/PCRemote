@@ -9,6 +9,10 @@ using Amusoft.PCR.App.UI.Pages;
 using Amusoft.PCR.Int.UI;
 using INavigation = Amusoft.PCR.AM.UI.Interfaces.INavigation;
 
+#if ANDROID
+using Amusoft.PCR.UI.App;
+#endif
+
 namespace Amusoft.PCR.App.UI;
 
 internal static class ServiceRegistrarUI
@@ -21,7 +25,11 @@ internal static class ServiceRegistrarUI
 		services.AddUIApplicationModel();
 		services.AddUIIntegration();
 		services.AddUIViews();
-		
+
+#if ANDROID
+		services.AddSingleton<IAndroidResourceBridge, AndroidResourceBridge>();
+#endif
+
 		services.AddSingleton<ITypedNavigator, TypedNavigator>();
 	}
 }

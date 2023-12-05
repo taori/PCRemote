@@ -26,7 +26,11 @@ public class TypedNavigator : ITypedNavigator
 
 	public Task OpenHost(IPEndPoint endPoint, string title)
 	{
-		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection => collection.AddSingleton<IHostCredentialProvider>(new EndpointData(endPoint, title)));
+		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection =>
+		{
+			collection.AddSingleton<IHostCredentialProvider>(new EndpointData(endPoint, title));
+			collection.AddSingleton<IIpcIntegrationService>(p => p.GetRequiredService<IDesktopIntegrationServiceFactory>().Create("http", endPoint));
+		});
 		return SpawnPushAsync<Host, HostViewModel>(provider);
 	}
 
