@@ -1,4 +1,5 @@
 ﻿@page "/GettingStarted"
+@using System.Text
 @model Amusoft.PCR.App.Service.Pages.GettingStarted
 
 @{
@@ -19,10 +20,19 @@
 		li {
 			margin-top: 1em;
 			margin-bottom: 1em;
+			line-height: 1em;
 		}
 		a, a:visited {
 			color: teal;
 		}
+		
+		img {
+			vertical-align: text-bottom;
+		}
+		
+		.filter-green{
+             filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+        }
 	</style>
 </head>
 <body>
@@ -37,7 +47,7 @@
 			{
 				foreach (var item in Model.Endpoints.Where(d => d.Running))
 				{
-					<li>Android @@ <a href="@item.Endpoint/download/android">@item.Endpoint/download/android</a></li>
+					<li>Android @@ <a href="@item.Endpoint/download/android">Download APK</a> <a href="/qrcode/@(Convert.ToBase64String(Encoding.UTF8.GetBytes(item.Endpoint+"/download/android")))">Get QR Code <img class="filter-green" src="/qrcode.svg"/></a></li>
 				}
 			}
 			else

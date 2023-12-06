@@ -72,6 +72,8 @@ public class Program
 		host.UseRouting();
 		host.UseGrpcWeb(new GrpcWebOptions() {DefaultEnabled = true});
 
+		host.UseStaticFiles();
+
 		host.UseAuthentication();
 		host.UseAuthorization();
 
@@ -87,6 +89,10 @@ public class Program
 #endif
 
 		host.MapGet("/download/android", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().GetAndroidApp().ExecuteAsync(context));
+		host.MapGet("/qrcode/{url}", delegate(HttpContext context, string url)
+		{
+			return TypedResults.File(context.RequestServices.GetRequiredService<IQrCodeImageProvider>().GetQrCode(url), contentType: "image/png");
+		});
 
 
 		host.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");

@@ -21,6 +21,7 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IImpersonatedProcessLauncher, ImpersonatedProcessLauncher>();
 		services.AddSingleton<IDesktopClientMethods, DesktopServiceClientWrapper>();
 		services.AddSingleton<IAgentPingService, AgentPingService>();
+		services.AddSingleton<IQrCodeImageProvider, QrCodeImageProvider>();
 		
 		services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
 		{
