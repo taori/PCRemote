@@ -13,6 +13,7 @@
     <ProductComponentsRef>true</ProductComponentsRef>
     <DefineConstants>
       $(DefineConstants);
+      XInstallerRuntimeVersionRequirement=$(XInstallerRuntimeVersionRequirement);
       ArtifactsPathWeb=$(SolutionDir)..\artifacts\msi\web\;
       ArtifactsPathWinInt=$(SolutionDir)..\artifacts\msi\win-integration\;
       ArtifactsPathUIWindows=$(SolutionDir)..\artifacts\msi\ui-windows\;
@@ -39,6 +40,7 @@
     <PackageReference Include="WixToolset.Firewall.wixext" Version="4.0.3" />
     <PackageReference Include="WixToolset.UI.wixext" Version="4.0.3" />
     <PackageReference Include="WixToolset.Util.wixext" Version="4.0.3" />
+    <PackageReference Include="WixToolset.Netfx.wixext" Version="4.0.3" />
   </ItemGroup>
   
   <ItemGroup>
