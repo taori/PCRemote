@@ -5,5 +5,6 @@
 	<String Id="FwExServer" Value="Amusoft PC Remote 3 Command Server der verwendet wird um Kommandos an den Agenten weiterzuleiten" />
 	<String Id="FwExDiscovery" Value="Amusoft PC Remote 3 Client Discovery wird benutzt um Klienten für Endgeräte finden zu können" />
 	<String Id="ServiceConfigReboot" Value="PC Remote 3 benötigt einen Neustart" />
+	<String Id="InstallerDotNetRuntimeMissing" Value="Diese Anwendung benötigt die .NET 8 (Server, Desktop und Core) Laufzeitumgebung, verfügbar unter: https://dotnet.microsoft.com/en-us/download/dotnet/8.0." />
 
 </WixLocalization>

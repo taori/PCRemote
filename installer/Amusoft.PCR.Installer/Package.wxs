@@ -1,5 +1,6 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
 	 xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
+	 xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx"
 	 xmlns:firewall="http://wixtoolset.org/schemas/v4/wxs/firewall"
 	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
 		
@@ -9,6 +10,29 @@
 			 Version="$(var.ProductVersion)" 
 			 UpgradeCode="de4ddeff-2caf-4c46-b9ff-52a37586069a">
 		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+		
+		<netfx:DotNetCompatibilityCheck
+						Property="CHECKINSTALLRUNTIME64DESKTOP"
+						RollForward="major"
+						RuntimeType="desktop"
+						Platform="x64"
+						Version="$(var.XInstallerRuntimeVersionRequirement)"/>
+		<netfx:DotNetCompatibilityCheck
+						Property="CHECKINSTALLRUNTIME64CORE"
+						RollForward="major"
+						RuntimeType="core"
+						Platform="x64"
+						Version="$(var.XInstallerRuntimeVersionRequirement)"/>
+		<netfx:DotNetCompatibilityCheck
+						Property="CHECKINSTALLRUNTIME64SERVER"
+						RollForward="major"
+						RuntimeType="aspnet"
+						Platform="x64"
+						Version="$(var.XInstallerRuntimeVersionRequirement)"/>
+		
+		<Launch
+						Message="!(loc.InstallerDotNetRuntimeMissing)"
+						Condition="(CHECKINSTALLRUNTIME64DESKTOP=0) AND (CHECKINSTALLRUNTIME64CORE=0) AND (CHECKINSTALLRUNTIME64SERVER=0)"/>
 		
 		<!-- disable *.cab files-->
 		<MediaTemplate EmbedCab="yes" />
