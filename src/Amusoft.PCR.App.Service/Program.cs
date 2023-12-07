@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Text;
 using Amusoft.PCR.AM.Service.Extensions;
 using Amusoft.PCR.AM.Service.Interfaces;
 using Amusoft.PCR.AM.Shared.Interfaces;
@@ -7,7 +8,12 @@ using Amusoft.PCR.App.Service.Services;
 using Amusoft.PCR.Domain.Service.Entities;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.Service;
+using Amusoft.PCR.Int.Service.Authorization;
 using Amusoft.PCR.Int.Service.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
 
@@ -113,6 +119,16 @@ public class Program
 
 		builder.Services.Configure<ApplicationSettings>(builder.Configuration.GetSection("ApplicationSettings"));
 
+		var tokenValidationParameters = new TokenValidationParameters();
+		tokenValidationParameters.ValidateIssuer = true;
+		tokenValidationParameters.ValidateAudience = true;
+		tokenValidationParameters.ValidateLifetime = true;
+		tokenValidationParameters.ValidateIssuerSigningKey = true;
+		tokenValidationParameters.ValidIssuer = builder.Configuration["ApplicationSettings:Jwt:Issuer"];
+		tokenValidationParameters.ValidAudience = builder.Configuration["ApplicationSettings:Jwt:Issuer"];
+		tokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["ApplicationSettings:Jwt:Key"]));
+		builder.Services.AddSingleton(tokenValidationParameters);
+		
 		// Add services to the container.
 		builder.Services.AddHealthChecks()
 			.AddCheck<AgentConnectivityCheck>(nameof(AgentConnectivityCheck));
@@ -123,7 +139,21 @@ public class Program
 		builder.Services.AddRazorPages();
 
 		builder.Services.AddAuthentication();
-		builder.Services.AddAuthorization();
+		builder.Services.AddAuthorization(options =>
+		{
+			options.AddPolicy(PolicyNames.ApiPolicy, policy =>
+			{
+				policy
+					.AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme, JwtBearerDefaults.AuthenticationScheme)
+					.RequireAuthenticatedUser();
+			});
+			options.AddPolicy(PolicyNames.ApiPolicy, policy =>
+			{
+				policy
+					.AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme, JwtBearerDefaults.AuthenticationScheme)
+					.RequireAuthenticatedUser();
+			});
+		});
 		builder.Services.AddWindowsService();
 
 		builder.Services.AddHostedService<DesktopIntegrationLauncherServiceDelegate>();
@@ -131,6 +161,47 @@ public class Program
 		
 		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
 		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
+		
+		builder.Services				  
+			.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+			.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+			.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+			{				   
+				options.SaveToken = true;
+				options.RefreshInterval = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:RefreshAccessTokenInterval"], out var parsedRefresh)
+					? parsedRefresh 
+					: TimeSpan.FromMinutes(1);
+				options.TokenValidationParameters = tokenValidationParameters;
+
+				options.Events = new JwtBearerEvents
+				{
+					OnAuthenticationFailed = context =>
+					{
+						if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+						{
+							context.Response.Headers.Add("X-Token-Expired", "true");
+						}
+
+						return Task.CompletedTask;
+					}
+				};
+			});
+
+		builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+			{
+				options.Password.RequireDigit = false;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequiredLength = 3;
+				options.Password.RequiredUniqueChars = 1;
+
+				options.SignIn.RequireConfirmedAccount = true;
+			})
+			.AddDefaultTokenProviders()
+			.AddUserManager<UserManager<ApplicationUser>>()
+			.AddRoles<IdentityRole>()
+			.AddEntityFrameworkStores<ApplicationDbContext>();
 
 		builder.Services.AddServiceApplicationModel();
 		builder.Services.AddServiceIntegration();
