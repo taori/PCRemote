@@ -16,5 +16,5 @@ public class HostCommand
 	public string ProgramPath { get; set; }
 
 	[MaxLength(1024)]
-	public string Arguments { get; set; }
+	public string? Arguments { get; set; }
 }
