@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using Amusoft.PCR.AM.Service.Extensions;
@@ -13,6 +14,7 @@ using Amusoft.PCR.Int.Service.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
@@ -71,6 +73,9 @@ public class Program
 
 	private static void ConfigureHost(WebApplication host)
 	{
+		var dbContext = host.Services.GetRequiredService<ApplicationDbContext>();
+		dbContext.Database.Migrate();
+		
 		var logger = host.Services.GetRequiredService<ILogger<Program>>();
 		var applicationStateTransmitter = host.Services.GetRequiredService<IApplicationStateTransmitter>();
 		applicationStateTransmitter.NotifyConfigurationDone();
@@ -119,6 +124,9 @@ public class Program
 
 		builder.Services.Configure<ApplicationSettings>(builder.Configuration.GetSection("ApplicationSettings"));
 
+		builder.Services.AddDbContext<ApplicationDbContext>(options =>
+			options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")!.Replace("{AppDir}",Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
+
 		var tokenValidationParameters = new TokenValidationParameters();
 		tokenValidationParameters.ValidateIssuer = true;
 		tokenValidationParameters.ValidateAudience = true;
@@ -126,7 +134,7 @@ public class Program
 		tokenValidationParameters.ValidateIssuerSigningKey = true;
 		tokenValidationParameters.ValidIssuer = builder.Configuration["ApplicationSettings:Jwt:Issuer"];
 		tokenValidationParameters.ValidAudience = builder.Configuration["ApplicationSettings:Jwt:Issuer"];
-		tokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["ApplicationSettings:Jwt:Key"]));
+		tokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["ApplicationSettings:Jwt:Key"]!));
 		builder.Services.AddSingleton(tokenValidationParameters);
 		
 		// Add services to the container.
