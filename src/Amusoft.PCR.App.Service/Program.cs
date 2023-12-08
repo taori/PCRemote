@@ -1,27 +1,29 @@
-using System.Diagnostics;
+#region
+
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Text;
 using Amusoft.PCR.AM.Service.Extensions;
 using Amusoft.PCR.AM.Service.Interfaces;
-using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.App.Service.HealthChecks;
 using Amusoft.PCR.App.Service.Services;
 using Amusoft.PCR.Domain.Service.Entities;
-using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.Service;
 using Amusoft.PCR.Int.Service.Authorization;
 using Amusoft.PCR.Int.Service.Interfaces;
 using Amusoft.PCR.Int.Service.Services;
 using Microsoft.AspNetCore.Authentication.BearerToken;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
+using NSwag;
+using NSwag.Generation.Processors.Security;
+
+#endregion
 
 namespace Amusoft.PCR.App.Service;
 
@@ -78,6 +80,7 @@ public class Program
 	private static async Task ConfigureHost(WebApplication host)
 	{
 		var logger = host.Services.GetRequiredService<ILogger<Program>>();
+		var env = host.Services.GetRequiredService<IHostEnvironment>();
 		
 		await using var serviceScope = host.Services.CreateAsyncScope();
 		var startTasks = serviceScope.ServiceProvider.GetRequiredService<IEnumerable<IStartupTask>>();
@@ -98,12 +101,19 @@ public class Program
 		host.UseAuthentication();
 		host.UseAuthorization();
 
+		if (env.IsDevelopment())
+		{
+			host.UseOpenApi();
+			host.UseSwaggerUi(settings => { settings.EnableTryItOut = true; });
+		}
+
+		host.MapIdentityApi<ApplicationUser>();
+
 		host.MapHealthChecks("/health");
 
 		host.MapGrpcService<PingService>();
 		host.MapGrpcService<VoiceRecognitionService>();
 		host.MapGrpcService<DesktopIntegrationServiceBridge>();
-
 		
 #if DEBUG
 		host.MapGet("/download/test", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().GetTestFile().ExecuteAsync(context));
@@ -115,20 +125,11 @@ public class Program
 			return TypedResults.File(context.RequestServices.GetRequiredService<IQrCodeImageProvider>().GetQrCode(url), contentType: "image/png");
 		});
 
-		host.MapGet("/login", () =>
+		host.MapGet("/hello", (ClaimsPrincipal principal) =>
 		{
-			var claimsIdentity = new ClaimsIdentity(new []
-			{
-				new Claim(ClaimTypes.Name, "Rasta")
-			}, BearerTokenDefaults.AuthenticationScheme);
-			var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-			return TypedResults.SignIn(claimsPrincipal);
-		}).AllowAnonymous();
-		host.MapGet("/hello", (ClaimsPrincipal principal) => TypedResults.Ok(principal.Identity.Name)).RequireAuthorization();
-		host.MapGet("/logout", () =>
-		{
-			return TypedResults.SignOut(authenticationSchemes: new[] { BearerTokenDefaults.AuthenticationScheme });
+			return TypedResults.Ok(principal.Identity.Name);
 		}).RequireAuthorization();
+		
 		host.MapGet("/env", (IHostEnvironment env) => env.EnvironmentName);
 		host.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
@@ -164,6 +165,33 @@ public class Program
 		// Add services to the container.
 		builder.Services.AddHealthChecks()
 			.AddCheck<AgentConnectivityCheck>(nameof(AgentConnectivityCheck));
+
+		builder.Services.AddEndpointsApiExplorer();
+		builder.Services.AddOpenApiDocument();
+		builder.Services.AddSwaggerDocument(settings =>
+		{
+			settings.Title = "PC Remote 3";
+			settings.DocumentName = "pcremote";
+			settings.DocumentProcessors.Add(new SecurityDefinitionAppender("BearerToken",
+				new OpenApiSecurityScheme()
+				{
+					Type = OpenApiSecuritySchemeType.ApiKey,
+					Name = "Authorization",
+					AuthorizationUrl = "/login",
+					Description = "Input like this: Bearer ACCESSTOKEN",
+					In = OpenApiSecurityApiKeyLocation.Header,
+					Scheme = BearerTokenDefaults.AuthenticationScheme,
+					Flows = new OpenApiOAuthFlows()
+					{
+						AuthorizationCode = new OpenApiOAuthFlow()
+						{
+							AuthorizationUrl = "/login",
+							RefreshUrl = "/refresh"
+						}
+					}
+				}));
+			settings.OperationProcessors.Add(new OperationSecurityScopeProcessor("BearerToken"));
+		});
 		
 		builder.Services.AddLogging();
 		builder.Services.AddGrpc();
@@ -176,13 +204,13 @@ public class Program
 			options.AddPolicy(PolicyNames.ApiPolicy, policy =>
 			{
 				policy
-					.AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme, JwtBearerDefaults.AuthenticationScheme)
+					.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
 					.RequireAuthenticatedUser();
 			});
 			options.AddPolicy(PolicyNames.ApiPolicy, policy =>
 			{
 				policy
-					.AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme, JwtBearerDefaults.AuthenticationScheme)
+					.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
 					.RequireAuthenticatedUser();
 			});
 		});
@@ -196,7 +224,7 @@ public class Program
 		
 		builder.Services				  
 			.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-			.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+			// .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
 			// .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 			// {				   
 			// 	options.SaveToken = true;
@@ -218,10 +246,15 @@ public class Program
 			// 		}
 			// 	};
 			// })
-			.AddBearerToken()
+			.AddBearerToken(options =>
+			{
+				options.BearerTokenExpiration = TimeSpan.FromMinutes(1);
+				options.RefreshTokenExpiration = TimeSpan.FromMinutes(30);
+			})
 			;
 
-		builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+		builder.Services
+			.AddIdentityApiEndpoints<ApplicationUser>(options =>
 			{
 				options.Password.RequireDigit = false;
 				options.Password.RequireLowercase = false;
@@ -229,8 +262,6 @@ public class Program
 				options.Password.RequireUppercase = false;
 				options.Password.RequiredLength = 3;
 				options.Password.RequiredUniqueChars = 1;
-
-				options.SignIn.RequireConfirmedAccount = true;
 			})
 			.AddDefaultTokenProviders()
 			.AddUserManager<UserManager<ApplicationUser>>()
