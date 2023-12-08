@@ -148,6 +148,17 @@ public class Program
 		// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
 		builder.Services.Configure<ApplicationSettings>(builder.Configuration.GetSection("ApplicationSettings"));
+		builder.Services.Configure<BearerTokenOptions>("Identity.Bearer", d =>
+		{
+			d.BearerTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:AccessTokenValidDuration"], out var accessParsed)
+				? accessParsed
+				: throw new Exception("ApplicationSettings:Jwt:AccessTokenValidDuration failed to parse");
+			d.RefreshTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:AccessTokenValidDuration"], out var refreshParsed)
+				? refreshParsed
+				: throw new Exception("ApplicationSettings:Jwt:RefreshTokenValidDuration failed to parse");
+
+			d.ClaimsIssuer = builder.Configuration["ApplicationSettings:Jwt:Key"] ?? throw new Exception("ApplicationSettings:Jwt:Key failed to parse");
+		});
 
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
 			options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")!.Replace("{AppDir}",Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
@@ -198,7 +209,6 @@ public class Program
 		builder.Services.AddGrpcReflection();
 		builder.Services.AddRazorPages();
 
-		builder.Services.AddAuthentication();
 		builder.Services.AddAuthorization(options =>
 		{
 			options.AddPolicy(PolicyNames.ApiPolicy, policy =>
@@ -221,36 +231,10 @@ public class Program
 		
 		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
 		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
-		
-		builder.Services				  
-			.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-			// .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-			// .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-			// {				   
-			// 	options.SaveToken = true;
-			// 	options.RefreshInterval = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:RefreshAccessTokenInterval"], out var parsedRefresh)
-			// 		? parsedRefresh 
-			// 		: TimeSpan.FromMinutes(1);
-			// 	options.TokenValidationParameters = tokenValidationParameters;
-			//
-			// 	options.Events = new JwtBearerEvents
-			// 	{
-			// 		OnAuthenticationFailed = context =>
-			// 		{
-			// 			if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-			// 			{
-			// 				context.Response.Headers.Add("X-Token-Expired", "true");
-			// 			}
-			//
-			// 			return Task.CompletedTask;
-			// 		}
-			// 	};
-			// })
-			.AddBearerToken(options =>
-			{
-				options.BearerTokenExpiration = TimeSpan.FromMinutes(1);
-				options.RefreshTokenExpiration = TimeSpan.FromMinutes(30);
-			})
+
+		builder.Services
+			.AddAuthentication(BearerTokenDefaults.AuthenticationScheme)
+			.AddBearerToken()
 			;
 
 		builder.Services
