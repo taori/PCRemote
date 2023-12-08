@@ -25,7 +25,6 @@ public class DesignDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbC
 	private static string GetFolder()
 	{
 		var solutionPath = FindSolutionInParent(4, Path.GetDirectoryName(Assembly.GetAssembly(typeof(DesignDbContextFactory))!.Location)!);
-		File.WriteAllText("D:\\tmp\\test.txt", solutionPath);
 		if (!string.IsNullOrEmpty(solutionPath))
 			return $"{Path.GetDirectoryName(solutionPath)}\\Amusoft.PCR.Int.Service\\Resources\\";
 		

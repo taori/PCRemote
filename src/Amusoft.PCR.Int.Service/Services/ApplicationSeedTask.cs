@@ -2,6 +2,7 @@
 using Amusoft.PCR.AM.Service.Utility;
 using Amusoft.PCR.Domain.Service.Entities;
 using Amusoft.PCR.Int.Service.Authorization;
+using Amusoft.PCR.Int.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,30 +11,28 @@ using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Int.Service.Services;
 
-public class ApplicationDbSeedService : BackgroundService
+public class ApplicationSeedTask : IStartupTask
 {
 	private readonly IServiceScopeFactory _serviceScopeFactory;
 	private readonly IEnumerable<IRoleNameProvider> _roleNameProviders;
-	private readonly ILogger<ApplicationDbSeedService> _logger;
-	private readonly IApplicationStateTransmitter _applicationStateTransmitter;
+	private readonly ILogger<ApplicationSeedTask> _logger;
 
-	public ApplicationDbSeedService(IServiceScopeFactory serviceScopeFactory,
+	public ApplicationSeedTask(IServiceScopeFactory serviceScopeFactory,
 		IEnumerable<IRoleNameProvider> roleNameProviders,
-		ILogger<ApplicationDbSeedService> logger,
-		IApplicationStateTransmitter applicationStateTransmitter)
+		ILogger<ApplicationSeedTask> logger)
 	{
 		_serviceScopeFactory = serviceScopeFactory;
 		_roleNameProviders = roleNameProviders;
 		_logger = logger;
-		_applicationStateTransmitter = applicationStateTransmitter;
 	}
 
-	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+	public int Priority => 1;
+
+	public async Task ExecuteAsync(CancellationToken stoppingToken)
 	{
 		_logger.LogTrace("Waiting for configuration to be done");
-		await _applicationStateTransmitter.ConfigurationDone;
 
-		_logger.LogTrace("{Name} running", nameof(ApplicationDbSeedService));
+		_logger.LogTrace("{Name} running", nameof(ApplicationSeedTask));
 
 		using (var serviceScope = _serviceScopeFactory.CreateScope())
 		{
@@ -54,7 +53,7 @@ public class ApplicationDbSeedService : BackgroundService
 			await AddHostCommandsAsync(serviceScope.ServiceProvider);
 		}
 
-		_logger.LogTrace("{Name} complete", nameof(ApplicationDbSeedService));
+		_logger.LogTrace("{Name} complete", nameof(ApplicationSeedTask));
 	}
 
 	private async Task AddHostCommandsAsync(IServiceProvider serviceProvider)

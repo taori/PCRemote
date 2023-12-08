@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Claims;
 using System.Text;
 using Amusoft.PCR.AM.Service.Extensions;
 using Amusoft.PCR.AM.Service.Interfaces;
@@ -10,7 +12,9 @@ using Amusoft.PCR.Domain.Service.Entities;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.Service;
 using Amusoft.PCR.Int.Service.Authorization;
+using Amusoft.PCR.Int.Service.Interfaces;
 using Amusoft.PCR.Int.Service.Services;
+using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -27,6 +31,7 @@ public class Program
 
 	public static async Task Main(string[] args)
 	{
+		// SetEnvironment();
 		_logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
 		TaskScheduler.UnobservedTaskException += (sender, ex) => _logger.Fatal(ex);
@@ -42,7 +47,7 @@ public class Program
 			RegisterAsWindowsService(builder);
 
 			var host = builder.Build();
-			ConfigureHost(host);
+			await ConfigureHost(host);
 
 			await host.RunAsync();
 		}
@@ -70,12 +75,18 @@ public class Program
 		return builder;
 	}
 
-	private static void ConfigureHost(WebApplication host)
+	private static async Task ConfigureHost(WebApplication host)
 	{
-		var dbContext = host.Services.GetRequiredService<ApplicationDbContext>();
-		dbContext.Database.Migrate();
-		
 		var logger = host.Services.GetRequiredService<ILogger<Program>>();
+		
+		await using var serviceScope = host.Services.CreateAsyncScope();
+		var startTasks = serviceScope.ServiceProvider.GetRequiredService<IEnumerable<IStartupTask>>();
+		foreach (var startupTask in startTasks.OrderByDescending(d => d.Priority))
+		{
+			logger.LogDebug("Running startup task {Type}", startupTask.GetType());
+			await startupTask.ExecuteAsync(host.Lifetime.ApplicationStarted);
+		}
+
 		var applicationStateTransmitter = host.Services.GetRequiredService<IApplicationStateTransmitter>();
 		applicationStateTransmitter.NotifyConfigurationDone();
 
@@ -104,7 +115,20 @@ public class Program
 			return TypedResults.File(context.RequestServices.GetRequiredService<IQrCodeImageProvider>().GetQrCode(url), contentType: "image/png");
 		});
 
-
+		host.MapGet("/login", () =>
+		{
+			var claimsIdentity = new ClaimsIdentity(new []
+			{
+				new Claim(ClaimTypes.Name, "Rasta")
+			}, BearerTokenDefaults.AuthenticationScheme);
+			var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+			return TypedResults.SignIn(claimsPrincipal);
+		}).AllowAnonymous();
+		host.MapGet("/hello", (ClaimsPrincipal principal) => TypedResults.Ok(principal.Identity.Name)).RequireAuthorization();
+		host.MapGet("/logout", () =>
+		{
+			return TypedResults.SignOut(authenticationSchemes: new[] { BearerTokenDefaults.AuthenticationScheme });
+		}).RequireAuthorization();
 		host.MapGet("/env", (IHostEnvironment env) => env.EnvironmentName);
 		host.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
@@ -173,27 +197,29 @@ public class Program
 		builder.Services				  
 			.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-			.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-			{				   
-				options.SaveToken = true;
-				options.RefreshInterval = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:RefreshAccessTokenInterval"], out var parsedRefresh)
-					? parsedRefresh 
-					: TimeSpan.FromMinutes(1);
-				options.TokenValidationParameters = tokenValidationParameters;
-
-				options.Events = new JwtBearerEvents
-				{
-					OnAuthenticationFailed = context =>
-					{
-						if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-						{
-							context.Response.Headers.Add("X-Token-Expired", "true");
-						}
-
-						return Task.CompletedTask;
-					}
-				};
-			});
+			// .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+			// {				   
+			// 	options.SaveToken = true;
+			// 	options.RefreshInterval = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:RefreshAccessTokenInterval"], out var parsedRefresh)
+			// 		? parsedRefresh 
+			// 		: TimeSpan.FromMinutes(1);
+			// 	options.TokenValidationParameters = tokenValidationParameters;
+			//
+			// 	options.Events = new JwtBearerEvents
+			// 	{
+			// 		OnAuthenticationFailed = context =>
+			// 		{
+			// 			if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+			// 			{
+			// 				context.Response.Headers.Add("X-Token-Expired", "true");
+			// 			}
+			//
+			// 			return Task.CompletedTask;
+			// 		}
+			// 	};
+			// })
+			.AddBearerToken()
+			;
 
 		builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 			{

@@ -6,6 +6,7 @@ using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.IPC.Integration;
 using Amusoft.PCR.Int.Service.Authorization;
+using Amusoft.PCR.Int.Service.Interfaces;
 using Amusoft.PCR.Int.Service.Services;
 using GrpcDotNetNamedPipes;
 using Microsoft.AspNetCore.Authorization;
@@ -27,13 +28,14 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IQrCodeImageProvider, QrCodeImageProvider>();
 		
 		services.AddSingleton<AuthenticationStateProvider, AuthStateProvider<ApplicationUser>>();
-		services.AddSingleton<IAuthorizationHandler, HostCommandPermissionHandler>();
-		services.AddSingleton<IAuthorizationHandler, RoleOrAdminAuthorizationHandler>();
-		services.AddSingleton<IRoleNameProvider, DefaultRoleNameProvider>();
-		services.AddSingleton<IRoleNameProvider, BackendAuthorizeRoleProvider>();
-		services.AddSingleton<IHostCommandService, HostCommandService>();
-		
-		services.AddHostedService<ApplicationDbSeedService>();
+		services.AddScoped<IAuthorizationHandler, HostCommandPermissionHandler>();
+		services.AddScoped<IAuthorizationHandler, RoleOrAdminAuthorizationHandler>();
+		services.AddScoped<IRoleNameProvider, DefaultRoleNameProvider>();
+		services.AddScoped<IRoleNameProvider, BackendAuthorizeRoleProvider>();
+		services.AddScoped<IHostCommandService, HostCommandService>();
+
+		services.AddTransient<IStartupTask, ApplicationSeedTask>();
+		services.AddTransient<IStartupTask, MigrationTask>();
 		
 		services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
 		{
