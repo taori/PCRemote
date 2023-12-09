@@ -1,22 +1,32 @@
-﻿using System.Collections.ObjectModel;
+﻿#region
+
+using System.Collections.ObjectModel;
+using Amusoft.PCR.AM.Shared.Resources;
+using Amusoft.PCR.AM.Shared.Utility;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
+
+#endregion
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
 
-public partial class MainViewModel : PageViewModel
+public partial class MainViewModel : PageViewModel, INavigationCallbacks
 {
-	public MainViewModel(ITypedNavigator navigator) : base(navigator)
+	private readonly IEnumerable<IMainInitializer> _initializers;
+
+	public LoadState LoadState { get; set; } = new();
+
+	public MainViewModel(ITypedNavigator navigator, IEnumerable<IMainInitializer> initializers) : base(navigator)
 	{
+		_initializers = initializers;
 		_items = new ObservableCollection<NavigationItem>()
 		{
 			new ()
 			{
 				ImagePath = null,
-				Text = AM.Shared.Resources.Translations.Page_Title_HostsOverview,
+				Text = Translations.Page_Title_HostsOverview,
 				Command = new RelayCommand(() => Navigator.OpenHostOverview())
 			},
 			new ()
@@ -42,11 +52,25 @@ public partial class MainViewModel : PageViewModel
 		};
 	}
 
+	private bool _initializersExecuted;
+
+	public async Task OnNavigatedToAsync()
+	{
+		using (LoadState.QueueLoading())
+		{
+			if (!_initializersExecuted && _initializers is { } initalizers && initalizers.Any())
+			{
+				_initializersExecuted = true;
+				await Task.WhenAll(initalizers.Select(d => d.ApplyAsync()));
+			}
+		}
+	}
+
 	[ObservableProperty]
 	private ObservableCollection<NavigationItem> _items;
 
 	protected override string GetDefaultPageTitle()
 	{
-		return AM.Shared.Resources.Translations.Page_Title_MainPage;
+		return Translations.Page_Title_MainPage;
 	}
 }

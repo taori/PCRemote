@@ -2,6 +2,7 @@
 
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.UI.DAL.Database;
+using Amusoft.PCR.Int.UI.DAL.Integration;
 using Amusoft.PCR.Int.UI.DAL.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,5 +17,7 @@ public static class ServiceCollectionExtensions
 		services.AddScoped<UiDbContext>();
 
 		services.AddScoped<IBearerTokenStorage, BearerTokenRepository>();
+
+		services.AddScoped<IMainInitializer, DbMigrator>();
 	}
 }

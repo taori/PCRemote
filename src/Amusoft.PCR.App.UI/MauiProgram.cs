@@ -1,9 +1,13 @@
-﻿using Amusoft.PCR.Int.UI;
+﻿#region
+
+using Amusoft.PCR.Int.UI;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Extensions.Logging;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using LogLevel = NLog.LogLevel;
+
+#endregion
 
 namespace Amusoft.PCR.App.UI;
 
@@ -17,8 +21,8 @@ public static class MauiProgram
 			.LoadConfiguration(configurationBuilder =>
 			{
 				configurationBuilder.ForLogger()
-					.FilterMinLevel(NLog.LogLevel.Trace)
-					.FilterMaxLevel(NLog.LogLevel.Fatal)
+					.FilterMinLevel(LogLevel.Trace)
+					.FilterMaxLevel(LogLevel.Fatal)
 					.WriteToMauiLogCustom("${message}");
 			})
 			.GetCurrentClassLogger();
@@ -50,7 +54,7 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging
 			.AddDebug()
-				.AddFilter(level => level >= LogLevel.Debug);
+				.AddFilter(level => level >= Microsoft.Extensions.Logging.LogLevel.Debug);
 #endif
 
 		return builder.Build();

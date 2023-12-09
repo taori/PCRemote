@@ -215,4 +215,7 @@
   <data name="SystemState.PickDelay" xml:space="preserve">
     <value>Verzögerung wählen</value>
   </data>
+	<data name="Generic.Loading" xml:space="preserve">
+    <value>Lade</value>
+  </data>
 </root>

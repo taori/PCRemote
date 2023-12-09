@@ -1,13 +1,13 @@
-﻿using Amusoft.PCR.AM.Shared.Interfaces;
+﻿#region
+
 using Amusoft.PCR.AM.UI.Extensions;
 using Amusoft.PCR.AM.UI.Interfaces;
-using Amusoft.PCR.AM.UI.Repositories;
-using Amusoft.PCR.AM.UI.ViewModels;
 using Amusoft.PCR.App.UI.Extensions;
 using Amusoft.PCR.App.UI.Implementations;
-using Amusoft.PCR.App.UI.Pages;
 using Amusoft.PCR.Int.UI;
-using INavigation = Amusoft.PCR.AM.UI.Interfaces.INavigation;
+using Microsoft.EntityFrameworkCore;
+
+#endregion
 
 #if ANDROID
 using Amusoft.PCR.UI.App;
@@ -25,6 +25,10 @@ internal static class ServiceRegistrarUI
 		services.AddUIApplicationModel();
 		services.AddUIIntegration();
 		services.AddUIViews();
+
+		services.AddSingleton<DbContextOptions>(sp => new DbContextOptionsBuilder()
+			.UseSqlite($"Data Source={Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}pcr3.db")
+			.Options);
 
 #if ANDROID
 		services.AddSingleton<IAndroidResourceBridge, AndroidResourceBridge>();

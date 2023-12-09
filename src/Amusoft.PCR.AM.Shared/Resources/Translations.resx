@@ -222,4 +222,7 @@
   <data name="SystemState.PickDelay" xml:space="preserve">
     <value>Pick delay</value>
   </data>
+	<data name="Generic.Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
 </root>

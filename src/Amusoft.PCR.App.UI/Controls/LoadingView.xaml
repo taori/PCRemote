@@ -1,0 +1,14 @@
+﻿<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
+             x:Name="Self"
+             x:Class="Amusoft.PCR.App.UI.Controls.LoadingView">
+    <Grid BackgroundColor="{AppThemeBinding Dark=#50000000, Light=#50ffffff}"
+          IsVisible="{Binding Source={x:Reference Self}, Path=IsLoading}">
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <ActivityIndicator Color="{StaticResource Yellow100Accent}" IsRunning="True" HorizontalOptions="Center" />
+            <Label Text="{x:Static resources:Translations.Generic_Loading}" HorizontalOptions="Center"
+                   Margin="0,10,0,0" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentView>
