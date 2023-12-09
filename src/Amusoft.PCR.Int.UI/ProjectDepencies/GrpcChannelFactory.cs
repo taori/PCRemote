@@ -1,29 +1,42 @@
-﻿using System.Collections.Concurrent;
+﻿#region
+
+using System.Collections.Concurrent;
 using System.Net;
 using Amusoft.PCR.AM.UI.Interfaces;
+using Grpc.Core;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using Microsoft.Extensions.Logging;
+
+#endregion
 
 namespace Amusoft.PCR.Int.UI.ProjectDepencies;
 
 public class GrpcChannelFactory : IGrpcChannelFactory
 {
 	private readonly ILoggerFactory? _loggerFactory;
+	private readonly IBearerTokenProvider _tokenProvider;
 
 	private static readonly ConcurrentDictionary<IPEndPoint, HttpClient> ClientByEndpoint = new();
 
-	public GrpcChannelFactory(ILoggerFactory? loggerFactory)
+	public GrpcChannelFactory(ILoggerFactory? loggerFactory, IBearerTokenProvider tokenProvider)
 	{
 		_loggerFactory = loggerFactory;
+		_tokenProvider = tokenProvider;
 	}
 
 	public GrpcChannel Create(string protocol, IPEndPoint endPoint)
 	{
 		var client = ClientByEndpoint.GetOrAdd(endPoint, ClientFactory);
+		var credentials = CallCredentials.FromInterceptor(async (context, metadata) =>
+		{
+			var token = await _tokenProvider.GetAccessTokenAsync(endPoint, context.CancellationToken).ConfigureAwait(false);
+			metadata.Add("Authorization", $"Bearer {token}");
+		});
 		var target = $"{protocol}://{endPoint}";
 		var channel = GrpcChannel.ForAddress(target, new GrpcChannelOptions()
 		{
+			Credentials = ChannelCredentials.Create(ChannelCredentials.Insecure, credentials),
 			HttpClient = client,
 			// LoggerFactory = _loggerFactory
 		});

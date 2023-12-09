@@ -1,5 +1,9 @@
-﻿using System.Net;
+﻿#region
+
+using System.Net;
 using Amusoft.PCR.Int.IPC;
+
+#endregion
 
 namespace Amusoft.PCR.Int.UI.ProjectDepencies;
 
@@ -9,7 +13,8 @@ public class DelayedSystemStateClient
 
 	public DelayedSystemStateClient(string protocol, IPEndPoint endPoint)
 	{
-		var channelFactory = new GrpcChannelFactory(null);
+		// TODO this has to be fixed
+		var channelFactory = new GrpcChannelFactory(null, null);
 		var channel = channelFactory.Create(protocol, endPoint);
 		_client = new DesktopIntegrationService.DesktopIntegrationServiceClient(channel);
 	}

@@ -1,5 +1,7 @@
 ﻿#region
 
+#region
+
 using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.IPC;
@@ -15,6 +17,8 @@ using Android.Content;
 using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
 using Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
 #endif
+
+#endregion
 
 namespace Amusoft.PCR.Int.UI;
 
@@ -33,6 +37,7 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IUserAccountManagerFactory, UserAccountManagerFactory>();
 
 		services.AddScoped<IDelayedSystemStateWorker, DelayedSystemStateWorker>();
+		services.AddScoped<IBearerTokenProvider, BearerTokenProvider>();
 		
 		services.AddSingleton<IHostRepository, HostRepository>();
 		services.AddSingleton<IClientSettingsRepository, ClientSettingsRepository>();

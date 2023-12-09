@@ -9,7 +9,7 @@ namespace Amusoft.PCR.Domain.UI.Entities;
 public class BearerToken
 {
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-	public required Guid Id { get; set; }
+	public Guid Id { get; set; }
 
 	public required string Address { get; set; }
 
