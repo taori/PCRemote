@@ -1,9 +1,13 @@
-﻿using Amusoft.PCR.AM.Shared.Interfaces;
+﻿#region
+
+using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.IPC;
-using Amusoft.PCR.Int.UI.ProjectDepencies;
 using Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
+using Amusoft.PCR.Int.UI.ProjectDepencies;
 using Amusoft.PCR.Int.UI.Shared;
+
+#endregion
 
 #if ANDROID
 using Android.Content;
@@ -24,6 +28,7 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
 		services.AddSingleton<IFileStorage, FileStorage>();
 		services.AddSingleton<IGrpcChannelFactory, GrpcChannelFactory>();
+		services.AddSingleton<IUserAccountManagerFactory, UserAccountManagerFactory>();
 
 		services.AddScoped<IDelayedSystemStateWorker, DelayedSystemStateWorker>();
 

@@ -16,7 +16,6 @@
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(XNetPackageVersion)" />
 		<PackageReference Include="NSwag.AspNetCore" Version="14.0.0-preview011"/>
-		<!--		<PackageReference Include="NSwag.Generation.AspNetCore" Version="14.0.0-preview011" />-->
 	</ItemGroup>
 
 	<ItemGroup>
