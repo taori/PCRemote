@@ -3,6 +3,7 @@
 using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.IPC;
+using Amusoft.PCR.Int.UI.DAL;
 using Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 using Amusoft.PCR.Int.UI.ProjectDepencies;
 using Amusoft.PCR.Int.UI.Shared;
@@ -22,6 +23,7 @@ public static class ServiceCollectionExtensions
 	public static void AddUIIntegration(this IServiceCollection services)
 	{
 		services.AddInterprocessCommunication();
+		services.AddUIDataLayer();
 		
 		services.AddSingleton<IToast, Toast>();
 		services.AddSingleton<IAgentEnvironment, AgentEnvironment>();
@@ -31,7 +33,7 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IUserAccountManagerFactory, UserAccountManagerFactory>();
 
 		services.AddScoped<IDelayedSystemStateWorker, DelayedSystemStateWorker>();
-
+		
 		services.AddSingleton<IHostRepository, HostRepository>();
 		services.AddSingleton<IClientSettingsRepository, ClientSettingsRepository>();
 

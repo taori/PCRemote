@@ -1,12 +1,16 @@
-﻿using System.Reflection;
+﻿#region
+
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+
+#endregion
 
 namespace Amusoft.PCR.Int.Service.Authorization;
 
 #if DEBUG
 
-public class DesignDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+internal class DesignDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
 	public ApplicationDbContext CreateDbContext(string[] args)
 	{

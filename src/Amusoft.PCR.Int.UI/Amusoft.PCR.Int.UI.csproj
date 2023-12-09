@@ -24,6 +24,7 @@
         <ProjectReference Include="..\Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj" />
 			<ProjectReference Include="..\Amusoft.PCR.Int.Identity\Amusoft.PCR.Int.Identity.csproj"/>
         <ProjectReference Include="..\Amusoft.PCR.Int.IPC\Amusoft.PCR.Int.IPC.csproj" />
+			<ProjectReference Include="..\Amusoft.PCR.Int.UI.DAL\Amusoft.PCR.Int.UI.DAL.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -40,13 +41,8 @@
         <Folder Include="Platforms\iOS\" />
         <Folder Include="Platforms\MacCatalyst\" />
     </ItemGroup>
-    
-<!--    <ItemGroup>-->
-<!--        <Compile Update="Platforms\Android\**\*.cs" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'"/>-->
-<!--        <Compile Update="Platforms\Windows\**\*.cs" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'"/>-->
-<!--    </ItemGroup>-->
 
-    <ItemGroup>
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
         <AndroidResource Update="Platforms\Android\Resources\**\*.xml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:UpdateGeneratedFiles</Generator>
