@@ -107,7 +107,8 @@ public class Program
 			host.UseSwaggerUi(settings => { settings.EnableTryItOut = true; });
 		}
 
-		host.MapIdentityApi<ApplicationUser>();
+		host.MapGroup("/identity")
+			.MapIdentityApi<ApplicationUser>();
 
 		host.MapHealthChecks("/health");
 
@@ -153,7 +154,8 @@ public class Program
 			d.BearerTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:AccessTokenValidDuration"], out var accessParsed)
 				? accessParsed
 				: throw new Exception("ApplicationSettings:Jwt:AccessTokenValidDuration failed to parse");
-			d.RefreshTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:AccessTokenValidDuration"], out var refreshParsed)
+
+			d.RefreshTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:RefreshTokenValidDuration"], out var refreshParsed)
 				? refreshParsed
 				: throw new Exception("ApplicationSettings:Jwt:RefreshTokenValidDuration failed to parse");
 
