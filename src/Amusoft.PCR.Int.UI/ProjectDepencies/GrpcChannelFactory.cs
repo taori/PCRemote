@@ -30,11 +30,12 @@ public class GrpcChannelFactory : IGrpcChannelFactory
 			if (!string.IsNullOrEmpty(token))
 				metadata.Add("Authorization", $"Bearer {token}");
 		});
+		var security = protocol == "http" ? ChannelCredentials.Insecure : ChannelCredentials.SecureSsl;
 		var target = $"{protocol}://{endPoint}";
 		var channel = GrpcChannel.ForAddress(target, new GrpcChannelOptions()
 		{
 			UnsafeUseInsecureChannelCallCredentials = true,
-			Credentials = ChannelCredentials.Create(ChannelCredentials.Insecure, credentials),
+			Credentials = ChannelCredentials.Create(security, credentials),
 			HttpClient = client,
 			// LoggerFactory = _loggerFactory
 		});
