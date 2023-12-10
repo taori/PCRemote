@@ -1,7 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿#region
+
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Amusoft.PCR.AM.Shared.Resources;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using Amusoft.PCR.Domain.Shared.Interfaces;
@@ -9,7 +12,8 @@ using Amusoft.Toolkit.Networking;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using Translations = Amusoft.PCR.AM.Shared.Resources.Translations;
+
+#endregion
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
 
@@ -46,7 +50,7 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 	[RelayCommand]
 	public Task OpenHostAsync(HostItemViewModel viewModel)
 	{
-		return _navigator.OpenHost(viewModel.Connection, viewModel.Name);
+		return _navigator.OpenHost(viewModel.Connection, viewModel.Name, viewModel.Protocol);
 	}
 
 	[RelayCommand]
@@ -72,6 +76,7 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 			return h.Ports.Select(port => new HostItemViewModel(
 				new(result.RemoteEndPoint.Address, port),
 				$"{h.MachineName}",
+				"http",
 				item => _ = OpenHostAsync(item))
 			).ToArray();
 		}
@@ -131,6 +136,7 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 public partial class HostItemViewModel : ObservableObject
 {
 	public readonly IPEndPoint Connection;
+	public readonly string Protocol;
 
 	[ObservableProperty]
 	private string _name;
@@ -138,8 +144,9 @@ public partial class HostItemViewModel : ObservableObject
 	[ObservableProperty]
 	private Action<HostItemViewModel>? _callback;
 
-	internal HostItemViewModel(IPEndPoint connection, string name, Action<HostItemViewModel>? callback)
+	internal HostItemViewModel(IPEndPoint connection, string name, string protocol, Action<HostItemViewModel>? callback)
 	{
+		Protocol = protocol;
 		Connection = connection;
 		Name = name;
 		Callback = callback;

@@ -73,6 +73,10 @@ internal class BearerTokenProvider : IBearerTokenProvider
 					_logger.LogError("Token refresh failed");
 				}
 			}
+			else
+			{
+				return token.AccessToken;
+			}
 		}
 
 		return null;

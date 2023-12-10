@@ -1,12 +1,17 @@
-﻿using System.Net;
+﻿#region
+
+using System.Net;
+using Amusoft.PCR.AM.UI.Extensions;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.Models;
 using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
-using Amusoft.PCR.Int.UI.ProjectDepencies;
 using Android.App;
 using Android.Content;
 using AndroidX.Work;
 using NLog;
-using Exception = System.Exception;
 using Logger = NLog.Logger;
+
+#endregion
 
 namespace Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
 
@@ -17,6 +22,7 @@ internal class DelayedWorker : Worker
 	private readonly string _locRestart;
 	private readonly string _locShutdown;
 	private readonly string _locHibernate;
+	private readonly string _hostName;
 
 	public static class InputParameters
 	{
@@ -37,7 +43,8 @@ internal class DelayedWorker : Worker
 		_locAbort = InputData.GetString(InputParameters.LocalizationAbort) ?? throw new Exception(nameof(InputParameters.LocalizationAbort));
 		_locRestart = InputData.GetString(InputParameters.LocalizationRestart) ?? throw new Exception(nameof(InputParameters.LocalizationRestart));
 		_locShutdown = InputData.GetString(InputParameters.LocalizationShutdown) ?? throw new Exception(nameof(InputParameters.LocalizationShutdown));
-		_locHibernate= InputData.GetString(InputParameters.LocalizationHibernate) ?? throw new Exception(nameof(InputParameters.LocalizationHibernate));
+		_locHibernate = InputData.GetString(InputParameters.LocalizationHibernate) ?? throw new Exception(nameof(InputParameters.LocalizationHibernate));
+		_hostName = InputData.GetString(InputParameters.HostName) ?? throw new Exception(nameof(InputParameters.HostName));
 	}
 
 	public override Result DoWork()
@@ -131,8 +138,7 @@ internal class DelayedWorker : Worker
 
 			NotificationHelper.DestroyNotification(notificationId);
 
-			var stateClient = new DelayedSystemStateClient(protocol, addressParsed);
-			await ProcessFinalize(actionType, stateClient, force);
+			await ProcessFinalize(actionType, addressParsed, protocol, _hostName, force);
 
 			return Result.InvokeSuccess();
 		}
@@ -147,9 +153,9 @@ internal class DelayedWorker : Worker
 	{
 		return actionType switch
 		{
-			DelayedStateType.Shutdown => Resource.Drawable.outline_power_settings_new_24,
-			DelayedStateType.Restart => Resource.Drawable.restart_alt_24px,
-			DelayedStateType.Hibernate => Resource.Drawable.energy_savings_leaf_24px,
+			DelayedStateType.Shutdown => _Microsoft.Android.Resource.Designer.Resource.Drawable.outline_power_settings_new_24,
+			DelayedStateType.Restart => _Microsoft.Android.Resource.Designer.Resource.Drawable.restart_alt_24px,
+			DelayedStateType.Hibernate => _Microsoft.Android.Resource.Designer.Resource.Drawable.energy_savings_leaf_24px,
 			_ => throw new ArgumentOutOfRangeException(nameof(actionType), actionType, null)
 		};
 	}
@@ -170,18 +176,26 @@ internal class DelayedWorker : Worker
 		return duration.ToString("hh\\:mm\\:ss");
 	}
 
-	private static async Task ProcessFinalize(DelayedStateType actionType, DelayedSystemStateClient stateClient, bool force)
+	private static async Task ProcessFinalize(DelayedStateType actionType, IPEndPoint addressParsed, string protocol, string hostName, bool force)
 	{
+		var serviceCollection = new ServiceCollection();
+		serviceCollection.AddUIApplicationModel();
+		serviceCollection.AddUIIntegration();
+		serviceCollection.AddSingleton<IHostCredentialProvider>(new EndpointData(addressParsed, hostName, protocol));
+		serviceCollection.AddSingleton<IIpcIntegrationService>(p => p.GetRequiredService<IDesktopIntegrationServiceFactory>().Create(protocol, addressParsed));
+
+		await using var sp = serviceCollection.BuildServiceProvider();
+		var integrationService = sp.GetRequiredService<IIpcIntegrationService>();
 		switch (actionType)
 		{
 			case DelayedStateType.Shutdown:
-				await stateClient.ShutdownAsync(TimeSpan.FromMinutes(1), force);
+				await integrationService.DesktopClient.Shutdown(TimeSpan.FromMinutes(1), force);
 				break;
 			case DelayedStateType.Restart:
-				await stateClient.RestartAsync(TimeSpan.FromMinutes(1), force);
+				await integrationService.DesktopClient.Restart(TimeSpan.FromMinutes(1), force);
 				break;
 			case DelayedStateType.Hibernate:
-				await stateClient.HibernateAsync(TimeSpan.FromMinutes(1));
+				_ = integrationService.DesktopClient.Hibernate();
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();

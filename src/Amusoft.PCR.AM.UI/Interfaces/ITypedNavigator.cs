@@ -1,13 +1,17 @@
-﻿using System.Net;
+﻿#region
+
+using System.Net;
 using Amusoft.PCR.AM.UI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface ITypedNavigator
 {
 	Task PopAsync();
-	Task OpenHost(IPEndPoint endPoint, string title);
+	Task OpenHost(IPEndPoint endPoint, string title, string protocol);
 	Task OpenHostOverview();
 	Task OpenSettings();
 	Task OpenAudio();

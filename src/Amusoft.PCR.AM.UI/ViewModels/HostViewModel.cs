@@ -1,7 +1,11 @@
-﻿using Amusoft.PCR.AM.UI.Interfaces;
+﻿#region
+
+using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
 
@@ -55,7 +59,7 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	{
 		_navigator = navigator;
 		_integrationServiceFactory = integrationServiceFactory;
-		IpcClient = _integrationServiceFactory.Create("http", credentialProvider.Address);
+		IpcClient = _integrationServiceFactory.Create(credentialProvider.Protocol, credentialProvider.Address);
 		Title = credentialProvider.Title;
 	}
 }

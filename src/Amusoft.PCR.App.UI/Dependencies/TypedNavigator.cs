@@ -1,10 +1,15 @@
 ﻿#nullable enable
+
+#region
+
 using System.Net;
 using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.AM.UI.Models;
 using Amusoft.PCR.AM.UI.ViewModels;
-using Amusoft.PCR.App.UI.Dependencies;
 using Amusoft.PCR.App.UI.Pages;
+
+#endregion
 
 namespace Amusoft.PCR.App.UI.Implementations;
 
@@ -24,11 +29,11 @@ public class TypedNavigator : ITypedNavigator
 		return Shell.Current.Navigation.PopAsync();
 	}
 
-	public Task OpenHost(IPEndPoint endPoint, string title)
+	public Task OpenHost(IPEndPoint endPoint, string title, string protocol)
 	{
 		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection =>
 		{
-			collection.AddSingleton<IHostCredentialProvider>(new EndpointData(endPoint, title));
+			collection.AddSingleton<IHostCredentialProvider>(new EndpointData(endPoint, title, protocol));
 			collection.AddSingleton<IIpcIntegrationService>(p => p.GetRequiredService<IDesktopIntegrationServiceFactory>().Create("http", endPoint));
 		});
 		return SpawnPushAsync<Host, HostViewModel>(provider);

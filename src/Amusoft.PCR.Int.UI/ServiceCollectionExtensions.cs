@@ -1,5 +1,7 @@
 ﻿#region
 
+using Microsoft.EntityFrameworkCore;
+
 #region
 
 using Amusoft.PCR.AM.Shared.Interfaces;
@@ -26,6 +28,10 @@ public static class ServiceCollectionExtensions
 {
 	public static void AddUIIntegration(this IServiceCollection services)
 	{
+		services.AddSingleton<DbContextOptions>(sp => new DbContextOptionsBuilder()
+			.UseSqlite($"Data Source={Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}pcr3.db")
+			.Options);
+		
 		services.AddInterprocessCommunication();
 		services.AddUIDataLayer();
 		
@@ -33,16 +39,16 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IAgentEnvironment, AgentEnvironment>();
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
 		services.AddSingleton<IFileStorage, FileStorage>();
-		services.AddSingleton<IGrpcChannelFactory, GrpcChannelFactory>();
 		services.AddSingleton<IUserAccountManagerFactory, UserAccountManagerFactory>();
 
+		services.AddScoped<IGrpcChannelFactory, GrpcChannelFactory>();
 		services.AddScoped<IDelayedSystemStateWorker, DelayedSystemStateWorker>();
 		services.AddScoped<IBearerTokenProvider, BearerTokenProvider>();
-		
-		services.AddSingleton<IHostRepository, HostRepository>();
-		services.AddSingleton<IClientSettingsRepository, ClientSettingsRepository>();
+		services.AddScoped<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
 
-		services.AddSingleton<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
+		services.AddScoped<IHostRepository, HostRepository>();
+		services.AddScoped<IClientSettingsRepository, ClientSettingsRepository>();
+
 
 #if ANDROID
 		NotificationHelper.SetupNotificationChannels();

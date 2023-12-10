@@ -1,8 +1,12 @@
-﻿using Amusoft.PCR.AM.UI.Interfaces;
+﻿#region
+
+using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
 using Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
 using AndroidX.Work;
 using MauiPlatform = Microsoft.Maui.ApplicationModel.Platform;
+
+#endregion
 
 namespace Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 
@@ -60,7 +64,7 @@ public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 			.PutString(DelayedWorker.InputParameters.FinalizeActionAt, scheduleAt.ToString())
 			.PutString(DelayedWorker.InputParameters.HostName, _hostCredential.Title)
 			.PutString(DelayedWorker.InputParameters.Address, _hostCredential.Address.ToString())
-			.PutString(DelayedWorker.InputParameters.Protocol, "http")
+			.PutString(DelayedWorker.InputParameters.Protocol, _hostCredential.Protocol)
 			.PutString(DelayedWorker.InputParameters.LocalizationAbort, _androidResourceBridge.MessageAbort)
 			.PutString(DelayedWorker.InputParameters.LocalizationRestart, _androidResourceBridge.MessageRestart_0)
 			.PutString(DelayedWorker.InputParameters.LocalizationShutdown, _androidResourceBridge.MessageShutdown_0)

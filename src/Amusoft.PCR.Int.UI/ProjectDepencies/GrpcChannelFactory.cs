@@ -31,11 +31,13 @@ public class GrpcChannelFactory : IGrpcChannelFactory
 		var credentials = CallCredentials.FromInterceptor(async (context, metadata) =>
 		{
 			var token = await _tokenProvider.GetAccessTokenAsync(endPoint, context.CancellationToken).ConfigureAwait(false);
-			metadata.Add("Authorization", $"Bearer {token}");
+			if (!string.IsNullOrEmpty(token))
+				metadata.Add("Authorization", $"Bearer {token}");
 		});
 		var target = $"{protocol}://{endPoint}";
 		var channel = GrpcChannel.ForAddress(target, new GrpcChannelOptions()
 		{
+			UnsafeUseInsecureChannelCallCredentials = true,
 			Credentials = ChannelCredentials.Create(ChannelCredentials.Insecure, credentials),
 			HttpClient = client,
 			// LoggerFactory = _loggerFactory
