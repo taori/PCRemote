@@ -34,7 +34,7 @@ public class TypedNavigator : ITypedNavigator
 		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection =>
 		{
 			collection.AddSingleton<IHostCredentialProvider>(new EndpointData(endPoint, title, protocol));
-			collection.AddSingleton<IIpcIntegrationService>(p => p.GetRequiredService<IDesktopIntegrationServiceFactory>().Create("http", endPoint));
+			collection.AddSingleton<IIpcIntegrationService>(p => p.GetRequiredService<IDesktopIntegrationServiceFactory>().Create(protocol, endPoint));
 		});
 		return SpawnPushAsync<Host, HostViewModel>(provider);
 	}

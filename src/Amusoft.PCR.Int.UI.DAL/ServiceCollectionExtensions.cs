@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
 				.EnableDetailedErrors()
 				.EnableSensitiveDataLogging()
 #endif
-			, contextLifetime: ServiceLifetime.Transient
+			, contextLifetime: ServiceLifetime.Singleton
 			, optionsLifetime: ServiceLifetime.Singleton
 		);
 
