@@ -17,6 +17,8 @@ public static class ServiceCollectionExtensions
 		services.AddScoped<UiDbContext>();
 
 		services.AddScoped<IBearerTokenStorage, BearerTokenRepository>();
+		services.AddScoped<IHostRepository, HostRepository>();
+		services.AddScoped<IClientSettingsRepository, ClientSettingsRepository>();
 
 		services.AddScoped<IMainInitializer, DbMigrator>();
 	}

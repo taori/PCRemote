@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Amusoft.PCR.Int.UI.DAL.Repositories;
 
-internal class BearerTokenRepository : IBearerTokenStorage
+internal class BearerTokenRepository : IBearerTokenStorage, IDisposable
 {
 	private readonly UiDbContext _dbContext;
 
@@ -19,12 +19,12 @@ internal class BearerTokenRepository : IBearerTokenStorage
 		_dbContext = dbContext;
 	}
 
-	public BearerToken? GetTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
+	public async Task<BearerToken?> GetTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
-		var match = _dbContext.BearerTokens
+		var match = await _dbContext.BearerTokens
 			.AsNoTracking()
 			.OrderByDescending(d => d.Expires)
-			.FirstOrDefault(d => d.Address == endPoint.ToString());
+			.FirstOrDefaultAsync(cancellationToken);
 
 		return match;
 	}
@@ -33,5 +33,11 @@ internal class BearerTokenRepository : IBearerTokenStorage
 	{
 		_dbContext.BearerTokens.Add(token);
 		return await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false) > 0;
+	}
+
+	public void Dispose()
+	{
+		GC.SuppressFinalize(this);
+		_dbContext.Dispose();
 	}
 }

@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 #endregion
 
@@ -8,6 +9,19 @@ namespace Amusoft.PCR.Domain.UI.Entities;
 
 public class BearerToken
 {
+	public BearerToken()
+	{
+	}
+
+	[SetsRequiredMembers]
+	public BearerToken(string address, string accessToken, string refreshToken, DateTimeOffset expires)
+	{
+		Address = address;
+		AccessToken = accessToken;
+		RefreshToken = refreshToken;
+		Expires = expires;
+	}
+
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public Guid Id { get; set; }
 

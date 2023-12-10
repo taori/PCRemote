@@ -46,9 +46,6 @@ public static class ServiceCollectionExtensions
 		services.AddScoped<IBearerTokenProvider, BearerTokenProvider>();
 		services.AddScoped<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
 
-		services.AddScoped<IHostRepository, HostRepository>();
-		services.AddScoped<IClientSettingsRepository, ClientSettingsRepository>();
-
 
 #if ANDROID
 		NotificationHelper.SetupNotificationChannels();

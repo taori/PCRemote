@@ -1,8 +1,12 @@
-﻿using Amusoft.PCR.AM.UI.Interfaces;
+﻿#region
+
+using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Repositories;
 using OneOf;
 
-namespace Amusoft.PCR.Int.UI.ProjectDepencies;
+#endregion
+
+namespace Amusoft.PCR.Int.UI.DAL.Repositories;
 
 internal class HostRepository : IHostRepository
 {

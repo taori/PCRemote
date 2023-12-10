@@ -1,8 +1,12 @@
-﻿using Amusoft.PCR.AM.UI.Interfaces;
+﻿#region
+
+using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Domain.UI.Entities;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.Int.UI.ProjectDepencies;
+#endregion
+
+namespace Amusoft.PCR.Int.UI.DAL.Repositories;
 
 internal class ClientSettingsRepository : IClientSettingsRepository
 {
