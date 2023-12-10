@@ -16,10 +16,14 @@ public static class MauiProgram
 			.RegisterMauiLog((_, args) => LogManager.GetLogger("Amusoft.PCR.App.UI.MauiProgram").Fatal(args.ExceptionObject))
 			.LoadConfiguration(configurationBuilder =>
 			{
-				configurationBuilder.ForLogger()
-					.FilterMinLevel(LogLevel.Trace)
-					.FilterMaxLevel(LogLevel.Fatal)
+				configurationBuilder
+					.ForLogger()
+					.FilterMinLevel(LogLevel.Debug)
 					.WriteToMauiLogCustom("${message}");
+				configurationBuilder
+					.ForLogger()
+					.FilterMinLevel(LogLevel.Error)
+					.WriteTo(new ToastTarget());
 			})
 			.GetCurrentClassLogger();
 
