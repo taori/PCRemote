@@ -24,7 +24,7 @@ internal class BearerTokenRepository : IBearerTokenStorage
 		var match = await _dbContext.BearerTokens
 			.AsNoTracking()
 			.OrderByDescending(d => d.Expires)
-			.FirstOrDefaultAsync(cancellationToken)
+			.FirstOrDefaultAsync(d => d.Address == endPoint.ToString(), cancellationToken)
 			.ConfigureAwait(false);
 
 		return match;
