@@ -1,6 +1,4 @@
-﻿#region
-
-using Amusoft.PCR.AM.UI.Interfaces;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.UI.DAL.Database;
 using Amusoft.PCR.Int.UI.DAL.Integration;
 using Amusoft.PCR.Int.UI.DAL.Repositories;
@@ -8,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.DAL;
 

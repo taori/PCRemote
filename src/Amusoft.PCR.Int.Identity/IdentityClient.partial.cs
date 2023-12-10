@@ -1,8 +1,4 @@
-﻿#region
-
-using System.Text;
-
-#endregion
+﻿using System.Text;
 
 namespace Amusoft.PCR.Int.Identity;
 

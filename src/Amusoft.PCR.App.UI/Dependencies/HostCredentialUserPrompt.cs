@@ -1,8 +1,4 @@
-﻿#region
-
-using Amusoft.PCR.AM.UI.Interfaces;
-
-#endregion
+﻿using Amusoft.PCR.AM.UI.Interfaces;
 
 namespace Amusoft.PCR.App.UI.Implementations;
 

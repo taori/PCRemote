@@ -1,13 +1,9 @@
-﻿#region
-
-using Amusoft.PCR.Int.UI;
+﻿using Amusoft.PCR.Int.UI;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Extensions.Logging;
 using LogLevel = NLog.LogLevel;
-
-#endregion
 
 namespace Amusoft.PCR.App.UI;
 

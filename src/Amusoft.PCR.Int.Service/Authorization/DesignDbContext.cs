@@ -1,10 +1,6 @@
-﻿#region
-
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-
-#endregion
 
 namespace Amusoft.PCR.Int.Service.Authorization;
 

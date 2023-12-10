@@ -1,5 +1,3 @@
-#region
-
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
@@ -22,8 +20,6 @@ using NLog;
 using NLog.Web;
 using NSwag;
 using NSwag.Generation.Processors.Security;
-
-#endregion
 
 namespace Amusoft.PCR.App.Service;
 

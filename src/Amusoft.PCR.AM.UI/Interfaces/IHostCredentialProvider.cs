@@ -1,8 +1,4 @@
-﻿#region
-
-using System.Net;
-
-#endregion
+﻿using System.Net;
 
 namespace Amusoft.PCR.AM.UI.Interfaces;
 

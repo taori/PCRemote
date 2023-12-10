@@ -1,10 +1,6 @@
-﻿#region
-
-using Amusoft.PCR.AM.UI.Interfaces;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Domain.UI.Entities;
 using Microsoft.Extensions.Logging;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.DAL.Repositories;
 

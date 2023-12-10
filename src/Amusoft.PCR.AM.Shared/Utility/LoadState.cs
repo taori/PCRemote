@@ -1,8 +1,4 @@
-﻿#region
-
-using CommunityToolkit.Mvvm.ComponentModel;
-
-#endregion
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Amusoft.PCR.AM.Shared.Utility;
 

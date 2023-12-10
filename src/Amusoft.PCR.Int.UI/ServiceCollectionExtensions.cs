@@ -1,10 +1,4 @@
-﻿#region
-
-#region
-
-#region
-
-using Amusoft.PCR.AM.Shared.Interfaces;
+﻿using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.UI.DAL;
@@ -12,17 +6,11 @@ using Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 using Amusoft.PCR.Int.UI.ProjectDepencies;
 using Amusoft.PCR.Int.UI.Shared;
 
-#endregion
-
 #if ANDROID
 using Android.Content;
 using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
 using Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
 #endif
-
-#endregion
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI;
 

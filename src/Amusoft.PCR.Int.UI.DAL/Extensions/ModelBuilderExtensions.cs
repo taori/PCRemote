@@ -1,9 +1,5 @@
-﻿#region
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.DAL.Extensions;
 

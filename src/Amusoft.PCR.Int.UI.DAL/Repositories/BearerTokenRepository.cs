@@ -1,12 +1,8 @@
-﻿#region
-
-using System.Net;
+﻿using System.Net;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Domain.UI.Entities;
 using Amusoft.PCR.Int.UI.DAL.Database;
 using Microsoft.EntityFrameworkCore;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.DAL.Repositories;
 

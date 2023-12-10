@@ -1,6 +1,4 @@
-﻿#region
-
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Amusoft.PCR.AM.Shared.Resources;
 using Amusoft.PCR.AM.Shared.Utility;
 using Amusoft.PCR.AM.UI.Interfaces;
@@ -8,7 +6,6 @@ using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-#endregion
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
 

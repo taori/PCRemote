@@ -1,10 +1,6 @@
-﻿#region
-
-using Amusoft.PCR.Domain.UI.Entities;
+﻿using Amusoft.PCR.Domain.UI.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.DAL.Database;
 

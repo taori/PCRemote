@@ -1,9 +1,5 @@
-﻿#region
-
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-
-#endregion
 
 namespace Amusoft.PCR.Domain.UI.Entities;
 

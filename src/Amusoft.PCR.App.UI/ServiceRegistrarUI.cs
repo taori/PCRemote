@@ -1,25 +1,13 @@
-﻿#region
-
-#region
-
-#region
-
-using Amusoft.PCR.AM.UI.Extensions;
+﻿using Amusoft.PCR.AM.UI.Extensions;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.App.UI.Extensions;
 using Amusoft.PCR.App.UI.Implementations;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Amusoft.PCR.Int.UI;
 
-#endregion
-
 #if ANDROID
 using Amusoft.PCR.UI.App;
 #endif
-
-#endregion
-
-#endregion
 
 namespace Amusoft.PCR.App.UI;
 

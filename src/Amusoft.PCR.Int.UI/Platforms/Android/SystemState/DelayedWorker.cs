@@ -1,6 +1,4 @@
-﻿#region
-
-using System.Net;
+﻿using System.Net;
 using Amusoft.PCR.AM.UI.Extensions;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Models;
@@ -10,8 +8,6 @@ using Android.Content;
 using AndroidX.Work;
 using NLog;
 using Logger = NLog.Logger;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
 

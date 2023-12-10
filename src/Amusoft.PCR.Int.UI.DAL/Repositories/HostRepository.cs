@@ -1,10 +1,6 @@
-﻿#region
-
-using Amusoft.PCR.AM.UI.Interfaces;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Repositories;
 using OneOf;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.DAL.Repositories;
 

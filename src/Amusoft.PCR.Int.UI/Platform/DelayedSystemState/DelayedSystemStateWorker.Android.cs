@@ -1,12 +1,8 @@
-﻿#region
-
-using Amusoft.PCR.AM.UI.Interfaces;
+﻿using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
 using Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
 using AndroidX.Work;
 using MauiPlatform = Microsoft.Maui.ApplicationModel.Platform;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 

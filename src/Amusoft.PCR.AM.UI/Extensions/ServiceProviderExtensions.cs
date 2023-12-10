@@ -1,12 +1,8 @@
-﻿#region
-
-using Amusoft.PCR.AM.Shared.Interfaces;
+﻿using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels;
 using Amusoft.PCR.App.UI.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-
-#endregion
 
 namespace Amusoft.PCR.AM.UI.Extensions;
 

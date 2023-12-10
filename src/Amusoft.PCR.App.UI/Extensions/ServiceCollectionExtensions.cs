@@ -1,8 +1,4 @@
-﻿#region
-
-using Amusoft.PCR.App.UI.Pages;
-
-#endregion
+﻿using Amusoft.PCR.App.UI.Pages;
 
 namespace Amusoft.PCR.App.UI.Extensions;
 

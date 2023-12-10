@@ -1,15 +1,10 @@
 ﻿#nullable enable
-
-#region
-
 using System.Net;
 using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Models;
 using Amusoft.PCR.AM.UI.ViewModels;
 using Amusoft.PCR.App.UI.Pages;
-
-#endregion
 
 namespace Amusoft.PCR.App.UI.Implementations;
 

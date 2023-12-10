@@ -1,13 +1,9 @@
-﻿#region
-
-using System.Net;
+﻿using System.Net;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using Amusoft.PCR.Domain.UI.Entities;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-
-#endregion
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
 

@@ -1,6 +1,4 @@
-﻿#region
-
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -12,8 +10,6 @@ using Amusoft.Toolkit.Networking;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-
-#endregion
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
 

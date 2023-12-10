@@ -1,14 +1,10 @@
-﻿#region
-
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Net;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using Microsoft.Extensions.Logging;
-
-#endregion
 
 namespace Amusoft.PCR.Int.UI.ProjectDepencies;
 
