@@ -40,7 +40,7 @@ namespace Amusoft.PCR.Int.UI.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BearerTokens");
+                    b.ToTable("BearerTokens", (string)null);
                 });
 #pragma warning restore 612, 618
         }

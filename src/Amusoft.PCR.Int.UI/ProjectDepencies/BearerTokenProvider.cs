@@ -26,7 +26,7 @@ internal class BearerTokenProvider : IBearerTokenProvider
 
 	public async Task<string?> GetAccessTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
-		var token = await _storage.GetTokenAsync(endPoint, cancellationToken);
+		var token = await _storage.GetLatestTokenAsync(endPoint, cancellationToken);
 		if (token is null)
 		{
 			var credentials = await _credentialUserPrompt.SignInAsync();

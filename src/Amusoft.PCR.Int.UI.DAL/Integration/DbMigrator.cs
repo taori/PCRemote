@@ -9,14 +9,23 @@ using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Int.UI.DAL.Integration;
 
-internal class DbMigrator(ILogger<DbMigrator> Log, UiDbContext DbContext) : IMainInitializer
+internal class DbMigrator : IMainInitializer
 {
+	private readonly ILogger<DbMigrator> _log;
+	private readonly UiDbContext _dbContext;
+
+	public DbMigrator(ILogger<DbMigrator> log, UiDbContext dbContext)
+	{
+		_log = log;
+		_dbContext = dbContext;
+	}
+	
 	public async Task ApplyAsync()
 	{
-		Log.LogDebug("Migrating database");
-		await DbContext.Database.MigrateAsync();
-		var canConnect = await DbContext.Database.CanConnectAsync();
+		_log.LogDebug("Migrating database");
+		await _dbContext.Database.MigrateAsync();
+		var canConnect = await _dbContext.Database.CanConnectAsync();
 		if (!canConnect)
-			Log.LogError("Database unable to connect");
+			_log.LogError("Database unable to connect");
 	}
 }

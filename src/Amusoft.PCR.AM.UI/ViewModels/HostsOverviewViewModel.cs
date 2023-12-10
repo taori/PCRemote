@@ -20,6 +20,7 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigationCallbacks
 {
 	private readonly ILogger<HostsOverviewViewModel> _logger;
+	private readonly IBearerTokenStorage _bearerTokenStorage;
 	private readonly IHostRepository _hostRepository;
 	private readonly IToast _toast;
 	private readonly ITypedNavigator _navigator;
@@ -43,7 +44,6 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
 		_logger.LogDebug("Loading hosts");
-		
 		Items = new ObservableCollection<HostItemViewModel>(await LoadHostsFromPortsAsync(cancellationToken));
 	}
 

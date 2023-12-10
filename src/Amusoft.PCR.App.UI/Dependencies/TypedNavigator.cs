@@ -109,13 +109,13 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushConfigureAsync<TPage, TViewModel>(serviceProvider, null);
 	}
 
-	private Task SpawnPushConfigureAsync<TPage, TViewModel>(IServiceProvider serviceProvider, Action<TViewModel>? configure) 
+	private async Task SpawnPushConfigureAsync<TPage, TViewModel>(IServiceProvider serviceProvider, Action<TViewModel>? configure) 
 		where TPage : Page 
 		where TViewModel : notnull
 	{
 		var spawn = SpawnPageAndModel<TPage, TViewModel>(serviceProvider);
 		configure?.Invoke(spawn.viewModel);
-		return Shell.Current.Navigation.PushAsync(spawn.page);
+		await Shell.Current.Navigation.PushAsync(spawn.page);
 	}
 
 	private (TPage page, TViewModel viewModel) SpawnPageAndModel<TPage, TViewModel>(IServiceProvider serviceProvider) 

@@ -2,6 +2,8 @@
 
 #region
 
+#region
+
 using Amusoft.PCR.AM.UI.Extensions;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.App.UI.Extensions;
@@ -13,6 +15,8 @@ using Amusoft.PCR.Int.UI;
 #if ANDROID
 using Amusoft.PCR.UI.App;
 #endif
+
+#endregion
 
 #endregion
 
@@ -32,7 +36,7 @@ internal static class ServiceRegistrarUI
 		services.AddUIViews();
 
 #if ANDROID
-		services.AddSingleton<IAndroidResourceBridge, AndroidResourceBridge>();
+		services.AddTransient<IAndroidResourceBridge, AndroidResourceBridge>();
 #endif
 
 		services.AddSingleton<ITypedNavigator, TypedNavigator>();

@@ -1,6 +1,6 @@
 ﻿#region
 
-using Microsoft.EntityFrameworkCore;
+#region
 
 #region
 
@@ -22,16 +22,14 @@ using Amusoft.PCR.Int.UI.Platforms.Android.SystemState;
 
 #endregion
 
+#endregion
+
 namespace Amusoft.PCR.Int.UI;
 
 public static class ServiceCollectionExtensions
 {
 	public static void AddUIIntegration(this IServiceCollection services)
 	{
-		services.AddSingleton<DbContextOptions>(sp => new DbContextOptionsBuilder()
-			.UseSqlite($"Data Source={Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}pcr3.db")
-			.Options);
-		
 		services.AddInterprocessCommunication();
 		services.AddUIDataLayer();
 		
@@ -41,10 +39,10 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IFileStorage, FileStorage>();
 		services.AddSingleton<IUserAccountManagerFactory, UserAccountManagerFactory>();
 
-		services.AddScoped<IGrpcChannelFactory, GrpcChannelFactory>();
-		services.AddScoped<IDelayedSystemStateWorker, DelayedSystemStateWorker>();
-		services.AddScoped<IBearerTokenProvider, BearerTokenProvider>();
-		services.AddScoped<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
+		services.AddTransient<IGrpcChannelFactory, GrpcChannelFactory>();
+		services.AddTransient<IDelayedSystemStateWorker, DelayedSystemStateWorker>();
+		services.AddTransient<IBearerTokenProvider, BearerTokenProvider>();
+		services.AddTransient<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
 
 
 #if ANDROID

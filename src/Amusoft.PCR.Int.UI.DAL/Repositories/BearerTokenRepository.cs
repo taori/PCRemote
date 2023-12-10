@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Amusoft.PCR.Int.UI.DAL.Repositories;
 
-internal class BearerTokenRepository : IBearerTokenStorage, IDisposable
+internal class BearerTokenRepository : IBearerTokenStorage
 {
 	private readonly UiDbContext _dbContext;
 
@@ -19,12 +19,13 @@ internal class BearerTokenRepository : IBearerTokenStorage, IDisposable
 		_dbContext = dbContext;
 	}
 
-	public async Task<BearerToken?> GetTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
+	public async Task<BearerToken?> GetLatestTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
 		var match = await _dbContext.BearerTokens
 			.AsNoTracking()
 			.OrderByDescending(d => d.Expires)
-			.FirstOrDefaultAsync(cancellationToken);
+			.FirstOrDefaultAsync(cancellationToken)
+			.ConfigureAwait(false);
 
 		return match;
 	}
@@ -32,12 +33,20 @@ internal class BearerTokenRepository : IBearerTokenStorage, IDisposable
 	public async Task<bool> AddTokenAsync(IPEndPoint endPoint, BearerToken token, CancellationToken cancellationToken)
 	{
 		_dbContext.BearerTokens.Add(token);
-		return await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false) > 0;
+
+		return await _dbContext
+			.SaveChangesAsync(cancellationToken)
+			.ConfigureAwait(false) > 0;
 	}
 
-	public void Dispose()
+	public async Task<bool> PruneAsync(IPEndPoint ipEndPoint, CancellationToken cancellationToken)
 	{
-		GC.SuppressFinalize(this);
-		_dbContext.Dispose();
+		var matches = await _dbContext.BearerTokens
+			.Where(d => d.Address == ipEndPoint.ToString())
+			.ToListAsync(cancellationToken)
+			.ConfigureAwait(false);
+
+		_dbContext.BearerTokens.RemoveRange(matches);
+		return await _dbContext.SaveChangesAsync(cancellationToken) > 0;
 	}
 }
