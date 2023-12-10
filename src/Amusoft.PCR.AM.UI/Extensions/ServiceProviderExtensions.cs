@@ -4,6 +4,7 @@ using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels;
 using Amusoft.PCR.App.UI.Implementations;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 #endregion
 
@@ -13,7 +14,7 @@ public static class ServiceProviderExtensions
 {
 	public static void AddUIApplicationModel(this IServiceCollection services)
 	{
-		services.AddSingleton<INestedServiceProviderFactory, NestedServiceProviderFactory>();
+		services.TryAddTransient<INestedServiceProviderFactory, NestedServiceProviderFactory>();
 
 		services.AddSingleton<DebugViewModel>();
 		services.AddSingleton<HostsOverviewViewModel>();
@@ -21,13 +22,13 @@ public static class ServiceProviderExtensions
 		services.AddSingleton<LogsViewModel>();
 		services.AddSingleton<SettingsViewModel>();
 
-		services.AddScoped<CommandButtonListViewModel>();
-		services.AddScoped<MouseControlViewModel>();
-		services.AddScoped<AudioViewModel>();
-		services.AddScoped<ProgramsViewModel>();
-		services.AddScoped<InputControlViewModel>();
-		services.AddScoped<MonitorsViewModel>();
-		services.AddScoped<SystemStateViewModel>();
-		services.AddScoped<HostViewModel>();
+		services.TryAddTransient<CommandButtonListViewModel>();
+		services.TryAddTransient<MouseControlViewModel>();
+		services.TryAddTransient<AudioViewModel>();
+		services.TryAddTransient<ProgramsViewModel>();
+		services.TryAddTransient<InputControlViewModel>();
+		services.TryAddTransient<MonitorsViewModel>();
+		services.TryAddTransient<SystemStateViewModel>();
+		services.TryAddTransient<HostViewModel>();
 	}
 }

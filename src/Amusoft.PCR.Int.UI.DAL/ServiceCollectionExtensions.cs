@@ -6,6 +6,7 @@ using Amusoft.PCR.Int.UI.DAL.Integration;
 using Amusoft.PCR.Int.UI.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
 #endregion
@@ -25,14 +26,14 @@ public static class ServiceCollectionExtensions
 				.EnableDetailedErrors()
 				.EnableSensitiveDataLogging()
 #endif
-			, contextLifetime: ServiceLifetime.Singleton
+			, contextLifetime: ServiceLifetime.Transient
 			, optionsLifetime: ServiceLifetime.Singleton
 		);
 
-		services.AddTransient<IBearerTokenStorage, BearerTokenRepository>();
 		services.AddScoped<IHostRepository, HostRepository>();
 		services.AddScoped<IClientSettingsRepository, ClientSettingsRepository>();
 
-		services.AddScoped<IMainInitializer, DbMigrator>();
+		services.TryAddTransient<IBearerTokenStorage, BearerTokenRepository>();
+		services.TryAddTransient<IMainInitializer, DbMigrator>();
 	}
 }

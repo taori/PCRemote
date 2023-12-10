@@ -113,16 +113,16 @@ public class TypedNavigator : ITypedNavigator
 		where TPage : Page 
 		where TViewModel : notnull
 	{
-		var spawn = SpawnPageAndModel<TPage, TViewModel>(serviceProvider);
+		var spawn = SpawnPageAndModelAsync<TPage, TViewModel>(serviceProvider);
 		configure?.Invoke(spawn.viewModel);
 		await Shell.Current.Navigation.PushAsync(spawn.page);
 	}
 
-	private (TPage page, TViewModel viewModel) SpawnPageAndModel<TPage, TViewModel>(IServiceProvider serviceProvider) 
+	private (TPage page, TViewModel viewModel) SpawnPageAndModelAsync<TPage, TViewModel>(IServiceProvider serviceProvider) 
 		where TPage : Page
 		where TViewModel : notnull
 	{
-		using var scope = serviceProvider.CreateScope();
+		var scope = serviceProvider.CreateScope();
 		var model = scope.ServiceProvider.GetRequiredService<TViewModel>();
 		var page = scope.ServiceProvider.GetRequiredService<TPage>();
 		page.BindingContext = model;

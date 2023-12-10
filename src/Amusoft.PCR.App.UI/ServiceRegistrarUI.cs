@@ -8,6 +8,7 @@ using Amusoft.PCR.AM.UI.Extensions;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.App.UI.Extensions;
 using Amusoft.PCR.App.UI.Implementations;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Amusoft.PCR.Int.UI;
 
 #endregion
@@ -36,11 +37,10 @@ internal static class ServiceRegistrarUI
 		services.AddUIViews();
 
 #if ANDROID
-		services.AddTransient<IAndroidResourceBridge, AndroidResourceBridge>();
+		services.TryAddSingleton<IAndroidResourceBridge, AndroidResourceBridge>();
 #endif
 
-		services.AddSingleton<ITypedNavigator, TypedNavigator>();
-
-		services.AddScoped<ICredentialUserPrompt, HostCredentialUserPrompt>();
+		services.TryAddTransient<ITypedNavigator, TypedNavigator>();
+		services.TryAddSingleton<ICredentialUserPrompt, HostCredentialUserPrompt>();
 	}
 }
