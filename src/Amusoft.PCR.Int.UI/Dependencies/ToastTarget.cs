@@ -1,7 +1,9 @@
 ﻿using System.Threading.Channels;
 using Amusoft.PCR.AM.UI.Interfaces;
+using Grpc.Core;
 using NLog;
 using NLog.Targets;
+using Channel = System.Threading.Channels.Channel;
 
 namespace Amusoft.PCR.Int.UI;
 
@@ -38,6 +40,13 @@ public class ToastTarget : Target
 
 	protected override void Write(LogEventInfo logEvent)
 	{
-		_events.Writer.TryWrite(logEvent);
+		if (logEvent.Exception is RpcException rex)
+		{
+			_events.Writer.TryWrite(new LogEventInfo(logEvent.Level, logEvent.LoggerName, $"Grpc Status: ({rex.StatusCode.ToString()})"));
+		}
+		else
+		{
+			_events.Writer.TryWrite(logEvent);
+		}
 	}
 }
