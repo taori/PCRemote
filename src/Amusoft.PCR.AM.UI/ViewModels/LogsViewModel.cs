@@ -1,38 +1,25 @@
-﻿using Amusoft.PCR.AM.UI.Interfaces;
+﻿using System.Collections.ObjectModel;
+using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
+using Amusoft.PCR.Domain.UI.Entities;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
 
 public partial class LogsViewModel : ReloadablePageViewModel, INavigationCallbacks
 {
-	public LogsViewModel(ITypedNavigator navigator) : base(navigator)
+	private readonly ILogEntryRepository _logEntryRepository;
+
+	public LogsViewModel(ITypedNavigator navigator, ILogEntryRepository logEntryRepository) : base(navigator)
 	{
+		_logEntryRepository = logEntryRepository;
 	}
 
-	[ObservableProperty]
-	private string? _text;
+	[ObservableProperty] private ObservableCollection<LogEntry> _items = new();
 
 	public Task OnNavigatedToAsync()
 	{
 		return ReloadAsync();
-	}
-
-	private async Task<string?> GetTextAsync()
-	{
-		var root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-		var path = Path.Combine(root, "logs", "nlog.csv");
-
-		return File.Exists(path)
-			? await ReadFileContentAsync(path)
-			: null;
-
-		static async Task<string> ReadFileContentAsync(string path)
-		{
-			await using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-			using var reader = new StreamReader(fileStream);
-			return await reader.ReadToEndAsync();
-		}
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -42,6 +29,7 @@ public partial class LogsViewModel : ReloadablePageViewModel, INavigationCallbac
 
 	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
-		Text = await GetTextAsync();
+		Items = new ObservableCollection<LogEntry>(await Task.Run(() => _logEntryRepository.GetLogsSinceAsync(DateTime.Now.AddDays(-1), cancellationToken), cancellationToken));
+		;
 	}
 }

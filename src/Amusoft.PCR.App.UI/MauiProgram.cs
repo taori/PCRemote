@@ -44,8 +44,13 @@ public static class MauiProgram
 			})
 			.ConfigureFonts(fonts =>
 			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont("OpenSans-Regular.ttf", FontNames.OpenSansRegular);
+				fonts.AddFont("OpenSans-Semibold.ttf", FontNames.OpenSansSemibold);
+				fonts.AddFont("MaterialIcons-Regular.ttf", FontNames.MaterialIcons);
+				fonts.AddFont("MaterialIconsOutlined-Regular.otf", FontNames.MaterialIconsOutlined);
+				fonts.AddFont("MaterialIconsRound-Regular.otf", FontNames.MaterialIconsRound);
+				fonts.AddFont("MaterialIconsSharp-Regular.otf", FontNames.MaterialIconsSharp);
+				fonts.AddFont("MaterialIconsTwoTone-Regular.otf", FontNames.MaterialIconsTwoTone);
 			});
 		
 		ResourceBridgeConfiguration.Apply();

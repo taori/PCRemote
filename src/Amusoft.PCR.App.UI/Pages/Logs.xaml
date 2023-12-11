@@ -3,15 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:shared="clr-namespace:Amusoft.PCR.AM.UI.ViewModels.Shared;assembly=Amusoft.PCR.AM.UI"
              xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             xmlns:entities="clr-namespace:Amusoft.PCR.Domain.UI.Entities;assembly=Amusoft.PCR.Domain.UI"
+             xmlns:ui="using:Amusoft.PCR.App.UI"
              x:DataType="vm:LogsViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.Logs"
              Title="{x:Binding Path=Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem>
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    Color="{AppThemeBinding Dark={StaticResource Primary}, Light={StaticResource Yellow100Accent}}"
+                    FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                    Glyph="&#xe8b8;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <RefreshView IsRefreshing="{x:Binding IsReloading}"
                  Command="{x:Binding ReloadCommand}">
-        <ScrollView>
-            <Label Text="{x:Binding Path=Text}"
-                   VerticalOptions="Start"
-                   HorizontalOptions="Start"/>
-        </ScrollView>
+        <CollectionView ItemsSource="{x:Binding Path=Items}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout VerticalItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entities:LogEntry">
+                    <Grid ColumnDefinitions="140,80,Auto">
+                        <Label Grid.Column="0" Text="{x:Binding Path=Time}" />
+                        <Label Grid.Column="1" Text="{x:Binding Path=Logger}" />
+                        <Label Grid.Column="2" Text="{x:Binding Path=Message}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </RefreshView>
 </ContentPage>
