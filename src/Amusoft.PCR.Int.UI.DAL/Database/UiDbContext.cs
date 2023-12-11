@@ -14,6 +14,10 @@ internal class UiDbContext : DbContext
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
+
+		modelBuilder.Entity<LogEntry>().HasNoKey();
+		modelBuilder.Entity<LogEntry>().Property(d => d.Time).HasConversion<DateTimeToTicksConverter>();
+		
 		if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
 		{
 			// SQLite does not have proper support for DateTimeOffset via Entity Framework Core, see the limitations
@@ -47,4 +51,6 @@ internal class UiDbContext : DbContext
 	}
 
 	public DbSet<BearerToken> BearerTokens { get; set; }
+
+	public DbSet<LogEntry> LogEntries { get; set; }
 }

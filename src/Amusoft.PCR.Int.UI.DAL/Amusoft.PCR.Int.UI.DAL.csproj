@@ -13,6 +13,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(XNetPackageVersion)"/>
+		<PackageReference Include="NLog.Database" Version="5.2.5"/>
 	</ItemGroup>
 
 	<ItemGroup>

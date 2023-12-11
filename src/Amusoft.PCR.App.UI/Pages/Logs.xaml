@@ -8,7 +8,6 @@
              Title="{x:Binding Path=Title}">
     <RefreshView IsRefreshing="{x:Binding IsReloading}"
                  Command="{x:Binding ReloadCommand}">
-       
         <ScrollView>
             <Label Text="{x:Binding Path=Text}"
                    VerticalOptions="Start"
