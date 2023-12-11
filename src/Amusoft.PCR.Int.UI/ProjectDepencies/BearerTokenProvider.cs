@@ -20,7 +20,7 @@ internal class BearerTokenProvider : IBearerTokenProvider
 		_userAccountManagerFactory = userAccountManagerFactory;
 	}
 
-	public async Task<string?> GetAccessTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
+	public async Task<string?> GetAccessTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken, string protocol)
 	{
 		var token = await _storage.GetLatestTokenAsync(endPoint, cancellationToken);
 		if (token is null)
@@ -33,7 +33,7 @@ internal class BearerTokenProvider : IBearerTokenProvider
 			}
 			else
 			{
-				var userManager = _userAccountManagerFactory.Create(endPoint);
+				var userManager = _userAccountManagerFactory.Create(endPoint, protocol);
 				if (await userManager.LoginAsync(credentials.Value.email, credentials.Value.password, cancellationToken) is { } newToken)
 				{
 					if (await AddTokenToStorage(endPoint, cancellationToken, newToken))
@@ -54,7 +54,7 @@ internal class BearerTokenProvider : IBearerTokenProvider
 			if (token.Expires.AddSeconds(-5) <= DateTimeOffset.Now)
 			{
 				// token expires soon. time to refresh it
-				var userManager = _userAccountManagerFactory.Create(endPoint);
+				var userManager = _userAccountManagerFactory.Create(endPoint, protocol);
 				if (await userManager.RefreshAsync(token.RefreshToken, cancellationToken) is { } newToken)
 				{
 					if (await AddTokenToStorage(endPoint, cancellationToken, newToken))

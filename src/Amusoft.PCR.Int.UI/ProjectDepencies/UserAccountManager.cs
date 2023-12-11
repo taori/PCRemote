@@ -11,10 +11,10 @@ internal class UserAccountManager : IUserAccountManager
 	private readonly ILogger<UserAccountManager> _logger;
 	private readonly IdentityClient _client;
 
-	public UserAccountManager(ILogger<UserAccountManager> logger, HttpClient httpClient, IPEndPoint endPoint)
+	public UserAccountManager(ILogger<UserAccountManager> logger, HttpClient httpClient, IPEndPoint endPoint, string protocol)
 	{
 		_logger = logger;
-		_client = new IdentityClient(httpClient, $"http://{endPoint}/identity");
+		_client = new IdentityClient(httpClient, $"{protocol}://{endPoint}/identity/");
 	}
 
 	public async Task<bool> IsAuthenticatedAsync(CancellationToken cancellationToken)
@@ -36,6 +36,7 @@ internal class UserAccountManager : IUserAccountManager
 		try
 		{
 			var requestTime = DateTimeOffset.Now;
+			_logger.LogDebug("User {Email} is signing in", email);
 			var result = await _client.PostLoginAsync(false, false, new LoginRequest()
 			{
 				Email = email,
@@ -58,6 +59,7 @@ internal class UserAccountManager : IUserAccountManager
 		try
 		{
 			var requestTime = DateTimeOffset.Now;
+			_logger.LogDebug("Requesting refresh for refreshToken {Token}...", refreshToken[..10]);
 			var result = await _client.PostRefreshAsync(new RefreshRequest()
 			{
 				RefreshToken = refreshToken
@@ -80,8 +82,8 @@ internal class UserAccountManager : IUserAccountManager
 	/// <param name="cancellationToken"></param>
 	/// <exception cref="ApiException"></exception>
 	/// <returns></returns>
-	public async Task RegisterAsync(string email, string password, CancellationToken cancellationToken)
+	public Task RegisterAsync(string email, string password, CancellationToken cancellationToken)
 	{
-		await _client.PostRegisterAsync(new RegisterRequest() { Email = email, Password = password }, cancellationToken);
+		return _client.PostRegisterAsync(new RegisterRequest() { Email = email, Password = password }, cancellationToken);
 	}
 }

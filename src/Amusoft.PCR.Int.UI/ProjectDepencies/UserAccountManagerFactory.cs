@@ -15,8 +15,8 @@ internal class UserAccountManagerFactory : IUserAccountManagerFactory
 		_logger = logger;
 	}
 
-	public IUserAccountManager Create(IPEndPoint endPoint)
+	public IUserAccountManager Create(IPEndPoint endPoint, string protocol)
 	{
-		return new UserAccountManager(_logger, _httpClientFactory.CreateClient(endPoint.ToString().ToLowerInvariant()), endPoint);
+		return new UserAccountManager(_logger, _httpClientFactory.CreateClient(endPoint.ToString().ToLowerInvariant()), endPoint, protocol);
 	}
 }

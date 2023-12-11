@@ -1,4 +1,5 @@
-﻿using Amusoft.PCR.Domain.Shared.Entities;
+﻿using System.Runtime.CompilerServices;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.PCR.Domain.Shared.ValueTypes;
 using Amusoft.PCR.Int.IPC.Extensions;
@@ -6,12 +7,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Int.IPC.Integration;
 
-public class DesktopServiceClientWrapper : IDesktopClientMethods
+public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 {
 	private readonly ILogger<DesktopServiceClientWrapper> _logger;
-	private readonly Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient _service;
+	private readonly DesktopIntegrationService.DesktopIntegrationServiceClient _service;
 
-	public DesktopServiceClientWrapper(Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient service, ILogger<DesktopServiceClientWrapper> logger)
+	public DesktopServiceClientWrapper(DesktopIntegrationService.DesktopIntegrationServiceClient service, ILogger<DesktopServiceClientWrapper> logger)
 	{
 		_logger = logger;
 		_service = service;
@@ -27,7 +28,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SuicideOnProcessExit));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -42,7 +43,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SetMonitorBrightness));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -57,7 +58,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetMonitorBrightness));
+			LogGenericMethodCallError(_logger, e);
 			return Result.Error<List<MonitorData>>();
 		}
 	}
@@ -72,7 +73,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(MonitorOn));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -87,7 +88,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(MonitorOff));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -102,7 +103,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(LockWorkStation));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -147,7 +148,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(AbortShutdown));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -162,7 +163,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(Hibernate));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -274,7 +275,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetClipboardAsync));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -289,7 +290,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SetClipboardAsync));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -304,7 +305,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SendMouseMoveAsync));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -319,7 +320,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SendLeftMouseClickAsync));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -334,7 +335,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SendRightMouseClickAsync));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -351,7 +352,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetAudioFeeds));
+			LogGenericMethodCallError(_logger, e);
 			return Result.Error<List<AudioFeedData>>();
 		}
 	}
@@ -366,7 +367,7 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(UpdateAudioFeed));
+			LogGenericMethodCallError(_logger, e);
 			return default;
 		}
 	}
@@ -381,8 +382,11 @@ public class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(SetUserPassword));
+			LogGenericMethodCallError(_logger, e);
 			return Result.Error<string>();
 		}
 	}
+
+	[LoggerMessage(Level = LogLevel.Error, Message = "Exception occured while calling {Name}")]
+	private static partial void LogGenericMethodCallError(ILogger logger, Exception exception, [CallerMemberName] string? name = default);
 }

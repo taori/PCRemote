@@ -12,7 +12,6 @@ using Amusoft.PCR.Int.Service.Authorization;
 using Amusoft.PCR.Int.Service.Interfaces;
 using Amusoft.PCR.Int.Service.Services;
 using Microsoft.AspNetCore.Authentication.BearerToken;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -145,17 +144,17 @@ public class Program
 		// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
 		builder.Services.Configure<ApplicationSettings>(builder.Configuration.GetSection("ApplicationSettings"));
-		builder.Services.Configure<BearerTokenOptions>("Identity.Bearer", d =>
+		builder.Services.Configure<BearerTokenOptions>(IdentityConstants.BearerScheme, options =>
 		{
-			d.BearerTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:AccessTokenValidDuration"], out var accessParsed)
+			options.BearerTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:AccessTokenValidDuration"], out var accessParsed)
 				? accessParsed
 				: throw new Exception("ApplicationSettings:Jwt:AccessTokenValidDuration failed to parse");
 
-			d.RefreshTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:RefreshTokenValidDuration"], out var refreshParsed)
+			options.RefreshTokenExpiration = TimeSpan.TryParse(builder.Configuration["ApplicationSettings:Jwt:RefreshTokenValidDuration"], out var refreshParsed)
 				? refreshParsed
 				: throw new Exception("ApplicationSettings:Jwt:RefreshTokenValidDuration failed to parse");
 
-			d.ClaimsIssuer = builder.Configuration["ApplicationSettings:Jwt:Key"] ?? throw new Exception("ApplicationSettings:Jwt:Key failed to parse");
+			options.ClaimsIssuer = builder.Configuration["ApplicationSettings:Jwt:Key"] ?? throw new Exception("ApplicationSettings:Jwt:Key failed to parse");
 		});
 
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -206,35 +205,7 @@ public class Program
 		builder.Services.AddGrpc();
 		builder.Services.AddGrpcReflection();
 		builder.Services.AddRazorPages();
-
-		builder.Services.AddAuthorization(options =>
-		{
-			options.AddPolicy(PolicyNames.ApiPolicy, policy =>
-			{
-				policy
-					.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-					.RequireAuthenticatedUser();
-			});
-			options.AddPolicy(PolicyNames.ApiPolicy, policy =>
-			{
-				policy
-					.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-					.RequireAuthenticatedUser();
-			});
-		});
-		builder.Services.AddWindowsService();
-
-		builder.Services.AddHostedService<DesktopIntegrationLauncherServiceDelegate>();
-		builder.Services.AddHostedService<ClientDiscoveryDelegate>();
 		
-		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
-		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
-
-		builder.Services
-			.AddAuthentication(BearerTokenDefaults.AuthenticationScheme)
-			.AddBearerToken()
-			;
-
 		builder.Services
 			.AddIdentityApiEndpoints<ApplicationUser>(options =>
 			{
@@ -249,6 +220,34 @@ public class Program
 			.AddUserManager<UserManager<ApplicationUser>>()
 			.AddRoles<IdentityRole>()
 			.AddEntityFrameworkStores<ApplicationDbContext>();
+
+		builder.Services
+			.AddAuthentication()
+			.AddBearerToken(BearerTokenDefaults.AuthenticationScheme)
+			;
+		builder.Services.AddAuthorization(options =>
+		{
+			options.AddPolicy(PolicyNames.FunctionPermissionPolicy, policy =>
+			{
+				policy
+					.AddAuthenticationSchemes(IdentityConstants.BearerScheme, BearerTokenDefaults.AuthenticationScheme)
+					.AddRequirements(new HostCommandPermissionRequirement())
+					.RequireAuthenticatedUser();
+			});
+			options.AddPolicy(PolicyNames.ApiPolicy, policy =>
+			{
+				policy
+					.AddAuthenticationSchemes(IdentityConstants.BearerScheme, BearerTokenDefaults.AuthenticationScheme)
+					.RequireAuthenticatedUser();
+			});
+		});
+		builder.Services.AddWindowsService();
+
+		builder.Services.AddHostedService<DesktopIntegrationLauncherServiceDelegate>();
+		builder.Services.AddHostedService<ClientDiscoveryDelegate>();
+
+		builder.Services.AddSingleton<IWwwFileLoader, WwwFileLoader>();
+		builder.Services.AddSingleton<IConnectedServerPorts, ConnectedServerPorts>();
 
 		builder.Services.AddServiceApplicationModel();
 		builder.Services.AddServiceIntegration();

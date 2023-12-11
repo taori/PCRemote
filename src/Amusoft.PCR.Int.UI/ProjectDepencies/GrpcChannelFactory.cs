@@ -26,7 +26,7 @@ public class GrpcChannelFactory : IGrpcChannelFactory
 		var client = ClientByEndpoint.GetOrAdd(endPoint, ClientFactory);
 		var credentials = CallCredentials.FromInterceptor(async (context, metadata) =>
 		{
-			var token = await _tokenProvider.GetAccessTokenAsync(endPoint, context.CancellationToken).ConfigureAwait(false);
+			var token = await _tokenProvider.GetAccessTokenAsync(endPoint, context.CancellationToken, protocol).ConfigureAwait(false);
 			if (!string.IsNullOrEmpty(token))
 				metadata.Add("Authorization", $"Bearer {token}");
 		});

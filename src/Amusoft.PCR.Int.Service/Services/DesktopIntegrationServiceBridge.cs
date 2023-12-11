@@ -5,7 +5,6 @@ using Amusoft.PCR.Domain.Service.Entities;
 using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.IPC.Extensions;
-using Amusoft.PCR.Int.Service.Authorization;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
@@ -17,9 +16,8 @@ public class DesktopIntegrationServiceBridge(
 	IHostCommandService hostCommandService,
 	ILogger<DesktopIntegrationServiceBridge> logger,
 	IAuthorizationService authorizationService,
-	IJwtTokenService jwtTokenService,
 	IDesktopClientMethods impersonatedChannel) 
-	: Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceBase, IMethodBasedRoleProvider
+	: DesktopIntegrationService.DesktopIntegrationServiceBase, IMethodBasedRoleProvider
 {
 	[Authorize(Roles = RoleNames.FunctionMonitorControl)]
 	public override async Task<DefaultResponse> SetMonitorBrightness(SetMonitorBrightnessRequest request, ServerCallContext context)
@@ -79,18 +77,6 @@ public class DesktopIntegrationServiceBridge(
 		return new SetClipboardResponse()
 		{
 			Success = result == true
-		};
-	}
-
-	[AllowAnonymous]
-	public override async Task<LoginResponse> Login(LoginRequest request, ServerCallContext context)
-	{
-		var tokenData = await jwtTokenService.CreateAuthenticationAsync(request.User, request.Password);
-		return new LoginResponse()
-		{
-			AccessToken = tokenData.AccessToken,
-			RefreshToken = tokenData.RefreshToken,
-			InvalidCredentials = tokenData.InvalidCredentials
 		};
 	}
 
@@ -320,7 +306,7 @@ public class DesktopIntegrationServiceBridge(
 	[AllowAnonymous]
 	public override Task<GetHostNameResponse> GetHostName(GetHostNameRequest request, ServerCallContext context)
 	{
-		return Task.FromResult(new GetHostNameResponse() { Content = System.Environment.MachineName });
+		return Task.FromResult(new GetHostNameResponse() { Content = Environment.MachineName });
 	}
 	
 	[Authorize]
