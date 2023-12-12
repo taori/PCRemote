@@ -5,11 +5,16 @@
              xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
              xmlns:entities="clr-namespace:Amusoft.PCR.Domain.UI.Entities;assembly=Amusoft.PCR.Domain.UI"
              xmlns:ui="using:Amusoft.PCR.App.UI"
+             xmlns:converters="clr-namespace:Amusoft.PCR.App.UI.Converters"
              x:DataType="vm:LogsViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.Logs"
+             x:Name="Self"
              Title="{x:Binding Path=Title}">
+    <ContentPage.Resources>
+        <converters:ColumnDefinitionFromStringConverter x:Key="StringToColumnDefinition" />
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem>
+        <ToolbarItem Command="{x:Binding Path=OpenLogSettingsCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
                     Color="{AppThemeBinding Dark={StaticResource Primary}, Light={StaticResource Yellow100Accent}}"
@@ -26,7 +31,9 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="entities:LogEntry">
-                    <Grid ColumnDefinitions="140,80,Auto">
+                    <!-- <Grid ColumnDefinitions="140,80,Auto"> -->
+                    <Grid
+                        ColumnDefinitions="{Binding Source={x:Reference Self}, Converter={StaticResource StringToColumnDefinition}, Path=BindingContext.Settings.GridColumnDefinitions}">
                         <Label Grid.Column="0" Text="{x:Binding Path=Time}" />
                         <Label Grid.Column="1" Text="{x:Binding Path=Logger}" />
                         <Label Grid.Column="2" Text="{x:Binding Path=Message}" />

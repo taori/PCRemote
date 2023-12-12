@@ -14,8 +14,9 @@ internal class LogEntryRepository : ILogEntryRepository
 		_dbContext = dbContext;
 	}
 
-	public Task<List<LogEntry>> GetLogsSinceAsync(DateTime since, CancellationToken cancellationToken)
+	public Task<List<LogEntry>> GetLogsAsync(LogSettings settings, CancellationToken cancellationToken)
 	{
+		var since = DateTime.Now.Add(settings.ShowRecent * -1);
 		return _dbContext.LogEntries
 			.Where(d => d.Time > since)
 			.OrderByDescending(d => d.Time)

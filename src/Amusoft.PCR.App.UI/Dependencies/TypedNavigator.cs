@@ -79,6 +79,11 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushAsync<Logs, LogsViewModel>(_serviceProvider);
 	}
 
+	public Task OpenLogSettings()
+	{
+		return SpawnPushAsync<LogsSettings, LogSettingsViewModel>(_serviceProvider);
+	}
+
 	public Task OpenDebug()
 	{
 		return SpawnPushAsync<Debug, DebugViewModel>(_serviceProvider);

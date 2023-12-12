@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
 		);
 
 		services.AddScoped<IHostRepository, HostRepository>();
-		services.AddScoped<IClientSettingsRepository, ClientSettingsRepository>();
+		services.TryAddSingleton<IClientSettingsRepository, ClientSettingsRepository>();
 		services.AddScoped<ILogEntryRepository, LogEntryRepository>();
 
 		services.TryAddTransient<IBearerTokenStorage, BearerTokenRepository>();
