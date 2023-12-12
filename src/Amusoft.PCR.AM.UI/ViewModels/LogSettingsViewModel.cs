@@ -51,6 +51,11 @@ public partial class LogSettingsViewModel : PageViewModel, INavigationCallbacks
 
 	void CompareSettingsWithUnchanged(object? sender, PropertyChangedEventArgs e)
 	{
+		UpdateModelHasChanges();
+	}
+
+	private void UpdateModelHasChanges()
+	{
 		if (_baseLine is not null && Settings is not null)
 		{
 			ModelHasChanges = !_baseLine.Equals(Settings);
@@ -59,12 +64,14 @@ public partial class LogSettingsViewModel : PageViewModel, INavigationCallbacks
 
 	public async Task OnNavigatedToAsync()
 	{
-		if (_baseLine is not null)
+		if (Settings is not null)
 			Settings.PropertyChanged -= CompareSettingsWithUnchanged;
 
 		var settings = await _clientSettingsRepository.GetAsync(CancellationToken.None);
 		_baseLine = new LogDisplaySettingsViewModel(settings.LogSettings);
 		Settings = new LogDisplaySettingsViewModel(settings.LogSettings);
+
+		UpdateModelHasChanges();
 
 		Settings.PropertyChanged += CompareSettingsWithUnchanged;
 	}

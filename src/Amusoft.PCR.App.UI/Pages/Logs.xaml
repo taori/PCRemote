@@ -28,27 +28,15 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="entities:LogEntry">
-                    <SwipeView>
-                        <SwipeView.LeftItems>
-                            <SwipeItem BackgroundColor="{StaticResource Yellow200Accent}">
-                                <SwipeItem.IconImageSource>
-                                    <FontImageSource
-                                        Color="{AppThemeBinding Dark={StaticResource Primary}, Light={StaticResource Yellow100Accent}}"
-                                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
-                                        Glyph="&#xeb32;" />
-                                </SwipeItem.IconImageSource>
-                            </SwipeItem>
-                        </SwipeView.LeftItems>
-                        <HorizontalStackLayout>
-                            <Label Text="{x:Binding Path=Time}"
-                                   WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthDate}"
-                                   IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayDate}" />
-                            <Label Text="{x:Binding Path=Logger}"
-                                   WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthLogger}"
-                                   IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayLogger}" />
-                            <Label Text="{x:Binding Path=Message}" />
-                        </HorizontalStackLayout>
-                    </SwipeView>
+                    <HorizontalStackLayout>
+                        <Label Text="{x:Binding Path=Time}"
+                               WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthDate}"
+                               IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayDate}" />
+                        <Label Text="{x:Binding Path=Logger}"
+                               WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthLogger}"
+                               IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayLogger}" />
+                        <Label Text="{x:Binding Path=Message}" />
+                    </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
