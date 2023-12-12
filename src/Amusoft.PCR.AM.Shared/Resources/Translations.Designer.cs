@@ -168,6 +168,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string Generic_Question {
+            get {
+                return ResourceManager.GetString("Generic.Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string Generic_Remove {
@@ -182,6 +191,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string Generic_Restart_0 {
             get {
                 return ResourceManager.GetString("Generic.Restart_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes?.
+        /// </summary>
+        public static string Generic_SaveChangesRequest {
+            get {
+                return ResourceManager.GetString("Generic.SaveChangesRequest", resourceCulture);
             }
         }
         

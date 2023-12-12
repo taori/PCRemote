@@ -6,6 +6,7 @@
              Title="{x:Binding Path=Title}"
              x:Class="Amusoft.PCR.App.UI.Pages.LogsSettings">
     <VerticalStackLayout Spacing="30" Padding="{StaticResource PaddingButtonPanel}">
+        
         <VerticalStackLayout>
             <Label Text="Display time" FontSize="20" />
             <Switch HorizontalOptions="Start" IsToggled="{x:Binding Path=Settings.DisplayDate}" />

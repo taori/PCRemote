@@ -218,4 +218,10 @@
 	<data name="Generic.Loading" xml:space="preserve">
     <value>Lade</value>
   </data>
+	<data name="Generic.SaveChangesRequest" xml:space="preserve">
+    <value>Änderungen speichern?</value>
+  </data>
+	<data name="Generic.Question" xml:space="preserve">
+    <value>Frage</value>
+  </data>
 </root>

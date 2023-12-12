@@ -32,8 +32,8 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="entities:LogEntry">
                     <!-- <Grid ColumnDefinitions="140,80,Auto"> -->
-                    <Grid
-                        ColumnDefinitions="{Binding Source={x:Reference Self}, Converter={StaticResource StringToColumnDefinition}, Path=BindingContext.Settings.GridColumnDefinitions}">
+                    <Grid VerticalOptions="Start"
+                          ColumnDefinitions="{Binding Source={x:Reference Self}, Converter={StaticResource StringToColumnDefinition}, Path=BindingContext.Settings.GridColumnDefinitions}">
                         <Label Grid.Column="0" Text="{x:Binding Path=Time}" />
                         <Label Grid.Column="1" Text="{x:Binding Path=Logger}" />
                         <Label Grid.Column="2" Text="{x:Binding Path=Message}" />

@@ -21,7 +21,7 @@ public partial class CommandButtonListViewModel : ReloadablePageViewModel, INavi
 
 	public Func<Task<ObservableCollection<NavigationItem>>>? ReloadableItemsProvider { get; set; }
 
-	public Task OnNavigatedAwayAsync()
+	public Task OnNavigatingAsync()
 	{
 		ReloadableItemsProvider = null;
 		return Task.CompletedTask;

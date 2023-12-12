@@ -3,5 +3,5 @@
 public interface INavigationCallbacks
 {
 	public Task OnNavigatedToAsync() => Task.CompletedTask;
-	public Task OnNavigatedAwayAsync() => Task.CompletedTask;
+	public Task OnNavigatingAsync(INavigatingContext context) => Task.CompletedTask;
 }

@@ -1,4 +1,5 @@
 ﻿using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.App.UI.Dependencies;
 using NLog;
 
 namespace Amusoft.PCR.App.UI;
@@ -23,6 +24,6 @@ public partial class AppShell
 	{
 		Log.Trace("AppShell.OnNavigating");
 		if (Current is {CurrentPage.BindingContext: INavigationCallbacks nav })
-			await nav.OnNavigatedAwayAsync();
+			await nav.OnNavigatingAsync(new NavigatingScope(args));
 	}
 }
