@@ -18,7 +18,7 @@ internal class LogEntryRepository : ILogEntryRepository
 	{
 		var since = DateTime.Now.Add(settings.ShowRecent * -1);
 		return _dbContext.LogEntries
-			.Where(d => d.Time > since)
+			.Where(d => d.Time > since && d.LogLevel >= settings.LogLevel)
 			.OrderByDescending(d => d.Time)
 			.ToListAsync(cancellationToken);
 	}

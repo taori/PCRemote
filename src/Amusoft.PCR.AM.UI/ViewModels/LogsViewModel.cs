@@ -45,13 +45,16 @@ public partial class LogsViewModel : ReloadablePageViewModel, INavigationCallbac
 	{
 		var settings = await _clientSettingsRepository.GetAsync(cancellationToken);
 		Settings = new LogDisplaySettingsViewModel(settings.LogSettings);
-		Items = new ObservableCollection<LogEntryViewModel>(await Task.Run(async () =>
+
+		var vmItems = await Task.Run(async () =>
 		{
-			var entries = await _logEntryRepository.GetLogsAsync(settings.LogSettings, cancellationToken);
+			var entries = await _logEntryRepository.GetLogsAsync(settings.LogSettings, cancellationToken).ConfigureAwait(false);
 			return entries
 				.Select(d => new LogEntryViewModel(d, settings.LogSettings))
 				.ToList();
-		}, cancellationToken));
+		}, cancellationToken);
+
+		Items = new ObservableCollection<LogEntryViewModel>(vmItems);
 	}
 }
 

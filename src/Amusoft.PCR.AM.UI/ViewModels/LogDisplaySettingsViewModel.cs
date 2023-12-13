@@ -1,4 +1,5 @@
 ﻿using Amusoft.PCR.Domain.UI.Entities;
+using Amusoft.PCR.Domain.UI.ValueTypes;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
@@ -20,6 +21,9 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 	private bool _displayLogger;
 
 	[ObservableProperty]
+	private LogEntryType _logLevel;
+
+	[ObservableProperty]
 	private int _widthDate;
 
 	[ObservableProperty]
@@ -33,6 +37,7 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 		_dateFormat = settings.DateFormat;
 		_widthDate = settings.WidthDate;
 		_widthLogger = settings.WidthLogger;
+		_logLevel = settings.LogLevel;
 	}
 
 	public string GridColumnDefinitions => (_displayDate, _displayLogger) switch
@@ -47,7 +52,7 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 		if (ReferenceEquals(this, other))
 			return true;
 		return _dateFormat == other._dateFormat && _displayDate == other._displayDate && _displayFullLoggerName == other._displayFullLoggerName && _displayLogger == other._displayLogger &&
-		       _widthDate == other._widthDate && _widthLogger == other._widthLogger;
+		       _widthDate == other._widthDate && _widthLogger == other._widthLogger && _logLevel == other._logLevel;
 	}
 
 	public override bool Equals(object? obj)
@@ -63,14 +68,20 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 
 	public override int GetHashCode()
 	{
-		return HashCode.Combine(_dateFormat, _displayDate, _displayFullLoggerName, _displayLogger, _widthDate, _widthLogger);
+		return HashCode.Combine(_dateFormat, _displayDate, _displayFullLoggerName, _displayLogger, _widthDate, _widthLogger, _logLevel);
 	}
 
 	public LogSettings ToModel()
 	{
 		return new LogSettings()
 		{
-			DisplayLogger = _displayLogger, DisplayDate = _displayDate, DisplayFullLoggerName = _displayFullLoggerName, DateFormat = _dateFormat, WidthDate = _widthDate, WidthLogger = _widthLogger,
+			DisplayLogger = _displayLogger
+			, DisplayDate = _displayDate
+			, DisplayFullLoggerName = _displayFullLoggerName
+			, DateFormat = _dateFormat
+			, WidthDate = _widthDate
+			, WidthLogger = _widthLogger
+			, LogLevel = _logLevel
 		};
 	}
 }

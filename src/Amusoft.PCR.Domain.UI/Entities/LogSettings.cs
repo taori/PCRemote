@@ -1,9 +1,13 @@
-﻿namespace Amusoft.PCR.Domain.UI.Entities;
+﻿using Amusoft.PCR.Domain.UI.ValueTypes;
+
+namespace Amusoft.PCR.Domain.UI.Entities;
 
 public class LogSettings
 {
 	public TimeSpan ShowRecent { get; set; } = TimeSpan.FromDays(1);
 
+	public LogEntryType LogLevel { get; set; } = LogEntryType.Trace;
+	
 	public bool DisplayFullLoggerName { get; set; } = true;
 
 	public string DateFormat { get; set; } = "G";
