@@ -237,4 +237,7 @@
   <data name="Generic.DeleteAllEntriesRequest_0" xml:space="preserve">
     <value>Delete {0} entries?</value>
   </data>
+  <data name="Generic.Pagination_0_1" xml:space="preserve">
+    <value>Page {0}/{1}</value>
+  </data>
 </root>

@@ -78,6 +78,22 @@
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
 
+        <VerticalStackLayout Spacing="10">
+            <Label FontSize="20">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Page size (" />
+                        <Span Text="{x:Binding Settings.PageSize}" />
+                        <Span Text=")" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Stepper
+                Minimum="10" Maximum="200" Increment="10"
+                Value="{x:Binding Path=Settings.PageSize}"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+
 
     </VerticalStackLayout>
 </ContentPage>

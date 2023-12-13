@@ -32,31 +32,41 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-    <RefreshView IsRefreshing="{x:Binding IsReloading}"
-                 Command="{x:Binding ReloadCommand}">
-        <CollectionView ItemsSource="{x:Binding Path=Items}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout VerticalItemSpacing="5" Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="vm:LogEntryViewModel">
-                    <HorizontalStackLayout>
-                        <Label WidthRequest="20"
-                               HorizontalTextAlignment="Center"
-                               TextColor="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelForegroundConverter}}"
-                               Text="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelSingleCharConverter}}" />
-                        <Label
-                            WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthDate}"
-                            IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayDate}"
-                            Text="{Binding Path=Time}" />
-                        <Label Text="{x:Binding Path=Logger}"
-                               WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthLogger}"
-                               IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayLogger}" />
-                        <Label Text="{x:Binding Path=Message}"
-                               TextColor="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelForegroundConverter}}" />
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </RefreshView>
+    <Grid RowDefinitions="*,Auto">
+        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+                     Command="{x:Binding ReloadCommand}">
+            <CollectionView ItemsSource="{x:Binding Path=Items}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout VerticalItemSpacing="5" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:LogEntryViewModel">
+                        <HorizontalStackLayout>
+                            <Label WidthRequest="20"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelForegroundConverter}}"
+                                   Text="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelSingleCharConverter}}" />
+                            <Label
+                                WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthDate}"
+                                IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayDate}"
+                                Text="{Binding Path=Time}" />
+                            <Label Text="{x:Binding Path=Logger}"
+                                   WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthLogger}"
+                                   IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayLogger}" />
+                            <Label Text="{x:Binding Path=Message}"
+                                   TextColor="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelForegroundConverter}}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
+            <Label Text="{x:Binding Path=PaginationText}"
+                   Margin="0,0,10,0"
+                   VerticalOptions="Center" />
+            <Stepper Maximum="{x:Binding Path=MaxPage}"
+                     Minimum="0"
+                     Value="{x:Binding CurrentPage}" />
+        </HorizontalStackLayout>
+    </Grid>
 </ContentPage>

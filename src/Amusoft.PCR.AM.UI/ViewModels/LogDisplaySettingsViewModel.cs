@@ -29,6 +29,9 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 	[ObservableProperty]
 	private int _widthLogger;
 
+	[ObservableProperty]
+	private int _pageSize;
+
 	public LogDisplaySettingsViewModel(LogSettings settings)
 	{
 		_displayLogger = settings.DisplayLogger;
@@ -38,6 +41,7 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 		_widthDate = settings.WidthDate;
 		_widthLogger = settings.WidthLogger;
 		_logLevel = settings.LogLevel;
+		_pageSize = settings.EntriesPerPage;
 	}
 
 	public string GridColumnDefinitions => (_displayDate, _displayLogger) switch
@@ -52,7 +56,7 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 		if (ReferenceEquals(this, other))
 			return true;
 		return _dateFormat == other._dateFormat && _displayDate == other._displayDate && _displayFullLoggerName == other._displayFullLoggerName && _displayLogger == other._displayLogger &&
-		       _widthDate == other._widthDate && _widthLogger == other._widthLogger && _logLevel == other._logLevel;
+		       _widthDate == other._widthDate && _widthLogger == other._widthLogger && _logLevel == other._logLevel && _pageSize == other._pageSize;
 	}
 
 	public override bool Equals(object? obj)
@@ -68,7 +72,7 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 
 	public override int GetHashCode()
 	{
-		return HashCode.Combine(_dateFormat, _displayDate, _displayFullLoggerName, _displayLogger, _widthDate, _widthLogger, _logLevel);
+		return HashCode.Combine(_dateFormat, _displayDate, _displayFullLoggerName, _displayLogger, _widthDate, _widthLogger, _logLevel, _pageSize);
 	}
 
 	public LogSettings ToModel()
@@ -82,6 +86,7 @@ public partial class LogDisplaySettingsViewModel : ObservableObject, IEquatable<
 			, WidthDate = _widthDate
 			, WidthLogger = _widthLogger
 			, LogLevel = _logLevel
+			, EntriesPerPage = _pageSize
 		};
 	}
 }

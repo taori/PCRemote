@@ -7,6 +7,8 @@ public class LogSettings
 	public TimeSpan ShowRecent { get; set; } = TimeSpan.FromDays(1);
 
 	public LogEntryType LogLevel { get; set; } = LogEntryType.Trace;
+
+	public int EntriesPerPage { get; set; } = 100;
 	
 	public bool DisplayFullLoggerName { get; set; } = true;
 

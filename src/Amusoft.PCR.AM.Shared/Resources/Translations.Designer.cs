@@ -186,6 +186,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page {0}/{1}.
+        /// </summary>
+        public static string Generic_Pagination_0_1 {
+            get {
+                return ResourceManager.GetString("Generic.Pagination_0_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
         public static string Generic_Question {
