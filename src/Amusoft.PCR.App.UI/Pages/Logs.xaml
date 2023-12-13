@@ -15,6 +15,14 @@
         <converters:LogLevelForegroundConverter x:Key="LogLevelForegroundConverter" />
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{x:Binding Path=RemoveAllCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    Color="Red"
+                    FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                    Glyph="&#xe92b;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
         <ToolbarItem Command="{x:Binding Path=OpenLogSettingsCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource

@@ -123,6 +123,24 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete {0} entries?.
+        /// </summary>
+        public static string Generic_DeleteAllEntriesRequest_0 {
+            get {
+                return ResourceManager.GetString("Generic.DeleteAllEntriesRequest_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete everything?.
+        /// </summary>
+        public static string Generic_DeleteEverythingRequest {
+            get {
+                return ResourceManager.GetString("Generic.DeleteEverythingRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Generic_Error {

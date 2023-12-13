@@ -224,4 +224,10 @@
 	<data name="Generic.Question" xml:space="preserve">
     <value>Frage</value>
   </data>
+	<data name="Generic.DeleteEverythingRequest" xml:space="preserve">
+    <value>Alles löschen?</value>
+  </data>
+	<data name="Generic.DeleteAllEntriesRequest_0" xml:space="preserve">
+    <value>{0} Einträge löschen?</value>
+  </data>
 </root>

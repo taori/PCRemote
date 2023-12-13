@@ -22,4 +22,15 @@ internal class LogEntryRepository : ILogEntryRepository
 			.OrderByDescending(d => d.Time)
 			.ToListAsync(cancellationToken);
 	}
+
+	public async Task<bool> DeleteAllAsync(CancellationToken cancellationToken)
+	{
+		_dbContext.LogEntries.RemoveRange(_dbContext.LogEntries);
+		return await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false) > 0;
+	}
+
+	public Task<int> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return _dbContext.LogEntries.CountAsync(cancellationToken);
+	}
 }
