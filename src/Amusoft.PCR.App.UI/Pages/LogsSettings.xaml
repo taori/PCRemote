@@ -8,6 +8,12 @@
     <VerticalStackLayout Spacing="30" Padding="{StaticResource PaddingButtonPanel}">
         
         <VerticalStackLayout>
+            <Label Text="Time format" FontSize="20" />
+            <Picker ItemsSource="{x:Binding Path=FormatDisplayOptions}"
+                    SelectedIndex="{x:Binding SelectedFormatIndex}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
             <Label Text="Display time" FontSize="20" />
             <Switch HorizontalOptions="Start" IsToggled="{x:Binding Path=Settings.DisplayDate}" />
         </VerticalStackLayout>

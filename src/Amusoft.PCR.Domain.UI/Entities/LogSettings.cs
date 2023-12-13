@@ -6,7 +6,7 @@ public class LogSettings
 
 	public bool DisplayFullLoggerName { get; set; } = true;
 
-	public string DateFormat { get; set; } = "hh:MM:ss";
+	public string DateFormat { get; set; } = "G";
 
 	public int WidthDate { get; set; } = 140;
 

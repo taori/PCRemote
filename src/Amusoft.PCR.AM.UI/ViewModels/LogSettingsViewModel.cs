@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Amusoft.PCR.AM.Shared.Resources;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
@@ -10,11 +11,21 @@ public partial class LogSettingsViewModel : PageViewModel, INavigationCallbacks
 {
 	private readonly IClientSettingsRepository _clientSettingsRepository;
 	private readonly IUserInterfaceService _userInterfaceService;
+	private static readonly Dictionary<string, string> FormatByDisplayFormat;
+
+	static LogSettingsViewModel()
+	{
+		var refDate = new DateTime(2000, 1, 1, 12, 0, 0);
+		FormatByDisplayFormat = new[] { "G", "T", "f", "g", "t", "s" }
+			.Select(format => (format, display: refDate.ToString(format)))
+			.ToDictionary(d => d.display, d => d.format);
+	}
 
 	public LogSettingsViewModel(ITypedNavigator navigator, IClientSettingsRepository clientSettingsRepository, IUserInterfaceService userInterfaceService) : base(navigator)
 	{
 		_clientSettingsRepository = clientSettingsRepository;
 		_userInterfaceService = userInterfaceService;
+		FormatDisplayOptions = new ObservableCollection<string>(FormatByDisplayFormat.Select(d => d.Key));
 	}
 
 	public async Task OnNavigatingAsync(INavigatingContext context)
@@ -42,6 +53,12 @@ public partial class LogSettingsViewModel : PageViewModel, INavigationCallbacks
 	}
 
 	[ObservableProperty]
+	private ObservableCollection<string> _formatDisplayOptions;
+
+	[ObservableProperty]
+	private int _selectedFormatIndex;
+
+	[ObservableProperty]
 	private LogDisplaySettingsViewModel? _settings;
 
 	private LogDisplaySettingsViewModel? _baseLine;
@@ -62,6 +79,16 @@ public partial class LogSettingsViewModel : PageViewModel, INavigationCallbacks
 		}
 	}
 
+	protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+	{
+		if (nameof(SelectedFormatIndex) == e.PropertyName && Settings is not null)
+		{
+			Settings.DateFormat = FormatByDisplayFormat[FormatDisplayOptions[SelectedFormatIndex]];
+		}
+
+		base.OnPropertyChanged(e);
+	}
+
 	public async Task OnNavigatedToAsync()
 	{
 		if (Settings is not null)
@@ -70,6 +97,11 @@ public partial class LogSettingsViewModel : PageViewModel, INavigationCallbacks
 		var settings = await _clientSettingsRepository.GetAsync(CancellationToken.None);
 		_baseLine = new LogDisplaySettingsViewModel(settings.LogSettings);
 		Settings = new LogDisplaySettingsViewModel(settings.LogSettings);
+
+		if (FormatByDisplayFormat.FirstOrDefault(d => d.Value.Equals(Settings.DateFormat)) is { } tuple)
+		{
+			SelectedFormatIndex = FormatDisplayOptions.IndexOf(tuple.Key) is var formatIndex && formatIndex >= 0 ? formatIndex : 0;
+		}
 
 		UpdateModelHasChanges();
 

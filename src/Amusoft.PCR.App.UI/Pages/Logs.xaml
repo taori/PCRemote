@@ -10,6 +10,10 @@
              x:Class="Amusoft.PCR.App.UI.Pages.Logs"
              x:Name="Self"
              Title="{x:Binding Path=Title}">
+    <ContentPage.Resources>
+        <converters:LogLevelSingleCharConverter x:Key="LogLevelSingleCharConverter" />
+        <converters:LogLevelForegroundConverter x:Key="LogLevelForegroundConverter" />
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{x:Binding Path=OpenLogSettingsCommand}">
             <ToolbarItem.IconImageSource>
@@ -27,15 +31,21 @@
                 <GridItemsLayout VerticalItemSpacing="5" Orientation="Vertical" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="entities:LogEntry">
+                <DataTemplate x:DataType="vm:LogEntryViewModel">
                     <HorizontalStackLayout>
-                        <Label Text="{x:Binding Path=Time}"
-                               WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthDate}"
-                               IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayDate}" />
+                        <Label WidthRequest="20"
+                               HorizontalTextAlignment="Center"
+                               TextColor="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelForegroundConverter}}"
+                               Text="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelSingleCharConverter}}" />
+                        <Label
+                            WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthDate}"
+                            IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayDate}"
+                            Text="{Binding Path=Time}" />
                         <Label Text="{x:Binding Path=Logger}"
                                WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthLogger}"
                                IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayLogger}" />
-                        <Label Text="{x:Binding Path=Message}" />
+                        <Label Text="{x:Binding Path=Message}"
+                               TextColor="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelForegroundConverter}}" />
                     </HorizontalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

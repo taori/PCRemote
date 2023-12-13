@@ -2,6 +2,7 @@
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using Amusoft.PCR.Domain.UI.Entities;
+using Amusoft.PCR.Domain.UI.ValueTypes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -18,9 +19,11 @@ public partial class LogsViewModel : ReloadablePageViewModel, INavigationCallbac
 		_clientSettingsRepository = clientSettingsRepository;
 	}
 
-	[ObservableProperty] private ObservableCollection<LogEntry> _items = new();
+	[ObservableProperty]
+	private ObservableCollection<LogEntryViewModel> _items = new();
 
-	[ObservableProperty] private LogDisplaySettingsViewModel _settings;
+	[ObservableProperty]
+	private LogDisplaySettingsViewModel _settings;
 
 	public Task OnNavigatedToAsync()
 	{
@@ -42,6 +45,29 @@ public partial class LogsViewModel : ReloadablePageViewModel, INavigationCallbac
 	{
 		var settings = await _clientSettingsRepository.GetAsync(cancellationToken);
 		Settings = new LogDisplaySettingsViewModel(settings.LogSettings);
-		Items = new ObservableCollection<LogEntry>(await Task.Run(() => _logEntryRepository.GetLogsAsync(settings.LogSettings, cancellationToken), cancellationToken));
+		Items = new ObservableCollection<LogEntryViewModel>(await Task.Run(async () =>
+		{
+			var entries = await _logEntryRepository.GetLogsAsync(settings.LogSettings, cancellationToken);
+			return entries
+				.Select(d => new LogEntryViewModel(d, settings.LogSettings))
+				.ToList();
+		}, cancellationToken));
 	}
+}
+
+public class LogEntryViewModel
+{
+	private readonly LogEntry _item;
+	private readonly LogSettings _settings;
+
+	public LogEntryViewModel(LogEntry item, LogSettings settings)
+	{
+		_item = item;
+		_settings = settings;
+	}
+
+	public string Time => _item.Time.ToString(_settings.DateFormat);
+	public string Logger => _item.Logger;
+	public string Message => _item.Message;
+	public LogEntryType LogLevel => _item.LogLevel;
 }
