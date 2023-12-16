@@ -21,7 +21,20 @@ public class DesktopIpcAgentLayer : DesktopIntegrationService.DesktopIntegration
 		_logger = logger;
 		_agentUserInterface = agentUserInterface;
 	}
-	
+
+	public override async Task<DefaultResponse> Confirm(ConfirmRequest request, ServerCallContext context)
+	{
+		try
+		{
+			return new DefaultResponse() { Success = await _agentUserInterface.ConfirmAsync(request.Title, request.Description) };
+		}
+		catch (Exception e)
+		{
+			_logger.LogError(e, nameof(SetMonitorBrightness));
+			return new DefaultResponse() { Success = false };
+		}
+	}
+
 	public override Task<DefaultResponse> Ping(DefaultRequest request, ServerCallContext context)
 	{
 		return Task.FromResult(new DefaultResponse() { Success = true });

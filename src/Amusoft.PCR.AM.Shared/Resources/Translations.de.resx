@@ -233,4 +233,7 @@
 	<data name="Generic.Pagination_0_1" xml:space="preserve">
     <value>Seite {0}/{1}</value>
   </data>
+  <data name="Server.RequestOfAdministratorPermissions_0" xml:space="preserve">
+    <value>{0} erfragt Administatorberechtigungen - Bestätigen?</value>
+  </data>
 </root>

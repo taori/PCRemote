@@ -240,4 +240,7 @@
   <data name="Generic.Pagination_0_1" xml:space="preserve">
     <value>Page {0}/{1}</value>
   </data>
+  <data name="Server.RequestOfAdministratorPermissions_0" xml:space="preserve">
+    <value>{0} is requesting administrator privileges - Grant?</value>
+  </data>
 </root>

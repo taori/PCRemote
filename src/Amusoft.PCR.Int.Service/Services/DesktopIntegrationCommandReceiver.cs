@@ -12,9 +12,10 @@ using Microsoft.Extensions.Logging;
 namespace Amusoft.PCR.Int.Service.Services;
 
 [Authorize(Policy = PolicyNames.ApiPolicy)]
-public class DesktopIntegrationServiceBridge(
-	IHostCommandService hostCommandService,
-	ILogger<DesktopIntegrationServiceBridge> logger,
+public class DesktopIntegrationCommandReceiver(
+	IHostCommandService hostCommandService
+	, ILogger<DesktopIntegrationCommandReceiver> logger
+	,
 	IAuthorizationService authorizationService,
 	IDesktopClientMethods impersonatedChannel) 
 	: DesktopIntegrationService.DesktopIntegrationServiceBase, IMethodBasedRoleProvider
@@ -333,6 +334,6 @@ public class DesktopIntegrationServiceBridge(
 
 	MethodInfo[] IMethodBasedRoleProvider.GetMethods()
 	{
-		return typeof(DesktopIntegrationServiceBridge).GetMethods();
+		return typeof(DesktopIntegrationCommandReceiver).GetMethods();
 	}
 }

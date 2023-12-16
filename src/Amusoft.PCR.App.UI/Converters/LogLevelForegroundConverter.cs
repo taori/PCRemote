@@ -26,7 +26,6 @@ public class LogLevelForegroundConverter : IValueConverter
 						, LogEntryType.Fatal => Colors.DarkRed
 						, _ => throw new ArgumentOutOfRangeException()
 					};
-					break;
 				case AppTheme.Dark:
 					return enumType switch
 					{

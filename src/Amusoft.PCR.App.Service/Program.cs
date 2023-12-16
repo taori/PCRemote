@@ -108,8 +108,9 @@ public class Program
 		host.MapHealthChecks("/health");
 
 		host.MapGrpcService<PingService>();
-		host.MapGrpcService<VoiceRecognitionService>();
-		host.MapGrpcService<DesktopIntegrationServiceBridge>();
+		host.MapGrpcService<VoiceRecognitionCommandReceiver>();
+		host.MapGrpcService<DesktopIntegrationCommandReceiver>();
+		host.MapGrpcService<UserManagementCommandReceiver>();
 		
 #if DEBUG
 		host.MapGet("/download/test", (context) => context.RequestServices.GetRequiredService<IWwwFileLoader>().GetTestFile().ExecuteAsync(context));
@@ -123,7 +124,7 @@ public class Program
 
 		host.MapGet("/hello", (ClaimsPrincipal principal) =>
 		{
-			return TypedResults.Ok(principal.Identity.Name);
+			return TypedResults.Ok(principal.Identity!.Name);
 		}).RequireAuthorization();
 		
 		host.MapGet("/env", (IHostEnvironment env) => env.EnvironmentName);

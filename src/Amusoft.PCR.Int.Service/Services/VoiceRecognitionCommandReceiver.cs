@@ -4,11 +4,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Int.Service.Services;
 
-public class VoiceRecognitionService : VoiceCommandService.VoiceCommandServiceBase
+public class VoiceRecognitionCommandReceiver : VoiceCommandService.VoiceCommandServiceBase
 {
-	private readonly ILogger<VoiceRecognitionService> _logger;
+	private readonly ILogger<VoiceRecognitionCommandReceiver> _logger;
 
-	public VoiceRecognitionService(ILogger<VoiceRecognitionService> logger)
+	public VoiceRecognitionCommandReceiver(ILogger<VoiceRecognitionCommandReceiver> logger)
 	{
 		_logger = logger;
 	}

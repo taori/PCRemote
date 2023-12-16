@@ -1,4 +1,5 @@
 ﻿using Amusoft.PCR.Domain.Service.Entities;
+using Amusoft.PCR.Domain.Service.ValueTypes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 

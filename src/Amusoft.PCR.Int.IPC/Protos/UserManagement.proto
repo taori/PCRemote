@@ -1,0 +1,31 @@
+syntax = "proto3";
+import "Protos/Messages.proto";
+
+option csharp_namespace = "Amusoft.PCR.Int.IPC";
+
+package Amusoft.PCR.Int.IPC;
+
+service UserManagement {
+  rpc RequestAdministrator (DefaultRequest) returns (DefaultResponse);
+  rpc GetPermissions (GetPermissionsRequest) returns (GetPermissionsReply);
+  rpc UpdatePermissions (UpdatePermissionsRequest) returns (DefaultResponse);
+}
+
+
+message GetPermissionsRequest {
+  string email = 1;
+}
+
+message GetPermissionsReply {
+  bool success = 1;
+  repeated GetPermissionsItem items = 2;
+}
+
+message UpdatePermissionsRequest {
+  repeated GetPermissionsItem items = 1;
+}
+
+message GetPermissionsItem {
+  string userId = 1;
+  string subjectId = 2;
+}

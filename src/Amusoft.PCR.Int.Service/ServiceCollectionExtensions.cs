@@ -1,12 +1,11 @@
 ﻿using Amusoft.PCR.AM.Service.Features.GettingStarted;
 using Amusoft.PCR.AM.Service.Interfaces;
-using Amusoft.PCR.AM.Shared;
-using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.IPC.Integration;
 using Amusoft.PCR.Int.Service.Authorization;
 using Amusoft.PCR.Int.Service.Interfaces;
+using Amusoft.PCR.Int.Service.Repositories;
 using Amusoft.PCR.Int.Service.Services;
 using GrpcDotNetNamedPipes;
 using Microsoft.AspNetCore.Authorization;
@@ -33,13 +32,14 @@ public static class ServiceCollectionExtensions
 		services.AddScoped<IRoleNameProvider, DefaultRoleNameProvider>();
 		services.AddScoped<IRoleNameProvider, BackendAuthorizeRoleProvider>();
 		services.AddScoped<IHostCommandService, HostCommandService>();
+		services.AddScoped<IUserManagementRepository, UserManagementRepository>();
 
 		services.AddTransient<IStartupTask, ApplicationSeedTask>();
 		services.AddTransient<IStartupTask, MigrationTask>();
-		
-		services.AddSingleton<Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
+
+		services.AddSingleton<DesktopIntegrationService.DesktopIntegrationServiceClient>(provider =>
 		{
-			return new Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient(provider.GetRequiredService<NamedPipeChannel>());
+			return new DesktopIntegrationService.DesktopIntegrationServiceClient(provider.GetRequiredService<NamedPipeChannel>());
 		});
 		services.AddSingleton<NamedPipeChannel>(d => new NamedPipeChannel(".", Globals.NamedPipeChannel));
 	}

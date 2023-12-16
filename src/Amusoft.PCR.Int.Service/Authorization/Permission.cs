@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Amusoft.PCR.Domain.Service.ValueTypes;
 
 namespace Amusoft.PCR.Int.Service.Authorization;
 

@@ -38,7 +38,7 @@ internal class DesignDbContextFactory : IDesignTimeDbContextFactory<ApplicationD
 			return match;
 
 		if (maxParentJumps > 0)
-			return FindSolutionInParent(--maxParentJumps, Path.GetDirectoryName(directoryName));
+			return FindSolutionInParent(--maxParentJumps, Path.GetDirectoryName(directoryName)!);
 
 		return null;
 	}

@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Domain.Service.Entities;
+﻿using Amusoft.PCR.Domain.Service.ValueTypes;
 using Microsoft.AspNetCore.Identity;
 
 namespace Amusoft.PCR.Int.Service.Authorization;

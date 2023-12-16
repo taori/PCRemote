@@ -627,6 +627,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is requesting administrator privileges - Grant?.
+        /// </summary>
+        public static string Server_RequestOfAdministratorPermissions_0 {
+            get {
+                return ResourceManager.GetString("Server.RequestOfAdministratorPermissions_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a number.
         /// </summary>
         public static string Settings_AddNumber {

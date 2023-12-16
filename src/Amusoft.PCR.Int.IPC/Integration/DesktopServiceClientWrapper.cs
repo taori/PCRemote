@@ -33,6 +33,21 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 		}
 	}
 
+	public async Task<bool?> GetConfirmResult(string title, string description)
+	{
+		try
+		{
+			_logger.LogDebug("{Method}({Title}, {Description})", nameof(GetConfirmResult), title, description);
+			var r = await _service.ConfirmAsync(new ConfirmRequest() { Title = title, Description = description });
+			return r is { Success: true };
+		}
+		catch (Exception e)
+		{
+			LogGenericMethodCallError(_logger, e);
+			return default;
+		}
+	}
+
 	public async Task<bool?> SetMonitorBrightness(string id, int value)
 	{
 		try
