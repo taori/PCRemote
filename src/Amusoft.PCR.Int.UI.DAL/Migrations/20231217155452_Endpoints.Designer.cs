@@ -3,6 +3,7 @@ using System;
 using Amusoft.PCR.Int.UI.DAL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Amusoft.PCR.Int.UI.DAL.Migrations
 {
     [DbContext(typeof(UiDbContext))]
-    partial class UiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231217155452_Endpoints")]
+    partial class Endpoints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
