@@ -105,6 +105,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action required.
+        /// </summary>
+        public static string Generic_ActionRequired {
+            get {
+                return ResourceManager.GetString("Generic.ActionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Generic_Cancel {
@@ -254,6 +263,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string Generic_Yes {
             get {
                 return ResourceManager.GetString("Generic_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An account is required to interact with the host.
+        /// </summary>
+        public static string Host_AccountRequiredToInteractWithHost {
+            get {
+                return ResourceManager.GetString("Host.AccountRequiredToInteractWithHost", resourceCulture);
             }
         }
         

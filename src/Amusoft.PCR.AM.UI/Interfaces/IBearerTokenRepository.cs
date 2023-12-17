@@ -3,7 +3,7 @@ using Amusoft.PCR.Domain.UI.Entities;
 
 namespace Amusoft.PCR.AM.UI.Interfaces;
 
-public interface IBearerTokenStorage
+public interface IBearerTokenRepository
 {
 	Task<BearerToken?> GetLatestTokenAsync(Guid endpointAccountId, CancellationToken cancellationToken);
 	Task<bool> AddTokenAsync(BearerToken token, CancellationToken cancellationToken);

@@ -31,7 +31,7 @@ public static class ServiceCollectionExtensions
 		services.AddScoped<ILogEntryRepository, LogEntryRepository>();
 
 		services.TryAddTransient<IEndpointRepository, EndpointRepository>();
-		services.TryAddTransient<IBearerTokenStorage, BearerTokenRepository>();
+		services.TryAddTransient<IBearerTokenRepository, BearerTokenRepository>();
 		services.TryAddTransient<IMainInitializer, DbMigrator>();
 	}
 }

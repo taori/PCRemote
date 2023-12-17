@@ -2,19 +2,16 @@
 
 namespace Amusoft.PCR.AM.UI.Interfaces;
 
-public interface IUserAccountManager
+public interface IIdentityManager
 {
 	Task<bool> IsAuthenticatedAsync(CancellationToken cancellationToken);
 	Task<SignInResponse?> LoginAsync(string email, string password, CancellationToken cancellationToken, string? twoFactorCode = default, string? twoFactoryRecoveryCode = default);
 	Task<SignInResponse?> RefreshAsync(string refreshToken, CancellationToken cancellationToken);
 
-	/// <summary>
-	/// 
-	/// </summary>
 	/// <param name="email"></param>
 	/// <param name="password"></param>
 	/// <param name="cancellationToken"></param>
-	/// <exception cref="Amusoft.PCR.Int.Identity.ApiException"></exception>
+	/// <exception cref="ApiException"></exception>
 	/// <returns></returns>
 	Task RegisterAsync(string email, string password, CancellationToken cancellationToken);
 }

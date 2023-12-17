@@ -16,6 +16,20 @@ public class NavigatingScope : INavigatingContext
 		return new DeferalScope(_args);
 	}
 
+	public NavigationKind NavigationKind => _args.Source switch
+	{
+		ShellNavigationSource.Unknown => NavigationKind.Unknown
+		, ShellNavigationSource.Push => NavigationKind.Push
+		, ShellNavigationSource.Pop => NavigationKind.Pop
+		, ShellNavigationSource.PopToRoot => NavigationKind.PopToRoot
+		, ShellNavigationSource.Insert => NavigationKind.Insert
+		, ShellNavigationSource.Remove => NavigationKind.Remove
+		, ShellNavigationSource.ShellItemChanged => NavigationKind.ShellItemChanged
+		, ShellNavigationSource.ShellSectionChanged => NavigationKind.ShellSectionChanged
+		, ShellNavigationSource.ShellContentChanged => NavigationKind.ShellContentChanged
+		, _ => throw new ArgumentOutOfRangeException()
+	};
+
 	private class DeferalScope : IDeferalScope
 	{
 		private ShellNavigatingEventArgs? _args;

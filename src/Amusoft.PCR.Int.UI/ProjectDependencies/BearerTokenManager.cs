@@ -8,22 +8,22 @@ namespace Amusoft.PCR.Int.UI.ProjectDependencies;
 internal class BearerTokenManager : IBearerTokenManager
 {
 	private readonly ILogger<BearerTokenManager> _logger;
-	private readonly IBearerTokenStorage _storage;
+	private readonly IBearerTokenRepository _repository;
 	private readonly ICredentialUserPrompt _credentialUserPrompt;
-	private readonly IUserAccountManagerFactory _userAccountManagerFactory;
+	private readonly IIdentityManagerFactory _identityManagerFactory;
 	private readonly IEndpointAccountManager _endpointAccountManager;
 
 	public BearerTokenManager(
 		ILogger<BearerTokenManager> logger
-		, IBearerTokenStorage storage
+		, IBearerTokenRepository repository
 		, ICredentialUserPrompt credentialUserPrompt
-		, IUserAccountManagerFactory userAccountManagerFactory
+		, IIdentityManagerFactory identityManagerFactory
 		, IEndpointAccountManager endpointAccountManager)
 	{
 		_logger = logger;
-		_storage = storage;
+		_repository = repository;
 		_credentialUserPrompt = credentialUserPrompt;
-		_userAccountManagerFactory = userAccountManagerFactory;
+		_identityManagerFactory = identityManagerFactory;
 		_endpointAccountManager = endpointAccountManager;
 	}
 
@@ -35,7 +35,7 @@ internal class BearerTokenManager : IBearerTokenManager
 			return null;
 		}
 
-		var token = await _storage.GetLatestTokenAsync(endpointAccountId.Value, cancellationToken);
+		var token = await _repository.GetLatestTokenAsync(endpointAccountId.Value, cancellationToken);
 		if (token is null)
 		{
 			var credentials = await _credentialUserPrompt.SignInAsync();
@@ -46,8 +46,8 @@ internal class BearerTokenManager : IBearerTokenManager
 			}
 			else
 			{
-				var userManager = _userAccountManagerFactory.Create(endPoint, protocol);
-				if (await userManager.LoginAsync(credentials.Value.email, credentials.Value.password, cancellationToken) is { } newToken)
+				var identityManager = _identityManagerFactory.Create(endPoint, protocol);
+				if (await identityManager.LoginAsync(credentials.Value.email, credentials.Value.password, cancellationToken) is { } newToken)
 				{
 					if (await AddTokenToStorage(endpointAccountId.Value, cancellationToken, newToken))
 					{
@@ -67,7 +67,7 @@ internal class BearerTokenManager : IBearerTokenManager
 			if (token.Expires.AddSeconds(-5) <= DateTimeOffset.Now)
 			{
 				// token expires soon. time to refresh it
-				var userManager = _userAccountManagerFactory.Create(endPoint, protocol);
+				var userManager = _identityManagerFactory.Create(endPoint, protocol);
 				if (await userManager.RefreshAsync(token.RefreshToken, cancellationToken) is { } newToken)
 				{
 					if (await AddTokenToStorage(endpointAccountId.Value, cancellationToken, newToken))
@@ -93,7 +93,7 @@ internal class BearerTokenManager : IBearerTokenManager
 
 	private Task<bool> AddTokenToStorage(Guid endpointAccountId, CancellationToken cancellationToken, SignInResponse newToken)
 	{
-		return _storage.AddTokenAsync(SignInToToken(newToken, endpointAccountId), cancellationToken);
+		return _repository.AddTokenAsync(SignInToToken(newToken, endpointAccountId), cancellationToken);
 	}
 
 	private BearerToken SignInToToken(SignInResponse newToken, Guid endpointAccountId)

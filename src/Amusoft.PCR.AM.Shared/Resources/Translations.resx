@@ -249,4 +249,10 @@
 	<data name="AccountSelection.PickEmailForEndpoint_0" xml:space="preserve">
     <value>Pick an email for {0}</value>
   </data>
+  <data name="Host.AccountRequiredToInteractWithHost" xml:space="preserve">
+    <value>An account is required to interact with the host</value>
+  </data>
+  <data name="Generic.ActionRequired" xml:space="preserve">
+    <value>Action required</value>
+  </data>
 </root>

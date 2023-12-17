@@ -54,4 +54,11 @@ internal class EndpointRepository : IEndpointRepository
 
 		return item.Id;
 	}
+
+	public Task<EndpointAccount[]> GetEndpointAccountsAsync(IPEndPoint endPoint)
+	{
+		return _dbContext.EndpointAccounts
+			.Where(d => d.Endpoint.Address == endPoint.ToString())
+			.ToArrayAsync(CancellationToken.None);
+	}
 }

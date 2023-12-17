@@ -3,7 +3,44 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             xmlns:controls="clr-namespace:Amusoft.PCR.App.UI.Controls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:ui="clr-namespace:Amusoft.PCR.App.UI"
              x:Class="Amusoft.PCR.App.UI.Pages.HostAccounts"
              x:DataType="vm:HostAccountsViewModel"
              Title="{x:Binding Title}">
+    <ContentPage.Resources>
+        <toolkit:BoolToObjectConverter x:Key="ActiveToColorConverter" x:TypeArguments="Color" TrueObject="Yellow"
+                                       FalseObject="Transparent" />
+        <toolkit:BoolToObjectConverter x:Key="ActiveToSizeConverter" x:TypeArguments="x:Double" TrueObject="30"
+                                       FalseObject="1" />
+    </ContentPage.Resources>
+    <Grid Padding="{StaticResource PaddingButtonPanel}">
+        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+                     Command="{x:Binding ReloadCommand}">
+            <CollectionView ItemsSource="{x:Binding Path=Items}"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:HostAccountViewModel">
+
+                        <Button Text="{x:Binding Path=Text}"
+                                CommandParameter="{x:Binding Path=.}"
+                                Command="{x:Binding Path=Command}">
+                            <Button.ImageSource>
+                                <FontImageSource
+                                    Size="{x:Binding Path=Active, Converter={StaticResource ActiveToSizeConverter}}"
+                                    Color="{x:Binding Path=Active, Converter={StaticResource ActiveToColorConverter}}"
+                                    FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                                    Glyph="&#xe838;" />
+                            </Button.ImageSource>
+                        </Button>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+
 </ContentPage>

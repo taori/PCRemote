@@ -24,7 +24,7 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IAgentEnvironment, AgentEnvironment>();
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
 		services.AddSingleton<IFileStorage, FileStorage>();
-		services.AddSingleton<IUserAccountManagerFactory, UserAccountManagerFactory>();
+		services.AddSingleton<IIdentityManagerFactory, IdentityManagerFactory>();
 
 		services.AddTransient<IEndpointAccountSelection, EndpointAccountSelection>();
 		services.AddTransient<IGrpcChannelFactory, GrpcChannelFactory>();

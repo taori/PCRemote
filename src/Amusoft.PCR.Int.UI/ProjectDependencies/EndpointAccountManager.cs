@@ -33,7 +33,9 @@ internal class EndpointAccountManager : IEndpointAccountManager
 
 		if (await _endpointRepository.GetEndpointAccountIdAsync(endPointId.Value, mail) is var accountId && accountId is null)
 		{
-			return await _endpointRepository.CreateEndpointAccountAsync(endPointId.Value, mail);
+			var endpointAccountId = await _endpointRepository.CreateEndpointAccountAsync(endPointId.Value, mail);
+			await _endpointAccountSelection.SetEndpointAccountAsync(endPoint, endpointAccountId);
+			return endpointAccountId;
 		}
 
 		return null;

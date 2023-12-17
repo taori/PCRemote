@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Int.UI.ProjectDependencies;
 
-internal class UserAccountManager : IUserAccountManager
+internal class IdentityManager : IIdentityManager
 {
-	private readonly ILogger<UserAccountManager> _logger;
+	private readonly ILogger<IdentityManager> _logger;
 	private readonly IdentityClient _client;
 
-	public UserAccountManager(ILogger<UserAccountManager> logger, HttpClient httpClient, IPEndPoint endPoint, string protocol)
+	public IdentityManager(ILogger<IdentityManager> logger, HttpClient httpClient, IPEndPoint endPoint, string protocol)
 	{
 		_logger = logger;
 		_client = new IdentityClient(httpClient, $"{protocol}://{endPoint}/identity/");
@@ -74,14 +74,6 @@ internal class UserAccountManager : IUserAccountManager
 		}
 	}
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="email"></param>
-	/// <param name="password"></param>
-	/// <param name="cancellationToken"></param>
-	/// <exception cref="ApiException"></exception>
-	/// <returns></returns>
 	public Task RegisterAsync(string email, string password, CancellationToken cancellationToken)
 	{
 		return _client.PostRegisterAsync(new RegisterRequest() { Email = email, Password = password }, cancellationToken);

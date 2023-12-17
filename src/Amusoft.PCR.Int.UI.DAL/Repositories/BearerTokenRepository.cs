@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Amusoft.PCR.Int.UI.DAL.Repositories;
 
-internal class BearerTokenRepository : IBearerTokenStorage
+internal class BearerTokenRepository : IBearerTokenRepository
 {
 	private readonly UiDbContext _dbContext;
 
