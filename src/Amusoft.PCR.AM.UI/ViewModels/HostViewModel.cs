@@ -8,12 +8,12 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class HostViewModel : PageViewModel, INavigationCallbacks
 {
 	private readonly ITypedNavigator _navigator;
-	private readonly IDesktopIntegrationServiceFactory _integrationServiceFactory;
 
 	public Task OnNavigatedToAsync()
 	{
 		return Task.CompletedTask;
 	}
+	
 	public IIpcIntegrationService IpcClient { get; }
 
 	protected override string GetDefaultPageTitle()
@@ -22,31 +22,37 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	}
 
 	[RelayCommand]
-	public Task OpenAudio()
+	private Task OpenAccounts()
+	{
+		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenHostAccounts());
+	}
+
+	[RelayCommand]
+	private Task OpenAudio()
 	{
 		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenAudio());
 	}
 
 	[RelayCommand]
-	public Task OpenSystemState()
+	private Task OpenSystemState()
 	{
 		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenSystemState());
 	}
 
 	[RelayCommand]
-	public Task OpenMonitors()
+	private Task OpenMonitors()
 	{
 		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenMonitors());
 	}
 
 	[RelayCommand]
-	public Task OpenInputControl()
+	private Task OpenInputControl()
 	{
 		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenInputControl());
 	}
 
 	[RelayCommand]
-	public Task OpenPrograms()
+	private Task OpenPrograms()
 	{
 		return _navigator.ScopedNavigationAsync(d => d.AddSingleton(this), d => d.OpenPrograms());
 	}
@@ -54,8 +60,7 @@ public partial class HostViewModel : PageViewModel, INavigationCallbacks
 	public HostViewModel(ITypedNavigator navigator, IDesktopIntegrationServiceFactory integrationServiceFactory, IHostCredentialProvider credentialProvider) : base(navigator)
 	{
 		_navigator = navigator;
-		_integrationServiceFactory = integrationServiceFactory;
-		IpcClient = _integrationServiceFactory.Create(credentialProvider.Protocol, credentialProvider.Address);
+		IpcClient = integrationServiceFactory.Create(credentialProvider.Protocol, credentialProvider.Address);
 		Title = credentialProvider.Title;
 	}
 }

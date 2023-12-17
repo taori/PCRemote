@@ -3,26 +3,39 @@ using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Domain.UI.Entities;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.Int.UI.ProjectDepencies;
+namespace Amusoft.PCR.Int.UI.ProjectDependencies;
 
-internal class BearerTokenProvider : IBearerTokenProvider
+internal class BearerTokenManager : IBearerTokenManager
 {
-	private readonly ILogger<BearerTokenProvider> _logger;
+	private readonly ILogger<BearerTokenManager> _logger;
 	private readonly IBearerTokenStorage _storage;
 	private readonly ICredentialUserPrompt _credentialUserPrompt;
 	private readonly IUserAccountManagerFactory _userAccountManagerFactory;
+	private readonly IEndpointAccountManager _endpointAccountManager;
 
-	public BearerTokenProvider(ILogger<BearerTokenProvider> logger, IBearerTokenStorage storage, ICredentialUserPrompt credentialUserPrompt, IUserAccountManagerFactory userAccountManagerFactory)
+	public BearerTokenManager(
+		ILogger<BearerTokenManager> logger
+		, IBearerTokenStorage storage
+		, ICredentialUserPrompt credentialUserPrompt
+		, IUserAccountManagerFactory userAccountManagerFactory
+		, IEndpointAccountManager endpointAccountManager)
 	{
 		_logger = logger;
 		_storage = storage;
 		_credentialUserPrompt = credentialUserPrompt;
 		_userAccountManagerFactory = userAccountManagerFactory;
+		_endpointAccountManager = endpointAccountManager;
 	}
 
 	public async Task<string?> GetAccessTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken, string protocol)
 	{
-		var token = await _storage.GetLatestTokenAsync(endPoint, cancellationToken);
+		if (await _endpointAccountManager.GetEndpointAccountIdAsync(endPoint) is var endpointAccountId && endpointAccountId is null)
+		{
+			_logger.LogWarning("User declined account creation. Unable to continue.");
+			return null;
+		}
+
+		var token = await _storage.GetLatestTokenAsync(endpointAccountId.Value, cancellationToken);
 		if (token is null)
 		{
 			var credentials = await _credentialUserPrompt.SignInAsync();
@@ -36,7 +49,7 @@ internal class BearerTokenProvider : IBearerTokenProvider
 				var userManager = _userAccountManagerFactory.Create(endPoint, protocol);
 				if (await userManager.LoginAsync(credentials.Value.email, credentials.Value.password, cancellationToken) is { } newToken)
 				{
-					if (await AddTokenToStorage(endPoint, cancellationToken, newToken))
+					if (await AddTokenToStorage(endpointAccountId.Value, cancellationToken, newToken))
 					{
 						return newToken.AccessToken;
 					}
@@ -57,7 +70,7 @@ internal class BearerTokenProvider : IBearerTokenProvider
 				var userManager = _userAccountManagerFactory.Create(endPoint, protocol);
 				if (await userManager.RefreshAsync(token.RefreshToken, cancellationToken) is { } newToken)
 				{
-					if (await AddTokenToStorage(endPoint, cancellationToken, newToken))
+					if (await AddTokenToStorage(endpointAccountId.Value, cancellationToken, newToken))
 					{
 						return newToken.AccessToken;
 					}
@@ -78,19 +91,21 @@ internal class BearerTokenProvider : IBearerTokenProvider
 		return null;
 	}
 
-	private Task<bool> AddTokenToStorage(IPEndPoint endPoint, CancellationToken cancellationToken, SignInResponse newToken)
+	private Task<bool> AddTokenToStorage(Guid endpointAccountId, CancellationToken cancellationToken, SignInResponse newToken)
 	{
-		return _storage.AddTokenAsync(endPoint, SignInToToken(newToken, endPoint), cancellationToken);
+		return _storage.AddTokenAsync(SignInToToken(newToken, endpointAccountId), cancellationToken);
 	}
 
-	private BearerToken SignInToToken(SignInResponse newToken, IPEndPoint ipEndPoint)
+	private BearerToken SignInToToken(SignInResponse newToken, Guid endpointAccountId)
 	{
-		return new BearerToken()
+		return new BearerToken
 		{
-			Address = ipEndPoint.ToString(),
-			Expires = newToken.ValidUntil,
-			AccessToken = newToken.AccessToken,
-			RefreshToken = newToken.RefreshToken,
+			Expires = newToken.ValidUntil
+			, AccessToken = newToken.AccessToken
+			, RefreshToken = newToken.RefreshToken
+			, EndpointAccountId = endpointAccountId
+			, IssuedAt = DateTimeOffset.Now
+			,
 		};
 	}
 }

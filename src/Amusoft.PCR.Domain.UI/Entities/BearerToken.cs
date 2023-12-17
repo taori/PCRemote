@@ -10,18 +10,23 @@ public class BearerToken
 	}
 
 	[SetsRequiredMembers]
-	public BearerToken(string address, string accessToken, string refreshToken, DateTimeOffset expires)
+	public BearerToken(string accessToken, string refreshToken, DateTimeOffset expires, DateTimeOffset issuedAt, Guid endpointAccountId)
 	{
-		Address = address;
 		AccessToken = accessToken;
 		RefreshToken = refreshToken;
 		Expires = expires;
+		IssuedAt = issuedAt;
+		EndpointAccountId = endpointAccountId;
 	}
 
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public Guid Id { get; set; }
 
-	public required string Address { get; set; }
+	public required Guid EndpointAccountId { get; set; }
+
+	public EndpointAccount? EndpointAccount { get; set; }
+
+	public required DateTimeOffset IssuedAt { get; set; }
 
 	public required string AccessToken { get; set; }
 

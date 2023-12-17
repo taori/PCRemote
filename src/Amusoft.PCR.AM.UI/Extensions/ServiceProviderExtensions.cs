@@ -19,6 +19,7 @@ public static class ServiceProviderExtensions
 		services.AddSingleton<LogSettingsViewModel>();
 		services.AddSingleton<SettingsViewModel>();
 
+		services.TryAddTransient<HostAccountsViewModel>();
 		services.TryAddTransient<CommandButtonListViewModel>();
 		services.TryAddTransient<MouseControlViewModel>();
 		services.TryAddTransient<AudioViewModel>();

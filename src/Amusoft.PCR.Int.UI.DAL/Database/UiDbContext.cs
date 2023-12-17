@@ -17,6 +17,11 @@ internal class UiDbContext : DbContext
 
 		modelBuilder.Entity<LogEntry>().HasNoKey();
 		modelBuilder.Entity<LogEntry>().Property(d => d.Time).HasConversion<DateTimeToTicksConverter>();
+
+		modelBuilder.Entity<Endpoint>().HasIndex(d => d.Address).IsUnique();
+
+		modelBuilder.Entity<EndpointAccount>().HasIndex(d => d.Email);
+		modelBuilder.Entity<EndpointAccount>().HasIndex(nameof(EndpointAccount.EndpointId), nameof(EndpointAccount.Email)).IsUnique();
 		
 		if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
 		{
@@ -53,4 +58,8 @@ internal class UiDbContext : DbContext
 	public DbSet<BearerToken> BearerTokens { get; set; }
 
 	public DbSet<LogEntry> LogEntries { get; set; }
+
+	public DbSet<Endpoint> Endpoints { get; set; }
+
+	public DbSet<EndpointAccount> EndpointAccounts { get; set; }
 }

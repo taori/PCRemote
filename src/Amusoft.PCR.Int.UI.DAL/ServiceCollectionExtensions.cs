@@ -30,6 +30,7 @@ public static class ServiceCollectionExtensions
 		services.TryAddSingleton<IClientSettingsRepository, ClientSettingsRepository>();
 		services.AddScoped<ILogEntryRepository, LogEntryRepository>();
 
+		services.TryAddTransient<IEndpointRepository, EndpointRepository>();
 		services.TryAddTransient<IBearerTokenStorage, BearerTokenRepository>();
 		services.TryAddTransient<IMainInitializer, DbMigrator>();
 	}

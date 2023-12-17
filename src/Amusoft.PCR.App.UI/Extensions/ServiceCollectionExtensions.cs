@@ -9,6 +9,7 @@ public static class ServiceCollectionExtensions
 		services.AddTransient<CommandButtonList>();
 		services.AddTransient<MouseControl>();
 		services.AddTransient<LogsSettings>();
+		services.AddTransient<HostAccounts>();
 
 		services.AddTransient<Debug>();
 		services.AddTransient<MainPage>();

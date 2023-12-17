@@ -60,6 +60,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick an email for {0}.
+        /// </summary>
+        public static string AccountSelection_PickEmailForEndpoint_0 {
+            get {
+                return ResourceManager.GetString("AccountSelection.PickEmailForEndpoint_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load from host.
         /// </summary>
         public static string Clipboard_LoadFromHost {
@@ -245,6 +254,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string Generic_Yes {
             get {
                 return ResourceManager.GetString("Generic_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string HostAccounts_Title {
+            get {
+                return ResourceManager.GetString("HostAccounts.Title", resourceCulture);
             }
         }
         

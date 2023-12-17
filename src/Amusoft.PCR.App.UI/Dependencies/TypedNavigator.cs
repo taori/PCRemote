@@ -44,6 +44,11 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushAsync<Settings, SettingsViewModel>(_serviceProvider);
 	}
 
+	public Task OpenHostAccounts()
+	{
+		return SpawnPushAsync<HostAccounts, HostAccountsViewModel>(_serviceProvider);
+	}
+
 	public Task OpenAudio()
 	{
 		return SpawnPushAsync<Audio, AudioViewModel>(_serviceProvider);

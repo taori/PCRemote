@@ -5,7 +5,7 @@ namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IBearerTokenStorage
 {
-	Task<BearerToken?> GetLatestTokenAsync(IPEndPoint endPoint, CancellationToken cancellationToken);
-	Task<bool> AddTokenAsync(IPEndPoint endPoint, BearerToken token, CancellationToken cancellationToken);
-	Task<bool> PruneAsync(IPEndPoint ipEndPoint, CancellationToken none);
+	Task<BearerToken?> GetLatestTokenAsync(Guid endpointAccountId, CancellationToken cancellationToken);
+	Task<bool> AddTokenAsync(BearerToken token, CancellationToken cancellationToken);
+	Task<bool> DeleteAsync(IPEndPoint endPoint, CancellationToken none);
 }

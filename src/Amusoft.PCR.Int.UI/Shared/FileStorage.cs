@@ -1,10 +1,13 @@
 ﻿using System.Text.Json;
+using Amusoft.PCR.AM.UI.Converters;
 using Amusoft.PCR.AM.UI.Interfaces;
 
 namespace Amusoft.PCR.Int.UI.Shared;
 
 public class FileStorage : IFileStorage
 {
+	private static readonly JsonSerializerOptions SerializerOptions = new() { Converters = { new SettingsEndpointDictionaryConverter() } };
+	
 	public Task WriteAsync(string path, byte[] bytes, CancellationToken cancellationToken)
 	{
 		return File.WriteAllBytesAsync(GetAppRootedPath(path), bytes, cancellationToken);
@@ -22,7 +25,7 @@ public class FileStorage : IFileStorage
 			             ? File.Open(fullPath, FileMode.Truncate)
 			             : File.Create(fullPath))
 		{
-			await JsonSerializer.SerializeAsync(fileStream, value, cancellationToken: cancellationToken).ConfigureAwait(false);
+			await JsonSerializer.SerializeAsync(fileStream, value, SerializerOptions, cancellationToken: cancellationToken).ConfigureAwait(false);
 		}
 	}
 
@@ -41,7 +44,7 @@ public class FileStorage : IFileStorage
 
 		await using (var fileStream = File.OpenRead(fullPath))
 		{
-			return await JsonSerializer.DeserializeAsync<T>(fileStream, cancellationToken: cancellationToken).ConfigureAwait(false);
+			return await JsonSerializer.DeserializeAsync<T>(fileStream, SerializerOptions, cancellationToken: cancellationToken).ConfigureAwait(false);
 		}
 	}
 

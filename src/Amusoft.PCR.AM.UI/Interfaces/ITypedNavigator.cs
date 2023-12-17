@@ -10,6 +10,7 @@ public interface ITypedNavigator
 	Task OpenHost(IPEndPoint endPoint, string title, string protocol);
 	Task OpenHostOverview();
 	Task OpenSettings();
+	Task OpenHostAccounts();
 	Task OpenAudio();
 	Task OpenSystemState();
 	Task OpenMonitors();

@@ -5,7 +5,7 @@ using Amusoft.PCR.Int.IPC.Integration;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.Int.UI.ProjectDepencies;
+namespace Amusoft.PCR.Int.UI.ProjectDependencies;
 
 public class IpcIntegrationService : IIpcIntegrationService
 {
@@ -14,7 +14,7 @@ public class IpcIntegrationService : IIpcIntegrationService
 	public IpcIntegrationService(GrpcChannel channel, IServiceProvider serviceProvider)
 	{
 		_voiceCommandClient = new VoiceCommandService.VoiceCommandServiceClient(channel);
-		var desktopClient = new Int.IPC.DesktopIntegrationService.DesktopIntegrationServiceClient(channel);
+		var desktopClient = new DesktopIntegrationService.DesktopIntegrationServiceClient(channel);
 		DesktopClient = new DesktopServiceClientWrapper(desktopClient, serviceProvider.GetRequiredService<ILogger<DesktopServiceClientWrapper>>());
 	}
 

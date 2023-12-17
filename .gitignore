@@ -6,6 +6,8 @@
 
 # project specific
 /src/Amusoft.PCR.App.Service/wwwroot/*.apk
+*.received.*
+*.received/
 
 # User-specific files
 *.rsuser

@@ -236,4 +236,10 @@
   <data name="Server.RequestOfAdministratorPermissions_0" xml:space="preserve">
     <value>{0} erfragt Administatorberechtigungen - Bestätigen?</value>
   </data>
+	<data name="HostAccounts.Title" xml:space="preserve">
+    <value>Konten</value>
+  </data>
+	<data name="AccountSelection.PickEmailForEndpoint_0" xml:space="preserve">
+    <value>E-Mail auswählen für {0}</value>
+  </data>
 </root>

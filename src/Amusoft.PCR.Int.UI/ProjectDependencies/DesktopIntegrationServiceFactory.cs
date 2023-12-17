@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Amusoft.PCR.AM.UI.Interfaces;
 
-namespace Amusoft.PCR.Int.UI.ProjectDepencies;
+namespace Amusoft.PCR.Int.UI.ProjectDependencies;
 
 internal class DesktopIntegrationServiceFactory : IDesktopIntegrationServiceFactory
 {

@@ -4,7 +4,7 @@ using Amusoft.PCR.Domain.UI.Entities;
 using Amusoft.PCR.Int.Identity;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.Int.UI.ProjectDepencies;
+namespace Amusoft.PCR.Int.UI.ProjectDependencies;
 
 internal class UserAccountManager : IUserAccountManager
 {

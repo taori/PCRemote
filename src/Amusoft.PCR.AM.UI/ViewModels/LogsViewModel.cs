@@ -24,7 +24,7 @@ public partial class LogsViewModel(
 	private ObservableCollection<LogEntryViewModel> _items = new();
 
 	[ObservableProperty]
-	private LogDisplaySettingsViewModel _settings;
+	private LogDisplaySettingsViewModel? _settings;
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(PaginationText))]

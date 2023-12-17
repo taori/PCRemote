@@ -3,9 +3,8 @@ using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.UI.DAL;
 using Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
-using Amusoft.PCR.Int.UI.ProjectDepencies;
+using Amusoft.PCR.Int.UI.ProjectDependencies;
 using Amusoft.PCR.Int.UI.Shared;
-
 #if ANDROID
 using Android.Content;
 using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;
@@ -27,9 +26,11 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IFileStorage, FileStorage>();
 		services.AddSingleton<IUserAccountManagerFactory, UserAccountManagerFactory>();
 
+		services.AddTransient<IEndpointAccountSelection, EndpointAccountSelection>();
 		services.AddTransient<IGrpcChannelFactory, GrpcChannelFactory>();
 		services.AddTransient<IDelayedSystemStateWorker, DelayedSystemStateWorker>();
-		services.AddTransient<IBearerTokenProvider, BearerTokenProvider>();
+		services.AddTransient<IBearerTokenManager, BearerTokenManager>();
+		services.AddTransient<IEndpointAccountManager, EndpointAccountManager>();
 		services.AddTransient<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
 
 

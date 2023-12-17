@@ -35,6 +35,7 @@
         <PackageReference Include="Grpc.Net.ClientFactory" Version="2.58.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="$(XNetPackageVersion)" />
         <PackageReference Include="NLog.Extensions.Logging" Version="5.*" />
+			<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3"/>
     </ItemGroup>
 
     <ItemGroup>

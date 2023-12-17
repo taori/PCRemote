@@ -243,4 +243,10 @@
   <data name="Server.RequestOfAdministratorPermissions_0" xml:space="preserve">
     <value>{0} is requesting administrator privileges - Grant?</value>
   </data>
+	<data name="HostAccounts.Title" xml:space="preserve">
+    <value>Account</value>
+  </data>
+	<data name="AccountSelection.PickEmailForEndpoint_0" xml:space="preserve">
+    <value>Pick an email for {0}</value>
+  </data>
 </root>

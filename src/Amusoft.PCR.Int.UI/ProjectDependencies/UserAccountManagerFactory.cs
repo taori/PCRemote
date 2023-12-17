@@ -2,7 +2,7 @@
 using Amusoft.PCR.AM.UI.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace Amusoft.PCR.Int.UI.ProjectDepencies;
+namespace Amusoft.PCR.Int.UI.ProjectDependencies;
 
 internal class UserAccountManagerFactory : IUserAccountManagerFactory
 {

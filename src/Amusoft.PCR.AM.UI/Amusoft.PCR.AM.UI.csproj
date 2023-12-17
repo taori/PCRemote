@@ -4,6 +4,7 @@
     <TargetFramework>$(XDotnetVersion)</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <NoWarn>MVVMTK0034</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
