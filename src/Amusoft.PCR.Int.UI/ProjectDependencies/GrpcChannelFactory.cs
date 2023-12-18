@@ -21,12 +21,15 @@ public class GrpcChannelFactory : IGrpcChannelFactory
 		_tokenManager = tokenManager;
 	}
 
-	public GrpcChannel Create(string protocol, IPEndPoint endPoint)
+	public GrpcChannel Create(string protocol, IPEndPoint endPoint, Func<Task<string>>? accessTokenProvider = null)
 	{
 		var client = ClientByEndpoint.GetOrAdd(endPoint, ClientFactory);
 		var credentials = CallCredentials.FromInterceptor(async (context, metadata) =>
 		{
-			var token = await _tokenManager.GetAccessTokenAsync(endPoint, context.CancellationToken, protocol).ConfigureAwait(false);
+			var token = accessTokenProvider is null
+				? await _tokenManager.GetAccessTokenAsync(endPoint, context.CancellationToken, protocol).ConfigureAwait(false)
+				: await accessTokenProvider();
+			
 			if (!string.IsNullOrEmpty(token))
 				metadata.Add("Authorization", $"Bearer {token}");
 		});
