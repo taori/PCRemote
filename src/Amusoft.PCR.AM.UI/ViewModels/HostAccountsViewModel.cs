@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Amusoft.PCR.AM.Shared.Resources;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
@@ -11,6 +10,7 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 
 public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigationCallbacks
 {
+	private readonly IUserInterfaceService _userInterfaceService;
 	private readonly IEndpointRepository _endpointRepository;
 	private readonly IHostCredentials _hostCredentials;
 	private readonly IEndpointAccountSelection _endpointAccountSelection;
@@ -20,10 +20,12 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 
 	public HostAccountsViewModel(
 		ITypedNavigator navigator
+		, IUserInterfaceService userInterfaceService
 		, IEndpointRepository endpointRepository
 		, IHostCredentials hostCredentials
 		, IEndpointAccountSelection endpointAccountSelection) : base(navigator)
 	{
+		_userInterfaceService = userInterfaceService;
 		_endpointRepository = endpointRepository;
 		_hostCredentials = hostCredentials;
 		_endpointAccountSelection = endpointAccountSelection;
@@ -40,7 +42,41 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 	}
 
 	[RelayCommand]
-	private Task InteractWith(HostAccountViewModel item)
+	private Task AddAccount()
+	{
+		return Task.CompletedTask;
+	}
+
+	[RelayCommand]
+	private Task SelectAccount(HostAccountViewModel item)
+	{
+		if (item.Active)
+		{
+			return _userInterfaceService.DisplayAlertAsync(Translations.Generic_Warning, Translations.HostAccounts_AccountAlreadyActive);
+		}
+
+		return _endpointAccountSelection.SetEndpointAccountAsync(_hostCredentials.Address, item.Id, CancellationToken.None);
+	}
+
+	[RelayCommand]
+	private Task RemoveAccount(HostAccountViewModel item)
+	{
+		if (item.Active)
+		{
+			return _userInterfaceService.DisplayAlertAsync(Translations.Generic_Warning, Translations.HostAccounts_AccountCannotBeDeletedWhileActive);
+		}
+
+		return _endpointRepository.RemoveEndpointAccountAsync(item.Id);
+	}
+
+	[RelayCommand]
+	private Task ResetPassword(HostAccountViewModel item)
+	{
+		return Task.CompletedTask;
+	}
+
+	[RelayCommand]
+	private Task ChangePermissions(HostAccountViewModel item)
 	{
 		return Task.CompletedTask;
 	}
@@ -50,7 +86,7 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 		var selectedAccount = await _endpointAccountSelection.GetCurrentAccountAsync(_hostCredentials.Address, cancellationToken);
 		var endpoints = await _endpointRepository.GetEndpointAccountsAsync(_hostCredentials.Address, cancellationToken);
 		Items = new ObservableCollection<HostAccountViewModel>(
-			endpoints.Select(d => new HostAccountViewModel(d, InteractWithCommand) { Active = d.Id.Equals(selectedAccount) })
+			endpoints.Select(d => new HostAccountViewModel(d) { Active = d.Id.Equals(selectedAccount) })
 		);
 	}
 }
@@ -69,13 +105,13 @@ public partial class HostAccountViewModel : ObservableObject
 	private string _text;
 
 	[ObservableProperty]
-	private ICommand _command;
+	private DateTimeOffset? _lastUsed;
 
-	public HostAccountViewModel(EndpointAccount account, ICommand command)
+	public HostAccountViewModel(EndpointAccount account)
 	{
 		_account = account;
-		_command = command;
 		_id = account.Id;
 		_text = account.Email;
+		_lastUsed = account.BearerTokens.OrderByDescending(d => d.IssuedAt).Select(d => d.IssuedAt).FirstOrDefault();
 	}
 }

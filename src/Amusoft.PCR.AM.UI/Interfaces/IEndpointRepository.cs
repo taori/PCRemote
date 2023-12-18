@@ -11,4 +11,6 @@ public interface IEndpointRepository
 	Task<EndpointAccount> CreateEndpointAccountAsync(Guid endPointId, string email, CancellationToken cancellationToken);
 	Task<EndpointAccount[]> GetEndpointAccountsAsync(IPEndPoint endPoint, CancellationToken cancellationToken);
 	Task<EndpointAccount> GetEndpointAccountAsync(Guid endpointAccountId, CancellationToken cancellationToken);
+	Task<int> RemoveEndpointAccountAsync(Guid endpointAccountId);
+	Task<int> RemoveEndpointAsync(Guid endpointId);
 }

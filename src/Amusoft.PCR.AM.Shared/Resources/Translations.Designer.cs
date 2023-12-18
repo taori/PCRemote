@@ -267,6 +267,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Generic_Warning {
+            get {
+                return ResourceManager.GetString("Generic.Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Generic_Yes {
@@ -281,6 +290,69 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string Host_AccountRequiredToInteractWithHost {
             get {
                 return ResourceManager.GetString("Host.AccountRequiredToInteractWithHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This account is already active.
+        /// </summary>
+        public static string HostAccounts_AccountAlreadyActive {
+            get {
+                return ResourceManager.GetString("HostAccounts.AccountAlreadyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account cannot be deleted while active.
+        /// </summary>
+        public static string HostAccounts_AccountCannotBeDeletedWhileActive {
+            get {
+                return ResourceManager.GetString("HostAccounts.AccountCannotBeDeletedWhileActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string HostAccounts_DeleteAccount {
+            get {
+                return ResourceManager.GetString("HostAccounts.DeleteAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last used: .
+        /// </summary>
+        public static string HostAccounts_LastUsed {
+            get {
+                return ResourceManager.GetString("HostAccounts.LastUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permissions.
+        /// </summary>
+        public static string HostAccounts_Permissions {
+            get {
+                return ResourceManager.GetString("HostAccounts.Permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset password.
+        /// </summary>
+        public static string HostAccounts_ResetPassword {
+            get {
+                return ResourceManager.GetString("HostAccounts.ResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string HostAccounts_SelectAccount {
+            get {
+                return ResourceManager.GetString("HostAccounts.SelectAccount", resourceCulture);
             }
         }
         

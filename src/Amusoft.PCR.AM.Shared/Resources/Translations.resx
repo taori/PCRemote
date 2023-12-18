@@ -258,4 +258,28 @@
 	<data name="Generic.PleaseProvidePasswordFor_0" xml:space="preserve">
     <value>Please provide the password for {0}</value>
   </data>
+	<data name="Generic.Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+	<data name="HostAccounts.AccountCannotBeDeletedWhileActive" xml:space="preserve">
+    <value>Account cannot be deleted while active</value>
+  </data>
+	<data name="HostAccounts.SelectAccount" xml:space="preserve">
+    <value>Select</value>
+  </data>
+	<data name="HostAccounts.LastUsed" xml:space="preserve">
+    <value>Last used: </value>
+  </data>
+	<data name="HostAccounts.ResetPassword" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+	<data name="HostAccounts.Permissions" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+	<data name="HostAccounts.DeleteAccount" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+	<data name="HostAccounts.AccountAlreadyActive" xml:space="preserve">
+    <value>This account is already active</value>
+  </data>
 </root>

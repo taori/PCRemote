@@ -70,4 +70,18 @@ internal class EndpointRepository : IEndpointRepository
 			.Include(d => d.BearerTokens)
 			.FirstAsync(d => d.Id == endpointAccountId, cancellationToken);
 	}
+
+	public Task<int> RemoveEndpointAccountAsync(Guid endpointAccountId)
+	{
+		return _dbContext.EndpointAccounts
+			.Where(d => d.Id == endpointAccountId)
+			.ExecuteDeleteAsync();
+	}
+
+	public Task<int> RemoveEndpointAsync(Guid endpointId)
+	{
+		return _dbContext.Endpoints
+			.Where(d => d.Id == endpointId)
+			.ExecuteDeleteAsync();
+	}
 }
