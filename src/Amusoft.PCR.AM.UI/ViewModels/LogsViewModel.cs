@@ -49,6 +49,32 @@ public partial class LogsViewModel(
 	}
 
 	[RelayCommand]
+	private void Next()
+	{
+		if (CurrentPage < MaxPage)
+			CurrentPage++;
+	}
+
+	[RelayCommand]
+	private void Previous()
+	{
+		if (CurrentPage > 0)
+			CurrentPage--;
+	}
+
+	[RelayCommand]
+	private void First()
+	{
+		CurrentPage = 0;
+	}
+
+	[RelayCommand]
+	private void Last()
+	{
+		CurrentPage = _maxPage;
+	}
+
+	[RelayCommand]
 	private async Task RemoveAll()
 	{
 		var entryCount = await logEntryRepository.GetCountAsync(null, CancellationToken.None);

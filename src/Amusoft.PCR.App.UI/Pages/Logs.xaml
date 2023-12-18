@@ -64,9 +64,42 @@
             <Label Text="{x:Binding Path=PaginationText}"
                    Margin="0,0,10,0"
                    VerticalOptions="Center" />
-            <Stepper Maximum="{x:Binding Path=MaxPage}"
-                     Minimum="0"
-                     Value="{x:Binding CurrentPage}" />
+            <ImageButton Command="{x:Binding Path=FirstCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        Color="{AppThemeBinding Dark={StaticResource Yellow100Accent}, Light={StaticResource Primary}}"
+                        Size="60"
+                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                        Glyph="&#xe5dc;" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton Command="{x:Binding Path=PreviousCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        Color="{AppThemeBinding Dark={StaticResource Yellow100Accent}, Light={StaticResource Primary}}"
+                        Size="60"
+                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                        Glyph="&#xe5cb;" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton Command="{x:Binding Path=NextCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        Color="{AppThemeBinding Dark={StaticResource Yellow100Accent}, Light={StaticResource Primary}}"
+                        Size="60"
+                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                        Glyph="&#xe5cc;" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton Command="{x:Binding Path=LastCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        Color="{AppThemeBinding Dark={StaticResource Yellow100Accent}, Light={StaticResource Primary}}"
+                        Size="60"
+                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                        Glyph="&#xe5dd;" />
+                </ImageButton.Source>
+            </ImageButton>
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>
