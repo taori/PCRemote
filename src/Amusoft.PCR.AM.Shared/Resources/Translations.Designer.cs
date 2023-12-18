@@ -213,6 +213,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please provide the password for {0}.
+        /// </summary>
+        public static string Generic_PleaseProvidePasswordFor_0 {
+            get {
+                return ResourceManager.GetString("Generic.PleaseProvidePasswordFor_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
         public static string Generic_Question {

@@ -30,6 +30,8 @@ public class NavigatingScope : INavigatingContext
 		, _ => throw new ArgumentOutOfRangeException()
 	};
 
+	public Uri TargetLocation => _args.Target.Location;
+
 	private class DeferalScope : IDeferalScope
 	{
 		private ShellNavigatingEventArgs? _args;

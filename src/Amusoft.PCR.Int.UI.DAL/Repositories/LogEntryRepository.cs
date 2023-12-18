@@ -25,9 +25,9 @@ internal class LogEntryRepository : ILogEntryRepository
 		else
 		{
 			return GetSubsetWithSettings(settings)
+				.OrderByDescending(d => d.Time)
 				.Skip(page.Value * settings.EntriesPerPage)
 				.Take(settings.EntriesPerPage)
-				.OrderByDescending(d => d.Time)
 				.ToListAsync(cancellationToken);
 		}
 	}

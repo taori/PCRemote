@@ -8,10 +8,10 @@ namespace Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 
 public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 {
-	private readonly IHostCredentialProvider _hostCredential;
+	private readonly IHostCredentials _hostCredential;
 	private readonly IAndroidResourceBridge _androidResourceBridge;
 
-	public DelayedSystemStateWorker(IHostCredentialProvider hostCredential, IAndroidResourceBridge androidResourceBridge)
+	public DelayedSystemStateWorker(IHostCredentials hostCredential, IAndroidResourceBridge androidResourceBridge)
 	{
 		_hostCredential = hostCredential;
 		_androidResourceBridge = androidResourceBridge;

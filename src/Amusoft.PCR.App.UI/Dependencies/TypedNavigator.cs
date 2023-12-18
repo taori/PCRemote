@@ -6,7 +6,7 @@ using Amusoft.PCR.AM.UI.Models;
 using Amusoft.PCR.AM.UI.ViewModels;
 using Amusoft.PCR.App.UI.Pages;
 
-namespace Amusoft.PCR.App.UI.Implementations;
+namespace Amusoft.PCR.App.UI.Dependencies;
 
 public class TypedNavigator : ITypedNavigator
 {
@@ -28,7 +28,7 @@ public class TypedNavigator : ITypedNavigator
 	{
 		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection =>
 		{
-			collection.AddSingleton<IHostCredentialProvider>(new EndpointData(endPoint, title, protocol));
+			collection.AddSingleton<IHostCredentials>(new EndpointData(endPoint, title, protocol));
 			collection.AddSingleton<IIpcIntegrationService>(p => p.GetRequiredService<IDesktopIntegrationServiceFactory>().Create(protocol, endPoint));
 		});
 		return SpawnPushAsync<Host, HostViewModel>(provider);

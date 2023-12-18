@@ -177,7 +177,7 @@ internal class DelayedWorker : Worker
 		var serviceCollection = new ServiceCollection();
 		serviceCollection.AddUIApplicationModel();
 		serviceCollection.AddUIIntegration();
-		serviceCollection.AddSingleton<IHostCredentialProvider>(new EndpointData(addressParsed, hostName, protocol));
+		serviceCollection.AddSingleton<IHostCredentials>(new EndpointData(addressParsed, hostName, protocol));
 		serviceCollection.AddSingleton<IIpcIntegrationService>(p => p.GetRequiredService<IDesktopIntegrationServiceFactory>().Create(protocol, addressParsed));
 
 		await using var sp = serviceCollection.BuildServiceProvider();

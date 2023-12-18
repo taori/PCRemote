@@ -1,10 +1,8 @@
 ﻿using Amusoft.PCR.AM.UI.Interfaces;
-using Android.App;
 using Android.Content;
-using Google.Android.Material.DatePicker;
 using Google.Android.Material.TimePicker;
 using Microsoft.Maui.Platform;
-using FragmentManager = AndroidX.Fragment.App.FragmentManager;
+using Object = Java.Lang.Object;
 using View = Android.Views.View;
 
 namespace Amusoft.PCR.Int.UI.Shared;
@@ -53,7 +51,7 @@ internal partial class UserInterfaceService : IUserInterfaceService
 		return tcs.Task;
 	}
 
-	private class OnClickListener : Java.Lang.Object, View.IOnClickListener
+	private class OnClickListener : Object, View.IOnClickListener
 	{
 		private readonly Action _callback;
 
@@ -69,7 +67,7 @@ internal partial class UserInterfaceService : IUserInterfaceService
 	}
 
 
-	private class DialogInterfaceOnCancelListener : Java.Lang.Object, IDialogInterfaceOnCancelListener, IDialogInterfaceOnDismissListener
+	private class DialogInterfaceOnCancelListener : Object, IDialogInterfaceOnCancelListener, IDialogInterfaceOnDismissListener
 	{
 		private readonly Action _callback;
 
@@ -78,7 +76,7 @@ internal partial class UserInterfaceService : IUserInterfaceService
 			_callback = callback;
 		}
 
-		public void OnCancel(IDialogInterface dialog)
+		public void OnCancel(IDialogInterface? dialog)
 		{
 			_callback?.Invoke();
 		}

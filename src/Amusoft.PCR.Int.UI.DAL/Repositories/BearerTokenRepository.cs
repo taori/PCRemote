@@ -38,7 +38,7 @@ internal class BearerTokenRepository : IBearerTokenRepository
 	public async Task<bool> DeleteAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
 		return await _dbContext.BearerTokens
-			.Where(d => d.EndpointAccount.Endpoint.Address.Equals(endPoint.ToString()))
+			.Where(d => d.EndpointAccount.Endpoint.Address == endPoint.ToString())
 			.ExecuteDeleteAsync(cancellationToken)
 			.ConfigureAwait(false) > 0;
 	}

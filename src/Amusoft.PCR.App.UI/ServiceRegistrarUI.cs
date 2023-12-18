@@ -1,10 +1,9 @@
 ﻿using Amusoft.PCR.AM.UI.Extensions;
 using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.App.UI.Dependencies;
 using Amusoft.PCR.App.UI.Extensions;
-using Amusoft.PCR.App.UI.Implementations;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Amusoft.PCR.Int.UI;
-
+using Microsoft.Extensions.DependencyInjection.Extensions;
 #if ANDROID
 using Amusoft.PCR.UI.App;
 #endif
@@ -29,6 +28,6 @@ internal static class ServiceRegistrarUI
 #endif
 
 		services.TryAddTransient<ITypedNavigator, TypedNavigator>();
-		services.TryAddSingleton<ICredentialUserPrompt, HostCredentialUserPrompt>();
+		services.TryAddSingleton<ICredentialPrompt, HostCredentialPrompt>();
 	}
 }

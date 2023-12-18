@@ -5,6 +5,8 @@ public interface INavigatingContext
 	IDeferalScope PauseNavigation();
 
 	NavigationKind NavigationKind { get; }
+
+	Uri TargetLocation { get; }
 }
 
 public enum NavigationKind

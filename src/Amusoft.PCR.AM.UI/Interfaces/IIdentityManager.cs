@@ -4,7 +4,7 @@ namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IIdentityManager
 {
-	Task<bool> IsAuthenticatedAsync(CancellationToken cancellationToken);
+	Task<bool> IsAuthenticatedAsync(string accessToken, CancellationToken cancellationToken);
 	Task<SignInResponse?> LoginAsync(string email, string password, CancellationToken cancellationToken, string? twoFactorCode = default, string? twoFactoryRecoveryCode = default);
 	Task<SignInResponse?> RefreshAsync(string refreshToken, CancellationToken cancellationToken);
 

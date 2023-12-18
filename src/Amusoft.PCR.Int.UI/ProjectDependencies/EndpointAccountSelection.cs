@@ -15,15 +15,15 @@ internal class EndpointAccountSelection : IEndpointAccountSelection
 		_userInterfaceService = userInterfaceService;
 	}
 
-	public Task<(string? mail, Guid? endpointAccountId)> GetCurrentAccountOrPromptAsync(IPEndPoint endPoint)
+	public Task<(string? mail, Guid? endpointAccountId)> GetCurrentAccountOrPromptAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
-		return GetCurrentAccountOrPromptAsync(endPoint, true);
+		return GetCurrentAccountOrPromptAsync(endPoint, true, cancellationToken);
 	}
 
-	private async Task<(string? mail, Guid? endpointAccountId)> GetCurrentAccountOrPromptAsync(IPEndPoint endPoint, bool prompt)
+	private async Task<(string? mail, Guid? endpointAccountId)> GetCurrentAccountOrPromptAsync(IPEndPoint endPoint, bool prompt, CancellationToken cancellationToken)
 	{
 		var settings = await _clientSettingsRepository
-			.GetAsync(CancellationToken.None)
+			.GetAsync(cancellationToken)
 			.ConfigureAwait(false);
 
 		if (settings.EndpointAccountIdByEndpoint.TryGetValue(endPoint, out var accountId))
@@ -41,17 +41,17 @@ internal class EndpointAccountSelection : IEndpointAccountSelection
 		return (mail, null);
 	}
 
-	public async Task<Guid?> GetCurrentAccountAsync(IPEndPoint endPoint)
+	public async Task<Guid?> GetCurrentAccountAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
-		var result = await GetCurrentAccountOrPromptAsync(endPoint, false);
+		var result = await GetCurrentAccountOrPromptAsync(endPoint, false, cancellationToken);
 		return result.endpointAccountId;
 	}
 
-	public async Task SetEndpointAccountAsync(IPEndPoint endPoint, Guid endpointAccountId)
+	public async Task SetEndpointAccountAsync(IPEndPoint endPoint, Guid endpointAccountId, CancellationToken cancellationToken)
 	{
 		await _clientSettingsRepository.UpdateAsync(d =>
 		{
 			d.EndpointAccountIdByEndpoint[endPoint] = endpointAccountId;
-		}, CancellationToken.None);
+		}, cancellationToken);
 	}
 }

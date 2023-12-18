@@ -2,7 +2,7 @@
 
 namespace Amusoft.PCR.AM.UI.Interfaces;
 
-public interface IHostCredentialProvider
+public interface IHostCredentials
 {
 	IPEndPoint Address { get; }
 	string Title { get; }

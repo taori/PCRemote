@@ -24,7 +24,7 @@ public class BearerToken
 
 	public required Guid EndpointAccountId { get; set; }
 
-	public EndpointAccount? EndpointAccount { get; set; }
+	public EndpointAccount EndpointAccount { get; set; }
 
 	public required DateTimeOffset IssuedAt { get; set; }
 

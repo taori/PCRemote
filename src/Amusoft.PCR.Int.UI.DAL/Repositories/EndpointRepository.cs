@@ -15,50 +15,59 @@ internal class EndpointRepository : IEndpointRepository
 		_dbContext = dbContext;
 	}
 
-	public async Task<Guid?> GetEndpointIdAsync(IPEndPoint endPoint)
+	public async Task<Endpoint?> TryGetEndpointAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
 		var match = await _dbContext.Endpoints
-			.FirstOrDefaultAsync(d => d.Address == endPoint.ToString())
+			.FirstOrDefaultAsync(d => d.Address == endPoint.ToString(), cancellationToken)
 			.ConfigureAwait(false);
 
-		return match?.Id;
+		return match;
 	}
 
-	public async Task<Guid> CreateEndpointAsync(IPEndPoint endPoint)
+	public async Task<Endpoint> CreateEndpointAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
 		var item = new Endpoint() { Address = endPoint.ToString() };
 		_dbContext.Endpoints.Add(item);
-		var changes = await _dbContext.SaveChangesAsync();
+		var changes = await _dbContext.SaveChangesAsync(cancellationToken);
 		if (changes <= 0 || item.Id.Equals(Guid.Empty))
 			throw new DatabaseException("No insert happened");
 
-		return item.Id;
+		return item;
 	}
 
-	public async Task<Guid?> GetEndpointAccountIdAsync(Guid endPointId, string email)
+	public async Task<EndpointAccount?> TryGetEndpointAccountAsync(Guid endPointId, string email, CancellationToken cancellationToken)
 	{
 		var match = await _dbContext.EndpointAccounts
-			.FirstOrDefaultAsync(d => d.Email == email && d.EndpointId == endPointId)
+			.Include(d => d.BearerTokens)
+			.FirstOrDefaultAsync(d => d.Email == email && d.EndpointId == endPointId, cancellationToken)
 			.ConfigureAwait(false);
 
-		return match?.Id;
+		return match;
 	}
 
-	public async Task<Guid> CreateEndpointAccountAsync(Guid endPointId, string email)
+	public async Task<EndpointAccount> CreateEndpointAccountAsync(Guid endPointId, string email, CancellationToken cancellationToken)
 	{
 		var item = new EndpointAccount() { Email = email, EndpointId = endPointId };
 		_dbContext.EndpointAccounts.Add(item);
-		var changes = await _dbContext.SaveChangesAsync();
+		var changes = await _dbContext.SaveChangesAsync(cancellationToken);
 		if (changes <= 0 || item.Id.Equals(Guid.Empty))
 			throw new DatabaseException("No insert happened");
 
-		return item.Id;
+		return item;
 	}
 
-	public Task<EndpointAccount[]> GetEndpointAccountsAsync(IPEndPoint endPoint)
+	public Task<EndpointAccount[]> GetEndpointAccountsAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
 		return _dbContext.EndpointAccounts
 			.Where(d => d.Endpoint.Address == endPoint.ToString())
-			.ToArrayAsync(CancellationToken.None);
+			.Include(d => d.BearerTokens)
+			.ToArrayAsync(cancellationToken);
+	}
+
+	public Task<EndpointAccount> GetEndpointAccountAsync(Guid endpointAccountId, CancellationToken cancellationToken)
+	{
+		return _dbContext.EndpointAccounts
+			.Include(d => d.BearerTokens)
+			.FirstAsync(d => d.Id == endpointAccountId, cancellationToken);
 	}
 }

@@ -5,9 +5,10 @@ namespace Amusoft.PCR.AM.UI.Interfaces;
 
 public interface IEndpointRepository
 {
-	Task<Guid?> GetEndpointIdAsync(IPEndPoint endPoint);
-	Task<Guid> CreateEndpointAsync(IPEndPoint endPoint);
-	Task<Guid?> GetEndpointAccountIdAsync(Guid endPointId, string email);
-	Task<Guid> CreateEndpointAccountAsync(Guid endPointId, string email);
-	Task<EndpointAccount[]> GetEndpointAccountsAsync(IPEndPoint endPoint);
+	Task<Endpoint?> TryGetEndpointAsync(IPEndPoint endPoint, CancellationToken cancellationToken);
+	Task<Endpoint> CreateEndpointAsync(IPEndPoint endPoint, CancellationToken cancellationToken);
+	Task<EndpointAccount?> TryGetEndpointAccountAsync(Guid endPointId, string email, CancellationToken cancellationToken);
+	Task<EndpointAccount> CreateEndpointAccountAsync(Guid endPointId, string email, CancellationToken cancellationToken);
+	Task<EndpointAccount[]> GetEndpointAccountsAsync(IPEndPoint endPoint, CancellationToken cancellationToken);
+	Task<EndpointAccount> GetEndpointAccountAsync(Guid endpointAccountId, CancellationToken cancellationToken);
 }

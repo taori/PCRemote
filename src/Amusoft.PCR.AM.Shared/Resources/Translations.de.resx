@@ -248,4 +248,7 @@
   <data name="Generic.ActionRequired" xml:space="preserve">
     <value>Aktion erforderlich</value>
   </data>
+	<data name="Generic.PleaseProvidePasswordFor_0" xml:space="preserve">
+    <value>Das Passwort für {0} ist erforderlich</value>
+  </data>
 </root>

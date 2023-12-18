@@ -3,7 +3,7 @@ using Amusoft.PCR.AM.UI.Interfaces;
 
 namespace Amusoft.PCR.AM.UI.Models;
 
-public class EndpointData : IHostCredentialProvider
+public class EndpointData : IHostCredentials
 {
 	public EndpointData(IPEndPoint address, string title, string protocol)
 	{

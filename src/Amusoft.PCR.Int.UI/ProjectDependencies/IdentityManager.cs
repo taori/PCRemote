@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net.Http.Headers;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Domain.UI.Entities;
 using Amusoft.PCR.Int.Identity;
@@ -17,10 +18,14 @@ internal class IdentityManager : IIdentityManager
 		_client = new IdentityClient(httpClient, $"{protocol}://{endPoint}/identity/");
 	}
 
-	public async Task<bool> IsAuthenticatedAsync(CancellationToken cancellationToken)
+	public async Task<bool> IsAuthenticatedAsync(string accessToken, CancellationToken cancellationToken)
 	{
 		try
 		{
+			_client.PrepareModifications.Add(new PrepareModification(url => url.EndsWith("hello"), message =>
+			{
+				message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+			}));
 			var result = await _client.GetHelloAsync(cancellationToken);
 			return string.IsNullOrEmpty(result);
 		}

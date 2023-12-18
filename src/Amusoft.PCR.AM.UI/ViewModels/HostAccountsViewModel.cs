@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Amusoft.PCR.AM.Shared.Resources;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
+using Amusoft.PCR.Domain.UI.Entities;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -11,7 +12,7 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigationCallbacks
 {
 	private readonly IEndpointRepository _endpointRepository;
-	private readonly IHostCredentialProvider _hostCredentials;
+	private readonly IHostCredentials _hostCredentials;
 	private readonly IEndpointAccountSelection _endpointAccountSelection;
 
 	[ObservableProperty]
@@ -20,7 +21,7 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 	public HostAccountsViewModel(
 		ITypedNavigator navigator
 		, IEndpointRepository endpointRepository
-		, IHostCredentialProvider hostCredentials
+		, IHostCredentials hostCredentials
 		, IEndpointAccountSelection endpointAccountSelection) : base(navigator)
 	{
 		_endpointRepository = endpointRepository;
@@ -46,24 +47,17 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 
 	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
-		var selectedAccount = await _endpointAccountSelection.GetCurrentAccountAsync(_hostCredentials.Address);
-		var endpoints = await _endpointRepository.GetEndpointAccountsAsync(_hostCredentials.Address);
+		var selectedAccount = await _endpointAccountSelection.GetCurrentAccountAsync(_hostCredentials.Address, cancellationToken);
+		var endpoints = await _endpointRepository.GetEndpointAccountsAsync(_hostCredentials.Address, cancellationToken);
 		Items = new ObservableCollection<HostAccountViewModel>(
-			endpoints.Select(d => new HostAccountViewModel(d.Id, d.Email, InteractWithCommand) { Active = d.Id.Equals(selectedAccount) })
+			endpoints.Select(d => new HostAccountViewModel(d, InteractWithCommand) { Active = d.Id.Equals(selectedAccount) })
 		);
-
-		Items.Add(new HostAccountViewModel(Guid.Empty, "test", InteractWithCommand));
 	}
 }
 
 public partial class HostAccountViewModel : ObservableObject
 {
-	public HostAccountViewModel(Guid id, string text, ICommand command)
-	{
-		_id = id;
-		_text = text;
-		_command = command;
-	}
+	private readonly EndpointAccount _account;
 
 	[ObservableProperty]
 	private bool _active;
@@ -76,4 +70,12 @@ public partial class HostAccountViewModel : ObservableObject
 
 	[ObservableProperty]
 	private ICommand _command;
+
+	public HostAccountViewModel(EndpointAccount account, ICommand command)
+	{
+		_account = account;
+		_command = command;
+		_id = account.Id;
+		_text = account.Email;
+	}
 }
