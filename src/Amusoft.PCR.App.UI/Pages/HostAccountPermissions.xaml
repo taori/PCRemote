@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             x:Name="Self"
+             x:DataType="viewModels:HostAccountPermissionsViewModel"
+             Title="{x:Binding Title}"
+             x:Class="Amusoft.PCR.App.UI.Pages.HostAccountPermissions">
+
+    <Grid Padding="{StaticResource PaddingButtonPanel}">
+        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+                     Command="{x:Binding ReloadCommand}">
+            <CollectionView ItemsSource="{x:Binding Path=Items}"
+                            IsGrouped="True"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="viewModels:HostAccountPermissionsViewModel+CheckboxGroup">
+                        <Label Text="{x:Binding Path=Name}"></Label>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:HostAccountPermissionCheckboxModel">
+
+                        <Border BackgroundColor="{StaticResource Gray900}"
+                                Padding="10">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10,40,40,10" />
+                            </Border.StrokeShape>
+
+                            <HorizontalStackLayout>
+                                <CheckBox IsChecked="{x:Binding Path=Checked}"></CheckBox>
+                                <Label Text="{x:Binding Path=Text}"></Label>
+                            </HorizontalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

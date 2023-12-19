@@ -5,6 +5,8 @@ using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Models;
 using Amusoft.PCR.AM.UI.ViewModels;
 using Amusoft.PCR.App.UI.Pages;
+using Amusoft.PCR.Domain.UI.Entities;
+using Settings = Amusoft.PCR.App.UI.Pages.Settings;
 
 namespace Amusoft.PCR.App.UI.Dependencies;
 
@@ -92,6 +94,11 @@ public class TypedNavigator : ITypedNavigator
 	public Task OpenDebug()
 	{
 		return SpawnPushAsync<Debug, DebugViewModel>(_serviceProvider);
+	}
+
+	public Task OpenEndpointAccountPermissions(EndpointAccount account)
+	{
+		throw new NotImplementedException();
 	}
 
 	public Task OpenCommandButtonList(Action<CommandButtonListViewModel> configure, HostViewModel host)

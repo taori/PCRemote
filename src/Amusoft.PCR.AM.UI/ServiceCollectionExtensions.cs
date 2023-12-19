@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<LogSettingsViewModel>();
 		services.AddSingleton<SettingsViewModel>();
 
+		services.TryAddTransient<HostAccountPermissionsViewModel>();
 		services.TryAddTransient<HostAccountsViewModel>();
 		services.TryAddTransient<CommandButtonListViewModel>();
 		services.TryAddTransient<MouseControlViewModel>();

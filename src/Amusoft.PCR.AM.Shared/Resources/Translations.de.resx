@@ -281,4 +281,13 @@
 	<data name="HostAccounts.RequestUserTypeUser" xml:space="preserve">
     <value>Benutzerrecht anfordern</value>
   </data>
+	<data name="HostAccountPermissions.Title" xml:space="preserve">
+    <value>Berechtigungen</value>
+  </data>
+	<data name="HostAccountPermissions.UserPermissions" xml:space="preserve">
+    <value>Benutzerberechtigungen</value>
+  </data>
+	<data name="HostAccountPermissions.Roles" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
 </root>

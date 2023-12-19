@@ -10,6 +10,7 @@ public static class ServiceCollectionExtensions
 		services.AddTransient<MouseControl>();
 		services.AddTransient<LogsSettings>();
 		services.AddTransient<HostAccounts>();
+		services.AddTransient<HostAccountPermissions>();
 
 		services.AddTransient<Debug>();
 		services.AddTransient<MainPage>();

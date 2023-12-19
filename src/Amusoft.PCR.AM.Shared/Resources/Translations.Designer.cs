@@ -294,6 +294,33 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Roles.
+        /// </summary>
+        public static string HostAccountPermissions_Roles {
+            get {
+                return ResourceManager.GetString("HostAccountPermissions.Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permissions.
+        /// </summary>
+        public static string HostAccountPermissions_Title {
+            get {
+                return ResourceManager.GetString("HostAccountPermissions.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Benutzerberechtigungen.
+        /// </summary>
+        public static string HostAccountPermissions_UserPermissions {
+            get {
+                return ResourceManager.GetString("HostAccountPermissions.UserPermissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This account is already active.
         /// </summary>
         public static string HostAccounts_AccountAlreadyActive {
