@@ -1,17 +1,39 @@
-﻿using Amusoft.PCR.Domain.Service.Entities;
-using Amusoft.PCR.Domain.Service.ValueTypes;
+﻿using Amusoft.PCR.Domain.Shared.ValueTypes;
+using DomainUserRole = Amusoft.PCR.Domain.Shared.Entities.UserRole;
+using DomainUserPermission = Amusoft.PCR.Domain.Shared.Entities.UserPermission;
 
 namespace Amusoft.PCR.Int.IPC.Extensions;
 
 public static class UserManagementCommandReceiverExtensions
 {
-	public static IEnumerable<UserPermission> ToDomainItems(this IEnumerable<GetPermissionsItem> source)
+	public static IEnumerable<DomainUserRole> ToDomainItems(this IEnumerable<UserRole> source)
 	{
-		return source.Select(d => new UserPermission(d.UserId, PermissionKind.HostCommand, d.SubjectId, true));
+		return source.Select(d => new DomainUserRole(d.RoleId, d.RoleName, d.Granted));
 	}
 
-	public static IEnumerable<GetPermissionsItem> ToGrpcItems(this IEnumerable<UserPermission> source)
+	public static IEnumerable<UserRole> ToGrpcItems(this IEnumerable<DomainUserRole> source)
 	{
-		return source.Select(d => new GetPermissionsItem() { SubjectId = d.SubjectId, UserId = d.UserId, });
+		return source.Select(d => new UserRole()
+		{
+			RoleId = d.Id
+			, RoleName = d.Name
+			, Granted = d.Granted
+		});
+	}
+
+	public static IEnumerable<DomainUserPermission> ToDomainItems(this IEnumerable<UserPermission> source)
+	{
+		return source.Select(d => new DomainUserPermission((PermissionKind)d.PermissionType, d.SubjectId, d.Name, d.Granted));
+	}
+
+	public static IEnumerable<UserPermission> ToGrpcItems(this IEnumerable<DomainUserPermission> source)
+	{
+		return source.Select(d => new UserPermission()
+		{
+			SubjectId = d.SubjectId
+			, Granted = d.Granted
+			, PermissionType = (int)d.PermissionType
+			, Name = d.Name
+		});
 	}
 }

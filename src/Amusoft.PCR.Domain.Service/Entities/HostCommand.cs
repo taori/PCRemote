@@ -5,7 +5,7 @@ namespace Amusoft.PCR.Domain.Service.Entities;
 
 public class HostCommand
 {
-	[MaxLength(45)]
+	[MaxLength(40)]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public string Id { get; set; }
 

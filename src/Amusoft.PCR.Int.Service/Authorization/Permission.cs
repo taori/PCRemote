@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Amusoft.PCR.Domain.Service.ValueTypes;
+using Amusoft.PCR.Domain.Shared.ValueTypes;
 
 namespace Amusoft.PCR.Int.Service.Authorization;
 
@@ -11,7 +11,7 @@ public class Permission
 	[ForeignKey(nameof(UserId))]
 	public ApplicationUser User { get; set; }
 
-	[MaxLength(450)]
+	[MaxLength(40)]
 	public string UserId { get; set; }
 		
 	public PermissionKind PermissionType { get; set; }

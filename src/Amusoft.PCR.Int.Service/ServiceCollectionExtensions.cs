@@ -8,6 +8,7 @@ using Amusoft.PCR.Int.Service.Interfaces;
 using Amusoft.PCR.Int.Service.Repositories;
 using Amusoft.PCR.Int.Service.Services;
 using GrpcDotNetNamedPipes;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,8 @@ public static class ServiceCollectionExtensions
 		services.AddScoped<IRoleNameProvider, BackendAuthorizeRoleProvider>();
 		services.AddScoped<IHostCommandService, HostCommandService>();
 		services.AddScoped<IUserManagementRepository, UserManagementRepository>();
+		services.AddScoped<IClaimsTransformation, ApplicationPermissionTransform>();
+		services.AddScoped<IMethodBasedRoleProvider, DesktopIntegrationCommandReceiver>();
 
 		services.AddTransient<IStartupTask, ApplicationSeedTask>();
 		services.AddTransient<IStartupTask, MigrationTask>();

@@ -20,4 +20,8 @@
     <PackageReference Include="Grpc.Net.ClientFactory" Version="2.58.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\"/>
+  </ItemGroup>
+
 </Project>

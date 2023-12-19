@@ -16,6 +16,11 @@
                                        FalseObject="{StaticResource Gray500}" />
         <toolkit:BoolToObjectConverter x:Key="ActiveToSizeConverter" x:TypeArguments="x:Double" TrueObject="30"
                                        FalseObject="1" />
+        <toolkit:BoolToObjectConverter x:Key="ActiveToAdminButtonTextConverter" x:TypeArguments="x:String"
+                                       TrueObject="{x:Static resources:Translations.HostAccounts_RequestUserTypeUser}"
+                                       FalseObject="{x:Static resources:Translations.HostAccounts_RequestUserTypeAdmin}" />
+        <toolkit:BoolToObjectConverter x:Key="ActiveToAdminColorConverter" x:TypeArguments="Color" TrueObject="Red"
+                                       FalseObject="{StaticResource White}" />
         <toolkit:DateTimeOffsetConverter x:Key="DateTimeOffsetConverter" />
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -61,7 +66,7 @@
                                     </Label.FormattedText>
                                 </Label>
                                 <Grid
-                                    RowDefinitions="Auto,10,Auto,10,Auto,10,Auto"
+                                    RowDefinitions="Auto,10,Auto,10,Auto,10,Auto,10,Auto"
                                     ColumnDefinitions="Auto,10,*"
                                     Margin="10,10,0,0">
                                     <ImageButton
@@ -129,6 +134,25 @@
                                             Grid.Row="6" Grid.Column="2"
                                             CommandParameter="{x:Binding Path=.}"
                                             Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.RemoveAccountCommand}" />
+
+                                    <ImageButton
+                                        CommandParameter="{x:Binding Path=.}"
+                                        Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ToggleAdminAccountCommand}"
+                                        Grid.Row="8" Grid.Column="0">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                                                Color="{x:Binding Path=IsAdmin, Converter={StaticResource ActiveToAdminColorConverter}}"
+                                                Glyph="&#xe8e8;" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    <Button
+                                        Text="{x:Binding Path=IsAdmin, Converter={StaticResource ActiveToAdminButtonTextConverter}}"
+                                        Grid.Row="8" Grid.Column="2"
+                                        CommandParameter="{x:Binding Path=.}"
+                                        Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ToggleAdminAccountCommand}" />
+                                    <!-- <CheckBox IsChecked="{x:Binding Path=Active}" -->
+                                    <!--         Grid.Row="8" Grid.Column="2"/> -->
 
                                 </Grid>
 

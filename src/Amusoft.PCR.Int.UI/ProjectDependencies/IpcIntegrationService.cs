@@ -16,10 +16,10 @@ public class IpcIntegrationService : IIpcIntegrationService
 		_voiceCommandClient = new VoiceCommandService.VoiceCommandServiceClient(channel);
 		var desktopClient = new DesktopIntegrationService.DesktopIntegrationServiceClient(channel);
 		DesktopClient = new DesktopServiceClientWrapper(desktopClient, serviceProvider.GetRequiredService<ILogger<DesktopServiceClientWrapper>>());
-		IdentityManagementClient = new UserManagementClientWrapper(new UserManagement.UserManagementClient(channel));
+		IdentityExtendedClient = new UserExtendedClientWrapper(new UserManagement.UserManagementClient(channel), serviceProvider.GetRequiredService<ILogger<UserExtendedClientWrapper>>());
 	}
 
 	public IDesktopClientMethods DesktopClient { get; }
 
-	public IIdentityManagementMethods IdentityManagementClient { get; }
+	public IIdentityExtendedClient IdentityExtendedClient { get; }
 }

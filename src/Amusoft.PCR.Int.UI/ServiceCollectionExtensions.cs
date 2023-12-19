@@ -32,6 +32,7 @@ public static class ServiceCollectionExtensions
 		services.AddTransient<IBearerTokenManager, BearerTokenManager>();
 		services.AddTransient<IEndpointAccountManager, EndpointAccountManager>();
 		services.AddTransient<IDesktopIntegrationServiceFactory, DesktopIntegrationServiceFactory>();
+		services.AddTransient<IEndpointTokenBrokerFactory, EndpointTokenBrokerFactory>();
 
 
 #if ANDROID

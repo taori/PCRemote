@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.AM.UI.Extensions;
+﻿using Amusoft.PCR.AM.UI;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.App.UI.Dependencies;
 using Amusoft.PCR.App.UI.Extensions;

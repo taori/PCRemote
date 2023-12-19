@@ -4,9 +4,9 @@ using Amusoft.PCR.App.UI.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Amusoft.PCR.AM.UI.Extensions;
+namespace Amusoft.PCR.AM.UI;
 
-public static class ServiceProviderExtensions
+public static class ServiceCollectionExtensions
 {
 	public static void AddUIApplicationModel(this IServiceCollection services)
 	{

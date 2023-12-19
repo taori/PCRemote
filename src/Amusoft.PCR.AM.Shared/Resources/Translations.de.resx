@@ -233,9 +233,6 @@
 	<data name="Generic.Pagination_0_1" xml:space="preserve">
     <value>Seite {0}/{1}</value>
   </data>
-  <data name="Server.RequestOfAdministratorPermissions_0" xml:space="preserve">
-    <value>{0} erfragt Administatorberechtigungen - Bestätigen?</value>
-  </data>
 	<data name="HostAccounts.Title" xml:space="preserve">
     <value>Konten</value>
   </data>
@@ -274,5 +271,14 @@
   </data>
 	<data name="HostAccounts.AccountAlreadyActive" xml:space="preserve">
     <value>Dieser Account wird bereits verwendet</value>
+  </data>
+	<data name="Server.RequestOfAdministratorPermissions_0_1" xml:space="preserve">
+    <value>{0} erfragt den Wechsel in Benutzergruppe {1} - Fortfahren?</value>
+  </data>
+	<data name="HostAccounts.RequestUserTypeAdmin" xml:space="preserve">
+    <value>Administratorrecht anfordern</value>
+  </data>
+	<data name="HostAccounts.RequestUserTypeUser" xml:space="preserve">
+    <value>Benutzerrecht anfordern</value>
   </data>
 </root>

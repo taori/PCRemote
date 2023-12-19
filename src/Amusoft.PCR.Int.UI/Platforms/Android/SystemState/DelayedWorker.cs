@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Amusoft.PCR.AM.UI.Extensions;
+using Amusoft.PCR.AM.UI;
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.Models;
 using Amusoft.PCR.Int.UI.Platforms.Android.Notifications;

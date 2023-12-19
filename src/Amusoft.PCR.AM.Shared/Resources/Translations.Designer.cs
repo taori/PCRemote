@@ -339,6 +339,24 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request admin.
+        /// </summary>
+        public static string HostAccounts_RequestUserTypeAdmin {
+            get {
+                return ResourceManager.GetString("HostAccounts.RequestUserTypeAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request user.
+        /// </summary>
+        public static string HostAccounts_RequestUserTypeUser {
+            get {
+                return ResourceManager.GetString("HostAccounts.RequestUserTypeUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset password.
         /// </summary>
         public static string HostAccounts_ResetPassword {
@@ -744,11 +762,11 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is requesting administrator privileges - Grant?.
+        ///   Looks up a localized string similar to {0} is requesting to have the user type {1} - Proceed?.
         /// </summary>
-        public static string Server_RequestOfAdministratorPermissions_0 {
+        public static string Server_RequestOfAdministratorPermissions_0_1 {
             get {
-                return ResourceManager.GetString("Server.RequestOfAdministratorPermissions_0", resourceCulture);
+                return ResourceManager.GetString("Server.RequestOfAdministratorPermissions_0_1", resourceCulture);
             }
         }
         

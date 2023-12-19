@@ -32,8 +32,12 @@
         <ProjectReference Include="..\Amusoft.Toolkit.Networking\Amusoft.Toolkit.Networking.csproj"/>
     </ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\BuildDate.txt"/>
+	</ItemGroup>
+
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-      <Exec Command="echo %date% %time% &gt; &quot;$(ProjectDir)\Resources\BuildDate.txt&quot;" />
+			<Exec Command="echo $([System.DateTimeOffset]::Now.ToString(`s`)) &gt; &quot;$(ProjectDir)Resources\BuildDate.txt&quot;"/>
     </Target>
 
 </Project>

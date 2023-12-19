@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -16,11 +17,13 @@ public class ApplicationPermissionTransform : IClaimsTransformation
 {
 	private readonly ApplicationDbContext _dbContext;
 	private readonly ILogger<ApplicationPermissionTransform> _log;
+	private readonly UserManager<ApplicationUser> _userManager;
 
-	public ApplicationPermissionTransform(ApplicationDbContext dbContext, ILogger<ApplicationPermissionTransform> log)
+	public ApplicationPermissionTransform(ApplicationDbContext dbContext, ILogger<ApplicationPermissionTransform> log, UserManager<ApplicationUser> userManager)
 	{
 		_dbContext = dbContext;
 		_log = log;
+		_userManager = userManager;
 	}
 
 	public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
@@ -34,16 +37,30 @@ public class ApplicationPermissionTransform : IClaimsTransformation
 	private async Task<ClaimsPrincipal> GetAppendedPrincipalAsync(ClaimsPrincipal original)
 	{
 		var principal = new ClaimsPrincipal(original);
-		var identifierClaim = original.Identities.Select(d => d.Claims.FirstOrDefault(f => f.Type == ClaimTypes.NameIdentifier)).FirstOrDefault();
+		var identifierClaim = original.Identities
+			.Select(d => d.Claims.FirstOrDefault(f => f.Type == ClaimTypes.NameIdentifier))
+			.FirstOrDefault();
 		if (identifierClaim == null)
 			throw new Exception("No name identifier claim present in authenticated user.");
-			
-		var permissions = await _dbContext.Permissions.Where(d => d.UserId == identifierClaim.Value).ToListAsync();
-		var identity = principal.Identities.FirstOrDefault();
+
+		var permissions = await _dbContext.Permissions
+			.Where(d => d.UserId == identifierClaim.Value)
+			.ToListAsync();
+		var identity = principal.Identities
+			.FirstOrDefault();
 		if (identity == null)
 		{
 			_log.LogError("Permission system is malfunctioning. There should not ever be a principal without an identity");
 			return original;
+		}
+
+		if (await _userManager.FindByIdAsync(identifierClaim.Value) is { } user)
+		{
+			foreach (var normalizedRole in await _userManager.GetRolesAsync(user))
+			{
+				if (!identity.HasClaim(ClaimTypes.Role, normalizedRole))
+					identity.AddClaim(new Claim(ClaimTypes.Role, normalizedRole));
+			}
 		}
 
 		_log.LogDebug("Adding transform done flag to claims");

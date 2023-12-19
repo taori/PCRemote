@@ -40,7 +40,7 @@ namespace Amusoft.PCR.Int.Service.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HostCommands");
+                    b.ToTable("HostCommands", (string)null);
                 });
 
             modelBuilder.Entity("Amusoft.PCR.Domain.Service.Entities.VoiceRecognitionConfigurationPair", b =>
@@ -54,7 +54,7 @@ namespace Amusoft.PCR.Int.Service.Migrations
 
                     b.HasKey("Key");
 
-                    b.ToTable("VoiceRecognitionConfiguration");
+                    b.ToTable("VoiceRecognitionConfiguration", (string)null);
                 });
 
             modelBuilder.Entity("Amusoft.PCR.Domain.Service.Entities.VoiceRecognitionNode", b =>
@@ -70,7 +70,7 @@ namespace Amusoft.PCR.Int.Service.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AudioFeeds");
+                    b.ToTable("AudioFeeds", (string)null);
                 });
 
             modelBuilder.Entity("Amusoft.PCR.Domain.Service.Entities.VoiceRecognitionNodeAlias", b =>
@@ -92,7 +92,7 @@ namespace Amusoft.PCR.Int.Service.Migrations
 
                     b.HasIndex("FeedId");
 
-                    b.ToTable("AudioFeedAliases");
+                    b.ToTable("AudioFeedAliases", (string)null);
                 });
 
             modelBuilder.Entity("Amusoft.PCR.Int.Service.Authorization.ApplicationUser", b =>
@@ -180,7 +180,7 @@ namespace Amusoft.PCR.Int.Service.Migrations
 
                     b.HasKey("UserId", "SubjectId", "PermissionType");
 
-                    b.ToTable("Permissions");
+                    b.ToTable("Permissions", (string)null);
                 });
 
             modelBuilder.Entity("Amusoft.PCR.Int.Service.Authorization.RefreshToken", b =>
@@ -203,7 +203,7 @@ namespace Amusoft.PCR.Int.Service.Migrations
 
                     b.HasKey("UserId", "RefreshTokenId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

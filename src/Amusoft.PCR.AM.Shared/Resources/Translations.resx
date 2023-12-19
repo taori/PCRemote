@@ -240,9 +240,6 @@
   <data name="Generic.Pagination_0_1" xml:space="preserve">
     <value>Page {0}/{1}</value>
   </data>
-  <data name="Server.RequestOfAdministratorPermissions_0" xml:space="preserve">
-    <value>{0} is requesting administrator privileges - Grant?</value>
-  </data>
 	<data name="HostAccounts.Title" xml:space="preserve">
     <value>Account</value>
   </data>
@@ -281,5 +278,14 @@
   </data>
 	<data name="HostAccounts.AccountAlreadyActive" xml:space="preserve">
     <value>This account is already active</value>
+  </data>
+	<data name="Server.RequestOfAdministratorPermissions_0_1" xml:space="preserve">
+    <value>{0} is requesting to have the user type {1} - Proceed?</value>
+  </data>
+	<data name="HostAccounts.RequestUserTypeAdmin" xml:space="preserve">
+    <value>Request admin</value>
+  </data>
+	<data name="HostAccounts.RequestUserTypeUser" xml:space="preserve">
+    <value>Request user</value>
   </data>
 </root>

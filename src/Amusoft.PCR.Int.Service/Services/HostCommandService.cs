@@ -13,9 +13,9 @@ public class HostCommandService : IHostCommandService
 		_context = context;
 	}
 
-	public async Task<List<HostCommand>> GetAllAsync()
+	public Task<List<HostCommand>> GetAllAsync()
 	{
-		return await _context.HostCommands.ToListAsync();
+		return _context.HostCommands.ToListAsync();
 	}
 
 	public async Task<bool> CreateAsync(HostCommand item)
@@ -30,7 +30,7 @@ public class HostCommandService : IHostCommandService
 		return await _context.SaveChangesAsync() > 0;
 	}
 
-	public async Task<HostCommand> GetByIdAsync(string id)
+	public async Task<HostCommand?> GetByIdAsync(string id)
 	{
 		return await _context.HostCommands.FindAsync(id);
 	}
@@ -48,6 +48,6 @@ public interface IHostCommandService
 	Task<List<HostCommand>> GetAllAsync();
 	Task<bool> CreateAsync(HostCommand item);
 	Task<bool> DeleteAsync(HostCommand item);
-	Task<HostCommand> GetByIdAsync(string id);
+	Task<HostCommand?> GetByIdAsync(string id);
 	Task<bool> UpdateAsync(HostCommand item);
 }

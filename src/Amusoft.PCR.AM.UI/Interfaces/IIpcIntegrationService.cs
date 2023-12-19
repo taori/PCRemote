@@ -6,5 +6,5 @@ public interface IIpcIntegrationService
 {
 	IDesktopClientMethods DesktopClient { get; }
 
-	IIdentityManagementMethods IdentityManagementClient { get; }
+	IIdentityExtendedClient IdentityExtendedClient { get; }
 }

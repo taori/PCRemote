@@ -1,10 +1,12 @@
-﻿using Amusoft.PCR.Domain.Service.Entities;
+﻿using Amusoft.PCR.Domain.Shared.Entities;
+using Amusoft.PCR.Domain.Shared.ValueTypes;
 
 namespace Amusoft.PCR.AM.Service.Interfaces;
 
 public interface IUserManagementRepository
 {
-	Task<UserPermission[]> GetPermissionsAsync(string email, CancellationToken cancellationToken);
-	Task<bool> SetUserTypeAdminAsync(string email, CancellationToken cancellationToken);
-	Task<bool> UpdatePermissionsAsync(string email, IEnumerable<UserPermission> items, CancellationToken cancellationToken);
+	Task<UserPermissionSet?> GetPermissionsAsync(string email, CancellationToken cancellationToken);
+	Task<bool> SetUserTypeAsync(string email, UserType newUserType, CancellationToken cancellationToken);
+	Task<bool> UpdatePermissionsAsync(string email, UserPermissionSet permissionSet, CancellationToken cancellationToken);
+	Task<UserType> GetUserTypeAsync(string email);
 }
