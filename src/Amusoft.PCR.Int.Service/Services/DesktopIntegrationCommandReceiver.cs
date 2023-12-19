@@ -2,6 +2,7 @@
 using System.Reflection;
 using Amusoft.PCR.AM.Service.Interfaces;
 using Amusoft.PCR.Domain.Service.Entities;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.IPC.Extensions;

@@ -297,4 +297,7 @@
 	<data name="HostAccountPermissions.UserPermissions" xml:space="preserve">
     <value>Benutzerberechtigungen</value>
   </data>
+  <data name="Generic.NoDataAvailable" xml:space="preserve">
+    <value>No data available</value>
+  </data>
 </root>

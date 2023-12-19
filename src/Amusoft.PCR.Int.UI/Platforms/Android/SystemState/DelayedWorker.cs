@@ -175,6 +175,7 @@ internal class DelayedWorker : Worker
 	private static async Task ProcessFinalize(DelayedStateType actionType, IPEndPoint addressParsed, string protocol, string hostName, bool force)
 	{
 		var serviceCollection = new ServiceCollection();
+		IntegrationDependencies.Apply(serviceCollection);
 		serviceCollection.AddUIApplicationModel();
 		serviceCollection.AddUIIntegration();
 		serviceCollection.AddSingleton<IHostCredentials>(new EndpointData(addressParsed, hostName, protocol));

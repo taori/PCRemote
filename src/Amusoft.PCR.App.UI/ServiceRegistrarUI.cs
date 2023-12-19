@@ -17,17 +17,17 @@ internal static class ServiceRegistrarUI
 		// This switch must be set before creating the GrpcChannel/HttpClient.
 		// AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-		services.AddHttpClient();
 
 		services.AddUIApplicationModel();
 		services.AddUIIntegration();
 		services.AddUIViews();
 
 #if ANDROID
-		services.TryAddSingleton<IAndroidResourceBridge, AndroidResourceBridge>();
+		IntegrationDependencies.Dependencies.Add(svc => svc.TryAddSingleton<IAndroidResourceBridge, AndroidResourceBridge>());
+		IntegrationDependencies.Dependencies.Add(svc => svc.AddHttpClient());
+		IntegrationDependencies.Apply(services);
 #endif
 
 		services.TryAddTransient<ITypedNavigator, TypedNavigator>();
-		services.TryAddSingleton<ICredentialPrompt, HostCredentialPrompt>();
 	}
 }

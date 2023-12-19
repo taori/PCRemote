@@ -2,6 +2,7 @@
 using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.UI.DAL;
+using Amusoft.PCR.Int.UI.Dependencies;
 using Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 using Amusoft.PCR.Int.UI.ProjectDependencies;
 using Amusoft.PCR.Int.UI.Shared;
@@ -19,7 +20,10 @@ public static class ServiceCollectionExtensions
 	{
 		services.AddInterprocessCommunication();
 		services.AddUIDataLayer();
-		
+
+		services.AddLogging();
+
+		services.AddSingleton<ICredentialPrompt, HostCredentialPrompt>();
 		services.AddSingleton<IToast, Toast>();
 		services.AddSingleton<IAgentEnvironment, AgentEnvironment>();
 		services.AddSingleton<IUserInterfaceService, UserInterfaceService>();
@@ -42,5 +46,18 @@ public static class ServiceCollectionExtensions
 		Microsoft.Maui.ApplicationModel.Platform.AppContext.RegisterReceiver(DelayedSystemStateBroadcastReceiver.Instance, new IntentFilter(DelayedSystemStateBroadcastReceiver.ActionKindRestart));
 		Microsoft.Maui.ApplicationModel.Platform.AppContext.RegisterReceiver(DelayedSystemStateBroadcastReceiver.Instance, new IntentFilter(DelayedSystemStateBroadcastReceiver.ActionKindShutdown));
 #endif
+	}
+}
+
+public static class IntegrationDependencies
+{
+	public static readonly List<Action<IServiceCollection>> Dependencies = new();
+
+	public static void Apply(IServiceCollection serviceCollection)
+	{
+		foreach (var addition in Dependencies)
+		{
+			addition.Invoke(serviceCollection);
+		}
 	}
 }

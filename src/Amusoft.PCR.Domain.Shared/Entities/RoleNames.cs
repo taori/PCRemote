@@ -1,4 +1,4 @@
-﻿namespace Amusoft.PCR.Domain.Service.Entities;
+﻿namespace Amusoft.PCR.Domain.Shared.Entities;
 
 
 public static class RoleNames

@@ -95,7 +95,7 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 	private async Task ChangePermissions(HostAccountViewModel item)
 	{
 		var endpoint = await _endpointRepository.GetEndpointAccountAsync(item.Id, CancellationToken.None);
-		var permissions = await _ipcIntegrationService.IdentityExtendedClient.GetPermissionsAsync(endpoint.Email, CancellationToken.None);
+		await Navigator.OpenEndpointAccountPermissions(endpoint);
 	}
 
 	protected override async Task OnReloadAsync(CancellationToken cancellationToken)

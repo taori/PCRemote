@@ -1,4 +1,5 @@
 ﻿using Amusoft.PCR.Domain.Service.Entities;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Domain.Shared.ValueTypes;
 using Amusoft.PCR.Int.Service.Authorization;
 using Amusoft.PCR.Int.Service.Interfaces;

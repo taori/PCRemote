@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Amusoft.PCR.AM.Service.Interfaces;
-using Amusoft.PCR.Domain.Service.Entities;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 

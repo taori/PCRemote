@@ -3,10 +3,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
+             xmlns:converters="using:Amusoft.PCR.App.UI.Converters"
              x:Name="Self"
              x:DataType="viewModels:HostAccountPermissionsViewModel"
              Title="{x:Binding Title}"
              x:Class="Amusoft.PCR.App.UI.Pages.HostAccountPermissions">
+    <ContentPage.Resources>
+
+        <converters:ObjectToObjectConverter
+            x:TypeArguments="x:Int32,x:Int32" x:Key="CountToMaxHeighConverter"
+            MatchAgainst="0"
+            MatchTrueValue="30"
+            MatchFalseValue="0" />
+    </ContentPage.Resources>
 
     <Grid Padding="{StaticResource PaddingButtonPanel}">
         <RefreshView IsRefreshing="{x:Binding IsReloading}"
@@ -19,21 +29,32 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate x:DataType="viewModels:HostAccountPermissionsViewModel+CheckboxGroup">
-                        <Label Text="{x:Binding Path=Name}"></Label>
+                        <Label FontSize="20" Text="{x:Binding Path=Name}"></Label>
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
+                <CollectionView.GroupFooterTemplate>
+                    <DataTemplate x:DataType="viewModels:HostAccountPermissionsViewModel+CheckboxGroup">
+                        <Label TextColor="Red"
+                               Text="{x:Static resources:Translations.Generic_NoDataAvailable}"
+                               MaximumHeightRequest="{x:Binding Path=Count, Converter={StaticResource CountToMaxHeighConverter}}" />
+                    </DataTemplate>
+                </CollectionView.GroupFooterTemplate>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="viewModels:HostAccountPermissionCheckboxModel">
 
                         <Border BackgroundColor="{StaticResource Gray900}"
                                 Padding="10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Binding ToggleCheckedCommand}"></TapGestureRecognizer>
+                            </Border.GestureRecognizers>
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="10,40,40,10" />
                             </Border.StrokeShape>
 
                             <HorizontalStackLayout>
                                 <CheckBox IsChecked="{x:Binding Path=Checked}"></CheckBox>
-                                <Label Text="{x:Binding Path=Text}"></Label>
+                                <Label Text="{x:Binding Path=Text}"
+                                       VerticalTextAlignment="Center" />
                             </HorizontalStackLayout>
                         </Border>
                     </DataTemplate>

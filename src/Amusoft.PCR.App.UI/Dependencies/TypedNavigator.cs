@@ -98,7 +98,8 @@ public class TypedNavigator : ITypedNavigator
 
 	public Task OpenEndpointAccountPermissions(EndpointAccount account)
 	{
-		throw new NotImplementedException();
+		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection => collection.AddSingleton(account));
+		return SpawnPushConfigureAsync<HostAccountPermissions, HostAccountPermissionsViewModel>(provider, null);
 	}
 
 	public Task OpenCommandButtonList(Action<CommandButtonListViewModel> configure, HostViewModel host)

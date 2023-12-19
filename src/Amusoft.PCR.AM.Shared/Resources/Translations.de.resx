@@ -290,4 +290,7 @@
 	<data name="HostAccountPermissions.Roles" xml:space="preserve">
     <value>Rollen</value>
   </data>
+	<data name="Generic.NoDataAvailable" xml:space="preserve">
+    <value>Keine Daten verfügbar</value>
+  </data>
 </root>
