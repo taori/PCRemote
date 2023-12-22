@@ -1,5 +1,4 @@
 ﻿using Amusoft.PCR.AM.Service.Interfaces;
-using Amusoft.PCR.Domain.Service.Entities;
 using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Domain.Shared.ValueTypes;
 using Amusoft.PCR.Int.Service.Authorization;
@@ -37,10 +36,10 @@ public class UserManagementRepository : IUserManagementRepository
 
 		var allRoles = await _roleManager.Roles.ToArrayAsync(cancellationToken).ConfigureAwait(false);
 		var userRoles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
-		var userRolesGranted = userRoles.ToHashSet();
+		var userRolesGranted = userRoles.ToHashSet(StringComparer.OrdinalIgnoreCase);
 		// todo appdbconcontext Permissions
 
-		return new UserPermissionSet()
+		var result = new UserPermissionSet()
 		{
 			Roles = allRoles
 				.Select(d => new UserRole(d.Id, d.Name!, userRolesGranted.Contains(d.NormalizedName!)))
@@ -49,6 +48,8 @@ public class UserManagementRepository : IUserManagementRepository
 			, UserType = user.UserType
 			, Permissions = Array.Empty<UserPermission>()
 		};
+
+		return result;
 	}
 
 	public async Task<bool> SetUserTypeAsync(string email, UserType newUserType, CancellationToken cancellationToken)
@@ -80,22 +81,31 @@ public class UserManagementRepository : IUserManagementRepository
 		var allRoles = _roleManager.Roles.ToArray();
 		var normalizedNameById = allRoles.ToDictionary(d => d.Id, d => d.NormalizedName!);
 		var roleIdByName = allRoles.ToDictionary(d => d.NormalizedName!, d => d.Id);
-		var existingRoleIds = (await _userManager.GetRolesAsync(user)).Select(name => roleIdByName[name]).ToHashSet(StringComparer.OrdinalIgnoreCase);
+		var userRoles = (await _userManager.GetRolesAsync(user)).Select(d => d.ToUpperInvariant()).ToArray();
+		var existingRoleIds = userRoles.Select(name => roleIdByName[name]).ToHashSet(StringComparer.OrdinalIgnoreCase);
 		var desired = permissionSet.Roles.Where(d => d.Granted);
 		var undesired = permissionSet.Roles.Where(d => !d.Granted);
-		var grants = desired.Where(d => !existingRoleIds.Contains(d.Id));
-		var revokes = undesired.Where(d => existingRoleIds.Contains(d.Id));
+		var grants = desired.Where(d => !existingRoleIds.Contains(d.Id)).ToArray();
+		var revokes = undesired.Where(d => existingRoleIds.Contains(d.Id)).ToArray();
 
-		var roleRemoval = await _userManager.RemoveFromRolesAsync(user, revokes.Select(d => normalizedNameById[d.Id]));
-		var roleAddition = await _userManager.AddToRolesAsync(user, grants.Select(d => normalizedNameById[d.Id]));
-		if (!roleRemoval.Succeeded)
-			_logger.LogError(roleRemoval.ToLogMessage());
-		if (!roleAddition.Succeeded)
-			_logger.LogError(roleAddition.ToLogMessage());
+		bool revoke = false, grant = false;
+		if (revokes.Length > 0 && await _userManager.RemoveFromRolesAsync(user, revokes.Select(d => normalizedNameById[d.Id])) is { } revokeAction)
+		{
+			if (!revokeAction.Succeeded)
+				_logger.LogError(revokeAction.ToLogMessage());
+			revoke = revokeAction.Succeeded;
+		}
+
+		if (grants.Length > 0 && await _userManager.AddToRolesAsync(user, grants.Select(d => normalizedNameById[d.Id])) is { } additionAction)
+		{
+			if (!additionAction.Succeeded)
+				_logger.LogError(additionAction.ToLogMessage());
+			grant = additionAction.Succeeded;
+		}
 
 		// todo appdbconcontext Permissions
 
-		return roleAddition.Succeeded && roleRemoval.Succeeded;
+		return revoke && grant;
 	}
 
 	public async Task<UserType> GetUserTypeAsync(string email)

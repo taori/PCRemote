@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
              xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="using:Amusoft.PCR.App.UI.Converters"
              x:Name="Self"
              x:DataType="viewModels:HostAccountPermissionsViewModel"
@@ -16,6 +17,11 @@
             MatchAgainst="0"
             MatchTrueValue="30"
             MatchFalseValue="0" />
+
+        <toolkit:BoolToObjectConverter x:TypeArguments="Brush"
+                                       x:Key="ActiveToBorderColorConverter"
+                                       FalseObject="{x:Static Brush.DarkRed}"
+                                       TrueObject="{x:Static Brush.DarkGreen}" />
     </ContentPage.Resources>
 
     <Grid Padding="{StaticResource PaddingButtonPanel}">
@@ -43,6 +49,7 @@
                     <DataTemplate x:DataType="viewModels:HostAccountPermissionCheckboxModel">
 
                         <Border BackgroundColor="{StaticResource Gray900}"
+                                Stroke="{x:Binding Path=Checked, Converter={StaticResource ActiveToBorderColorConverter}}"
                                 Padding="10">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{x:Binding ToggleCheckedCommand}"></TapGestureRecognizer>
