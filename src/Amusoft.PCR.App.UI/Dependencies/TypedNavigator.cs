@@ -51,6 +51,12 @@ public class TypedNavigator : ITypedNavigator
 		return SpawnPushAsync<HostAccounts, HostAccountsViewModel>(_serviceProvider);
 	}
 
+	public Task OpenHostCreation(Endpoint endpoint)
+	{
+		var provider = _nestedServiceProviderFactory.FromCurrentScope(collection => collection.AddSingleton(endpoint));
+		return SpawnPushConfigureAsync<HostAccountCreation, HostAccountCreationViewModel>(provider, null);
+	}
+
 	public Task OpenAudio()
 	{
 		return SpawnPushAsync<Audio, AudioViewModel>(_serviceProvider);

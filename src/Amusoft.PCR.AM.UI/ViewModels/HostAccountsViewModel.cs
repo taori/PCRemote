@@ -46,9 +46,11 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 	}
 
 	[RelayCommand]
-	private Task AddAccount()
+	private async Task AddAccount()
 	{
-		return Task.CompletedTask;
+		var endpoint = await _endpointRepository.TryGetEndpointAsync(_hostCredentials.Address, CancellationToken.None);
+		if (endpoint is not null)
+			await Navigator.OpenHostCreation(endpoint);
 	}
 
 	[RelayCommand]

@@ -3,14 +3,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
-             xmlns:controls="clr-namespace:Amusoft.PCR.App.UI.Controls"
              xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:ui="clr-namespace:Amusoft.PCR.App.UI"
              x:Name="Self"
-             x:Class="Amusoft.PCR.App.UI.Pages.HostAccounts"
              x:DataType="vm:HostAccountsViewModel"
-             Title="{x:Binding Title}">
+             Title="{x:Binding Title}"
+             x:Class="Amusoft.PCR.App.UI.Pages.HostAccounts">
     <ContentPage.Resources>
         <toolkit:BoolToObjectConverter x:Key="ActiveToColorConverter" x:TypeArguments="Color" TrueObject="Yellow"
                                        FalseObject="{StaticResource Gray500}" />

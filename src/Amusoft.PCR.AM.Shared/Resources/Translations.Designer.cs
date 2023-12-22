@@ -141,6 +141,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string Generic_Create {
+            get {
+                return ResourceManager.GetString("Generic.Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete {0} entries?.
         /// </summary>
         public static string Generic_DeleteAllEntriesRequest_0 {
@@ -299,6 +308,24 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string Host_AccountRequiredToInteractWithHost {
             get {
                 return ResourceManager.GetString("Host.AccountRequiredToInteractWithHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New account for .
+        /// </summary>
+        public static string HostAccountCreation_NewAccountFor {
+            get {
+                return ResourceManager.GetString("HostAccountCreation.NewAccountFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account creation.
+        /// </summary>
+        public static string HostAccountCreation_Title {
+            get {
+                return ResourceManager.GetString("HostAccountCreation.Title", resourceCulture);
             }
         }
         

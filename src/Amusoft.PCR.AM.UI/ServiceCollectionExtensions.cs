@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
 
 		services.AddSingleton<DebugViewModel>();
 		services.AddSingleton<HostsOverviewViewModel>();
+		services.AddSingleton<HostAccountCreationViewModel>();
 		services.AddSingleton<MainViewModel>();
 		services.AddSingleton<LogsViewModel>();
 		services.AddSingleton<LogSettingsViewModel>();

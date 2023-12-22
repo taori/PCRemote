@@ -11,6 +11,7 @@ public static class ServiceCollectionExtensions
 		services.AddTransient<LogsSettings>();
 		services.AddTransient<HostAccounts>();
 		services.AddTransient<HostAccountPermissions>();
+		services.AddTransient<HostAccountCreation>();
 
 		services.AddTransient<Debug>();
 		services.AddTransient<MainPage>();
