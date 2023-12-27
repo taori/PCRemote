@@ -1,4 +1,5 @@
-﻿using Amusoft.PCR.Domain.Shared.ValueTypes;
+﻿using Amusoft.PCR.Domain.Shared.Entities;
+using Amusoft.PCR.Domain.Shared.ValueTypes;
 using DomainUserRole = Amusoft.PCR.Domain.Shared.Entities.UserRole;
 using DomainUserPermission = Amusoft.PCR.Domain.Shared.Entities.UserPermission;
 
@@ -35,5 +36,27 @@ public static class UserManagementCommandReceiverExtensions
 			, PermissionType = (int)d.PermissionType
 			, Name = d.Name
 		});
+	}
+
+	public static IEnumerable<GetRegisteredUsersResponseItem> ToGrpcItems(this IEnumerable<RegisteredUser> source)
+	{
+		return source.Select(
+			d => new GetRegisteredUsersResponseItem()
+			{
+				Address = d.Email,
+				Id = d.Id,
+			}
+		);
+	}
+
+	public static IEnumerable<RegisteredUser> ToDomainItems(this IEnumerable<GetRegisteredUsersResponseItem> source)
+	{
+		return source.Select(
+			d => new RegisteredUser()
+			{
+				Email = d.Address,
+				Id = d.Id,
+			}
+		);
 	}
 }

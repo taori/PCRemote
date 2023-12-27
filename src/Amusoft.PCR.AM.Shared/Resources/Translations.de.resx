@@ -308,4 +308,22 @@
 	<data name="Generic.Password" xml:space="preserve">
     <value>Passwort</value>
   </data>
+	<data name="HostAccountCreation.EmailAlreadyInUse" xml:space="preserve">
+    <value>Diese Adresse wird bereits verwendet</value>
+  </data>
+	<data name="Generic.ActionSucceeded" xml:space="preserve">
+    <value>Aktion erfolgreich</value>
+  </data>
+	<data name="HostAccountCreation.PasswordLengthRequired" xml:space="preserve">
+    <value>Eine Mindestänge von 3 ist nötig</value>
+  </data>
+	<data name="HostAccountCreation.EmailCannotBeEmpty" xml:space="preserve">
+    <value>E-Mail kann nicht leer sein</value>
+  </data>
+	<data name="HostAccounts.ThisAccountCannotBeLoggedIn" xml:space="preserve">
+    <value>Dieser Account kann nicht eingeloggt werden</value>
+  </data>
+	<data name="Server.UserWantsToDeleteAnotherUser" xml:space="preserve">
+    <value>{0} will Benutzer {1} löschen. Bestätigen?</value>
+  </data>
 </root>

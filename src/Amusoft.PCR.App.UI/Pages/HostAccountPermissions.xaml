@@ -25,7 +25,7 @@
     </ContentPage.Resources>
 
     <Grid Padding="{StaticResource PaddingButtonPanel}">
-        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+        <RefreshView IsRefreshing="{x:Binding LoadState.Loading}"
                      Command="{x:Binding ReloadCommand}">
             <CollectionView ItemsSource="{x:Binding Path=Items}"
                             IsGrouped="True"

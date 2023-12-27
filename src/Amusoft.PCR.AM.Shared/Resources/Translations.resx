@@ -315,4 +315,22 @@
 	<data name="Generic.Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="HostAccountCreation.EmailAlreadyInUse" xml:space="preserve">
+    <value>This address is already in use</value>
+  </data>
+  <data name="Generic.ActionSucceeded" xml:space="preserve">
+    <value>Action successful</value>
+  </data>
+  <data name="HostAccountCreation.PasswordLengthRequired" xml:space="preserve">
+    <value>Minimum length is 3 characters</value>
+  </data>
+  <data name="HostAccountCreation.EmailCannotBeEmpty" xml:space="preserve">
+    <value>Email can't be empty</value>
+  </data>
+  <data name="HostAccounts.ThisAccountCannotBeLoggedIn" xml:space="preserve">
+    <value>This account cannot be logged in</value>
+  </data>
+  <data name="Server.UserWantsToDeleteAnotherUser" xml:space="preserve">
+    <value>User {0} wants to delete {1}. Confirm?</value>
+  </data>
 </root>

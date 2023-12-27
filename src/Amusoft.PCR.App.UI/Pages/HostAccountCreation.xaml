@@ -10,6 +10,10 @@
              x:DataType="vm:HostAccountCreationViewModel"
              Title="{x:Binding Title}"
              x:Class="Amusoft.PCR.App.UI.Pages.HostAccountCreation">
+    <ContentPage.Resources>
+        <toolkit:IsStringNotNullOrEmptyConverter x:Key="EmailErrorConverter" />
+        <toolkit:IsStringNotNullOrEmptyConverter x:Key="PasswordErrorConverter" />
+    </ContentPage.Resources>
     <Grid Padding="{StaticResource PaddingButtonPanel}">
         <VerticalStackLayout Spacing="10">
             <Label FontSize="16">
@@ -23,6 +27,7 @@
                 </Label.FormattedText>
             </Label>
             <Entry ReturnType="Next"
+                   Text="{x:Binding Path=Email}"
                    Placeholder="{x:Static resources:Translations.Generic_EMail}"
                    ClearButtonVisibility="WhileEditing"
                    Keyboard="{x:Static Keyboard.Email}"
@@ -30,15 +35,29 @@
                    IsPassword="False">
                 <Entry.Behaviors>
                     <behaviors:FocusOnLoadBehavior />
+                    <toolkit:EmailValidationBehavior />
+                    <toolkit:UserStoppedTypingBehavior
+                        Command="{x:Binding Path=UpdateEmailCommand}"
+                        StoppedTypingTimeThreshold="1000"
+                        MinimumLengthThreshold="3" />
                 </Entry.Behaviors>
             </Entry>
 
+            <Label Text="{x:Binding EmailError}"
+                   IsVisible="{x:Binding EmailError, Converter={StaticResource EmailErrorConverter}}"
+                   TextColor="Red" />
+
             <Entry x:Name="PasswordEntry"
+                   Text="{x:Binding Path=Password}"
                    ReturnType="Done"
                    Placeholder="{x:Static resources:Translations.Generic_Password}"
                    ClearButtonVisibility="WhileEditing"
                    Keyboard="{x:Static Keyboard.Default}"
                    IsPassword="True" />
+
+            <Label Text="{x:Binding PasswordError}"
+                   IsVisible="{x:Binding PasswordError, Converter={StaticResource PasswordErrorConverter}}"
+                   TextColor="Red" />
 
             <Button
                 Command="{x:Binding Path=CompleteCreationCommand}"

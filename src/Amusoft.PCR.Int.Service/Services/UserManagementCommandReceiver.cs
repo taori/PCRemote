@@ -32,7 +32,7 @@ public class UserManagementCommandReceiver : UserManagement.UserManagementBase
 	{
 		var email = GetEmailOrThrow(context);
 
-		var userType = await _userManagementRepository.GetUserTypeAsync(email);
+		var userType = await _userManagementRepository.GetUserTypeAsync(email, context.CancellationToken);
 		var newUserType = userType switch
 		{
 			UserType.Administrator => UserType.User
@@ -92,6 +92,42 @@ public class UserManagementCommandReceiver : UserManagement.UserManagementBase
 		};
 		var update = await _userManagementRepository.UpdatePermissionsAsync(email, userPermissionSet, context.CancellationToken);
 		return new DefaultResponse() { Success = update, };
+	}
+
+	public override async Task<GetRegisteredUsersResponse> GetRegisteredUsers(DefaultRequest request, ServerCallContext context)
+	{
+		try
+		{
+			var users = await _userManagementRepository.GetUsersAsync(context.CancellationToken);
+			return new GetRegisteredUsersResponse
+			{
+				Success = true,
+				Items = { users.ToGrpcItems() }
+			};
+		}
+		catch (Exception e)
+		{
+			_logger.LogError(e, "Error calling {Method}", nameof(GetRegisteredUsers));
+			return new GetRegisteredUsersResponse
+			{
+				Success = true,
+				Items =
+				{
+					ArraySegment<GetRegisteredUsersResponseItem>.Empty
+				}
+			};
+		}
+	}
+
+	public override async Task<DefaultResponse> TryDeleteUser(TryDeleteUserRequest request, ServerCallContext context)
+	{
+		var actor = GetEmailOrThrow(context);
+		if (await _impersonatedChannel.GetConfirmResult(Translations.Generic_Question, string.Format(Translations.Server_UserWantsToDeleteAnotherUser, actor, request.Email)) != true)
+		{
+			return new DefaultResponse() { Success = false };
+		}
+
+		return new DefaultResponse() { Success = await _userManagementRepository.DeleteUserAsync(request.Email) };
 	}
 
 	private static string GetEmailOrThrow(ServerCallContext context)

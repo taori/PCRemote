@@ -108,7 +108,7 @@ public class UserManagementRepository : IUserManagementRepository
 		return revoke && grant;
 	}
 
-	public async Task<UserType> GetUserTypeAsync(string email)
+	public async Task<UserType> GetUserTypeAsync(string email, CancellationToken cancellationToken)
 	{
 		var user = await _userManager.FindByEmailAsync(email).ConfigureAwait(false);
 		if (user is null)
@@ -118,6 +118,41 @@ public class UserManagementRepository : IUserManagementRepository
 		}
 
 		return user.UserType;
+	}
+
+	public Task<RegisteredUser[]> GetUsersAsync(CancellationToken cancellationToken)
+	{
+		var users = _userManager.Users;
+		return Task.FromResult(
+			users.Select(
+				d => new RegisteredUser()
+				{
+					Email = d.Email,
+					Id = d.Id.ToString()
+				}
+			).ToArray()
+		);
+	}
+
+	public async Task<bool> DeleteUserAsync(string email)
+	{
+		var user = await _userManager.FindByEmailAsync(email);
+		if (user != null)
+		{
+			var deletion = await _userManager.DeleteAsync(user);
+			if (!deletion.Succeeded)
+			{
+				_logger.LogError("Deletion failed: {Message}", deletion.ToLogMessage());
+				return false;
+			}
+
+			return true;
+		}
+		else
+		{
+			_logger.LogError("Deletion failed, user not found");
+			return false;
+		}
 	}
 
 	private async Task<ApplicationUser?> TryFindUserByMailAsync(string email)

@@ -114,6 +114,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action successful.
+        /// </summary>
+        public static string Generic_ActionSucceeded {
+            get {
+                return ResourceManager.GetString("Generic.ActionSucceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Generic_Cancel {
@@ -330,11 +339,38 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This address is already in use.
+        /// </summary>
+        public static string HostAccountCreation_EmailAlreadyInUse {
+            get {
+                return ResourceManager.GetString("HostAccountCreation.EmailAlreadyInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email can&apos;t be empty.
+        /// </summary>
+        public static string HostAccountCreation_EmailCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("HostAccountCreation.EmailCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New account for .
         /// </summary>
         public static string HostAccountCreation_NewAccountFor {
             get {
                 return ResourceManager.GetString("HostAccountCreation.NewAccountFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum length is 3 characters.
+        /// </summary>
+        public static string HostAccountCreation_PasswordLengthRequired {
+            get {
+                return ResourceManager.GetString("HostAccountCreation.PasswordLengthRequired", resourceCulture);
             }
         }
         
@@ -452,6 +488,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string HostAccounts_SelectAccount {
             get {
                 return ResourceManager.GetString("HostAccounts.SelectAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This account cannot be logged in.
+        /// </summary>
+        public static string HostAccounts_ThisAccountCannotBeLoggedIn {
+            get {
+                return ResourceManager.GetString("HostAccounts.ThisAccountCannotBeLoggedIn", resourceCulture);
             }
         }
         
@@ -848,6 +893,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string Server_RequestOfAdministratorPermissions_0_1 {
             get {
                 return ResourceManager.GetString("Server.RequestOfAdministratorPermissions_0_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User {0} wants to delete {1}. Confirm?.
+        /// </summary>
+        public static string Server_UserWantsToDeleteAnotherUser {
+            get {
+                return ResourceManager.GetString("Server.UserWantsToDeleteAnotherUser", resourceCulture);
             }
         }
         

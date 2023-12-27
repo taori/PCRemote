@@ -15,7 +15,7 @@ internal class EndpointRepository : IEndpointRepository
 		_dbContext = dbContext;
 	}
 
-	public async Task<Endpoint?> TryGetEndpointAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
+	public async Task<Endpoint?> FindEndpointAsync(IPEndPoint endPoint, CancellationToken cancellationToken)
 	{
 		var match = await _dbContext.Endpoints
 			.FirstOrDefaultAsync(d => d.Address == endPoint.ToString(), cancellationToken)
@@ -35,7 +35,7 @@ internal class EndpointRepository : IEndpointRepository
 		return item;
 	}
 
-	public async Task<EndpointAccount?> TryGetEndpointAccountAsync(Guid endPointId, string email, CancellationToken cancellationToken)
+	public async Task<EndpointAccount?> FindEndpointAccountAsync(Guid endPointId, string email, CancellationToken cancellationToken)
 	{
 		var match = await _dbContext.EndpointAccounts
 			.Include(d => d.BearerTokens)

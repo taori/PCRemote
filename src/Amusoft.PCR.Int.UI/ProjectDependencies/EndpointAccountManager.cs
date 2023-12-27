@@ -29,12 +29,12 @@ internal class EndpointAccountManager : IEndpointAccountManager
 		if (mail is null)
 			return default;
 
-		if (await _endpointRepository.TryGetEndpointAsync(endPoint, cancellationToken) is var endpointDto && endpointDto is null)
+		if (await _endpointRepository.FindEndpointAsync(endPoint, cancellationToken) is var endpointDto && endpointDto is null)
 		{
 			endpointDto = await _endpointRepository.CreateEndpointAsync(endPoint, cancellationToken);
 		}
 
-		if (await _endpointRepository.TryGetEndpointAccountAsync(endpointDto.Id, mail, cancellationToken) is var endpointAccountDto && endpointAccountDto is null)
+		if (await _endpointRepository.FindEndpointAccountAsync(endpointDto.Id, mail, cancellationToken) is var endpointAccountDto && endpointAccountDto is null)
 		{
 			endpointAccountDto = await _endpointRepository.CreateEndpointAccountAsync(endpointDto.Id, mail, cancellationToken);
 			await _endpointAccountSelection.SetEndpointAccountAsync(endPoint, endpointAccountDto.Id, cancellationToken);

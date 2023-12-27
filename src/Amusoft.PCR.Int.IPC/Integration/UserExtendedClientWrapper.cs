@@ -70,4 +70,32 @@ public class UserExtendedClientWrapper : IIdentityExtendedClient
 			return default;
 		}
 	}
+
+	public async Task<RegisteredUser[]?> GetRegisteredUsersAsync(CancellationToken cancellationToken)
+	{
+		try
+		{
+			var reply = await _client.GetRegisteredUsersAsync(new DefaultRequest(), cancellationToken: cancellationToken);
+			return reply.Success ? reply.Items.ToDomainItems().ToArray() : Array.Empty<RegisteredUser>();
+		}
+		catch (Exception e)
+		{
+			_logger.LogError(e, nameof(GetRegisteredUsersAsync));
+			return default;
+		}
+	}
+
+	public async Task<bool?> TryDeleteUserAsync(string email, CancellationToken cancellationToken)
+	{
+		try
+		{
+			var reply = await _client.TryDeleteUserAsync(new TryDeleteUserRequest() { Email = email }, cancellationToken: cancellationToken);
+			return reply.Success;
+		}
+		catch (Exception e)
+		{
+			_logger.LogError(e, nameof(TryDeleteUserAsync));
+			return default;
+		}
+	}
 }

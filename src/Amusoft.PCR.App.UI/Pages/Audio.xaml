@@ -9,7 +9,7 @@
              x:DataType="vm:AudioViewModel"
              Title="{x:Binding Title}">
     <Grid RowDefinitions="*" Padding="{StaticResource PaddingButtonPanel}">
-        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+        <RefreshView IsRefreshing="{x:Binding LoadState.Loading}"
                      Grid.Row="1"
                      Command="{x:Binding ReloadCommand}">
             <CollectionView ItemsSource="{x:Binding Path=Items}"

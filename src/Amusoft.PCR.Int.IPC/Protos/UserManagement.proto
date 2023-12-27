@@ -9,9 +9,14 @@ service UserManagement {
   rpc ToggleAdministrator (ToggleAdministratorRequest) returns (ToggleAdministratorResponse);
   rpc GetPermissions (GetPermissionsRequest) returns (GetPermissionsReply);
   rpc UpdatePermissions (UpdatePermissionsRequest) returns (DefaultResponse);
+  rpc GetRegisteredUsers (DefaultRequest) returns (GetRegisteredUsersResponse);
+  rpc TryDeleteUser (TryDeleteUserRequest) returns (DefaultResponse);
 }
 
 
+message TryDeleteUserRequest {
+  string email = 1;
+}
 message ToggleAdministratorRequest {
   string email = 1;
 }
@@ -49,4 +54,14 @@ message UserRole {
   string roleId = 1;
   string roleName = 2;
   bool granted = 3;
+}
+
+message GetRegisteredUsersResponseItem{
+  string id = 1;
+  string address = 2;  
+}
+
+message GetRegisteredUsersResponse {
+  bool success = 1;
+  repeated GetRegisteredUsersResponseItem items = 2;
 }
