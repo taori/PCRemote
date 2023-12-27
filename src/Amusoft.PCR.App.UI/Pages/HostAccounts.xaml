@@ -90,7 +90,6 @@
                                         Grid.Row="2" Grid.Column="0">
                                         <ImageButton.Source>
                                             <FontImageSource
-                                                Size="{x:Binding Path=Active, Converter={StaticResource ActiveToSizeConverter}}"
                                                 FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
                                                 Glyph="&#xeade;" />
                                         </ImageButton.Source>
@@ -106,7 +105,6 @@
                                         Grid.Row="4" Grid.Column="0">
                                         <ImageButton.Source>
                                             <FontImageSource
-                                                Size="{x:Binding Path=Active, Converter={StaticResource ActiveToSizeConverter}}"
                                                 FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
                                                 Color="{StaticResource Cyan100Accent}"
                                                 Glyph="&#xef3d;" />
@@ -123,7 +121,6 @@
                                         Grid.Row="6" Grid.Column="0">
                                         <ImageButton.Source>
                                             <FontImageSource
-                                                Size="{x:Binding Path=Active, Converter={StaticResource ActiveToSizeConverter}}"
                                                 FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
                                                 Color="Red"
                                                 Glyph="&#xe872;" />
@@ -150,8 +147,6 @@
                                         Grid.Row="8" Grid.Column="2"
                                         CommandParameter="{x:Binding Path=.}"
                                         Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ToggleAdminAccountCommand}" />
-                                    <!-- <CheckBox IsChecked="{x:Binding Path=Active}" -->
-                                    <!--         Grid.Row="8" Grid.Column="2"/> -->
 
                                 </Grid>
 

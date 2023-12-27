@@ -12,6 +12,7 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 
 public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigationCallbacks
 {
+	private readonly IToast _toast;
 	private readonly ILogger<HostAccountsViewModel> _logger;
 	private readonly IIpcIntegrationService _ipcIntegrationService;
 	private readonly IUserInterfaceService _userInterfaceService;
@@ -24,6 +25,7 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 
 	public HostAccountsViewModel(
 		ITypedNavigator navigator,
+		IToast toast,
 		ILogger<HostAccountsViewModel> logger
 		, IIpcIntegrationService ipcIntegrationService
 		, IUserInterfaceService userInterfaceService
@@ -31,6 +33,7 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 		, IHostCredentials hostCredentials
 		, IEndpointAccountSelection endpointAccountSelection) : base(navigator)
 	{
+		_toast = toast;
 		_logger = logger;
 		_ipcIntegrationService = ipcIntegrationService;
 		_userInterfaceService = userInterfaceService;
@@ -74,6 +77,8 @@ public partial class HostAccountsViewModel : ReloadablePageViewModel, INavigatio
 		}
 
 		await _endpointAccountSelection.SetEndpointAccountAsync(_hostCredentials.Address, item.Id, CancellationToken.None);
+		await _toast.Make(Translations.Generic_ActionSucceeded).Show();
+		await ReloadAsync();
 	}
 
 	[RelayCommand]

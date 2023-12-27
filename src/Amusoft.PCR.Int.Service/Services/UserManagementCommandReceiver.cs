@@ -82,15 +82,13 @@ public class UserManagementCommandReceiver : UserManagement.UserManagementBase
 	[Authorize(Roles = RoleNames.Administrator)]
 	public override async Task<DefaultResponse> UpdatePermissions(UpdatePermissionsRequest request, ServerCallContext context)
 	{
-		var email = GetEmailOrThrow(context);
-
 		var userPermissionSet = new UserPermissionSet()
 		{
 			UserId = request.Email
 			, Permissions = request.UserPermissions.ToDomainItems().ToArray()
 			, Roles = request.UserRoles.ToDomainItems().ToArray()
 		};
-		var update = await _userManagementRepository.UpdatePermissionsAsync(email, userPermissionSet, context.CancellationToken);
+		var update = await _userManagementRepository.UpdatePermissionsAsync(request.Email, userPermissionSet, context.CancellationToken);
 		return new DefaultResponse() { Success = update, };
 	}
 

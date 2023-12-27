@@ -13,6 +13,7 @@ namespace Amusoft.PCR.AM.UI.ViewModels;
 public partial class HostAccountCreationViewModel : PageViewModel, INavigationCallbacks
 {
 	private readonly ILogger<HostAccountCreationViewModel> _logger;
+	private readonly IBearerTokenRepository _bearerTokenRepository;
 	private readonly Endpoint _endpoint;
 	private readonly IHostCredentials _hostCredentials;
 	private readonly IToast _toast;
@@ -43,6 +44,7 @@ public partial class HostAccountCreationViewModel : PageViewModel, INavigationCa
 
 	public HostAccountCreationViewModel(
 		ILogger<HostAccountCreationViewModel> logger,
+		IBearerTokenRepository bearerTokenRepository,
 		ITypedNavigator navigator,
 		Endpoint endpoint,
 		IHostCredentials hostCredentials,
@@ -52,6 +54,7 @@ public partial class HostAccountCreationViewModel : PageViewModel, INavigationCa
 		IEndpointRepository endpointRepository) : base(navigator)
 	{
 		_logger = logger;
+		_bearerTokenRepository = bearerTokenRepository;
 		_endpoint = endpoint;
 		_hostCredentials = hostCredentials;
 		_toast = toast;
@@ -111,24 +114,35 @@ public partial class HostAccountCreationViewModel : PageViewModel, INavigationCa
 		ValidateAllProperties();
 		if (HasErrors)
 			return;
-
+		
 		var identityManager = _identityManagerFactory.Create(_hostCredentials.Address, _hostCredentials.Protocol);
 		if (!await TryRegisterNewUserAsync(identityManager))
 			return;
-
-		// if (!await TrySaveEndpointAsync())
-		// 	return;
+		var token = await identityManager.LoginAsync(Email, Password, CancellationToken.None);
+		if (token is null)
+			return;
+		if (!await TrySaveEndpointAsync(token))
+			return;
 
 		await _toast.Make(Translations.Generic_ActionSucceeded).SetPosition(Position.Top).Show();
 		await Navigator.PopAsync();
 	}
 
-	private async Task<bool> TrySaveEndpointAsync()
+	private async Task<bool> TrySaveEndpointAsync(SignInResponse token)
 	{
 		try
 		{
-			await _endpointRepository.CreateEndpointAccountAsync(_endpoint.Id, Email, CancellationToken.None);
-			return true;
+			var account = await _endpointRepository.CreateEndpointAccountAsync(_endpoint.Id, Email, CancellationToken.None);
+			var bearerToken = new BearerToken()
+			{
+				AccessToken = token.AccessToken,
+				RefreshToken = token.RefreshToken,
+				Expires = token.ValidUntil,
+				IssuedAt = DateTimeOffset.Now,
+				EndpointAccountId = account.Id,
+			};
+
+			return await _bearerTokenRepository.AddTokenAsync(bearerToken, CancellationToken.None);
 		}
 		catch (Exception e)
 		{
