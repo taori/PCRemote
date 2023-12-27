@@ -302,4 +302,10 @@
 	<data name="Generic.Create" xml:space="preserve">
     <value>Anlegen</value>
   </data>
+	<data name="Generic.EMail" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+	<data name="Generic.Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
 </root>

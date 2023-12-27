@@ -3,8 +3,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
-             xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
              xmlns:behaviors="clr-namespace:Amusoft.PCR.Int.UI.Behaviors;assembly=Amusoft.PCR.Int.UI"
              x:Name="Self"
              x:DataType="vm:HostAccountCreationViewModel"
@@ -23,7 +23,7 @@
                 </Label.FormattedText>
             </Label>
             <Entry ReturnType="Next"
-                   Placeholder="E-Mail"
+                   Placeholder="{x:Static resources:Translations.Generic_EMail}"
                    ClearButtonVisibility="WhileEditing"
                    Keyboard="{x:Static Keyboard.Email}"
                    toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PasswordEntry}"
@@ -35,7 +35,7 @@
 
             <Entry x:Name="PasswordEntry"
                    ReturnType="Done"
-                   Placeholder="Password"
+                   Placeholder="{x:Static resources:Translations.Generic_Password}"
                    ClearButtonVisibility="WhileEditing"
                    Keyboard="{x:Static Keyboard.Default}"
                    IsPassword="True" />

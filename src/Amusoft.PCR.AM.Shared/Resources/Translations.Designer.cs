@@ -168,6 +168,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Generic_EMail {
+            get {
+                return ResourceManager.GetString("Generic.EMail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Generic_Error {
@@ -227,6 +236,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         public static string Generic_Pagination_0_1 {
             get {
                 return ResourceManager.GetString("Generic.Pagination_0_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Generic_Password {
+            get {
+                return ResourceManager.GetString("Generic.Password", resourceCulture);
             }
         }
         

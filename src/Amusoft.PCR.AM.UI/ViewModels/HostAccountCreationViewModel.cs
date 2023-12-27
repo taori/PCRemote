@@ -11,14 +11,16 @@ public partial class HostAccountCreationViewModel : PageViewModel, INavigationCa
 {
 	private readonly Endpoint _endpoint;
 	private readonly IHostCredentials _hostCredentials;
+	private readonly IToast _toast;
 
 	[ObservableProperty]
 	private string _hostAccountDisplayName;
 
-	public HostAccountCreationViewModel(ITypedNavigator navigator, Endpoint endpoint, IHostCredentials hostCredentials) : base(navigator)
+	public HostAccountCreationViewModel(ITypedNavigator navigator, Endpoint endpoint, IHostCredentials hostCredentials, IToast toast) : base(navigator)
 	{
 		_endpoint = endpoint;
 		_hostCredentials = hostCredentials;
+		_toast = toast;
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -29,7 +31,8 @@ public partial class HostAccountCreationViewModel : PageViewModel, INavigationCa
 	[RelayCommand]
 	private Task CompleteCreation()
 	{
-		return Task.CompletedTask;
+		return _toast.Make("Test toast").SetPosition(Position.Top).Show();
+		// return Task.CompletedTask;
 	}
 
 	public Task OnNavigatedToAsync()
