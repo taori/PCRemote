@@ -1,0 +1,16 @@
+﻿{
+  EndpointAccountIdByEndpoint: {
+    1.1.1.1:80: 60a871a6-6ef6-4570-bbd6-472277438232,
+    1.1.1.1:81: bd89d839-f585-4e1f-af9d-2be2bc54bd86
+  },
+  LogSettings: {
+    ShowRecent: 1.00:00:00,
+    EntriesPerPage: 100,
+    DisplayFullLoggerName: true,
+    DateFormat: G,
+    WidthDate: 140,
+    WidthLogger: 140,
+    DisplayDate: true,
+    DisplayLogger: true
+  }
+}

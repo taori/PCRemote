@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
+             xmlns:behaviors="clr-namespace:Amusoft.PCR.Int.UI.Behaviors;assembly=Amusoft.PCR.Int.UI"
+             x:Name="Self"
+             x:DataType="vm:HostAccountCreationViewModel"
+             Title="{x:Binding Title}"
+             x:Class="Amusoft.PCR.App.UI.Pages.HostAccountCreation">
+    <ContentPage.Resources>
+        <toolkit:IsStringNotNullOrEmptyConverter x:Key="EmailErrorConverter" />
+        <toolkit:IsStringNotNullOrEmptyConverter x:Key="PasswordErrorConverter" />
+    </ContentPage.Resources>
+    <Grid Padding="{StaticResource PaddingButtonPanel}">
+        <VerticalStackLayout Spacing="10">
+            <Label FontSize="16">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resources:Translations.HostAccountCreation_NewAccountFor}" />
+                        <Span Text="{x:Binding Path=HostAccountDisplayName}"
+                              FontAttributes="Bold"
+                              TextColor="{StaticResource Yellow100Accent}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Entry ReturnType="Next"
+                   Text="{x:Binding Path=Email}"
+                   Placeholder="{x:Static resources:Translations.Generic_EMail}"
+                   ClearButtonVisibility="WhileEditing"
+                   Keyboard="{x:Static Keyboard.Email}"
+                   toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PasswordEntry}"
+                   IsPassword="False">
+                <Entry.Behaviors>
+                    <behaviors:FocusOnLoadBehavior />
+                    <toolkit:EmailValidationBehavior />
+                    <toolkit:UserStoppedTypingBehavior
+                        Command="{x:Binding Path=UpdateEmailCommand}"
+                        StoppedTypingTimeThreshold="1000"
+                        MinimumLengthThreshold="3" />
+                </Entry.Behaviors>
+            </Entry>
+
+            <Label Text="{x:Binding EmailError}"
+                   IsVisible="{x:Binding EmailError, Converter={StaticResource EmailErrorConverter}}"
+                   TextColor="Red" />
+
+            <Entry x:Name="PasswordEntry"
+                   Text="{x:Binding Path=Password}"
+                   ReturnType="Done"
+                   Placeholder="{x:Static resources:Translations.Generic_Password}"
+                   ClearButtonVisibility="WhileEditing"
+                   Keyboard="{x:Static Keyboard.Default}"
+                   IsPassword="True" />
+
+            <Label Text="{x:Binding PasswordError}"
+                   IsVisible="{x:Binding PasswordError, Converter={StaticResource PasswordErrorConverter}}"
+                   TextColor="Red" />
+
+            <Button
+                Command="{x:Binding Path=CompleteCreationCommand}"
+                Text="{x:Static resources:Translations.Generic_Create}" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

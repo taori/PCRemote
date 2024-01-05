@@ -5,7 +5,7 @@ using NLog;
 
 namespace Amusoft.PCR.AM.UI.ViewModels.Shared;
 
-public abstract partial class PageViewModel : ObservableObject, IDisposable
+public abstract partial class PageViewModel : ObservableValidator, IDisposable
 {
 	private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 	

@@ -215,4 +215,118 @@
   <data name="SystemState.PickDelay" xml:space="preserve">
     <value>Verzögerung wählen</value>
   </data>
+	<data name="Generic.Loading" xml:space="preserve">
+    <value>Lade</value>
+  </data>
+	<data name="Generic.SaveChangesRequest" xml:space="preserve">
+    <value>Änderungen speichern?</value>
+  </data>
+	<data name="Generic.Question" xml:space="preserve">
+    <value>Frage</value>
+  </data>
+	<data name="Generic.DeleteEverythingRequest" xml:space="preserve">
+    <value>Alles löschen?</value>
+  </data>
+	<data name="Generic.DeleteAllEntriesRequest_0" xml:space="preserve">
+    <value>{0} Einträge löschen?</value>
+  </data>
+	<data name="Generic.Pagination_0_1" xml:space="preserve">
+    <value>Seite {0}/{1}</value>
+  </data>
+	<data name="HostAccounts.Title" xml:space="preserve">
+    <value>Konten</value>
+  </data>
+	<data name="AccountSelection.PickEmailForEndpoint_0" xml:space="preserve">
+    <value>E-Mail auswählen für {0}</value>
+  </data>
+  <data name="Host.AccountRequiredToInteractWithHost" xml:space="preserve">
+    <value>Ein Benutzerkonto ist erforderlich um mit dem Host zu interagieren</value>
+  </data>
+  <data name="Generic.ActionRequired" xml:space="preserve">
+    <value>Aktion erforderlich</value>
+  </data>
+	<data name="Generic.PleaseProvidePasswordFor_0" xml:space="preserve">
+    <value>Das Passwort für {0} ist erforderlich</value>
+  </data>
+	<data name="Generic.Warning" xml:space="preserve">
+    <value>Warnung</value>
+  </data>
+	<data name="HostAccounts.AccountCannotBeDeletedWhileActive" xml:space="preserve">
+    <value>Account kann nicht gelöscht werden während er aktiv ist</value>
+  </data>
+	<data name="HostAccounts.DeleteAccount" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+	<data name="HostAccounts.LastUsed" xml:space="preserve">
+    <value>Zuletzt benutzt: </value>
+  </data>
+	<data name="HostAccounts.Permissions" xml:space="preserve">
+    <value>Berechtigungen</value>
+  </data>
+	<data name="HostAccounts.ResetPassword" xml:space="preserve">
+    <value>Passwort zürücksetzen</value>
+  </data>
+	<data name="HostAccounts.SelectAccount" xml:space="preserve">
+    <value>Auswählen</value>
+  </data>
+	<data name="HostAccounts.AccountAlreadyActive" xml:space="preserve">
+    <value>Dieser Account wird bereits verwendet</value>
+  </data>
+	<data name="Server.RequestOfAdministratorPermissions_0_1" xml:space="preserve">
+    <value>{0} erfragt den Wechsel in Benutzergruppe {1} - Fortfahren?</value>
+  </data>
+	<data name="HostAccounts.RequestUserTypeAdmin" xml:space="preserve">
+    <value>Administratorrecht anfordern</value>
+  </data>
+	<data name="HostAccounts.RequestUserTypeUser" xml:space="preserve">
+    <value>Benutzerrecht anfordern</value>
+  </data>
+	<data name="HostAccountPermissions.Title" xml:space="preserve">
+    <value>Berechtigungen</value>
+  </data>
+	<data name="HostAccountPermissions.UserPermissions" xml:space="preserve">
+    <value>Benutzerberechtigungen</value>
+  </data>
+	<data name="HostAccountPermissions.Roles" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+	<data name="Generic.NoDataAvailable" xml:space="preserve">
+    <value>Keine Daten verfügbar</value>
+  </data>
+	<data name="HostAccountCreation.Title" xml:space="preserve">
+    <value>Accounterstellung</value>
+  </data>
+	<data name="HostAccountCreation.NewAccountFor" xml:space="preserve">
+    <value>Neuer Account für </value>
+  </data>
+	<data name="Generic.Create" xml:space="preserve">
+    <value>Anlegen</value>
+  </data>
+	<data name="Generic.EMail" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+	<data name="Generic.Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+	<data name="HostAccountCreation.EmailAlreadyInUse" xml:space="preserve">
+    <value>Diese Adresse wird bereits verwendet</value>
+  </data>
+	<data name="Generic.ActionSucceeded" xml:space="preserve">
+    <value>Aktion erfolgreich</value>
+  </data>
+	<data name="HostAccountCreation.PasswordLengthRequired" xml:space="preserve">
+    <value>Eine Mindestänge von 3 ist nötig</value>
+  </data>
+	<data name="HostAccountCreation.EmailCannotBeEmpty" xml:space="preserve">
+    <value>E-Mail kann nicht leer sein</value>
+  </data>
+	<data name="HostAccounts.ThisAccountCannotBeLoggedIn" xml:space="preserve">
+    <value>Dieser Account kann nicht eingeloggt werden</value>
+  </data>
+	<data name="Server.UserWantsToDeleteAnotherUser" xml:space="preserve">
+    <value>{0} will Benutzer {1} löschen. Bestätigen?</value>
+  </data>
+  <data name="Server.UserAsksForRoles_0_1" xml:space="preserve">
+    <value>Benutzer {0} fordert die Rolle {1} an - Rolle gewähren?</value>
+  </data>
 </root>

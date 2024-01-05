@@ -34,6 +34,14 @@
             <Component Id="cmp4T7QeV_VXPl6FiBLAicHreOoO5o" Guid="*">
                 <File Id="fily.z_OUsdzPsg4eCE16mJXCp9F14" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\Amusoft.PCR.Domain.Agent.pdb" />
             </Component>
+            <Component Id="cmpWAvVwm3DN0cTekdp4SjvkuOrtGI" Guid="*">
+                <File Id="fil1Bi6Kh9aLxDbu_.JkkllNucDspA" KeyPath="yes"
+                      Source="$(var.ArtifactsPathWinInt)\Amusoft.PCR.Domain.Service.dll"/>
+            </Component>
+            <Component Id="cmp3T6U_BZV83uhUAnpZfjd3Fo6JsU" Guid="*">
+                <File Id="fil5brN1XNDXjAI7F311B08aonLu5w" KeyPath="yes"
+                      Source="$(var.ArtifactsPathWinInt)\Amusoft.PCR.Domain.Service.pdb"/>
+            </Component>
             <Component Id="cmpfQ6YQTH8mHjSD7FzDDWVewQPXMo" Guid="*">
                 <File Id="filuM9rdbMupBwFkh7j7iR41Gp21OU" KeyPath="yes" Source="$(var.ArtifactsPathWinInt)\Amusoft.PCR.Domain.Shared.dll" />
             </Component>
@@ -264,6 +272,8 @@
             <ComponentRef Id="cmpBbaQdriNnteqtqg5xa6tDhwp2EM" />
             <ComponentRef Id="cmp9Kn2SfuRaKNlLGJiRIKKJR7l45A" />
             <ComponentRef Id="cmp4T7QeV_VXPl6FiBLAicHreOoO5o" />
+            <ComponentRef Id="cmpWAvVwm3DN0cTekdp4SjvkuOrtGI"/>
+            <ComponentRef Id="cmp3T6U_BZV83uhUAnpZfjd3Fo6JsU"/>
             <ComponentRef Id="cmpfQ6YQTH8mHjSD7FzDDWVewQPXMo" />
             <ComponentRef Id="cmpaUl9dsVrHUdTjgGhybJVArBShIY" />
             <ComponentRef Id="cmpDTb4T9264MP3HuCfHXzl37tImgw" />

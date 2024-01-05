@@ -1,38 +1,104 @@
-﻿using Amusoft.PCR.AM.UI.Interfaces;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using Amusoft.PCR.AM.Shared.Resources;
+using Amusoft.PCR.AM.UI.Interfaces;
 using Amusoft.PCR.AM.UI.ViewModels.Shared;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.AM.UI.ViewModels;
 
-public partial class LogsViewModel : ReloadablePageViewModel, INavigationCallbacks
+public partial class LogsViewModel(
+	ITypedNavigator navigator
+	, ILogger<LogsViewModel> logger
+	, ILogEntryRepository logEntryRepository
+	, IClientSettingsRepository clientSettingsRepository
+	, IUserInterfaceService userInterfaceService
+)
+	: ReloadablePageViewModel(navigator), INavigationCallbacks
 {
-	public LogsViewModel(ITypedNavigator navigator) : base(navigator)
-	{
-	}
+	private readonly ILogger<LogsViewModel> _logger = logger;
 
 	[ObservableProperty]
-	private string? _text;
+	private ObservableCollection<LogEntryViewModel> _items = new();
+
+	[ObservableProperty]
+	private LogDisplaySettingsViewModel? _settings;
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(PaginationText))]
+	private int _currentPage;
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(PaginationText))]
+	private int _maxPage;
+
+	public string PaginationText => string.Format(Translations.Generic_Pagination_0_1, CurrentPage + 1, MaxPage + 1);
 
 	public Task OnNavigatedToAsync()
 	{
+		CurrentPage = 0;
 		return ReloadAsync();
 	}
 
-	private async Task<string?> GetTextAsync()
+	[RelayCommand]
+	private Task OpenLogSettings()
 	{
-		var root = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-		var path = Path.Combine(root, "logs", "nlog.csv");
+		return Navigator.OpenLogSettings();
+	}
 
-		return File.Exists(path)
-			? await ReadFileContentAsync(path)
-			: null;
+	[RelayCommand]
+	private void Next()
+	{
+		if (CurrentPage < MaxPage)
+			CurrentPage++;
+	}
 
-		static async Task<string> ReadFileContentAsync(string path)
+	[RelayCommand]
+	private void Previous()
+	{
+		if (CurrentPage > 0)
+			CurrentPage--;
+	}
+
+	[RelayCommand]
+	private void First()
+	{
+		CurrentPage = 0;
+	}
+
+	[RelayCommand]
+	private void Last()
+	{
+		CurrentPage = _maxPage;
+	}
+
+	[RelayCommand]
+	private async Task RemoveAll()
+	{
+		var entryCount = await logEntryRepository.GetCountAsync(null, CancellationToken.None);
+		if (await userInterfaceService.DisplayConfirmAsync(Translations.Generic_Question, string.Format(Translations.Generic_DeleteAllEntriesRequest_0, entryCount)))
+			await logEntryRepository.DeleteAllAsync(CancellationToken.None);
+
+		await ReloadAsync();
+	}
+
+	protected override async void OnPropertyChanged(PropertyChangedEventArgs e)
+	{
+		try
 		{
-			await using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-			using var reader = new StreamReader(fileStream);
-			return await reader.ReadToEndAsync();
+			if (nameof(CurrentPage).Equals(e.PropertyName))
+			{
+				await ReloadAsync();
+			}
 		}
+		catch (Exception ex)
+		{
+			_logger.LogError(ex, nameof(OnPropertyChanged));
+		}
+
+		base.OnPropertyChanged(e);
 	}
 
 	protected override string GetDefaultPageTitle()
@@ -42,6 +108,21 @@ public partial class LogsViewModel : ReloadablePageViewModel, INavigationCallbac
 
 	protected override async Task OnReloadAsync(CancellationToken cancellationToken)
 	{
-		Text = await GetTextAsync();
+		var settings = await clientSettingsRepository.GetAsync(cancellationToken);
+		Settings = new LogDisplaySettingsViewModel(settings.LogSettings);
+		var count = await logEntryRepository.GetCountAsync(settings.LogSettings, CancellationToken.None);
+		MaxPage = count / settings.LogSettings.EntriesPerPage;
+
+		var vmItems = await Task.Run(async () =>
+		{
+			var entries = await logEntryRepository
+				.GetLogsAsync(CurrentPage, settings.LogSettings, cancellationToken)
+				.ConfigureAwait(false);
+			return entries
+				.Select(d => new LogEntryViewModel(d, settings.LogSettings))
+				.ToList();
+		}, cancellationToken);
+
+		Items = new ObservableCollection<LogEntryViewModel>(vmItems);
 	}
 }

@@ -1,6 +1,7 @@
 ﻿@page "/GettingStarted"
 @using System.Text
 @model Amusoft.PCR.App.Service.Pages.GettingStarted
+@inject IHostEnvironment HostEnvironment
 
 @{
     Layout = null;
@@ -76,5 +77,11 @@
 		}
 	</ul>
 </p>
+
+@if (HostEnvironment.IsDevelopment())
+{
+	<a href="/swagger">open swagger</a>
+}
+
 </body>
 </html>

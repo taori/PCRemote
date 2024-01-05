@@ -1,9 +1,11 @@
-﻿using Amusoft.PCR.Int.UI;
+﻿using System.Diagnostics;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.Int.UI;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Extensions.Logging;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using LogLevel = NLog.LogLevel;
 
 namespace Amusoft.PCR.App.UI;
 
@@ -16,12 +18,18 @@ public static class MauiProgram
 			.RegisterMauiLog((_, args) => LogManager.GetLogger("Amusoft.PCR.App.UI.MauiProgram").Fatal(args.ExceptionObject))
 			.LoadConfiguration(configurationBuilder =>
 			{
-				configurationBuilder.ForLogger()
-					.FilterMinLevel(NLog.LogLevel.Trace)
-					.FilterMaxLevel(NLog.LogLevel.Fatal)
+				configurationBuilder
+					.ForLogger()
+					.FilterMinLevel(LogLevel.Debug)
 					.WriteToMauiLogCustom("${message}");
+				configurationBuilder
+					.ForLogger()
+					.FilterMinLevel(LogLevel.Error)
+					.WriteTo(new ToastTarget());
 			})
 			.GetCurrentClassLogger();
+
+		RunApplicationStartup();
 
 		logger.Debug("Logger configured");
 
@@ -40,8 +48,13 @@ public static class MauiProgram
 			})
 			.ConfigureFonts(fonts =>
 			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont("OpenSans-Regular.ttf", FontNames.OpenSansRegular);
+				fonts.AddFont("OpenSans-Semibold.ttf", FontNames.OpenSansSemibold);
+				fonts.AddFont("MaterialIcons-Regular.ttf", FontNames.MaterialIcons);
+				fonts.AddFont("MaterialIconsOutlined-Regular.otf", FontNames.MaterialIconsOutlined);
+				fonts.AddFont("MaterialIconsRound-Regular.otf", FontNames.MaterialIconsRound);
+				fonts.AddFont("MaterialIconsSharp-Regular.otf", FontNames.MaterialIconsSharp);
+				fonts.AddFont("MaterialIconsTwoTone-Regular.otf", FontNames.MaterialIconsTwoTone);
 			});
 		
 		ResourceBridgeConfiguration.Apply();
@@ -50,9 +63,30 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging
 			.AddDebug()
-				.AddFilter(level => level >= LogLevel.Debug);
+				.AddFilter(level => level >= Microsoft.Extensions.Logging.LogLevel.Debug);
 #endif
 
 		return builder.Build();
+	}
+
+	private static void RunApplicationStartup()
+	{
+		try
+		{
+			// var after = Directory.EnumerateFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "*.db", SearchOption.AllDirectories)
+			// 	.ToArray();
+			var serviceCollection = new ServiceCollection();
+			ServiceRegistrarUI.Register(serviceCollection);
+			var serviceProvider = serviceCollection.BuildServiceProvider();
+			var startupInstances = serviceProvider.GetServices<IApplicationStartup>();
+			foreach (var startupInstance in startupInstances)
+			{
+				startupInstance.Apply();
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.WriteLine(e.ToString());
+		}
 	}
 }

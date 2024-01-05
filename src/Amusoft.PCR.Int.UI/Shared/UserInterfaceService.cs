@@ -1,34 +1,35 @@
 ﻿using Amusoft.PCR.AM.Shared.Resources;
 using Amusoft.PCR.AM.UI.Interfaces;
+using Keyboard = Amusoft.PCR.Domain.UI.ValueTypes.Keyboard;
 
 namespace Amusoft.PCR.Int.UI.Shared;
 
 internal partial class UserInterfaceService : IUserInterfaceService
 {
-	public Task<string?> GetPromptTextAsync(string title, string message, string? acceptText, string? cancelText, string? placeholder, int? maxLength, string? initialValue, Domain.UI.ValueTypes.Keyboard keyboard = Domain.UI.ValueTypes.Keyboard.Default)
+	public Task<string?> GetPromptTextAsync(string title, string message, string? acceptText, string? cancelText, string? placeholder, int? maxLength, string? initialValue, Keyboard keyboard = Keyboard.Default)
 	{
-		return Shell.Current.DisplayPromptAsync(title, message,
+		return MainThread.InvokeOnMainThreadAsync(() => Shell.Current.DisplayPromptAsync(title, message,
 			acceptText ?? Translations.Generic_OK,
 			cancelText ?? Translations.Generic_Cancel,
 			placeholder,
 			maxLength ?? -1,
 			keyboard: GetMauiKeyboard(keyboard),
 			initialValue: initialValue ?? string.Empty
-		);
+		));
 	}
 
-	private Keyboard GetMauiKeyboard(Domain.UI.ValueTypes.Keyboard keyboard)
+	private Microsoft.Maui.Keyboard GetMauiKeyboard(Keyboard keyboard)
 	{
 		return keyboard switch
 		{
-			Domain.UI.ValueTypes.Keyboard.Default => Keyboard.Default,
-			Domain.UI.ValueTypes.Keyboard.Plain => Keyboard.Plain,
-			Domain.UI.ValueTypes.Keyboard.Chat => Keyboard.Chat,
-			Domain.UI.ValueTypes.Keyboard.Email => Keyboard.Email,
-			Domain.UI.ValueTypes.Keyboard.Numeric => Keyboard.Numeric,
-			Domain.UI.ValueTypes.Keyboard.Telephone => Keyboard.Telephone,
-			Domain.UI.ValueTypes.Keyboard.Text => Keyboard.Text,
-			Domain.UI.ValueTypes.Keyboard.Url => Keyboard.Url,
+			Keyboard.Default => Microsoft.Maui.Keyboard.Default,
+			Keyboard.Plain => Microsoft.Maui.Keyboard.Plain,
+			Keyboard.Chat => Microsoft.Maui.Keyboard.Chat,
+			Keyboard.Email => Microsoft.Maui.Keyboard.Email,
+			Keyboard.Numeric => Microsoft.Maui.Keyboard.Numeric,
+			Keyboard.Telephone => Microsoft.Maui.Keyboard.Telephone,
+			Keyboard.Text => Microsoft.Maui.Keyboard.Text,
+			Keyboard.Url => Microsoft.Maui.Keyboard.Url,
 			_ => throw new ArgumentOutOfRangeException(nameof(keyboard), keyboard, null)
 		};
 	}

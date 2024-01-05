@@ -1,0 +1,70 @@
+syntax = "proto3";
+import "Protos/Messages.proto";
+
+option csharp_namespace = "Amusoft.PCR.Int.IPC";
+
+package Amusoft.PCR.Int.IPC;
+
+service UserManagement {
+  rpc ToggleAdministrator (ToggleAdministratorRequest) returns (ToggleAdministratorResponse);
+  rpc GetPermissions (GetPermissionsRequest) returns (GetPermissionsReply);
+  rpc UpdatePermissions (UpdatePermissionsRequest) returns (DefaultResponse);
+  rpc GetRegisteredUsers (DefaultRequest) returns (GetRegisteredUsersResponse);
+  rpc TryDeleteUser (TryDeleteUserRequest) returns (DefaultResponse);
+  rpc TryRequestRoles (TryRequestRolesRequest) returns (DefaultResponse);
+}
+
+message TryRequestRolesRequest {
+  repeated string roles = 1;
+}
+message TryDeleteUserRequest {
+  string email = 1;
+}
+message ToggleAdministratorRequest {
+  string email = 1;
+}
+message ToggleAdministratorResponse {
+  bool success = 1;
+  bool hasAdmin = 2;
+}
+
+message GetPermissionsRequest {
+  string email = 1;
+}
+
+message GetPermissionsReply {
+  bool success = 1;
+  string userId = 2;
+  int32 userType = 3;
+  repeated UserPermission userPermissions = 4;
+  repeated UserRole userRoles = 5;
+}
+
+message UpdatePermissionsRequest {
+  string email = 1;
+  repeated UserPermission userPermissions = 2;
+  repeated UserRole userRoles = 3;
+}
+
+message UserPermission {
+  string subjectId = 1;
+  string name = 2;
+  int32 permissionType = 3;
+  bool granted = 4;
+}
+
+message UserRole {
+  string roleId = 1;
+  string roleName = 2;
+  bool granted = 3;
+}
+
+message GetRegisteredUsersResponseItem{
+  string id = 1;
+  string address = 2;  
+}
+
+message GetRegisteredUsersResponse {
+  bool success = 1;
+  repeated GetRegisteredUsersResponseItem items = 2;
+}

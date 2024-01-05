@@ -10,11 +10,19 @@
         <PackageReference Include="Grpc.AspNetCore.Server" Version="2.49.0" />
         <PackageReference Include="Grpc.Core" Version="2.46.6" />
         <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="$(XNetPackageVersion)" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(XNetPackageVersion)" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="$(XNetPackageVersion)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(XNetPackageVersion)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(XNetPackageVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(XNetPackageVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="$(XNetPackageVersion)"/>
         <PackageReference Include="QRCoder" Version="1.4.3" />
         <PackageReference Include="System.Reactive" Version="6.0.0" />
         <PackageReference Include="GrpcDotNetNamedPipes" Version="2.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(XNetPackageVersion)" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,5 +31,13 @@
         <ProjectReference Include="..\Amusoft.Toolkit.Impersonation\Amusoft.Toolkit.Impersonation.csproj"/>
         <ProjectReference Include="..\Amusoft.Toolkit.Networking\Amusoft.Toolkit.Networking.csproj"/>
     </ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\BuildDate.txt"/>
+	</ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+			<Exec Command="echo $([System.DateTimeOffset]::Now.ToString(`s`)) &gt; &quot;$(ProjectDir)Resources\BuildDate.txt&quot;"/>
+    </Target>
 
 </Project>

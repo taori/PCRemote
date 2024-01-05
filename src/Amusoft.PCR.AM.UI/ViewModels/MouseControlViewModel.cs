@@ -29,7 +29,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 
 	protected override string GetDefaultPageTitle()
 	{
-		return AM.Shared.Resources.Translations.InputControl_MouseControl;
+		return Translations.InputControl_MouseControl;
 	}
 
 	[ObservableProperty]
@@ -46,7 +46,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 		_ = _mouseMoveChannel.Writer.WriteAsync(((int)vector.X, (int)vector.Y));
 	}
 
-	public Task OnNavigatedAwayAsync()
+	public Task OnNavigatingAsync()
 	{
 		_moveCts?.Dispose();
 		return Task.CompletedTask;
@@ -57,7 +57,7 @@ public partial class MouseControlViewModel : PageViewModel, INavigationCallbacks
 	{
 		await _settingsRepository.UpdateAsync(d => d.Sensitivity = Sensitivity, CancellationToken.None);
 		await _toast
-			.Make(AM.Shared.Resources.Translations.Generic_ChangesSaved)
+			.Make(Translations.Generic_ChangesSaved)
 			.SetPosition(Position.Bottom)
 			.Show();
 	}

@@ -4,6 +4,7 @@
              xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:shared="clr-namespace:Amusoft.PCR.AM.UI.ViewModels.Shared;assembly=Amusoft.PCR.AM.UI"
              xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             xmlns:controls="using:Amusoft.PCR.App.UI.Controls"
              Title="{x:Binding Title}"
              x:DataType="vm:MainViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.MainPage">
@@ -20,6 +21,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <controls:LoadingView IsLoading="{x:Binding LoadState.Loading}" />
     </Grid>
 
 </ContentPage>

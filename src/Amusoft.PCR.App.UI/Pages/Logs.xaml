@@ -3,16 +3,103 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:shared="clr-namespace:Amusoft.PCR.AM.UI.ViewModels.Shared;assembly=Amusoft.PCR.AM.UI"
              xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             xmlns:entities="clr-namespace:Amusoft.PCR.Domain.UI.Entities;assembly=Amusoft.PCR.Domain.UI"
+             xmlns:ui="using:Amusoft.PCR.App.UI"
+             xmlns:converters="clr-namespace:Amusoft.PCR.App.UI.Converters"
              x:DataType="vm:LogsViewModel"
              x:Class="Amusoft.PCR.App.UI.Pages.Logs"
+             x:Name="Self"
              Title="{x:Binding Path=Title}">
-    <RefreshView IsRefreshing="{x:Binding IsReloading}"
-                 Command="{x:Binding ReloadCommand}">
-       
-        <ScrollView>
-            <Label Text="{x:Binding Path=Text}"
-                   VerticalOptions="Start"
-                   HorizontalOptions="Start"/>
-        </ScrollView>
-    </RefreshView>
+    <ContentPage.Resources>
+        <converters:LogLevelSingleCharConverter x:Key="LogLevelSingleCharConverter" />
+        <converters:LogLevelForegroundConverter x:Key="LogLevelForegroundConverter" />
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{x:Binding Path=RemoveAllCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    Color="Red"
+                    FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                    Glyph="&#xe92b;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Command="{x:Binding Path=OpenLogSettingsCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    Color="{AppThemeBinding Dark={StaticResource Primary}, Light={StaticResource Yellow100Accent}}"
+                    FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                    Glyph="&#xe8b8;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <Grid RowDefinitions="*,Auto">
+        <RefreshView IsRefreshing="{x:Binding LoadState.Loading}"
+                     Command="{x:Binding ReloadCommand}">
+            <CollectionView ItemsSource="{x:Binding Path=Items}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout VerticalItemSpacing="5" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:LogEntryViewModel">
+                        <HorizontalStackLayout>
+                            <Label WidthRequest="20"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelForegroundConverter}}"
+                                   Text="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelSingleCharConverter}}" />
+                            <Label
+                                WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthDate}"
+                                IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayDate}"
+                                Text="{Binding Path=Time}" />
+                            <Label Text="{x:Binding Path=Logger}"
+                                   WidthRequest="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.WidthLogger}"
+                                   IsVisible="{Binding Source={x:Reference Self}, Path=BindingContext.Settings.DisplayLogger}" />
+                            <Label Text="{x:Binding Path=Message}"
+                                   TextColor="{x:Binding Path=LogLevel, Converter={StaticResource LogLevelForegroundConverter}}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
+            <Label Text="{x:Binding Path=PaginationText}"
+                   Margin="0,0,10,0"
+                   VerticalOptions="Center" />
+            <ImageButton Command="{x:Binding Path=FirstCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        Color="{AppThemeBinding Dark={StaticResource Yellow100Accent}, Light={StaticResource Primary}}"
+                        Size="60"
+                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                        Glyph="&#xe5dc;" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton Command="{x:Binding Path=PreviousCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        Color="{AppThemeBinding Dark={StaticResource Yellow100Accent}, Light={StaticResource Primary}}"
+                        Size="60"
+                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                        Glyph="&#xe5cb;" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton Command="{x:Binding Path=NextCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        Color="{AppThemeBinding Dark={StaticResource Yellow100Accent}, Light={StaticResource Primary}}"
+                        Size="60"
+                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                        Glyph="&#xe5cc;" />
+                </ImageButton.Source>
+            </ImageButton>
+            <ImageButton Command="{x:Binding Path=LastCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        Color="{AppThemeBinding Dark={StaticResource Yellow100Accent}, Light={StaticResource Primary}}"
+                        Size="60"
+                        FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                        Glyph="&#xe5dd;" />
+                </ImageButton.Source>
+            </ImageButton>
+        </HorizontalStackLayout>
+    </Grid>
 </ContentPage>

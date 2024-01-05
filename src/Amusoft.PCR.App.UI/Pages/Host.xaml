@@ -1,30 +1,41 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:shared="clr-namespace:Amusoft.PCR.AM.UI.ViewModels.Shared;assembly=Amusoft.PCR.AM.UI"
              xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
              xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
+             xmlns:ui="clr-namespace:Amusoft.PCR.App.UI"
              x:Class="Amusoft.PCR.App.UI.Pages.Host"
              x:DataType="vm:HostViewModel"
              Title="{x:Binding Path=Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{x:Binding Path=OpenAccountsCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    Color="{AppThemeBinding Dark={StaticResource Secondary}, Light={StaticResource Primary}}"
+                    FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                    Glyph="&#xe9ed;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <VerticalStackLayout Padding="{StaticResource PaddingButtonPanel}">
-        <Button Command="{x:Binding Path=OpenAudioCommand}" 
+        <Button Command="{x:Binding Path=OpenAudioCommand}"
                 Margin="0,0,0,10"
-                Text="{x:Static resources:Translations.Nav_Audio}"/>
+                Text="{x:Static resources:Translations.Nav_Audio}" />
 
-        <Button Command="{x:Binding Path=OpenMonitorsCommand}" 
+        <Button Command="{x:Binding Path=OpenMonitorsCommand}"
                 Margin="0,0,0,10"
-                Text="{x:Static resources:Translations.Nav_Monitors}"/>
+                Text="{x:Static resources:Translations.Nav_Monitors}" />
 
-        <Button Command="{x:Binding Path=OpenSystemStateCommand}" 
+        <Button Command="{x:Binding Path=OpenSystemStateCommand}"
                 Margin="0,0,0,10"
-                Text="{x:Static resources:Translations.Nav_SystemState}"/>
+                Text="{x:Static resources:Translations.Nav_SystemState}" />
 
-        <Button Command="{x:Binding Path=OpenInputControlCommand}" 
+        <Button Command="{x:Binding Path=OpenInputControlCommand}"
                 Margin="0,0,0,10"
-                Text="{x:Static resources:Translations.Nav_InputControl}"/>
+                Text="{x:Static resources:Translations.Nav_InputControl}" />
 
-        <Button Command="{x:Binding Path=OpenProgramsCommand}" 
-                Text="{x:Static resources:Translations.Nav_Programs}"/>
+        <Button Command="{x:Binding Path=OpenProgramsCommand}"
+                Text="{x:Static resources:Translations.Nav_Programs}" />
     </VerticalStackLayout>
 </ContentPage>

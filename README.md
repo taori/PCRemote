@@ -2,11 +2,11 @@
 Remote controller for your own PC
 
 ## Features
-  - Wake on LAN
+  - ~~Wake on LAN~~
   
 ### Voice commands
-  - Toggle mute on master volume
-  - Toggle mute on application sound sources
+  - ~~Toggle mute on master volume~~
+  - ~~Toggle mute on application sound sources~~
 
 ### Volume Control 
   - Toggle mute on master volume
@@ -68,8 +68,8 @@ You can also list the host processes and kill processes, in case task manager is
 - Browser
 
 ## Installation guide
-- install dotnet runtime for desktop + server apps from here https://dotnet.microsoft.com/download/dotnet/5.0/runtime
-- pick a release of your choice here: https://www.github.com/taori/PCRemote2/releases/
+- install dotnet runtime for desktop + server apps from here https://dotnet.microsoft.com/download/dotnet/8.0/runtime
+- pick a release of your choice here: https://www.github.com/taori/PCRemote/releases/
 
 # Screenshots
 

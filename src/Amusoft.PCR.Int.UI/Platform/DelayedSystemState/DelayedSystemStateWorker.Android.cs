@@ -8,10 +8,10 @@ namespace Amusoft.PCR.Int.UI.Platform.DelayedSystemState;
 
 public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 {
-	private readonly IHostCredentialProvider _hostCredential;
+	private readonly IHostCredentials _hostCredential;
 	private readonly IAndroidResourceBridge _androidResourceBridge;
 
-	public DelayedSystemStateWorker(IHostCredentialProvider hostCredential, IAndroidResourceBridge androidResourceBridge)
+	public DelayedSystemStateWorker(IHostCredentials hostCredential, IAndroidResourceBridge androidResourceBridge)
 	{
 		_hostCredential = hostCredential;
 		_androidResourceBridge = androidResourceBridge;
@@ -60,7 +60,7 @@ public class DelayedSystemStateWorker : IDelayedSystemStateWorker
 			.PutString(DelayedWorker.InputParameters.FinalizeActionAt, scheduleAt.ToString())
 			.PutString(DelayedWorker.InputParameters.HostName, _hostCredential.Title)
 			.PutString(DelayedWorker.InputParameters.Address, _hostCredential.Address.ToString())
-			.PutString(DelayedWorker.InputParameters.Protocol, "http")
+			.PutString(DelayedWorker.InputParameters.Protocol, _hostCredential.Protocol)
 			.PutString(DelayedWorker.InputParameters.LocalizationAbort, _androidResourceBridge.MessageAbort)
 			.PutString(DelayedWorker.InputParameters.LocalizationRestart, _androidResourceBridge.MessageRestart_0)
 			.PutString(DelayedWorker.InputParameters.LocalizationShutdown, _androidResourceBridge.MessageShutdown_0)

@@ -27,7 +27,7 @@
                Grid.Row="1"
                Margin="0,10,0,10"/>
 
-        <RefreshView IsRefreshing="{x:Binding IsReloading}"
+        <RefreshView IsRefreshing="{x:Binding LoadState.Loading}"
                      Grid.Row="2"
                      Command="{x:Binding ReloadCommand}">
             <CollectionView ItemsSource="{x:Binding Path=BrightnessItems}"

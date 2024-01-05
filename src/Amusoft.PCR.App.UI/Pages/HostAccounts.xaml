@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             xmlns:resources="clr-namespace:Amusoft.PCR.AM.Shared.Resources;assembly=Amusoft.PCR.AM.Shared"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:ui="clr-namespace:Amusoft.PCR.App.UI"
+             x:Name="Self"
+             x:DataType="vm:HostAccountsViewModel"
+             Title="{x:Binding Title}"
+             x:Class="Amusoft.PCR.App.UI.Pages.HostAccounts">
+    <ContentPage.Resources>
+        <toolkit:BoolToObjectConverter x:Key="ActiveToColorConverter" x:TypeArguments="Color" TrueObject="Yellow"
+                                       FalseObject="{StaticResource Gray500}" />
+        <toolkit:BoolToObjectConverter x:Key="ActiveToSizeConverter" x:TypeArguments="x:Double" TrueObject="30"
+                                       FalseObject="1" />
+        <toolkit:BoolToObjectConverter x:Key="ActiveToAdminButtonTextConverter" x:TypeArguments="x:String"
+                                       TrueObject="{x:Static resources:Translations.HostAccounts_RequestUserTypeUser}"
+                                       FalseObject="{x:Static resources:Translations.HostAccounts_RequestUserTypeAdmin}" />
+        <toolkit:BoolToObjectConverter x:Key="ActiveToAdminColorConverter" x:TypeArguments="Color" TrueObject="Red"
+                                       FalseObject="{StaticResource White}" />
+        <toolkit:DateTimeOffsetConverter x:Key="DateTimeOffsetConverter" />
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{x:Binding Path=AddAccountCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    Color="{AppThemeBinding Dark={StaticResource Secondary}, Light={StaticResource Primary}}"
+                    FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                    Glyph="&#xe7fe;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <Grid Padding="{StaticResource PaddingButtonPanel}">
+        <RefreshView IsRefreshing="{x:Binding LoadState.Loading}"
+                     Command="{x:Binding ReloadCommand}">
+            <CollectionView ItemsSource="{x:Binding Path=Items}"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:HostAccountViewModel">
+
+                        <Border BackgroundColor="{StaticResource Gray900}"
+                                Padding="10">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10,40,40,10" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout>
+
+                                <Label Text="{x:Binding Path=Text}"
+                                       FontSize="20"
+                                       Margin="5,0,0,5" />
+                                <Label Margin="5,0,0,5">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{x:Static resources:Translations.HostAccounts_LastUsed}" />
+                                            <Span
+                                                Text="{x:Binding Path=LastUsed, Converter={StaticResource DateTimeOffsetConverter}}"
+                                                TextColor="{StaticResource Yellow100Accent}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Grid
+                                    RowDefinitions="Auto,10,Auto,10,Auto,10,Auto,10,Auto"
+                                    ColumnDefinitions="Auto,10,*"
+                                    Margin="10,10,0,0">
+                                    <ImageButton
+                                        CommandParameter="{x:Binding Path=.}"
+                                        Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.SelectAccountCommand}"
+                                        Grid.Column="0" Grid.Row="0">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                Color="{x:Binding Path=Active, Converter={StaticResource ActiveToColorConverter}}"
+                                                FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                                                Glyph="&#xe838;" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    <Button Text="{x:Static resources:Translations.HostAccounts_SelectAccount}"
+                                            Grid.Row="0" Grid.Column="2"
+                                            CommandParameter="{x:Binding Path=.}"
+                                            Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.SelectAccountCommand}" />
+
+                                    <ImageButton
+                                        CommandParameter="{x:Binding Path=.}"
+                                        Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ResetPasswordCommand}"
+                                        Grid.Row="2" Grid.Column="0">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                                                Glyph="&#xeade;" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    <Button Text="{x:Static resources:Translations.HostAccounts_ResetPassword}"
+                                            Grid.Row="2" Grid.Column="2"
+                                            CommandParameter="{x:Binding Path=.}"
+                                            Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ResetPasswordCommand}" />
+
+                                    <ImageButton
+                                        CommandParameter="{x:Binding Path=.}"
+                                        Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ChangePermissionsCommand}"
+                                        Grid.Row="4" Grid.Column="0">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                                                Color="{StaticResource Cyan100Accent}"
+                                                Glyph="&#xef3d;" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    <Button Text="{x:Static resources:Translations.HostAccounts_Permissions}"
+                                            Grid.Row="4" Grid.Column="2"
+                                            CommandParameter="{x:Binding Path=.}"
+                                            Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ChangePermissionsCommand}" />
+
+                                    <ImageButton
+                                        CommandParameter="{x:Binding Path=.}"
+                                        Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.RemoveAccountCommand}"
+                                        Grid.Row="6" Grid.Column="0">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                                                Color="Red"
+                                                Glyph="&#xe872;" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    <Button Text="{x:Static resources:Translations.HostAccounts_DeleteAccount}"
+                                            Grid.Row="6" Grid.Column="2"
+                                            CommandParameter="{x:Binding Path=.}"
+                                            Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.RemoveAccountCommand}" />
+
+                                    <ImageButton
+                                        CommandParameter="{x:Binding Path=.}"
+                                        Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ToggleAdminAccountCommand}"
+                                        Grid.Row="8" Grid.Column="0">
+                                        <ImageButton.Source>
+                                            <FontImageSource
+                                                FontFamily="{x:Static ui:FontNames.MaterialIconsOutlined}"
+                                                Color="{x:Binding Path=IsAdmin, Converter={StaticResource ActiveToAdminColorConverter}}"
+                                                Glyph="&#xe8e8;" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    <Button
+                                        Text="{x:Binding Path=IsAdmin, Converter={StaticResource ActiveToAdminButtonTextConverter}}"
+                                        Grid.Row="8" Grid.Column="2"
+                                        CommandParameter="{x:Binding Path=.}"
+                                        Command="{x:Binding Source={x:Reference Self}, Path=BindingContext.ToggleAdminAccountCommand}" />
+
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+
+</ContentPage>

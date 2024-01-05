@@ -1,5 +1,4 @@
-﻿using Amusoft.PCR.AM.UI.ViewModels;
-using Amusoft.PCR.App.UI.Pages;
+﻿using Amusoft.PCR.App.UI.Pages;
 
 namespace Amusoft.PCR.App.UI.Extensions;
 
@@ -9,17 +8,21 @@ public static class ServiceCollectionExtensions
 	{
 		services.AddTransient<CommandButtonList>();
 		services.AddTransient<MouseControl>();
-		
-		services.AddScoped<Debug>();
-		services.AddScoped<MainPage>();
-		services.AddScoped<Logs>();
-		services.AddScoped<Audio>();
-		services.AddScoped<Programs>();
-		services.AddScoped<InputControl>();
-		services.AddScoped<Monitors>();
-		services.AddScoped<SystemState>();
-		services.AddScoped<HostsOverview>();
-		services.AddScoped<Settings>();
-		services.AddScoped<Host>();
+		services.AddTransient<LogsSettings>();
+		services.AddTransient<HostAccounts>();
+		services.AddTransient<HostAccountPermissions>();
+		services.AddTransient<HostAccountCreation>();
+
+		services.AddTransient<Debug>();
+		services.AddTransient<MainPage>();
+		services.AddTransient<Logs>();
+		services.AddTransient<Audio>();
+		services.AddTransient<Programs>();
+		services.AddTransient<InputControl>();
+		services.AddTransient<Monitors>();
+		services.AddTransient<SystemState>();
+		services.AddTransient<HostsOverview>();
+		services.AddTransient<Settings>();
+		services.AddTransient<Host>();
 	}
 }

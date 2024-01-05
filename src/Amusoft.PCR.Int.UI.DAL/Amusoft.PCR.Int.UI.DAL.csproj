@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>$(XDotnetVersion)</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(XNetPackageVersion)"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(XNetPackageVersion)">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(XNetPackageVersion)"/>
+		<PackageReference Include="NLog.Database" Version="5.2.5"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj"/>
+	</ItemGroup>
+
+</Project>

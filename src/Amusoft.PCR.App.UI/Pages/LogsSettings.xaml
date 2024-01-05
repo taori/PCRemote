@@ -1,0 +1,99 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Amusoft.PCR.AM.UI.ViewModels;assembly=Amusoft.PCR.AM.UI"
+             xmlns:converters="using:Amusoft.PCR.App.UI.Converters"
+             x:DataType="viewModels:LogSettingsViewModel"
+             x:Name="Self"
+             Title="{x:Binding Path=Title}"
+             x:Class="Amusoft.PCR.App.UI.Pages.LogsSettings">
+    <ContentPage.Resources>
+        <converters:DoubleToLogLevelConverter x:Key="DoubleToLogLevelConverter" />
+    </ContentPage.Resources>
+    <VerticalStackLayout Spacing="30" Padding="{StaticResource PaddingButtonPanel}">
+        
+        <VerticalStackLayout>
+            <Label Text="Time format" FontSize="20" />
+            <Picker ItemsSource="{x:Binding Path=FormatDisplayOptions}"
+                    SelectedIndex="{x:Binding SelectedFormatIndex}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Display time" FontSize="20" />
+            <Switch HorizontalOptions="Start" IsToggled="{x:Binding Path=Settings.DisplayDate}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Display logger" FontSize="20" />
+            <Switch HorizontalOptions="Start" IsToggled="{x:Binding Path=Settings.DisplayLogger}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Display full logger name" FontSize="20" />
+            <Switch HorizontalOptions="Start" IsToggled="{x:Binding Path=Settings.DisplayFullLoggerName}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="10">
+            <Label FontSize="20">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Time column width (" />
+                        <Span Text="{x:Binding Settings.WidthDate}" />
+                        <Span Text=")" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Slider
+                Minimum="40" Maximum="250" Value="{x:Binding Path=Settings.WidthDate}"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="10">
+            <Label FontSize="20">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Logger column width (" />
+                        <Span Text="{x:Binding Settings.WidthLogger}" />
+                        <Span Text=")" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Slider
+                Minimum="40" Maximum="250" Value="{x:Binding Path=Settings.WidthLogger}"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="10">
+            <Label FontSize="20">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Log level (" />
+                        <Span Text="{x:Binding Settings.LogLevel}" />
+                        <Span Text=")" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Slider
+                Minimum="0" Maximum="6"
+                Value="{x:Binding Path=Settings.LogLevel, Converter={StaticResource DoubleToLogLevelConverter}}"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="10">
+            <Label FontSize="20">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Page size (" />
+                        <Span Text="{x:Binding Settings.PageSize}" />
+                        <Span Text=")" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Stepper
+                Minimum="10" Maximum="200" Increment="10"
+                Value="{x:Binding Path=Settings.PageSize}"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -15,7 +15,7 @@
         <controls:ErrorFrame Text="{x:Static resources:Translations.HostsOverview_NoPortsConfigured}"
                              IsVisible="{x:Binding ArePortsMissing, Mode=OneWay}"/>
 
-        <RefreshView IsRefreshing="{x:Binding IsReloading}" 
+        <RefreshView IsRefreshing="{x:Binding LoadState.Loading}" 
                      Grid.Row="1"
                      Command="{x:Binding ReloadCommand}">
             <CollectionView ItemsSource="{x:Binding Path=Items}"
