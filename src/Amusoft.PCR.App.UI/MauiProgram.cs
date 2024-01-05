@@ -73,6 +73,8 @@ public static class MauiProgram
 	{
 		try
 		{
+			// var after = Directory.EnumerateFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "*.db", SearchOption.AllDirectories)
+			// 	.ToArray();
 			var serviceCollection = new ServiceCollection();
 			ServiceRegistrarUI.Register(serviceCollection);
 			var serviceProvider = serviceCollection.BuildServiceProvider();
