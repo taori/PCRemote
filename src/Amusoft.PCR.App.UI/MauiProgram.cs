@@ -1,4 +1,6 @@
-﻿using Amusoft.PCR.Int.UI;
+﻿using System.Diagnostics;
+using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.Int.UI;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NLog;
@@ -26,6 +28,8 @@ public static class MauiProgram
 					.WriteTo(new ToastTarget());
 			})
 			.GetCurrentClassLogger();
+
+		RunApplicationStartup();
 
 		logger.Debug("Logger configured");
 
@@ -63,5 +67,24 @@ public static class MauiProgram
 #endif
 
 		return builder.Build();
+	}
+
+	private static void RunApplicationStartup()
+	{
+		try
+		{
+			var serviceCollection = new ServiceCollection();
+			ServiceRegistrarUI.Register(serviceCollection);
+			var serviceProvider = serviceCollection.BuildServiceProvider();
+			var startupInstances = serviceProvider.GetServices<IApplicationStartup>();
+			foreach (var startupInstance in startupInstances)
+			{
+				startupInstance.Apply();
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.WriteLine(e.ToString());
+		}
 	}
 }

@@ -32,6 +32,6 @@ public static class ServiceCollectionExtensions
 
 		services.TryAddTransient<IEndpointRepository, EndpointRepository>();
 		services.TryAddTransient<IBearerTokenRepository, BearerTokenRepository>();
-		services.TryAddTransient<IMainInitializer, DbMigrator>();
+		services.TryAddTransient<IApplicationStartup, DbMigrator>();
 	}
 }
