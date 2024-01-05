@@ -333,4 +333,7 @@
   <data name="Server.UserWantsToDeleteAnotherUser" xml:space="preserve">
     <value>User {0} wants to delete {1}. Confirm?</value>
   </data>
+  <data name="Server.UserAsksForRoles_0_1" xml:space="preserve">
+    <value>User {0} asks for role {1}. Grant role?</value>
+  </data>
 </root>

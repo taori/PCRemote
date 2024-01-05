@@ -11,4 +11,5 @@ public interface IUserManagementRepository
 	Task<UserType> GetUserTypeAsync(string email, CancellationToken cancellationToken);
 	Task<RegisteredUser[]> GetUsersAsync(CancellationToken cancellationToken);
 	Task<bool> DeleteUserAsync(string email);
+	Task<bool> GrantRolesAsync(string email, ICollection<string> roles);
 }

@@ -9,6 +9,7 @@ using Amusoft.PCR.Int.IPC.Extensions;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using UserPermission = Amusoft.PCR.Int.IPC.UserPermission;
 using UserRole = Amusoft.PCR.Int.IPC.UserRole;
 
@@ -20,12 +21,34 @@ public class UserManagementCommandReceiver : UserManagement.UserManagementBase
 	private readonly ILogger<UserManagementCommandReceiver> _logger;
 	private readonly IUserManagementRepository _userManagementRepository;
 	private readonly IDesktopClientMethods _impersonatedChannel;
+	private readonly IOptionsMonitor<ApplicationSettings> _settings;
 
-	public UserManagementCommandReceiver(ILogger<UserManagementCommandReceiver> logger, IUserManagementRepository userManagementRepository, IDesktopClientMethods impersonatedChannel)
+	public UserManagementCommandReceiver(
+		ILogger<UserManagementCommandReceiver> logger,
+		IUserManagementRepository userManagementRepository,
+		IDesktopClientMethods impersonatedChannel,
+		IOptionsMonitor<ApplicationSettings> settings)
 	{
 		_logger = logger;
 		_userManagementRepository = userManagementRepository;
 		_impersonatedChannel = impersonatedChannel;
+		_settings = settings;
+	}
+
+	public override async Task<DefaultResponse> TryRequestRoles(TryRequestRolesRequest request, ServerCallContext context)
+	{
+		if (!_settings.CurrentValue.RuntimePermissionRequests)
+			return new DefaultResponse() { Success = false };
+
+		var email = GetEmailOrThrow(context);
+		var r = await _impersonatedChannel.GetConfirmResult(Translations.Generic_Question, string.Format(Translations.Server_UserAsksForRoles_0_1, email, string.Join(",", request.Roles)));
+		if (r is null or false)
+			return new DefaultResponse() { Success = false };
+
+		return new DefaultResponse()
+		{
+			Success = await _userManagementRepository.GrantRolesAsync(email, request.Roles).ConfigureAwait(false)
+		};
 	}
 
 	public override async Task<ToggleAdministratorResponse> ToggleAdministrator(ToggleAdministratorRequest request, ServerCallContext context)

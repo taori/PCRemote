@@ -326,4 +326,7 @@
 	<data name="Server.UserWantsToDeleteAnotherUser" xml:space="preserve">
     <value>{0} will Benutzer {1} löschen. Bestätigen?</value>
   </data>
+  <data name="Server.UserAsksForRoles_0_1" xml:space="preserve">
+    <value>Benutzer {0} fordert die Rolle {1} an - Rolle gewähren?</value>
+  </data>
 </root>

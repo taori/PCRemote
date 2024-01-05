@@ -14,25 +14,30 @@ namespace Amusoft.PCR.Int.Service.Services;
 
 [Authorize(Policy = PolicyNames.ApiPolicy)]
 public class DesktopIntegrationCommandReceiver(
-	IHostCommandService hostCommandService
-	, ILogger<DesktopIntegrationCommandReceiver> logger
-	,
+	IHostCommandService hostCommandService,
+	ILogger<DesktopIntegrationCommandReceiver> logger,
 	IAuthorizationService authorizationService,
-	IDesktopClientMethods impersonatedChannel) 
+	IDesktopClientMethods impersonatedChannel
+)
 	: DesktopIntegrationService.DesktopIntegrationServiceBase, IMethodBasedRoleProvider
 {
+	MethodInfo[] IMethodBasedRoleProvider.GetMethods()
+	{
+		return typeof(DesktopIntegrationCommandReceiver).GetMethods();
+	}
+
 	[Authorize(Roles = RoleNames.FunctionMonitorControl)]
 	public override async Task<DefaultResponse> SetMonitorBrightness(SetMonitorBrightnessRequest request, ServerCallContext context)
 	{
 		var result = await impersonatedChannel.SetMonitorBrightness(request.Id, request.Value);
-		return new DefaultResponse() {Success = result == true};
+		return new DefaultResponse() { Success = result == true };
 	}
 
 	public override async Task<GetMonitorBrightnessResponse> GetMonitorBrightness(GetMonitorBrightnessRequest request, ServerCallContext context)
 	{
 		var result = await impersonatedChannel.GetMonitorBrightness();
 		if (result.Success)
-			return new GetMonitorBrightnessResponse() {Items = {result.Value.ToGrpcItems()}};
+			return new GetMonitorBrightnessResponse() { Items = { result.Value.ToGrpcItems() } };
 
 		return new GetMonitorBrightnessResponse() { };
 	}
@@ -46,21 +51,21 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success ?? false
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionMouseControl)]
 	public override async Task<DefaultResponse> SendLeftMouseButtonClick(DefaultRequest request, ServerCallContext context)
 	{
 		var result = await impersonatedChannel.SendLeftMouseClickAsync();
 		return new DefaultResponse() { Success = result == true };
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionMouseControl)]
 	public override async Task<DefaultResponse> SendRightMouseButtonClick(DefaultRequest request, ServerCallContext context)
 	{
 		var result = await impersonatedChannel.SendRightMouseClickAsync();
 		return new DefaultResponse() { Success = result == true };
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionReadClipboard)]
 	public override async Task<GetClipboardResponse> GetClipboard(GetClipboardRequest request, ServerCallContext context)
 	{
@@ -68,10 +73,10 @@ public class DesktopIntegrationCommandReceiver(
 		return new GetClipboardResponse()
 		{
 			Content = result,
-			Success = result is {Length: >0}
+			Success = result is { Length: > 0 }
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionWriteClipboard)]
 	public override async Task<SetClipboardResponse> SetClipboard(SetClipboardRequest request, ServerCallContext context)
 	{
@@ -119,7 +124,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = result == true
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionShutdownCancel)]
 	public override async Task<AbortShutdownReply> AbortShutDown(AbortShutdownRequest request, ServerCallContext context)
 	{
@@ -129,7 +134,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionMonitorControl)]
 	public override async Task<ShutdownDelayedReply> ShutDownDelayed(ShutdownDelayedRequest request, ServerCallContext context)
 	{
@@ -139,7 +144,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionRestart)]
 	public override async Task<RestartReply> Restart(RestartRequest request, ServerCallContext context)
 	{
@@ -149,7 +154,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionHibernate)]
 	public override async Task<HibernateReply> Hibernate(HibernateRequest request, ServerCallContext context)
 	{
@@ -159,7 +164,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	public override async Task<AudioFeedResponse> GetAudioFeeds(AudioFeedRequest request, ServerCallContext context)
 	{
 		var value = await impersonatedChannel.GetAudioFeeds();
@@ -185,7 +190,7 @@ public class DesktopIntegrationCommandReceiver(
 		var value = await impersonatedChannel.UpdateAudioFeed(request.Item.ToDomainItem());
 		return new DefaultResponse() { Success = value == true };
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionSendInput)]
 	public override async Task<SendKeysReply> SendKeys(SendKeysRequest request, ServerCallContext context)
 	{
@@ -195,7 +200,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionSendInput)]
 	public override async Task<SendMediaKeysReply> SendMediaKeys(SendMediaKeysRequest request, ServerCallContext context)
 	{
@@ -205,7 +210,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionLockWorkstation)]
 	public override async Task<LockWorkStationReply> LockWorkStation(LockWorkStationRequest request, ServerCallContext context)
 	{
@@ -215,7 +220,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	public override async Task<ProcessListResponse> GetProcessList(ProcessListRequest request, ServerCallContext context)
 	{
 		var results = await impersonatedChannel.GetProcessList();
@@ -223,7 +228,7 @@ public class DesktopIntegrationCommandReceiver(
 		processListResponse.Results.AddRange(results.Value.ToGrpcItems());
 		return processListResponse;
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionKillProcessById)]
 	public override async Task<KillProcessResponse> KillProcessById(KillProcessRequest request, ServerCallContext context)
 	{
@@ -233,7 +238,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionFocusWindow)]
 	public override async Task<FocusWindowResponse> FocusWindow(FocusWindowRequest request, ServerCallContext context)
 	{
@@ -243,7 +248,7 @@ public class DesktopIntegrationCommandReceiver(
 			Success = success == true
 		};
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionLaunchProgram)]
 	public override async Task<LaunchProgramResponse> LaunchProgram(LaunchProgramRequest request, ServerCallContext context)
 	{
@@ -264,30 +269,32 @@ public class DesktopIntegrationCommandReceiver(
 			};
 		}
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionLaunchProgram)]
 	public override async Task<GetHostCommandResponse> GetHostCommands(GetHostCommandRequest request, ServerCallContext context)
 	{
 		var commands = await hostCommandService.GetAllAsync();
 		var response = new GetHostCommandResponse();
-	
+
 		foreach (var command in commands)
 		{
 			var authorizeResult = await authorizationService.AuthorizeAsync(context.GetHttpContext().User, command, PolicyNames.FunctionPermissionPolicy);
 			logger.LogDebug("User {User} authorization status for command {Id} is {Status}", context.GetHttpContext().User, command.Id, authorizeResult.Succeeded);
 			if (authorizeResult.Succeeded)
 			{
-				response.Results.Add(new GetHostCommandResponseItem()
-				{
-					CommandId = command.Id,
-					Title = command.CommandName
-				});
+				response.Results.Add(
+					new GetHostCommandResponseItem()
+					{
+						CommandId = command.Id,
+						Title = command.CommandName
+					}
+				);
 			}
 		}
-	
+
 		return response;
 	}
-	
+
 	[Authorize(Roles = RoleNames.FunctionLaunchProgram)]
 	public override async Task<InvokeHostCommandResponse> InvokeHostCommand(InvokeHostCommandRequest request, ServerCallContext context)
 	{
@@ -296,9 +303,9 @@ public class DesktopIntegrationCommandReceiver(
 		{
 			throw new RpcException(new Status(StatusCode.NotFound, $"Command {request.Id} not found"));
 		}
-	
+
 		var success = await impersonatedChannel.LaunchProgram(command.ProgramPath, command.Arguments);
-	
+
 		return new InvokeHostCommandResponse()
 		{
 			Success = success == true,
@@ -310,14 +317,16 @@ public class DesktopIntegrationCommandReceiver(
 	{
 		return Task.FromResult(new GetHostNameResponse() { Content = Environment.MachineName });
 	}
-	
+
 	[Authorize]
 	public override Task<GetNetworkMacAddressesResponse> GetNetworkMacAddresses(GetNetworkMacAddressesRequest request, ServerCallContext context)
 	{
 		var response = new GetNetworkMacAddressesResponse();
 		var interfaces = NetworkInterface.GetAllNetworkInterfaces()
-			.Where(d => d.OperationalStatus == OperationalStatus.Up
-						&& d.NetworkInterfaceType == NetworkInterfaceType.Ethernet);
+			.Where(
+				d => d.OperationalStatus == OperationalStatus.Up
+				     && d.NetworkInterfaceType == NetworkInterfaceType.Ethernet
+			);
 		response.Results.AddRange(interfaces.Select(d => d.GetPhysicalAddress().ToString()).Select(d => new GetNetworkMacAddressesResponseItem() { MacAddress = d }));
 
 		return Task.FromResult(response);
@@ -327,14 +336,9 @@ public class DesktopIntegrationCommandReceiver(
 	public override async Task<StringResponse> SetUserPassword(ChangeUserPasswordRequest request, ServerCallContext context)
 	{
 		var result = await impersonatedChannel.SetUserPassword(request.UserName);
-		if (result is {Success: true})
-			return new StringResponse() {Content = result.Value, Success = true};
+		if (result is { Success: true })
+			return new StringResponse() { Content = result.Value, Success = true };
 
-		return new StringResponse() {Success = false, Content = string.Empty};
-	}
-
-	MethodInfo[] IMethodBasedRoleProvider.GetMethods()
-	{
-		return typeof(DesktopIntegrationCommandReceiver).GetMethods();
+		return new StringResponse() { Success = false, Content = string.Empty };
 	}
 }

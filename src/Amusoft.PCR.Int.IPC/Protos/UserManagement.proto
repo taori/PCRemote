@@ -11,9 +11,12 @@ service UserManagement {
   rpc UpdatePermissions (UpdatePermissionsRequest) returns (DefaultResponse);
   rpc GetRegisteredUsers (DefaultRequest) returns (GetRegisteredUsersResponse);
   rpc TryDeleteUser (TryDeleteUserRequest) returns (DefaultResponse);
+  rpc TryRequestRoles (TryRequestRolesRequest) returns (DefaultResponse);
 }
 
-
+message TryRequestRolesRequest {
+  repeated string roles = 1;
+}
 message TryDeleteUserRequest {
   string email = 1;
 }

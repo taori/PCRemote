@@ -897,6 +897,15 @@ namespace Amusoft.PCR.AM.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User {0} asks for role {1}. Grant role?.
+        /// </summary>
+        public static string Server_UserAsksForRoles_0_1 {
+            get {
+                return ResourceManager.GetString("Server.UserAsksForRoles_0_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User {0} wants to delete {1}. Confirm?.
         /// </summary>
         public static string Server_UserWantsToDeleteAnotherUser {

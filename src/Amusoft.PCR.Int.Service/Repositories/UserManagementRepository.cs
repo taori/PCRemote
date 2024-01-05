@@ -11,16 +11,16 @@ namespace Amusoft.PCR.Int.Service.Repositories;
 
 public class UserManagementRepository : IUserManagementRepository
 {
-	private readonly UserManager<ApplicationUser> _userManager;
-	private readonly RoleManager<IdentityRole> _roleManager;
-	private readonly ILogger<UserManagementRepository> _logger;
 	private readonly ApplicationDbContext _applicationDbContext;
+	private readonly ILogger<UserManagementRepository> _logger;
+	private readonly RoleManager<IdentityRole> _roleManager;
+	private readonly UserManager<ApplicationUser> _userManager;
 
 	public UserManagementRepository(
-		UserManager<ApplicationUser> userManager
-		, RoleManager<IdentityRole> roleManager
-		, ILogger<UserManagementRepository> logger
-		, ApplicationDbContext applicationDbContext)
+		UserManager<ApplicationUser> userManager,
+		RoleManager<IdentityRole> roleManager,
+		ILogger<UserManagementRepository> logger,
+		ApplicationDbContext applicationDbContext)
 	{
 		_userManager = userManager;
 		_roleManager = roleManager;
@@ -43,10 +43,8 @@ public class UserManagementRepository : IUserManagementRepository
 		{
 			Roles = allRoles
 				.Select(d => new UserRole(d.Id, d.Name!, userRolesGranted.Contains(d.NormalizedName!)))
-				.ToArray()
-			, UserId = user.Id
-			, UserType = user.UserType
-			, Permissions = Array.Empty<UserPermission>()
+				.ToArray(),
+			UserId = user.Id, UserType = user.UserType, Permissions = Array.Empty<UserPermission>()
 		};
 
 		return result;
@@ -153,6 +151,24 @@ public class UserManagementRepository : IUserManagementRepository
 			_logger.LogError("Deletion failed, user not found");
 			return false;
 		}
+	}
+
+	public async Task<bool> GrantRolesAsync(string email, ICollection<string> roles)
+	{
+		var user = await _userManager.FindByEmailAsync(email);
+		if (user is null)
+			return false;
+		var allRoles = _roleManager.Roles
+			.Select(d => d.NormalizedName)
+			.ToHashSet(StringComparer.OrdinalIgnoreCase);
+		var currentRoles = await _userManager.GetRolesAsync(user);
+		var intersect = roles.Intersect(allRoles, StringComparer.OrdinalIgnoreCase);
+		var others = intersect.Except(currentRoles, StringComparer.OrdinalIgnoreCase);
+		var r = await _userManager.AddToRolesAsync(user, others!);
+		if (!r.Succeeded)
+			_logger.LogError(r.ToLogMessage());
+
+		return r.Succeeded;
 	}
 
 	private async Task<ApplicationUser?> TryFindUserByMailAsync(string email)

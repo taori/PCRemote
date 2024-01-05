@@ -3,6 +3,7 @@ using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Domain.Shared.Interfaces;
 using Amusoft.PCR.Domain.Shared.ValueTypes;
 using Amusoft.PCR.Int.IPC.Extensions;
+using Grpc.Core;
 using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Int.IPC.Integration;
@@ -10,12 +11,23 @@ namespace Amusoft.PCR.Int.IPC.Integration;
 public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 {
 	private readonly ILogger<DesktopServiceClientWrapper> _logger;
+	private readonly IPermissionAcquisionService _permissionAcquisionService;
 	private readonly DesktopIntegrationService.DesktopIntegrationServiceClient _service;
 
-	public DesktopServiceClientWrapper(DesktopIntegrationService.DesktopIntegrationServiceClient service, ILogger<DesktopServiceClientWrapper> logger)
+	public DesktopServiceClientWrapper(
+		DesktopIntegrationService.DesktopIntegrationServiceClient service,
+		ILogger<DesktopServiceClientWrapper> logger,
+		IPermissionAcquisionService permissionAcquisionService)
 	{
 		_logger = logger;
+		_permissionAcquisionService = permissionAcquisionService;
 		_service = service;
+	}
+
+	private Task<bool> TryAcquireRoleAsync(params string[] roles)
+	{
+		LogAccuireRolePermission(_logger, roles);
+		return _permissionAcquisionService.AcquireRolesAsync(roles);
 	}
 
 	public async Task<bool?> SuicideOnProcessExit(int processId)
@@ -23,8 +35,13 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 		try
 		{
 			_logger.LogDebug("{Method}({Id})", nameof(SuicideOnProcessExit), processId);
-			await _service.SuicideOnProcessExitAsync(new SuicideOnProcessExitRequest() {ProcessId = processId});
+			await _service.SuicideOnProcessExitAsync(new SuicideOnProcessExitRequest() { ProcessId = processId });
 			return true;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.Processes);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -56,6 +73,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var monitors = await _service.SetMonitorBrightnessAsync(new SetMonitorBrightnessRequest() {Id = id, Value = value});
 			return monitors.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionMonitorControl);
+			return default;
+		}
 		catch (Exception e)
 		{
 			LogGenericMethodCallError(_logger, e);
@@ -86,6 +108,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			await _service.MonitorOnAsync(new MonitorOnRequest());
 			return true;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionMonitorControl);
+			return default;
+		}
 		catch (Exception e)
 		{
 			LogGenericMethodCallError(_logger, e);
@@ -100,6 +127,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			_logger.LogDebug("{Method}", nameof(MonitorOff));
 			await _service.MonitorOffAsync(new MonitorOffRequest());
 			return true;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionMonitorControl);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -116,6 +148,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			await _service.LockWorkStationAsync(new LockWorkStationRequest());
 			return true;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionLockWorkstation);
+			return default;
+		}
 		catch (Exception e)
 		{
 			LogGenericMethodCallError(_logger, e);
@@ -130,6 +167,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			_logger.LogDebug("{Method}({Keys})", nameof(SendKeys), keys);
 			await _service.SendKeysAsync(new SendKeysRequest() { Message = keys });
 			return true;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionSendInput);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -146,6 +188,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var reply = await _service.ShutDownDelayedAsync(new ShutdownDelayedRequest() { Seconds = (int)delay.TotalSeconds, Force = force });
 			return reply.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionShutdown);
+			return default;
+		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}] with delay [{Delay}] and force close [{Force}]", nameof(Shutdown), delay, force);
@@ -160,6 +207,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			_logger.LogDebug("{Method}", nameof(AbortShutdown));
 			var reply = await _service.AbortShutDownAsync(new AbortShutdownRequest());
 			return reply.Success;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionShutdownCancel);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -176,6 +228,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var reply = await _service.HibernateAsync(new HibernateRequest());
 			return reply.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionHibernate);
+			return default;
+		}
 		catch (Exception e)
 		{
 			LogGenericMethodCallError(_logger, e);
@@ -190,6 +247,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			_logger.LogDebug("{Method}({Delay}, {Force})", nameof(Restart), delay, force);
 			var reply = await _service.RestartAsync(new RestartRequest() { Delay = (int)delay.TotalSeconds, Force = force });
 			return reply.Success;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionRestart);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -206,6 +268,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var reply = await _service.GetProcessListAsync(new ProcessListRequest());
 			return Result.Success(reply.Results.Select(d => d.ToDomainItem()).ToList());
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionGetProcessList, RoleNames.Processes);
+			return Result.Error<List<ProcessData>>();
+		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}]", nameof(GetProcessList));
@@ -221,6 +288,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var reply = await _service.KillProcessByIdAsync(new KillProcessRequest() { ProcessId = processId });
 			return reply.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionKillProcessById);
+			return default;
+		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}] with id [{Id}]", nameof(KillProcessById), processId);
@@ -235,6 +307,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			_logger.LogDebug("{Method}({ProcessId})", nameof(FocusProcessWindow), processId);
 			var reply = await _service.FocusWindowAsync(new FocusWindowRequest() { ProcessId = processId });
 			return reply.Success;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionFocusWindow);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -255,6 +332,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var reply = await _service.LaunchProgramAsync(request);
 			return reply.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionLaunchProgram);
+			return default;
+		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}] [{ProgramName}] with arguments [{Arguments}]", nameof(LaunchProgram), programName, arguments);
@@ -273,6 +355,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			});
 			return reply.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionSendInput);
+			return default;
+		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Exception occured while calling [{Name}] with code [{Code}]", nameof(SendMediaKey), code);
@@ -287,6 +374,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			_logger.LogDebug("{Method}({Requestee})", nameof(GetClipboardAsync), requestee);
 			var response = await _service.GetClipboardAsync(new GetClipboardRequest() { Requestee = requestee });
 			return response.Success ? response.Content : null;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionReadClipboard);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -303,6 +395,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var result = await _service.SetClipboardAsync(new SetClipboardRequest() { Content = content, Requestee = requestee });
 			return result.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionWriteClipboard);
+			return default;
+		}
 		catch (Exception e)
 		{
 			LogGenericMethodCallError(_logger, e);
@@ -314,9 +411,15 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 	{
 		try
 		{
+			// No logging because excessive call amount can produce input lag
 			// _logger.LogTrace("{Method}", nameof(SendMouseMoveAsync));
 			var result = await _service.SendMouseMoveAsync(new SendMouseMoveRequest(){X = x, Y = y});
 			return result.Success;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionMouseControl);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -333,6 +436,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var result = await _service.SendLeftMouseButtonClickAsync(new DefaultRequest());
 			return result.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionMouseControl);
+			return default;
+		}
 		catch (Exception e)
 		{
 			LogGenericMethodCallError(_logger, e);
@@ -347,6 +455,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			_logger.LogDebug("{Method}", nameof(SendRightMouseClickAsync));
 			var result = await _service.SendRightMouseButtonClickAsync(new DefaultRequest());
 			return result.Success;
+		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.FunctionMouseControl);
+			return default;
 		}
 		catch (Exception e)
 		{
@@ -380,6 +493,11 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 			var result = await _service.UpdateAudioFeedAsync(new UpdateAudioFeedRequest(){Item = data.ToGrpcItem()});
 			return result.Success;
 		}
+		catch (RpcException rex) when (rex.StatusCode == StatusCode.PermissionDenied)
+		{
+			await TryAcquireRoleAsync(RoleNames.Audio);
+			return default;
+		}
 		catch (Exception e)
 		{
 			LogGenericMethodCallError(_logger, e);
@@ -404,4 +522,7 @@ public partial class DesktopServiceClientWrapper : IDesktopClientMethods
 
 	[LoggerMessage(Level = LogLevel.Error, Message = "Exception occured while calling {Name}")]
 	private static partial void LogGenericMethodCallError(ILogger logger, Exception exception, [CallerMemberName] string? name = default);
+
+	[LoggerMessage(Level = LogLevel.Information, Message = "Attempting to accuire role: {Roles}")]
+	private static partial void LogAccuireRolePermission(ILogger logger, string[] roles);
 }

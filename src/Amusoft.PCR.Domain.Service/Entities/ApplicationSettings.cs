@@ -6,6 +6,7 @@ public class ApplicationSettings
 {
 	public string ApplicationTitle { get; set; }
 	public bool DropDatabaseOnStart { get; set; }
+	public bool RuntimePermissionRequests { get; set; }
 	public DesktopIntegrationSettings? DesktopIntegration { get; set; }
 	public ServerUrlTransmitterSettings? ServerUrlTransmitter { get; set; }
 	public AuthenticationSettings? Authentication { get; set; }

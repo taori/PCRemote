@@ -26,6 +26,7 @@ public static class ServiceCollectionExtensions
 		services.AddSingleton<IDesktopClientMethods, DesktopServiceClientWrapper>();
 		services.AddSingleton<IAgentPingService, AgentPingService>();
 		services.AddSingleton<IQrCodeImageProvider, QrCodeImageProvider>();
+		services.AddSingleton<IPermissionAcquisionService, NoopPermissionAcquisionService>();
 		
 		services.AddSingleton<AuthenticationStateProvider, AuthStateProvider<ApplicationUser>>();
 		services.AddScoped<IAuthorizationHandler, HostCommandPermissionHandler>();
