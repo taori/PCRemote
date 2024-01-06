@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-<!--		 <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework> -->
-<!--		 <TargetFramework>net8.0-android</TargetFramework> -->
+		<!--		 <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework> -->
+		<!--		 <TargetFramework>net8.0-android</TargetFramework> -->
 		<TargetFrameworks>$(XDotnetVersion)-windows10.0.19041.0;$(XDotnetVersion)-android</TargetFrameworks>
 		<!-- <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks> -->
 		<!-- <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks> -->
@@ -34,28 +34,27 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		 <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" /> 
-		 <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" /> 
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
-		<PackageReference Include="Grpc.Net.Client.Web" Version="2.59.0" />
-		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.58.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="$(XNetPackageVersion)" />
-<!--		<PackageReference Include="NLog.Targets.MauiLog" Version="5.*" />-->
-		<PackageReference Include="NLog.Extensions.Logging" Version="5.*" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)"/>
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0"/>
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.59.0"/>
+		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.58.0"/>
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="$(XNetPackageVersion)"/>
+		<PackageReference Include="NLog.Extensions.Logging" Version="5.*"/>
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj" />
-		<ProjectReference Include="..\Amusoft.PCR.Int.UI\Amusoft.PCR.Int.UI.csproj" />
+		<ProjectReference Include="..\Amusoft.PCR.AM.UI\Amusoft.PCR.AM.UI.csproj"/>
+		<ProjectReference Include="..\Amusoft.PCR.Int.UI\Amusoft.PCR.Int.UI.csproj"/>
 	</ItemGroup>
 
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">
-        <!-- <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild> -->
-        <!-- <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled> -->
-        <PackageCertificateThumbprint>B10980A171BA749E3694019CEA2C125194126519</PackageCertificateThumbprint>
+		<!-- <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild> -->
+		<!-- <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled> -->
+		<PackageCertificateThumbprint>B10980A171BA749E3694019CEA2C125194126519</PackageCertificateThumbprint>
 
 
-        <!-- <PackageCertificateThumbprint>2201301EC91932510A2712B8E63136DBEA51A8BD</PackageCertificateThumbprint> -->
+		<!-- <PackageCertificateThumbprint>2201301EC91932510A2712B8E63136DBEA51A8BD</PackageCertificateThumbprint> -->
 		<GenerateAppInstallerFile>True</GenerateAppInstallerFile>
 		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
 		<AppxPackageSigningTimestampDigestAlgorithm>SHA512</AppxPackageSigningTimestampDigestAlgorithm>
@@ -65,11 +64,11 @@
 		<AppInstallerUri>http://amusoft.pcr3.app</AppInstallerUri>
 		<HoursBetweenUpdateChecks>720</HoursBetweenUpdateChecks>
 	</PropertyGroup>
-	
+
 	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(RuntimeIdentifierOverride)' != ''">
 		<RuntimeIdentifier>$(RuntimeIdentifierOverride)</RuntimeIdentifier>
 	</PropertyGroup>
-	
+
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android'))">
 	</PropertyGroup>
 
@@ -89,26 +88,26 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='$(XDotNetVersion)-android'">
-<!--	  <AndroidPackageFormat>apk</AndroidPackageFormat>-->
+		<!--	  <AndroidPackageFormat>apk</AndroidPackageFormat>-->
 	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon_desktop.svg" ForegroundFile="Resources\AppIcon\appicon_desktop.svg" Color="#ff8000" BaseSize="90,90" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appicon.svg" Color="#ff8000" BaseSize="40,40" />
+		<MauiIcon Include="Resources\AppIcon\appicon_desktop.svg" ForegroundFile="Resources\AppIcon\appicon_desktop.svg" Color="#ff8000" BaseSize="90,90" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'"/>
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appicon.svg" Color="#ff8000" BaseSize="40,40"/>
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128"/>
 
 		<!-- Images -->
-		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Include="Resources\Images\*"/>
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208"/>
 
 		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
+		<MauiFont Include="Resources\Fonts\*"/>
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
@@ -119,11 +118,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiAsset Remove="Resources\Raw\nlog.config" />
+		<MauiAsset Remove="Resources\Raw\nlog.config"/>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Raw\nlog.config" />
+		<EmbeddedResource Include="Resources\Raw\nlog.config"/>
 	</ItemGroup>
 
 	<ItemGroup>

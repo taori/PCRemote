@@ -1,0 +1,5 @@
+﻿<linker>
+	<assembly fullname="Amusoft.PCR.App.UI" preserve="all"/>
+	<assembly fullname="NLog" preserve="all"/>
+	<assembly fullname="NLog.Database" preserve="all"/>
+</linker>
