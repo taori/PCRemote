@@ -3,7 +3,7 @@ param (
     [string]$SignPassword,
     [Parameter(Mandatory=$true, HelpMessage="Target filepath for the APK-file")]
     [string]$PublishFilePath,
-    [Parameter(Mandatory=$true, HelpMessage="Target filepath for the APK-file")]
+    [Parameter(HelpMessage = "Target filepath for the APK-file")]
     [string]$DisplayVersion = "3.0.0"
 )
 

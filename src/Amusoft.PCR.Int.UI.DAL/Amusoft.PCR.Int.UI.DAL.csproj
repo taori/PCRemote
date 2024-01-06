@@ -7,8 +7,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(XNetPackageVersion)"/>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(XNetPackageVersion)">
+		<!-- downgrade for reasons described in https://github.com/dotnet/efcore/issues/32553 -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
