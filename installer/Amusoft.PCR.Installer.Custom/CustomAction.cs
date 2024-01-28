@@ -112,7 +112,7 @@ namespace Amusoft.PCR.Installer.Custom
 					var content = File.ReadAllText(appsettingsFile, Encoding.UTF8);
 					var stringBuilder = new StringBuilder(content);
 					session.Log($"Replacing server port 5000 with {serverPort}");
-					stringBuilder.Replace("\"Url\": \"http://*:5000\"", $"\"Url\": \"http://*:{serverPort}\"");
+					stringBuilder.Replace("\"Url\": \"https://*:5000\"", $"\"Url\": \"https://*:{serverPort}\"");
 					
 					session.Log($"Replacing discovery port 50001 with {discoveryPort}");
 					stringBuilder.Replace("\"HandshakePort\": 50001,", $"\"HandshakePort\": {discoveryPort},");

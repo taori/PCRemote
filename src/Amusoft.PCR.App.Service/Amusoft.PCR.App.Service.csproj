@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CliWrap" Version="3.6.4"/>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
 		<PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.49.0" />
 		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.59.0" />
@@ -25,6 +26,10 @@
 
 	<ItemGroup>
 		<Content Remove="nlog.config" />
+		<None Remove="Content\createSelfSignedCert.ps1"/>
+		<Content Include="Content\createSelfSignedCert.ps1">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>

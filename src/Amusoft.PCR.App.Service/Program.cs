@@ -1,9 +1,10 @@
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using Amusoft.PCR.AM.Service.Extensions;
 using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.App.Service.Environment;
 using Amusoft.PCR.App.Service.HealthChecks;
 using Amusoft.PCR.App.Service.Services;
 using Amusoft.PCR.Domain.Service.Entities;
@@ -11,6 +12,8 @@ using Amusoft.PCR.Int.Service;
 using Amusoft.PCR.Int.Service.Authorization;
 using Amusoft.PCR.Int.Service.Interfaces;
 using Amusoft.PCR.Int.Service.Services;
+using CliWrap;
+using CliWrap.Buffered;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -76,6 +79,8 @@ public class Program
 	{
 		var logger = host.Services.GetRequiredService<ILogger<Program>>();
 		var env = host.Services.GetRequiredService<IHostEnvironment>();
+
+		await EnsureCertificateExistsAsync(host, logger);
 		
 		await using var serviceScope = host.Services.CreateAsyncScope();
 		var startTasks = serviceScope.ServiceProvider.GetRequiredService<IEnumerable<IStartupTask>>();
@@ -139,6 +144,35 @@ public class Program
 		}
 	}
 
+	private static async Task EnsureCertificateExistsAsync(WebApplication host, ILogger<Program> logger)
+	{
+		if (!OperatingSystem.IsWindows())
+			return;
+		if (File.Exists(Path.Combine(AppContext.BaseDirectory, "server.pfx")))
+			return;
+		if (!IsCurrentProcessAdmin())
+			return;
+
+		var password = host.Configuration["Kestrel:Endpoints:Http:Certificate:Password"];
+		var path = AppContext.BaseDirectory;
+		var fullPath = Path.Combine(path, "Content", "createSelfSignedCert.ps1");
+		var buffered = await Cli.Wrap("pwsh")
+			.WithArguments($"{fullPath} -ExportPath \"{AppContext.BaseDirectory}\" -CaPassword \"{password}\" -SslPassword \"{password}\" -ValidForYears 10")
+			.ExecuteBufferedAsync();
+
+		if (!string.IsNullOrEmpty(buffered.StandardError))
+			logger.LogError(buffered.StandardError);
+		if (!string.IsNullOrEmpty(buffered.StandardOutput))
+			logger.LogInformation(buffered.StandardOutput);
+
+		bool IsCurrentProcessAdmin()
+		{
+			using var identity = WindowsIdentity.GetCurrent();
+			var principal = new WindowsPrincipal(identity);
+			return principal.IsInRole(WindowsBuiltInRole.Administrator);
+		}
+	}
+
 	private static void AddServices(WebApplicationBuilder builder)
 	{
 		// Additional configuration is required to successfully run gRPC on macOS.
@@ -159,7 +193,8 @@ public class Program
 		});
 
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
-			options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")!.Replace("{AppDir}",Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
+			options.UseSqlite(WildcardReplacements.ReplaceAppDir(builder.Configuration.GetConnectionString("DefaultConnection")!))
+		);
 
 		var tokenValidationParameters = new TokenValidationParameters();
 		tokenValidationParameters.ValidateIssuer = true;
