@@ -82,6 +82,15 @@ namespace Amusoft.PCR.Installer.Custom
 				return ActionResult.Failure;
 			}
 
+			if (!session.CustomActionData.TryGetValue("PfxPassword", out var pfxPassword))
+			{
+				session.Log("Failed to access PfxPassword");
+				return ActionResult.Failure;
+			}
+
+			var oldServerPfxPath = "D:\\\\tmp\\\\site.pfx";
+			var oldServerPfxPassword = "test1234";
+			var newServerPfxPath = Path.Combine(serverRootDirectory, "server.pfx").Replace("\\", "\\\\");
 			var isUpgrade = session.TryGetIntOrDefault("IsUpgrade", 0, out var upgradeValue) && upgradeValue > 0;
 			var isInstall = session.TryGetIntOrDefault("IsInstall", 0, out var installValue) && installValue > 0;
 			var isChange = session.TryGetIntOrDefault("IsChange", 0, out var changeValue) && changeValue > 0;
@@ -102,6 +111,10 @@ namespace Amusoft.PCR.Installer.Custom
 				if (File.Exists(appsettingsFile))
 					File.Delete(appsettingsFile);
 
+				session.Log($"Deleting file {newServerPfxPath}: {File.Exists(newServerPfxPath)}");
+				if (File.Exists(newServerPfxPath))
+					File.Delete(newServerPfxPath);
+
 				return ActionResult.Success;
 			}
 
@@ -111,14 +124,24 @@ namespace Amusoft.PCR.Installer.Custom
 				{
 					var content = File.ReadAllText(appsettingsFile, Encoding.UTF8);
 					var stringBuilder = new StringBuilder(content);
-					session.Log($"Replacing server port 5000 with {serverPort}");
-					stringBuilder.Replace("\"Url\": \"https://*:5000\"", $"\"Url\": \"https://*:{serverPort}\"");
+					session.Log($"Replacing server port 5001 with {serverPort}");
+					stringBuilder.Replace("\"Url\": \"https://*:5001\"", $"\"Url\": \"https://*:{serverPort}\"");
 					
 					session.Log($"Replacing discovery port 50001 with {discoveryPort}");
 					stringBuilder.Replace("\"HandshakePort\": 50001,", $"\"HandshakePort\": {discoveryPort},");
 					
 					session.Log($"Replacing endpoint name \"Endpoint 1 (Prod)\" with {endpointName}");
 					stringBuilder.Replace("\"HostAlias\": \"Endpoint 1 (Prod)\"", $"\"HostAlias\": \"{endpointName}\"");
+
+					session.Log($"Replacing {oldServerPfxPath} with {newServerPfxPath}");
+					stringBuilder.Replace(oldServerPfxPath, newServerPfxPath);
+
+					session.Log("Deleting server.pfx if it exists");
+					if (File.Exists(newServerPfxPath))
+						File.Delete(newServerPfxPath);
+
+					session.Log($"Replacing {oldServerPfxPassword} with {pfxPassword}");
+					stringBuilder.Replace(oldServerPfxPassword, pfxPassword);
 					
 					session.Log("Updating production file");
 					File.WriteAllText(appsettingsFile, stringBuilder.ToString());

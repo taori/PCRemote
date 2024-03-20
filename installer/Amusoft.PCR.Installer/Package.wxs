@@ -1,8 +1,6 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
-	 xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
-	 xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx"
-	 xmlns:firewall="http://wixtoolset.org/schemas/v4/wxs/firewall"
-	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+		 xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx"
+		 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
 		
 	<Package Name="$(var.ProductName)"
 			 Manufacturer="Amusoft"
@@ -85,12 +83,12 @@
 
 		<CustomAction Id='UpdateAppSettingsAction_SetProperties'
 					  Property='UpdateAppSettingsAction'
-					  Value='EndpointName=[CUSTOM_ENDPOINT_NAME];ServerPort=[CUSTOM_PORT_SERVER];DiscoveryPort=[CUSTOM_PORT_DISCOVERY];WebApplicationDirectory=[WEBFOLDER];IsUpgrade=[_UPGRADE];IsUninstall=[_UNINSTALL];IsChange=[_CHANGE];IsRepair=[_REPAIR];IsInstall=[_INSTALL];'/>
+									Value='PfxPassword=[CUSTOM_PFX_PASSWORD];EndpointName=[CUSTOM_ENDPOINT_NAME];ServerPort=[CUSTOM_PORT_SERVER];DiscoveryPort=[CUSTOM_PORT_DISCOVERY];WebApplicationDirectory=[WEBFOLDER];IsUpgrade=[_UPGRADE];IsUninstall=[_UNINSTALL];IsChange=[_CHANGE];IsRepair=[_REPAIR];IsInstall=[_INSTALL];'/>
 		<CustomAction Id='UpdateAppSettingsAction' DllEntry='UpdateAppSettings' Execute='deferred' Impersonate='no' Return='check'
 					  BinaryRef='CustomBinary' />
 		
 		<CustomAction Id="LaunchBrowserInstall" Directory="WEBFOLDER" Execute="immediate" Impersonate="yes" Return="asyncNoWait"
-					  ExeCommand="explorer.exe http://localhost:[CUSTOM_PORT_SERVER]/GettingStarted" />
+									ExeCommand="explorer.exe https://localhost:[CUSTOM_PORT_SERVER]/GettingStarted"/>
 
 <!--		https://learn.microsoft.com/de-de/windows/win32/msi/suggested-installexecutesequence?redirectedfrom=MSDN-->
 		<InstallExecuteSequence>

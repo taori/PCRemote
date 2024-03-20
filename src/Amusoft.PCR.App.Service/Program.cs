@@ -147,17 +147,28 @@ public class Program
 	private static async Task EnsureCertificateExistsAsync(WebApplication host, ILogger<Program> logger)
 	{
 		if (!OperatingSystem.IsWindows())
+		{
+			logger.LogTrace("This function will not be run on non-windows systems");
 			return;
+		}
+
 		if (File.Exists(Path.Combine(AppContext.BaseDirectory, "server.pfx")))
+		{
+			logger.LogDebug("The server.pfx file already exists, therefore the certificate creation will not be executed.");
 			return;
+		}
+
 		if (!IsCurrentProcessAdmin())
+		{
+			logger.LogError("Admin permissions are required to change the appsettings.json");
 			return;
+		}
 
 		var password = host.Configuration["Kestrel:Endpoints:Http:Certificate:Password"];
 		var path = AppContext.BaseDirectory;
 		var fullPath = Path.Combine(path, "Content", "createSelfSignedCert.ps1");
 		var buffered = await Cli.Wrap("pwsh")
-			.WithArguments($"{fullPath} -ExportPath \"{AppContext.BaseDirectory}\" -CaPassword \"{password}\" -SslPassword \"{password}\" -ValidForYears 10")
+			.WithArguments($"-File \"{fullPath}\" -ExportPath \"{AppContext.BaseDirectory.Replace("\\", "\\\\")}\" -CaPassword '{password}' -SslPassword '{password}' -ValidForYears 10")
 			.ExecuteBufferedAsync();
 
 		if (!string.IsNullOrEmpty(buffered.StandardError))
