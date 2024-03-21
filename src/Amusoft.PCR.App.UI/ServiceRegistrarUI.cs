@@ -24,7 +24,6 @@ internal static class ServiceRegistrarUI
 
 #if ANDROID
 		IntegrationDependencies.Dependencies.Add(svc => svc.TryAddSingleton<IAndroidResourceBridge, AndroidResourceBridge>());
-		IntegrationDependencies.Dependencies.Add(svc => svc.AddHttpClient());
 		IntegrationDependencies.Apply(services);
 #endif
 

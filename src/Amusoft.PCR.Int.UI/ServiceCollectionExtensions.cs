@@ -1,5 +1,6 @@
 ﻿using Amusoft.PCR.AM.Shared.Interfaces;
 using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Amusoft.PCR.Int.IPC;
 using Amusoft.PCR.Int.UI.DAL;
 using Amusoft.PCR.Int.UI.Dependencies;
@@ -18,6 +19,14 @@ public static class ServiceCollectionExtensions
 {
 	public static void AddUIIntegration(this IServiceCollection services)
 	{
+		services.AddHttpClient();
+		services.AddHttpClient(HttpClientNames.Insecure).ConfigurePrimaryHttpMessageHandler(
+			() => new HttpClientHandler()
+			{
+				ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+			}
+		);
+		
 		services.AddInterprocessCommunication();
 		services.AddUIDataLayer();
 

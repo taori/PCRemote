@@ -1,6 +1,8 @@
-﻿namespace Amusoft.PCR.AM.Service.Interfaces;
+﻿using Amusoft.PCR.Domain.Service.Entities;
+
+namespace Amusoft.PCR.AM.Service.Interfaces;
 
 public interface IConnectedServerPorts
 {
-	ICollection<int> Addresses { get; }
+	ICollection<ServerConnection> Addresses { get; }
 }

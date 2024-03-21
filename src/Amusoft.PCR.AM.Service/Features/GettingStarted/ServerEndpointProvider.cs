@@ -1,6 +1,7 @@
 ﻿using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.Domain.Shared.Entities;
 
 namespace Amusoft.PCR.AM.Service.Features.GettingStarted;
 
@@ -45,9 +46,9 @@ public class ServerEndpointProvider
 				if(address.Address.AddressFamily != AddressFamily.InterNetwork)
 					continue;
 
-				foreach (var port in _connectedServerPorts.Addresses)
+				foreach (var connection in _connectedServerPorts.Addresses)
 				{
-					yield return $"http://{address.Address}:{port}";
+					yield return $"{connection.Protocol}://{address.Address}:{connection.Port}";
 				}
 			}
 		}
@@ -64,7 +65,7 @@ public class ServerEndpointProvider
 		try
 		{
 			using var cts = new CancellationTokenSource(1000);
-			var client = _httpClientFactory.CreateClient();
+			var client = _httpClientFactory.CreateClient(HttpClientNames.Insecure);
 			var result = await client.GetAsync($"{address}/health",HttpCompletionOption.ResponseHeadersRead, cts.Token);
 			return result.IsSuccessStatusCode;
 		}

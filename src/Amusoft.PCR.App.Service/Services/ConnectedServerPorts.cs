@@ -1,4 +1,5 @@
 ﻿using Amusoft.PCR.AM.Service.Interfaces;
+using Amusoft.PCR.Domain.Service.Entities;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 
@@ -15,17 +16,18 @@ public class ConnectedServerPorts : IConnectedServerPorts
 		_addressesFeature = server.Features.Get<IServerAddressesFeature>()!;
 	}
 
-	public ICollection<int> Addresses => GetPorts(_addressesFeature.Addresses);
+	public ICollection<ServerConnection> Addresses => GetPorts(_addressesFeature.Addresses);
 
-	private ICollection<int> GetPorts(ICollection<string> addresses)
+	private ICollection<ServerConnection> GetPorts(ICollection<string> addresses)
 	{
-		_logger.LogDebug("Found {Number} addesses ({List}). Ports will be filtered by \"http:\"",
+		_logger.LogDebug(
+			"Found {Number} addesses ({List}). Ports will be filtered by \"https:\"",
 			_addressesFeature.Addresses.Count,
 			string.Join(",", _addressesFeature.Addresses));
 
 		var sub = addresses
-			.Where(d => d.StartsWith("http:"))
-			.Select(d => int.Parse(d.Split(":")[^1]));
-		return new List<int>(sub);
+			.Where(d => d.StartsWith("https:"))
+			.Select(d => new ServerConnection(int.Parse(d.Split(":")[^1]), d.Split(":")[0]));
+		return new List<ServerConnection>(sub);
 	}
 }
