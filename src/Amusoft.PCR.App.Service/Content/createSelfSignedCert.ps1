@@ -10,6 +10,9 @@
         [Int32]$ValidForYears = 10
     )
 
+    $SslPassword = $SslPassword.Trim("'")
+    $CaPassword = $CaPassword.Trim("'")
+
     $existingCert = Get-ChildItem -Path Cert:\LocalMachine\My `
 | where { $_.subject -eq 'CN=PC Remote 3 Server Certificate' } `
 | Select-Object -First 1
