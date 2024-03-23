@@ -1,4 +1,4 @@
-﻿using Amusoft.PCR.Domain.Service.Entities;
+﻿using Amusoft.PCR.Domain.Shared.Entities;
 
 namespace Amusoft.PCR.AM.Service.Interfaces;
 

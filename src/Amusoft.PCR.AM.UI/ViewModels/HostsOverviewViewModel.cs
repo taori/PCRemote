@@ -68,10 +68,11 @@ public partial class HostsOverviewViewModel : ReloadablePageViewModel, INavigati
 	{
 		if (_discoveryMessageInterface.TryParse(result.Buffer, out var host) && host is {} h)
 		{
-			return h.Ports.Select(port => new HostItemViewModel(
-				new(result.RemoteEndPoint.Address, port),
+			return h.Connections.Select(
+				connection => new HostItemViewModel(
+					new IPEndPoint(result.RemoteEndPoint.Address, connection.Port),
 				$"{h.MachineName}",
-				"http",
+				connection.Protocol,
 				item => _ = OpenHostAsync(item))
 			).ToArray();
 		}

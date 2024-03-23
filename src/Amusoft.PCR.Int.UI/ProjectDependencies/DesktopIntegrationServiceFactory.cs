@@ -16,7 +16,11 @@ internal class DesktopIntegrationServiceFactory : IDesktopIntegrationServiceFact
 
 	public IIpcIntegrationService Create(string protocol, IPEndPoint endPoint)
 	{
-		AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+		if (protocol.ToUpperInvariant().Equals("HTTP"))
+		{
+			AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+		}
+		
 		var channel = _grpcChannelFactory.Create(protocol, endPoint);
 		return new IpcIntegrationService(channel, _serviceProvider);
 	}

@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Amusoft.PCR.AM.UI.Interfaces;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace Amusoft.PCR.Int.UI.ProjectDependencies;
@@ -17,6 +18,7 @@ internal class IdentityManagerFactory : IIdentityManagerFactory
 
 	public IIdentityManager Create(IPEndPoint endPoint, string protocol)
 	{
-		return new IdentityManager(_logger, _httpClientFactory.CreateClient(endPoint.ToString().ToLowerInvariant()), endPoint, protocol);
+		return new IdentityManager(_logger, _httpClientFactory.CreateClient(HttpClientNames.Insecure), endPoint, protocol);
+		// return new IdentityManager(_logger, _httpClientFactory.CreateClient(endPoint.ToString().ToLowerInvariant()), endPoint, protocol);
 	}
 }

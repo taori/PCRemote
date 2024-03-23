@@ -1,5 +1,5 @@
 ﻿using Amusoft.PCR.AM.Service.Interfaces;
-using Amusoft.PCR.Domain.Service.Entities;
+using Amusoft.PCR.Domain.Shared.Entities;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 

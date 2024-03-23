@@ -67,7 +67,7 @@ public class ClientDiscoveryService : IDisposable
 		_logger.LogInformation("Received handshake from [{Address}]", received.RemoteEndPoint);
 		if (_connectedServerPorts.Addresses is { Count: > 0 } connections)
 		{
-			var replyText = _discoveryMessageInterface.GetResponseMessage(GetMachineName(), connections.Select(d => d.Port).ToArray());
+			var replyText = _discoveryMessageInterface.GetResponseMessage(GetMachineName(), connections.ToArray());
 			if (await IsSameOriginMessageAsync(received.RemoteEndPoint))
 			{
 				await _channel.SendToAsync(Encoding.UTF8.GetBytes(replyText), new IPEndPoint(IPAddress.Broadcast, received.RemoteEndPoint.Port), CancellationToken.None);
